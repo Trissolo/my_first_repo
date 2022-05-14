@@ -1,0 +1,25 @@
+JSON RegEx: remove quotes on json strings containing only digits => numbers
+
+  search:
+  : *(")(\d+)(")
+  replace:
+  : \2t
+
+//example:
+
+const obj = {a:"123", b:"a987"}
+const json = JSON.stringify(obj)
+
+console.log("Original:", json)
+
+
+const reg = /(")(\d+)(")/
+
+
+function replacer(match, p1, p2, p3, offset, string)
+{
+  return p2
+}
+const newString = json.replace(reg, replacer);
+
+console.log(newString);

@@ -1,0 +1,101 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #111;
+  color: #eee;
+  font: caption;
+}
+
+#version {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  color: rgba(78, 78, 78, 0.8);
+}
+
+#studioContainer
+{
+  width: 800px;
+}
+
+div i, div b, div q {
+  background-color: #666;
+  padding: 6px 8px;
+  margin: 0 1em;
+}
+
+.sub-cont {
+  background-color: #ad9;
+  padding: 1em;
+  /*padding-bottom: 1em;*/
+  /*width: max-content;*/
+  /*margin-left: 1em;*/
+}
+
+div i:hover {
+  background-color: #439;
+}
+
+div b:hover {
+  background-color: #493;
+}
+
+div q:hover {
+  background-color: #493;
+}
+
+h4 {
+  background-color: #559;
+  padding: 0 0.5em;
+  margin: 0;
+  /*width: min-content;*/
+}
+
+h4:hover {
+  color: #221fff;
+  background-color: #ddf;
+}
+
+.padOne {
+  padding: 1em;
+}
+
+.someBg {
+  background-color: #99a;
+}
+
+#current {
+  position: fixed;
+  right: 0;
+  top: 3em;
+  background-color: #333;
+  width: min-width;
+  border: 2px solid #888;
+  padding: 3px;
+}
+
+em {
+  background-color: #888;
+  color:  #ccf;
+  font-style: normal;
+}
+
+#mainbar {
+  user-select: none;
+}
+
+.prop_info {
+  display: inline-block;
+  margin-left: 2em;
+  background-color: blue;
+  padding: 0 10px;
+}
+
+.notset {
+  background-color: #333;
+  color: #aa9;
+}

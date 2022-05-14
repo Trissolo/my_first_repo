@@ -1,0 +1,8 @@
+*Remove prefix:
+
+for f in *.png; do mv "$f" "${f:3}"; done;
+
+
+*Add prefix (using 'echo' for preview):
+
+for f in *.png; do echo mv "$f" "GUI$f"; done;

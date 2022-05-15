@@ -1,6 +1,6 @@
 import {StudioGui} from "./htmlGui.mjs"
-import conditions from "./byhand/conditions.mjs";
-import r1Frames from "./byhand/r1_frame_names.mjs";
+//import conditions from "../../src/constants/conditions.mjs";
+//import r1Frames from "./byhand/r1_frame_names.mjs";
 
 const roomsAmount = 2;
 

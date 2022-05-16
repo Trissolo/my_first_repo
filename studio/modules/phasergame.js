@@ -13,13 +13,13 @@ export default class Studio extends Phaser.Scene
 
     preload ()
     {
-      this.load.setBaseURL('./assets/')
+      this.load.setBaseURL('../assets_prod')
 
       for (let i = 0; i < roomsAmount; i++)
       {
         this.load.json(`room${i}Data`, `room${i}_data.json`);
 
-        this.load.atlas('atlas0', 'atlas0.png', 'atlas0.json');
+        this.load.atlas('atlas0', '/atlas/atlas0.png', '/atlas/atlas0.json');
       }
 
       //this.load.json('room1Data', './assets/room0_data.json');

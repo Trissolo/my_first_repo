@@ -17,7 +17,7 @@ export default class Studio extends Phaser.Scene
 
       for (let i = 0; i < roomsAmount; i++)
       {
-        this.load.json(`room${i}Data`, `room${i}_data.json`);
+        this.load.json(`room${i}Data`, `room${i}_rawdata.json`);
 
         this.load.atlas('atlas0', '/atlas/atlas0.png', '/atlas/atlas0.json');
       }

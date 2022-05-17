@@ -41,9 +41,16 @@ class Preload extends Phaser.Scene
         this.add.image(10,8,"atlas0", "room1bg").setOrigin(0)
         Phaser.GameObjects.BitmapText.ParseFromAtlas(this, 'fontWhite', 'atlas0', 'mio_font_tiny_mono', 'fontWhiteXML');
 
-        const str = '(tEST)WTRPyxv^}{';
+        const str = '(tEST)WTRPyxv^}{! - Wall -';
 
-        this.add.bitmapText(20, 100, 'fontWhite', str);
+        this.text = this.add.bitmapText(20, 100, 'fontWhite', this.plugins.get('inGameManager').random+ str);
+
+        console.log(this.plugins.get('inGameManager'))
+
+        this.add.image(16, 120, 'atlas0', "singlePixel")
+          .setOrigin(0)
+          .setScale(30)
+          .setAlpha(0.7)
     }
 }
 

@@ -1,7 +1,14 @@
 import Phaser from 'phaser';
+import boolsManager from '../plugins/VarsManager/boolsManager.mjs';
+
 
 class Preload extends Phaser.Scene
 {
+    init(passedObj)
+    {
+        this.plugins.get('inGameManager').setupBoolsManager(this)
+        console.log(  "Plugins SETUP:", this  )
+    }
     preload()
     {
         console.log('Preload da Preload!')
@@ -45,12 +52,29 @@ class Preload extends Phaser.Scene
 
         this.text = this.add.bitmapText(20, 100, 'fontWhite', this.plugins.get('inGameManager').random+ str);
 
-        console.log(this.plugins.get('inGameManager'))
+
+        this.boolsManager.boolsContainer[0] = 37
+        let tempIdx = 3
+
+        this.boolsManager.toggle(tempIdx)
+
+        this.boolsManager.toggle(tempIdx)
+
+        this.boolsManager.set(tempIdx)
+
+        //this.boolsManager.clear(tempIdx)
+
+        this.text.setTintFill(0xababdb)
+        this.text.setCharacterTint(7 - tempIdx, 1, true, 0xff0000)
+
+        this.text.setText(this.boolsManager.debugChunk() )
+
 
         this.add.image(16, 120, 'atlas0', "singlePixel")
           .setOrigin(0)
           .setScale(30)
           .setAlpha(0.7)
+
     }
 }
 

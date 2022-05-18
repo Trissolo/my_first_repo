@@ -1,10 +1,6 @@
-//import depthCategories from './constants/depthCategories.mjs'
 import depthCategories from '../../src/constants/depthCategories.mjs'
-//import jsonRoomProps from './constants/jsonRoomProps.mjs'
 import jsonRoomProps from '../../src/constants/jsonRoomProps.mjs'
-//import conditions from './byhand/conditions.mjs'
 import conditions from '../../src/constants/conditions.mjs'
-//import hoverNames from './byhand/hoverNames.mjs'
 import hoverNames from '../../src/constants/hoverNames.mjs'
 
 class StudioGui

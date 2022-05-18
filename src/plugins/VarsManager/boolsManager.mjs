@@ -10,47 +10,68 @@ class boolsManager
     this.boolsContainer = new Uint32Array(Math.ceil(boolsAmount / this.chunkLength))
     
     this.total = this.boolsContainer.length * this.chunkLength + 1
-    this.recycleOut = new Phaser.Math.Vector2()
+
     this.actualBitCoords = {boolIndex: null, chunkIndex: null}
   }
 
-  isActive(index)
+  /**
+  * Show the value of a specific bit.
+  * @param {number} boolIndex - The bit index in the chunck.
+  * @param {number} chunkIndex - The chunk index.
+  * @return {number} The actual value.
+  */
+  readBit(boolIndex, chunkIndex)
+  {
+    return this.boolsContainer[chunkIndex] & (1 << boolIndex)
+  }
+
+  bitStatus(index)
   {
     const {boolIndex, chunkIndex} = this.deriveBitCoords(index)
-    return this.readBit(boolIndex, chunkIndex) === 0 ? false : true
-    
 
+    return this.readBit(boolIndex, chunkIndex) ? 1 : 0
+  }
+
+  setBitOn(boolIndex, chunkIndex)
+  {
+    this.boolsContainer[chunkIndex] |= (1 << boolIndex)
+
+    return 1
+  }
+
+  set(index)
+  {
+    const {boolIndex, chunkIndex} = this.deriveBitCoords(index)
+
+    return this.setBitOn(boolIndex, chunkIndex)
+  }
+
+  setBitOff(boolIndex, chunkIndex)
+  {
+    this.boolsContainer[chunkIndex] &= ~(1 << boolIndex)
+
+    return 0
+  }
+
+  clear(index)
+  {
+    const {boolIndex, chunkIndex} = this.deriveBitCoords(index)
+
+    return this.setBitOff(boolIndex, chunkIndex)
+  }
+
+  toggleBit(boolIndex, chunkIndex)
+  {
+    this.boolsContainer[chunkIndex] ^= (1 << boolIndex)
   }
 
   toggle(index)
   {
     const {boolIndex, chunkIndex} = this.deriveBitCoords(index)
-    //const chunk = this.boolsContainer[chunkIndex]
-    this.boolsContainer[chunkIndex] = this.boolsContainer[chunkIndex] ^ (1 << (boolIndex))
-    
-  }
 
-  setToZero(index)
-  {
-    const {boolIndex, chunkIndex} = this.deriveBitCoords(index)
-    this.boolsContainer[chunkIndex] = this.boolsContainer[chunkIndex] & ~(1 << boolIndex)
+    this.toggleBit(boolIndex, chunkIndex)
 
-    //hardcoded
-    return 1
-
-    // const chunk = this.boolsContainer[chunkIndex]
-    // return this.boolsContainer[chunkIndex] = chunk & ~(1 << boolIndex)
-  }
-
-  setActive(index)
-  {
-    const {boolIndex, chunkIndex} = this.deriveBitCoords(index)
-    this.boolsContainer[chunkIndex] = this.boolsContainer[chunkIndex] | (1 << boolIndex)
-
-    //hardcoded
-    return 1
-    //const chunk = this.boolsContainer[chunkIndex]
-    //return this.boolsContainer[chunkIndex] = chunk | (1 << (boolIndex))
+    return this.readBit(boolIndex, chunkIndex) ? 1 : 0
   }
   
   /**
@@ -58,7 +79,7 @@ class boolsManager
   * @param {number} index - The index of the property in the `conditions` array.
   * @return {number} an Object containing the boolIndex, chunkIndex properties.
   */
-  deriveBitCoords(index)//boolPosition)
+  deriveBitCoords(index)
   {
     let x = 0
     let y = 0
@@ -81,107 +102,14 @@ class boolsManager
     //maybe a class is needed
     this.actualBitCoords.boolIndex = x
     this.actualBitCoords.chunkIndex = y
+
     return this.actualBitCoords
   }
 
-  /**
-  * Show the value of a specific bit.
-  * @param {number} boolIndex - The bit index in the chunck.
-  * @param {number} chunkIndex - The chunk index.
-  * @return {number} The actual value.
-  */
-  readBit(boolIndex, chunkIndex)
-  {
-    //const { x: boolIndex, y: chunkIndex} = this.grabBit(boolPosition)
-    //const chunk = this.boolsContainer[chunkIndex]
-    return this.boolsContainer[chunkIndex] & (1 << (boolIndex))
-  }
-
-
-
-/*
-  grabBit(index)//boolPosition)
-  {
-    //const index = gameBools.get(boolPosition)
-    index = +index
-    let x = 0
-    let y = 0
-
-    if (index > 0 && index < this.total)
-    {
-    
-      if (index > this.chunkLengthMinusOne)
-      {
-        y = Math.floor(index / this.chunkLength)
-        x = index - (y * this.chunkLength)
-      }
-      else
-      {
-        x = index
-      }
-
-    }
-    
-    return this.recycleOut.set(x, y)
-  }
-
-
-
-  
-  setBitOn(boolPosition)
-  {
-    const {x: boolIndex, y: chunkIndex} = this.grabBit(boolPosition)
-    const chunk = this.boolsContainer[chunkIndex]
-    return this.boolsContainer[chunkIndex] = chunk | (1 << (boolIndex))
-  }
-
-  setBitOff(boolPosition)
-  {
-    const {x: boolIndex, y: chunkIndex} = this.grabBit(boolPosition)
-    const chunk = this.boolsContainer[chunkIndex]
-    return this.boolsContainer[chunkIndex] = chunk & ~(1 << boolIndex)
-  }
-  
-  toggleBit(boolPosition)
-  {
-    const {x: boolIndex, y: chunkIndex} = this.grabBit(boolPosition)
-    const chunk = this.boolsContainer[chunkIndex]
-    return (this.boolsContainer[chunkIndex] = chunk ^ (1 << (boolIndex))) !== 0
-  }
-  
-  isBitActive(boolPosition)
-  {
-    const { x: boolIndex, y: chunkIndex} = this.grabBit(boolPosition)
-    const chunk = this.boolsContainer[chunkIndex]
-    return !!(chunk & (1 << (boolIndex)))
-  }
-*/
-  bitStatus(boolIndex, chunkIndex)
-  {
-    //const { x: boolIndex, y: chunkIndex} = this.grabBit(boolPosition)
-    const chunk = this.boolsContainer[chunkIndex]
-    return (chunk & (1 << (boolIndex))) === 0 ? 0 : 1
-  }
-/*
-  checkBool(boolStringCondition)
-  {
-      console.log("Bool string:", boolStringCondition)
-      //console.dir(this.recycleOut)
-
-    const [varType, boolPosition, expectedValue] = boolStringCondition.split("_")
-
-    console.log(varType, boolPosition, expectedValue, typeof varType, typeof boolPosition, typeof expectedValue, typeof +boolPosition)
-    const { x: boolIndex, y: chunkIndex} = this.grabBit(+boolPosition)
-
-    console.log("%cBool check:", "color:purple", +boolIndex, +chunkIndex, `expected: ${expectedValue}`)
-    //console.dir(this.recycleOut)
-    return "CheckBool done"
-
-  }
-  */
   debugChunk(chunkIndex = 0)
   {
     const chunk = this.boolsContainer[chunkIndex]
+    
     return (chunk >>> 0).toString(2).padStart(8, "0") + "\n76543210"
   }
 

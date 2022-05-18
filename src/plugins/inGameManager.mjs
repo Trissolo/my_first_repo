@@ -24,74 +24,35 @@ class inGameManager extends Phaser.Plugins.BasePlugin {
         clear()
         const myColor = "color:#33f; background-color:#aaa;"
 
-        this.boolsManager.boolsContainer[0] = 8
+        dir(this.boolsManager)
 
-        // log( `%c ${this.boolsManager.readBit(0 , 0)} `, myColor)
-        // log( `%c ${this.boolsManager.readBit(1 , 0)} `, myColor)
-        // log( `%c ${this.boolsManager.readBit(2 , 0)} `, myColor)
-        // log( `%c ${this.boolsManager.readBit(3 , 0)} `, myColor)
-        // log( `%c ${this.boolsManager.readBit(4 , 0)} `, myColor)
-        log(this.boolsManager.debugChunk())
+        log(this.boolsManager.boolsContainer)
 
-        this.boolsManager.toggle(3)
-        log(this.boolsManager.isActive(3))
-        log(this.boolsManager.debugChunk())
+        this.boolsManager.boolsContainer[0] = 37
+        let tempIdx = 5
 
-        this.boolsManager.toggle(3)
-        log(this.boolsManager.isActive(3))
-        log(this.boolsManager.debugChunk())
-
-        this.boolsManager.toggle(3)
-        log(this.boolsManager.isActive(3))
-        log(this.boolsManager.debugChunk())
-
-
-        // log( `%c ${this.boolsManager.readBit(2 , 0)} `, myColor, 2)
-        // log(this.boolsManager.debugChunk())
-
-        // this.boolsManager.setActive(2)
-        // this.boolsManager.setToZero(1)
-        // log(this.boolsManager.debugChunk())
-        // log( `%c ${this.boolsManager.readBit(1 , 0)} `, myColor, 1)
-        // log( `%c ${this.boolsManager.readBit(2 , 0)} `, myColor, 2)
-        // log(this.boolsManager.boolsContainer[0])
-
-        // log("Testing Toggle:")
-        // this.boolsManager.toggle(6)
-        // log( `%c ${this.boolsManager.readBit(6 , 0)} `, myColor, 6)
-        // log( `%c ${this.boolsManager.bitStatus(6 , 0)} `, myColor, 6)
-        // log(this.boolsManager.debugChunk())
-        // this.boolsManager.toggle(6)
-        // log( `%c ${this.boolsManager.readBit(6 , 0)} `, myColor, 6)
-        // log( `%c ${this.boolsManager.bitStatus(6 , 0)} `, myColor, 6)
-        // log(this.boolsManager.debugChunk())
-        // this.boolsManager.toggle(6)
-        // log( `%c ${this.boolsManager.readBit(6 , 0)} `, myColor, 6)
-        // log( `%c ${this.boolsManager.bitStatus(6 , 0)} `, myColor, 6)
-        // log(this.boolsManager.debugChunk())
-
-/*
-        console.log(this.boolsManager.isBitActive(4))
-        console.log("Toggle 4", this.boolsManager.toggleBit(4))
-        console.log(this.boolsManager.debugChunk())
-        console.log("Toggle 4", this.boolsManager.toggleBit(4))
-        console.log(this.boolsManager.debugChunk())
-        console.log("Toggle 4", this.boolsManager.toggleBit(4))
-        console.log(this.boolsManager.debugChunk())
-        console.log("Toggle 4", this.boolsManager.toggleBit(4))
-        console.log(this.boolsManager.debugChunk())
         
-        //console.log(typeof this.boolsManager.toggleBit(4))
-        console.log(this.boolsManager.isBitActive(4))
-        console.log(this.boolsManager.checkBool("b_4_1"))
+        log(this.boolsManager.debugChunk())
+        log("Checking...", tempIdx)
 
-        console.log(this.boolsManager.debugChunk())
+        log(this.boolsManager.bitStatus(tempIdx))
+        log(this.boolsManager.debugChunk())
 
-        console.log(this.boolsManager.isBitActive(2))
-        console.log(this.boolsManager.bitStatus(2))
-        this.boolsManager.toggleBit(2)
-        console.log(this.boolsManager.bitStatus(2))
-      */
+        log(this.boolsManager.toggle(tempIdx))
+        log(this.boolsManager.debugChunk())
+
+        log(this.boolsManager.toggle(tempIdx))
+        log(this.boolsManager.debugChunk())
+
+        log(this.boolsManager.clear(tempIdx))
+        log(this.boolsManager.debugChunk())
+
+        log(this.boolsManager.clear(tempIdx))
+        log(this.boolsManager.debugChunk())
+
+        log(this.boolsManager.set(tempIdx))
+        log(this.boolsManager.debugChunk())
+
     }
 
     getRandom()

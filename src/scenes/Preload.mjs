@@ -4,10 +4,34 @@ import boolsManager from '../plugins/VarsManager/boolsManager.mjs';
 
 class Preload extends Phaser.Scene
 {
+    constructor()
+    {
+      super(
+      {
+        key: 'Preload',
+        active: true,
+        visible: true,
+        plugins: [
+          //'Clock',  //this.time
+          //'DataManagerPlugin',  //this.data
+          'InputPlugin',  //this.input
+          'Loader',  //this.load
+          //'TweenManager',  //this.tweens
+          //'LightsPlugin'  //this.lights
+          ],
+        cameras:
+        {
+          backgroundColor: "#dada77",
+          height: 0
+        }
+      })
+    } //end constructor
+
     init(passedObj)
     {
         this.plugins.get('inGameManager').setupBoolsManager(this)
-        console.log(  "Plugins SETUP:", this  )
+        //console.log(  "Plugins SETUP:", this  )
+        this.events.once("destroy", this.onDestroy, this)
     }
     preload()
     {
@@ -43,7 +67,7 @@ class Preload extends Phaser.Scene
 
     create()
     {
-        console.log("Preload scene: create", this.cache)
+        //console.log("Preload scene: create", this.cache)
 
         this.add.image(10,8,"atlas0", "room1bg").setOrigin(0)
         Phaser.GameObjects.BitmapText.ParseFromAtlas(this, 'fontWhite', 'atlas0', 'mio_font_tiny_mono', 'fontWhiteXML');
@@ -53,14 +77,14 @@ class Preload extends Phaser.Scene
         this.text = this.add.bitmapText(20, 100, 'fontWhite', this.plugins.get('inGameManager').random+ str);
 
 
-        this.boolsManager.boolsContainer[0] = 37
-        let tempIdx = 3
+        // this.boolsManager.boolsContainer[0] = 37
+         let tempIdx = 3
 
-        this.boolsManager.toggle(tempIdx)
+        // this.boolsManager.toggle(tempIdx)
 
-        this.boolsManager.toggle(tempIdx)
+        // this.boolsManager.toggle(tempIdx)
 
-        this.boolsManager.set(tempIdx)
+        // this.boolsManager.set(tempIdx)
 
         //this.boolsManager.clear(tempIdx)
 
@@ -75,7 +99,19 @@ class Preload extends Phaser.Scene
           .setScale(30)
           .setAlpha(0.7)
 
+          this.input.keyboard.on('keydown-Z', this.pressedZ, this)
+    }// end create
+
+    pressedZ()
+    {
+        this.scene.start('Viewscreen')
     }
-}
+
+    onDestroy()
+    {
+        this.boolsManager = undefined
+    }
+
+}//end class
 
 export default Preload

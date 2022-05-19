@@ -17,12 +17,10 @@ class inGameManager extends Phaser.Plugins.BasePlugin {
     init ()
     {
         console.log('myGlobalPlugin is alive')
-        console.dir("myGlobalPlugin here:", this)
     }
 
     setupBoolsManager(scene)
     {
-        console.log("Adding to", scene)
         scene.boolsManager = this.boolsManager
     }
 

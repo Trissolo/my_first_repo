@@ -33,13 +33,17 @@ class Viewscreen extends Phaser.Scene
       console.clear()
       console.log("Scene: %cViewscreen", "color:yellow;font-size: 1.2em;")
 
+      //inject stuff
       this.plugins.get('inGameManager').setupBoolsManager(this)
 
+      //room to draw
       console.log(this.cache.json.get("room0data"))
 
       this.actualRoomID = 0
 
       this.roomData = this.cache.json.get(`room${this.actualRoomID}data`)
+
+      this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
 
       //test porta frame
       this.boolsManager.set(0)
@@ -122,7 +126,7 @@ class Viewscreen extends Phaser.Scene
             }
 
             elem.hoverName = thing.hoverName
-            elem.setInteractive()
+            elem.setInteractive({ cursor: 'url(assets_prod/cursors/over.cur), pointer' })
             elem.on('pointerover', this.thingOvered)
             elem.on('pointerout', this.thingOut, this)
 

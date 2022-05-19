@@ -25,9 +25,9 @@ class boolsManager
     return this.boolsContainer[chunkIndex] & (1 << boolIndex)
   }
 
-  bitStatus(index)
+  bitStatus(offset)
   {
-    const {boolIndex, chunkIndex} = this.deriveBitCoords(index)
+    const {boolIndex, chunkIndex} = this.deriveBitCoords(offset)
 
     return this.readBit(boolIndex, chunkIndex) ? 1 : 0
   }
@@ -39,9 +39,9 @@ class boolsManager
     return 1
   }
 
-  set(index)
+  set(offset)
   {
-    const {boolIndex, chunkIndex} = this.deriveBitCoords(index)
+    const {boolIndex, chunkIndex} = this.deriveBitCoords(offset)
 
     return this.setBitOn(boolIndex, chunkIndex)
   }
@@ -53,9 +53,9 @@ class boolsManager
     return 0
   }
 
-  clear(index)
+  clear(offset)
   {
-    const {boolIndex, chunkIndex} = this.deriveBitCoords(index)
+    const {boolIndex, chunkIndex} = this.deriveBitCoords(offset)
 
     return this.setBitOff(boolIndex, chunkIndex)
   }
@@ -65,9 +65,9 @@ class boolsManager
     this.boolsContainer[chunkIndex] ^= (1 << boolIndex)
   }
 
-  toggle(index)
+  toggle(offset)
   {
-    const {boolIndex, chunkIndex} = this.deriveBitCoords(index)
+    const {boolIndex, chunkIndex} = this.deriveBitCoords(offset)
 
     this.toggleBit(boolIndex, chunkIndex)
 

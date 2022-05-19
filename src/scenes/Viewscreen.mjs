@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 
 import depthCategories from '../constants/depthCategories.mjs'
+import hoverNames from '../constants/hoverNames.mjs'
 
 class Viewscreen extends Phaser.Scene
 {
@@ -21,8 +22,8 @@ class Viewscreen extends Phaser.Scene
           ],
         cameras:
         {
-          backgroundColor: "#000077",
-          height: 0
+          backgroundColor: "#008777"//,
+          //height: 0
         }
       })
     } //end constructor
@@ -41,7 +42,7 @@ class Viewscreen extends Phaser.Scene
       this.roomData = this.cache.json.get(`room${this.actualRoomID}data`)
 
       //test porta frame
-      this.boolsManager.set(2)
+      this.boolsManager.set(0)
     }
 
     create()
@@ -64,14 +65,18 @@ class Viewscreen extends Phaser.Scene
 
       this.coGroup = this.add.layer()
       this.abGroup = this.add.layer()
-      this.abGroup = this.add.layer()
       this.dsGroup = this.add.layer()
       this.fgGroup = this.add.layer()
 
       this.drawScene()
 
       //console.log("coGROUP", this.children.list )
-      this.events.once('prerender', this.sortSprites, this)
+      this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random);
+
+      //this.events.once('prerender', this.sortSprites, this)
+
+
+      this.input.on('pointerdown', () => console.log(Math.random()))
 
     }// end create
 
@@ -82,20 +87,18 @@ class Viewscreen extends Phaser.Scene
         .setOrigin(0)
         .setDepth(depthCategories.bg)
 
-        console.log("Building...")
+        console.log("Building...", this.input)
 
-        for ( const thing of things )
-        {
+         for (const thing of things)
+         {
+
           if (thing.depth !== "tz")
           {
             //console.log(thing)
-
             
             if (thing.skipCond)
             {
-              //console.log(  this.boolsManager.debugChunk() )
               const [varType, index, expected] = thing.skipCond.split("_")
-              //console.log("Skip:", this.boolsManager.bitStatus(+index))
               if (this.boolsManager.bitStatus(+index) === +expected)
               {
                 //console.log("Skipping:", thing.frame || thing.frameStem)
@@ -104,30 +107,48 @@ class Viewscreen extends Phaser.Scene
             }
 
             const [x,y] = thing.coords.split("_")
-            const elem = this.add.image(x, y, "atlas"+atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(thing.frameSuffix))       
+            const elem = this.add.sprite(+x, +y, "atlas" + atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(thing.frameSuffix))       
+
 
             if(thing.depth === "ds")
             {
-              //console.log(y)
               elem.setOrigin(0.5, 1)
-                //.setDepth(y)
             }
 
             else
             {
               elem.setOrigin(0)
                 .setDepth(depthCategories[thing.depth])
-                //console.log("DEPTH:", depthCategories[thing.depth])
             }
 
+            elem.hoverName = thing.hoverName
+            elem.setInteractive()
+            elem.on('pointerover', this.thingOvered)
+            elem.on('pointerout', this.thingOut, this)
+
+            //elem.setAlpha(.4)
+
+            this.input.enableDebug(elem)
+            elem.input.hitAreaDebug.setDepth(elem.depth + 1)
+
             this[thing.depth + "Group"].add(elem)
+
             
-
-
           }
-        }
+
+       }
       
       
+    }
+
+    thingOvered(a)
+    {
+      this.scene.text.setText(hoverNames[this.hoverName])
+    }
+
+    thingOut()
+    {
+      this.text.setText("---")
     }
 
     sortSprites()

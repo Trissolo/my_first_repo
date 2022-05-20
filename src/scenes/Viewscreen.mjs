@@ -55,7 +55,7 @@ class Viewscreen extends Phaser.Scene
         //4 "cardBlueTaken",
         //5 "buttonIsPressed"
         
-      this.boolsManager.set(3)
+      this.boolsManager.set(2)
       this.boolsManager.set(4)
     }
 
@@ -92,18 +92,25 @@ class Viewscreen extends Phaser.Scene
       
       /////////////////////////////
       //testing Recycle using Group:
-      this.thingsGroup = this.add.group()
+      this.thingsGroup = this.add.group({createCallback: function (thing)
+        {
+          console.log("Created:", thing)
+          thing.setInteractive({cursor: 'url(assets_prod/cursors/over.cur), pointer'})
+        }
+      })
       this.addPpGroup = this.add.group()
 
       this.drawWithGroups()
 
       //press Q key for test
       this.input.keyboard.on('keydown-Q', this.pressedQ, this)
+
+      this.input.keyboard.on('keydown-O', () => { const obj = this.thingsGroup.children.entries[0]; console.log(obj.frame, obj.input.hitArea, obj.eventNames(), obj.listenerCount('pointerover'))}, this)
       /////////////////////////////
 
 
       //temp text
-      this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random);
+      this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
 
       //for deepthsort
       //this.events.once('prerender', this.sortSprites, this)
@@ -157,10 +164,10 @@ class Viewscreen extends Phaser.Scene
           const [x, y] = thing.coords.split("_")
 
           const roomThing = this.thingsGroup.get(+x, +y)
-          .setActive(true)
-          .setVisible(true)
           .setTexture("atlas" + atlas)
           .setFrame(thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
+          .setActive(true)
+          .setVisible(true)
 
           //deepthSorted is different!
           if(thing.depth === "ds")
@@ -172,6 +179,17 @@ class Viewscreen extends Phaser.Scene
             roomThing.setOrigin(0).setDepth(depthCategories[thing.depth])
           }
 
+          //input!
+          console.log(roomThing.input)
+          roomThing.hoverName = thing.hoverName
+          roomThing.input.hitArea.setSize(roomThing.width, roomThing.height)
+          roomThing.setInteractive()
+          // if (!roomThing.listenerCount('pointerover'))
+          // {
+            roomThing.on('pointerover', this.thingOvered)
+            roomThing.on('pointerout', this.thingOut, this)
+          // }
+
         }
       } // end things loop
       
@@ -182,8 +200,10 @@ class Viewscreen extends Phaser.Scene
       group.children.iterate(function (thing)
       {
         group.killAndHide(thing)
-        //console.log(thing.input)
-        //thing.disableInteractive()
+        console.log(thing.input)
+        thing.disableInteractive()
+        thing.off('pointerover', thing.scene.thingOvered)
+        thing.off('pointerout', thing.scene.thingOut)
       })
     } //end disableGroupChildren
 

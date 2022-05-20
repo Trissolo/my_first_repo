@@ -37,7 +37,7 @@ class Viewscreen extends Phaser.Scene
       this.plugins.get('inGameManager').setupBoolsManager(this)
 
       //room to draw
-      console.log(this.cache.json.get("room0data"))
+      //console.log(this.cache.json.get("room0data"))
 
       this.actualRoomID = 1
 
@@ -95,18 +95,30 @@ class Viewscreen extends Phaser.Scene
       //testing Recycle using Group:
       this.thingsGroup = this.add.group({createCallback: function (thing)
         {
-          console.log("Created:", thing)
+          //console.log("Created:", thing)
           thing.setInteractive({cursor: 'url(assets_prod/cursors/over.cur), pointer'})
         }
       })
-      this.addPpGroup = this.add.group()
+      
+      this.ppGroup = this.add.group({createCallback: function (thing)
+        {
+          thing.setInteractive({cursor: 'url(assets_prod/cursors/over.cur), pointer', pixelPerfect: true})
+        }
+      })
+
+      this.dsAry =[]
+
+      this.player = this.add.sprite(0, 0, "atlas0", "robot_E_walk_0").setOrigin(0.5, 1)
+      this.dsAry.push(this.player)
+
+      this.input.on('pointermove', function(pointer) {this.player.x = pointer.worldX; this.player.y = pointer.worldY}, this)
 
       this.drawWithGroups()
 
       //press Q key for test
       this.input.keyboard.on('keydown-Q', this.pressedQ, this)
 
-      this.input.keyboard.on('keydown-O', () => { const obj = this.thingsGroup.children.entries[0]; console.log(obj.frame, obj.input.hitArea, obj.eventNames(), obj.listenerCount('pointerover'))}, this)
+      //this.input.keyboard.on('keydown-O', () => { const obj = this.thingsGroup.children.entries[0]; console.log(obj.frame, obj.input.hitArea, obj.eventNames(), obj.listenerCount('pointerover'))}, this)
       /////////////////////////////
 
 
@@ -114,9 +126,7 @@ class Viewscreen extends Phaser.Scene
       this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
 
       //for deepthsort
-      //this.events.once('prerender', this.sortSprites, this)
-
-      //this.input.on('pointerdown', () => console.log(Math.random()))
+      this.events.on('prerender', this.sortSprites, this)
 
     }// end create
 
@@ -127,11 +137,18 @@ class Viewscreen extends Phaser.Scene
 
     pressedQ()
     {
+      //get actual Room
       this.actualRoomID ++
       if (this.actualRoomID > 1) { this.actualRoomID = 0 }
 
-      this.disableGroupChildren()
+      //reset entities
+      this.disableGroupChildren(this.ppGroup)
 
+      //reset Deeptsort Ary
+      this.dsAry.length = 0
+      this.dsAry.push(this.player)
+
+      //drawRoom
       this.drawWithGroups()
 
     }
@@ -160,13 +177,13 @@ class Viewscreen extends Phaser.Scene
             }
           }
 
-          //get or create one groupMember
+          //Get or create one group child
 
           const [x, y] = thing.coords.split("_")
 
-          const roomThing = this.thingsGroup.get(+x, +y)
+          //const roomThing = this.thingsGroup.get(+x, +y)
+          const roomThing = this.ppGroup.get(+x, +y)
           .setTexture("atlas" + atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
-          //.setFrame(thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
           .setActive(true)
           .setVisible(true)
 
@@ -174,22 +191,29 @@ class Viewscreen extends Phaser.Scene
           if(thing.depth === "ds")
           {
             roomThing.setOrigin(0.5, 1)
+            this.dsAry.push(roomThing)
           }
           else
           {
             roomThing.setOrigin(0).setDepth(depthCategories[thing.depth])
           }
 
+          //testing Foreground... 
+          if(thing.depth === "fg")
+          {
+            roomThing.setDepth(depthCategories.fg)
+          }
+
           //input!
-          console.log(roomThing.input)
+          //console.log(roomThing.input)
           roomThing.hoverName = thing.hoverName
-          roomThing.input.hitArea.setSize(roomThing.width, roomThing.height)
+          //roomThing.input.hitArea.setSize(roomThing.width, roomThing.height)
           roomThing.setInteractive()
-          // if (!roomThing.listenerCount('pointerover'))
-          // {
+          if (!roomThing.listenerCount('pointerover'))
+          {
             roomThing.on('pointerover', this.thingOvered)
             roomThing.on('pointerout', this.thingOut, this)
-          // }
+          }
 
         }
       } // end things loop
@@ -201,10 +225,9 @@ class Viewscreen extends Phaser.Scene
       group.children.iterate(function (thing)
       {
         group.killAndHide(thing)
-        //console.log(thing.input)
         thing.disableInteractive()
-        thing.off('pointerover', thing.scene.thingOvered)
-        thing.off('pointerout', thing.scene.thingOut)
+          .off('pointerover', thing.scene.thingOvered)
+          .off('pointerout', thing.scene.thingOut)
       })
     } //end disableGroupChildren
 
@@ -226,78 +249,8 @@ class Viewscreen extends Phaser.Scene
           .setDepth(depthCategories.bg)
       }
 
-      console.log(this.children)
     } //end setBackGround
 
-    drawScene()
-    {
-      const {atlas, background, things} = this.roomData
-      this.background = this.add.image(0, 0, "atlas" + atlas, background)
-        .setOrigin(0)
-        .setDepth(depthCategories.bg)
-
-        console.log("Building...", this.input)
-
-         for (const thing of things)
-         {
-
-          if (thing.depth !== "tz")
-          {
-            //console.log(thing)
-            
-            if (thing.skipCond)
-            {
-              const [varType, index, expected] = thing.skipCond.split("_")
-              if (this.boolsManager.bitStatus(+index) === +expected)
-              {
-                //console.log("Skipping:", thing.frame || thing.frameStem)
-                continue
-              }
-            }
-
-            const [x,y] = thing.coords.split("_")
-            const elem = this.add.sprite(+x, +y, "atlas" + atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(thing.frameSuffix))       
-
-
-            if(thing.depth === "ds")
-            {
-              elem.setOrigin(0.5, 1)
-            }
-
-            else
-            {
-              elem.setOrigin(0)
-                .setDepth(depthCategories[thing.depth])
-            }
-
-            elem.hoverName = thing.hoverName
-            
-            // if (thing.frame)
-            // {
-            //   elem.setInteractive({ cursor: 'url(assets_prod/cursors/over.cur), pointer' })
-            // }
-            // else
-            // {
-              elem.setInteractive({ cursor: 'url(assets_prod/cursors/over.cur), pointer', pixelPerfect: true })
-            // }
-            elem.on('pointerover', this.thingOvered)
-            elem.on('pointerout', this.thingOut, this)
-
-            //elem.setAlpha(.4)
-
-            //this.input.enableDebug(elem)
-            //elem.input.hitAreaDebug.setDepth(elem.depth + 1)
-
-            //this[thing.depth + "Group"].add(elem)
-            this.ary.push(elem)
-
-            
-          }
-
-       }
-      
-      
-    } //end drawScene
 
     thingOvered(a)
     {
@@ -311,7 +264,13 @@ class Viewscreen extends Phaser.Scene
 
     sortSprites()
     {
-      //console.log([...this.dsGroup.getChildren()])
+      if (this.dsAry.length)
+      {
+        for ( const element of this.dsAry.values())
+        {
+          element.setDepth(element.y)
+        }
+      }
     }
 
 }//end class

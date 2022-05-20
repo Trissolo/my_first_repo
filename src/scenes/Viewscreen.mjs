@@ -177,10 +177,10 @@ class Viewscreen extends Phaser.Scene
             }
           }
 
-          //Get or create one group child
-
+          //prepare coords:
           const [x, y] = thing.coords.split("_")
-
+          
+          //Get or create one group child
           //const roomThing = this.thingsGroup.get(+x, +y)
           const roomThing = this.ppGroup.get(+x, +y)
           .setTexture("atlas" + atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))

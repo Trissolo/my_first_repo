@@ -23,14 +23,14 @@ class Viewscreen extends Phaser.Scene
         cameras:
         {
           backgroundColor: "#008777"//,
-          //height: 0
+          //height: 100
         }
       })
     } //end constructor
 
     init(passedObj)
     {
-      console.clear()
+      //console.clear()
       console.log("Scene: %cViewscreen", "color:yellow;font-size: 1.2em;")
 
       //inject stuff
@@ -41,12 +41,22 @@ class Viewscreen extends Phaser.Scene
 
       this.actualRoomID = 1
 
+      //now is a getter
       //this.roomData = this.cache.json.get(`room${this.actualRoomID}data`)
 
       this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
 
-      //test porta frame
+      //test conditions
+      
+        //0 "doorIsOpen", 
+        //1 "wrenchTaken",
+        //2 "crateIsOpen",
+        //3 "cabinetIsOpen",
+        //4 "cardBlueTaken",
+        //5 "buttonIsPressed"
+        
       this.boolsManager.set(3)
+      this.boolsManager.set(4)
     }
 
     create()
@@ -71,24 +81,132 @@ class Viewscreen extends Phaser.Scene
       // this.abGroup = this.add.layer()
       // this.dsGroup = this.add.layer()
       // this.fgGroup = this.add.layer()
-      this.ary = []
 
-      this.drawScene()
+      /////////////////////////////
+      // WORKS, BUT DO NOT RECYCLE
+      // this.ary = []
+      //
+      // this.drawScene()
+      /////////////////////////////
+     
+      
+      /////////////////////////////
+      //testing Recycle using Group:
+      this.thingsGroup = this.add.group()
+      this.addPpGroup = this.add.group()
 
-      //console.log("coGROUP", this.children.list )
+      this.drawWithGroups()
+
+      //press Q key for test
+      this.input.keyboard.on('keydown-Q', this.pressedQ, this)
+      /////////////////////////////
+
+
+      //temp text
       this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random);
 
+      //for deepthsort
       //this.events.once('prerender', this.sortSprites, this)
 
-
-      this.input.on('pointerdown', () => console.log(Math.random()))
+      //this.input.on('pointerdown', () => console.log(Math.random()))
 
     }// end create
 
     get roomData()
     {
-       return this.cache.json.get(`room${this.actualRoomID}data`)
+      return this.cache.json.get(`room${this.actualRoomID}data`)
     }
+
+    pressedQ()
+    {
+      this.actualRoomID ++
+      if (this.actualRoomID > 1) { this.actualRoomID = 0 }
+
+      this.disableGroupChildren()
+
+      this.drawWithGroups()
+
+    }
+
+    drawWithGroups()
+    {
+      const {atlas, background, things} = this.roomData
+
+      this.setBackGround(atlas, background)
+
+      // now room's things!
+      console.log("Start drawing...")
+
+      for (const thing of things)
+      {
+        //avoid all Trigger Zones!
+        if (thing.depth !== "tz")
+        {
+          //first of all check for skipCondition!
+          if (thing.skipCond)
+          {
+            const [varType, index, expected] = thing.skipCond.split("_")
+            if (this.boolsManager.bitStatus(+index) === +expected)
+            {
+              continue
+            }
+          }
+
+          //get or create one groupMember
+
+          const [x, y] = thing.coords.split("_")
+
+          const roomThing = this.thingsGroup.get(+x, +y)
+          .setActive(true)
+          .setVisible(true)
+          .setTexture("atlas" + atlas)
+          .setFrame(thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
+
+          //deepthSorted is different!
+          if(thing.depth === "ds")
+          {
+            roomThing.setOrigin(0.5, 1)
+          }
+          else
+          {
+            roomThing.setOrigin(0).setDepth(depthCategories[thing.depth])
+          }
+
+        }
+      } // end things loop
+      
+    }
+
+    disableGroupChildren(group = this.thingsGroup)
+    {
+      group.children.iterate(function (thing)
+      {
+        group.killAndHide(thing)
+        //console.log(thing.input)
+        //thing.disableInteractive()
+      })
+    } //end disableGroupChildren
+
+    setBackGround(atlasNum, frame)
+    {
+      //caveat for bg
+      if (this.background)
+      {
+        this.background
+          .setTexture("atlas" + atlasNum)
+          .setFrame(frame)
+          .setOrigin(0)
+          .setDepth(depthCategories.bg)
+      }
+      else
+      {
+        this.background = this.add.image(0, 0, "atlas" + atlasNum, frame)
+          .setOrigin(0)
+          .setDepth(depthCategories.bg)
+      }
+
+      console.log(this.children)
+    } //end setBackGround
 
     drawScene()
     {
@@ -158,7 +276,7 @@ class Viewscreen extends Phaser.Scene
        }
       
       
-    }
+    } //end drawScene
 
     thingOvered(a)
     {

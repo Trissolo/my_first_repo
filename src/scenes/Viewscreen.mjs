@@ -39,14 +39,14 @@ class Viewscreen extends Phaser.Scene
       //room to draw
       console.log(this.cache.json.get("room0data"))
 
-      this.actualRoomID = 0
+      this.actualRoomID = 1
 
-      this.roomData = this.cache.json.get(`room${this.actualRoomID}data`)
+      //this.roomData = this.cache.json.get(`room${this.actualRoomID}data`)
 
       this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
 
       //test porta frame
-      this.boolsManager.set(0)
+      this.boolsManager.set(3)
     }
 
     create()
@@ -67,10 +67,11 @@ class Viewscreen extends Phaser.Scene
       //Shield!
       // this.shield
 
-      this.coGroup = this.add.layer()
-      this.abGroup = this.add.layer()
-      this.dsGroup = this.add.layer()
-      this.fgGroup = this.add.layer()
+      // this.coGroup = this.add.layer()
+      // this.abGroup = this.add.layer()
+      // this.dsGroup = this.add.layer()
+      // this.fgGroup = this.add.layer()
+      this.ary = []
 
       this.drawScene()
 
@@ -83,6 +84,11 @@ class Viewscreen extends Phaser.Scene
       this.input.on('pointerdown', () => console.log(Math.random()))
 
     }// end create
+
+    get roomData()
+    {
+       return this.cache.json.get(`room${this.actualRoomID}data`)
+    }
 
     drawScene()
     {
@@ -126,16 +132,25 @@ class Viewscreen extends Phaser.Scene
             }
 
             elem.hoverName = thing.hoverName
-            elem.setInteractive({ cursor: 'url(assets_prod/cursors/over.cur), pointer' })
+            
+            // if (thing.frame)
+            // {
+            //   elem.setInteractive({ cursor: 'url(assets_prod/cursors/over.cur), pointer' })
+            // }
+            // else
+            // {
+              elem.setInteractive({ cursor: 'url(assets_prod/cursors/over.cur), pointer', pixelPerfect: true })
+            // }
             elem.on('pointerover', this.thingOvered)
             elem.on('pointerout', this.thingOut, this)
 
             //elem.setAlpha(.4)
 
-            this.input.enableDebug(elem)
-            elem.input.hitAreaDebug.setDepth(elem.depth + 1)
+            //this.input.enableDebug(elem)
+            //elem.input.hitAreaDebug.setDepth(elem.depth + 1)
 
-            this[thing.depth + "Group"].add(elem)
+            //this[thing.depth + "Group"].add(elem)
+            this.ary.push(elem)
 
             
           }

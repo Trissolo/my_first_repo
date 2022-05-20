@@ -56,7 +56,8 @@ class Viewscreen extends Phaser.Scene
         //5 "buttonIsPressed"
         
       this.boolsManager.set(2)
-      this.boolsManager.set(4)
+      this.boolsManager.set(3)
+      this.boolsManager.clear(4)
     }
 
     create()
@@ -164,8 +165,8 @@ class Viewscreen extends Phaser.Scene
           const [x, y] = thing.coords.split("_")
 
           const roomThing = this.thingsGroup.get(+x, +y)
-          .setTexture("atlas" + atlas)
-          .setFrame(thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
+          .setTexture("atlas" + atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
+          //.setFrame(thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
           .setActive(true)
           .setVisible(true)
 
@@ -200,7 +201,7 @@ class Viewscreen extends Phaser.Scene
       group.children.iterate(function (thing)
       {
         group.killAndHide(thing)
-        console.log(thing.input)
+        //console.log(thing.input)
         thing.disableInteractive()
         thing.off('pointerover', thing.scene.thingOvered)
         thing.off('pointerout', thing.scene.thingOut)

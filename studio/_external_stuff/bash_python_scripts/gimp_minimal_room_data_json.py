@@ -72,7 +72,7 @@ def trigger_zone(current_layer, depth, frame_name, container):
 img = gimp.image_list()[0]
 
 #define actions:
-actions = {"bg": background_image, "tz": trigger_zone, "co": top_left_origin, "ab": top_left_origin, "ds": middle_down_origin, "fg": top_left_origin}
+actions = {"bg": background_image, "tz": trigger_zone, "rf": top_left_origin, "co": top_left_origin, "ab": top_left_origin, "ds": middle_down_origin, "fg": top_left_origin}
 
 #iterate!
 for layer in img.layers:

@@ -29,7 +29,7 @@ class Preload extends Phaser.Scene
 
     init(passedObj)
     {
-        this.plugins.get('inGameManager').setupBoolsManager(this)
+        this.plugins.get('inGameManager').installOn(this)
         //console.log(  "Plugins SETUP:", this  )
         this.events.once("destroy", this.onDestroy, this)
     }

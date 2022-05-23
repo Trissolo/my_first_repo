@@ -22,8 +22,8 @@ class Viewscreen extends Phaser.Scene
           ],
         cameras:
         {
-          backgroundColor: "#008777"//,
-          //height: 100
+          backgroundColor: "#008777",
+          height: 128
         }
       })
     } //end constructor
@@ -34,7 +34,7 @@ class Viewscreen extends Phaser.Scene
       console.log("Scene: %cViewscreen", "color:yellow;font-size: 1.2em;")
 
       //inject stuff
-      this.plugins.get('inGameManager').setupBoolsManager(this)
+      this.plugins.get('inGameManager').installOn(this)
 
       //room to draw
       //console.log(this.cache.json.get("room0data"))
@@ -56,7 +56,7 @@ class Viewscreen extends Phaser.Scene
         //5 "buttonIsPressed"
         
       this.boolsManager.set(2)
-      this.boolsManager.set(3)
+      this.boolsManager.clear(3)
       this.boolsManager.clear(4)
     }
 

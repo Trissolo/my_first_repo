@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import boolsManager from '../plugins/VarsManager/boolsManager.mjs';
+//import boolsManager from '../plugins/VarsManager/boolsManager.mjs';
 
 
 class Preload extends Phaser.Scene

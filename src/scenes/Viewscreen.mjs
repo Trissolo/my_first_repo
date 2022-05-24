@@ -3,6 +3,8 @@ import Phaser from 'phaser';
 import depthCategories from '../constants/depthCategories.mjs'
 import hoverNames from '../constants/hoverNames.mjs'
 
+import TriggerAreaManager from './TriggerArea/TriggerAreaManager.mjs';
+
 class Viewscreen extends Phaser.Scene
 {
     constructor()
@@ -106,6 +108,8 @@ class Viewscreen extends Phaser.Scene
         }
       })
 
+      this.triggerAreas = new TriggerAreaManager(this)
+
       this.dsAry =[]
 
       this.player = this.add.sprite(0, 0, "atlas0", "robot_E_walk_0").setOrigin(0.5, 1)
@@ -157,6 +161,10 @@ class Viewscreen extends Phaser.Scene
     {
       const {atlas, background, things} = this.roomData
 
+      //disableAll TA
+      this.triggerAreas.disableChildren()
+
+
       this.setBackGround(atlas, background)
 
       // now room's things!
@@ -164,18 +172,20 @@ class Viewscreen extends Phaser.Scene
 
       for (const thing of things)
       {
+
+        //first of all check for skipCondition!
+        if (thing.skipCond)
+        {
+          const [varType, index, expected] = thing.skipCond.split("_")
+          if (this.boolsManager.bitStatus(+index) === +expected)
+          {
+            continue
+          }
+        }
+
         //avoid all Trigger Zones!
         if (thing.depth !== "tz")
         {
-          //first of all check for skipCondition!
-          if (thing.skipCond)
-          {
-            const [varType, index, expected] = thing.skipCond.split("_")
-            if (this.boolsManager.bitStatus(+index) === +expected)
-            {
-              continue
-            }
-          }
 
           //prepare coords:
           const [x, y] = thing.coords.split("_")
@@ -216,6 +226,12 @@ class Viewscreen extends Phaser.Scene
           }
 
         }
+        // if we are here, then we have a TriggerZone!
+        else
+        {
+          const tz = this.triggerAreas.get(thing)
+          console.log("BUILDING THING", thing)
+        }
       } // end things loop
       
     }
@@ -254,6 +270,7 @@ class Viewscreen extends Phaser.Scene
 
     thingOvered(a)
     {
+      console.log(this.hoverName)
       this.scene.text.setText(hoverNames[this.hoverName])
     }
 

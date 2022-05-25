@@ -57,9 +57,10 @@ class TriggerAreaManager
 
     child.area.setTo(...NumFromString(params.rect, 0))
 
+    //maybe "name" is wrong, and some other property needs to be checked instead.
     if (params.name)
     {
-      child.zone.hoverName = params.name
+      child.zone.hoverName = params.hoverName
       child.zone.setVisible(true)
       child.zone.setActive(true)
       child.zone.setInteractive()
@@ -86,6 +87,7 @@ class TriggerAreaManager
 
         child.zone.setVisible(false)
         child.zone.disableInteractive()
+        child.zone.hoverName = null
       }
     }
   }

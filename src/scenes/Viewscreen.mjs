@@ -84,40 +84,47 @@ class Viewscreen extends Phaser.Scene
       // this.abGroup = this.add.layer()
       // this.dsGroup = this.add.layer()
       // this.fgGroup = this.add.layer()
-
-      /////////////////////////////
-      // WORKS, BUT DO NOT RECYCLE
-      // this.ary = []
-      //
-      // this.drawScene()
       /////////////////////////////
      
       
       /////////////////////////////
       //testing Recycle using Group:
-      this.thingsGroup = this.add.group({createCallback: function (thing)
-        {
-          //console.log("Created:", thing)
-          thing.setInteractive({cursor: 'url(assets_prod/cursors/over.cur), pointer'})
-        }
-      })
+
+      // this.thingsGroup = this.add.group({createCallback: function (thing)
+      //   {
+      //     //console.log("Created:", thing)
+      //     thing.setInteractive({cursor: 'url(assets_prod/cursors/over.cur), pointer'})
+      //   }
+      // })
       
+      //room things
       this.ppGroup = this.add.group({createCallback: function (thing)
         {
           thing.setInteractive({cursor: 'url(assets_prod/cursors/over.cur), pointer', pixelPerfect: true})
         }
       })
 
+      //room trigger areas
       this.triggerAreas = new TriggerAreaManager(this)
 
+      //deepsorted gameObjects
       this.dsAry =[]
 
+      //the player
       this.player = this.add.sprite(0, 0, "atlas0", "robot_E_walk_0").setOrigin(0.5, 1)
       this.dsAry.push(this.player)
 
-      this.input.on('pointermove', function(pointer) {this.player.x = pointer.worldX; this.player.y = pointer.worldY}, this)
+      //temp text
+      this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
+
+      //for deepthsort
+      this.events.on('prerender', this.sortSprites, this)
+
 
       this.drawWithGroups()
+
+
+      // TEST! TEST! TEST! TEST!
 
       //press Q key for test
       this.input.keyboard.on('keydown-Q', this.pressedQ, this)
@@ -126,11 +133,9 @@ class Viewscreen extends Phaser.Scene
       /////////////////////////////
 
 
-      //temp text
-      this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
 
-      //for deepthsort
-      this.events.on('prerender', this.sortSprites, this)
+
+      this.input.on('pointermove', function(pointer) {this.player.x = pointer.worldX; this.player.y = pointer.worldY}, this)
 
     }// end create
 
@@ -141,12 +146,18 @@ class Viewscreen extends Phaser.Scene
 
     pressedQ()
     {
+      //testing disabling and reenabling input
+      this.input.enabled = false
+
       //get actual Room
       this.actualRoomID ++
       if (this.actualRoomID > 1) { this.actualRoomID = 0 }
 
-      //reset entities
+      //reset entities: sprites...
       this.disableGroupChildren(this.ppGroup)
+
+      //... and trigger areas.
+      this.triggerAreas.disableChildren()
 
       //reset Deeptsort Ary
       this.dsAry.length = 0
@@ -155,15 +166,16 @@ class Viewscreen extends Phaser.Scene
       //drawRoom
       this.drawWithGroups()
 
+      this.clearOutput()
+
+      //testing disabling and reenabling input
+      //this.input.enabled = true
+
     }
 
     drawWithGroups()
     {
       const {atlas, background, things} = this.roomData
-
-      //disableAll TA
-      this.triggerAreas.disableChildren()
-
 
       this.setBackGround(atlas, background)
 
@@ -214,23 +226,28 @@ class Viewscreen extends Phaser.Scene
             roomThing.setDepth(depthCategories.fg)
           }
 
-          //input!
-          //console.log(roomThing.input)
+          //Handle input:
+
+          //set hover name and enable mouse hovering:
+
           roomThing.hoverName = thing.hoverName
-          //roomThing.input.hitArea.setSize(roomThing.width, roomThing.height)
-          roomThing.setInteractive()
+ 
           if (!roomThing.listenerCount('pointerover'))
           {
             roomThing.on('pointerover', this.thingOvered)
             roomThing.on('pointerout', this.thingOut, this)
           }
 
+          //enable interactive!
+          roomThing.setInteractive()
+
         }
-        // if we are here, then we have a TriggerZone!
         else
         {
+          // if we are here, then we have a TriggerZone
+
           const tz = this.triggerAreas.get(thing)
-          console.log("BUILDING THING", thing)
+          console.log("BUILDING TZ", thing)
         }
       } // end things loop
       
@@ -270,13 +287,20 @@ class Viewscreen extends Phaser.Scene
 
     thingOvered(a)
     {
-      console.log(this.hoverName)
       this.scene.text.setText(hoverNames[this.hoverName])
     }
 
     thingOut()
     {
       this.text.setText("---")
+    }
+
+    clearOutput()
+    {
+      this.text.setText("- - -")
+      this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
+      //testing disabling and reenabling input
+      this.input.enabled = true
     }
 
     sortSprites()

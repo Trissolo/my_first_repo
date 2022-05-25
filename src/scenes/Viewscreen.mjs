@@ -5,6 +5,9 @@ import hoverNames from '../constants/hoverNames.mjs'
 
 import TriggerAreaManager from './TriggerArea/TriggerAreaManager.mjs';
 
+//mega test
+import RoomScript from './RoomScripts/RoomScripts.mjs';
+
 class Viewscreen extends Phaser.Scene
 {
     constructor()
@@ -117,6 +120,8 @@ class Viewscreen extends Phaser.Scene
       //temp text
       this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
 
+      this.roomScript = new RoomScript()
+
       //for deepthsort
       this.events.on('prerender', this.sortSprites, this)
 
@@ -131,11 +136,15 @@ class Viewscreen extends Phaser.Scene
 
       //this.input.keyboard.on('keydown-O', () => { const obj = this.thingsGroup.children.entries[0]; console.log(obj.frame, obj.input.hitArea, obj.eventNames(), obj.listenerCount('pointerover'))}, this)
       /////////////////////////////
+      
 
 
 
 
-      this.input.on('pointermove', function(pointer) {this.player.x = pointer.worldX; this.player.y = pointer.worldY}, this)
+
+
+
+      //this.input.on('pointermove', function(pointer) {this.player.x = pointer.worldX; this.player.y = pointer.worldY}, this)
 
     }// end create
 
@@ -152,6 +161,8 @@ class Viewscreen extends Phaser.Scene
       //get actual Room
       this.actualRoomID ++
       if (this.actualRoomID > 1) { this.actualRoomID = 0 }
+
+
 
       //reset entities: sprites...
       this.disableGroupChildren(this.ppGroup)
@@ -170,6 +181,22 @@ class Viewscreen extends Phaser.Scene
 
       //testing disabling and reenabling input
       //this.input.enabled = true
+
+
+
+      //test! test!
+      this.rs = this.roomScript.grab(this.actualRoomID)
+
+      console.log("R S-----------", this.rs)
+
+      // if (this.actualRoomID === 1)
+      // {
+        this.ppGroup.getChildren()[2].once('pointerdown', this.rs.test, this)
+      // }
+      // else
+      // {
+      //   this.ppGroup.getChildren()[1].once('pointerdown', this.rs.testFunc1, this)
+      // }
 
     }
 

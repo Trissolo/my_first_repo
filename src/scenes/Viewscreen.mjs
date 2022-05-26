@@ -120,7 +120,11 @@ class Viewscreen extends Phaser.Scene
       //temp text
       this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
 
+
       this.roomScript = new RoomScript()
+       //moved here: grabbing room scripts
+       this.rs = this.roomScript.grab(this.actualRoomID)
+       console.log("R S------HERE-----", this.rs)
 
       //for deepthsort
       this.events.on('prerender', this.sortSprites, this)
@@ -162,6 +166,8 @@ class Viewscreen extends Phaser.Scene
       this.actualRoomID ++
       if (this.actualRoomID > 1) { this.actualRoomID = 0 }
 
+     
+
 
 
       //reset entities: sprites...
@@ -185,13 +191,13 @@ class Viewscreen extends Phaser.Scene
 
 
       //test! test!
-      this.rs = this.roomScript.grab(this.actualRoomID)
+      //this.rs = this.roomScript.grab(this.actualRoomID)
 
-      console.log("R S-----------", this.rs)
+      
 
       // if (this.actualRoomID === 1)
       // {
-        this.ppGroup.getChildren()[2].once('pointerdown', this.rs.test, this)
+      //  this.ppGroup.getChildren()[2].once('pointerdown', this.rs.test, this)
       // }
       // else
       // {
@@ -236,6 +242,9 @@ class Viewscreen extends Phaser.Scene
           .setActive(true)
           .setVisible(true)
 
+          //test! test!
+          //console.log("????????????????????", this.rs[thing.frame]||thing.frameSuffix)
+
           //deepthSorted is different!
           if(thing.depth === "ds")
           {
@@ -268,6 +277,21 @@ class Viewscreen extends Phaser.Scene
           //enable interactive!
           roomThing.setInteractive()
 
+          //mega input test
+          if(this.actualRoomID === 1)
+          {
+            //thing.frame || thing.frameStem
+            if(thing.frame)
+            {
+              roomThing.on('pointerdown', this.rs[thing.frame])//, this)
+            }
+            else
+            {
+              roomThing.on('pointerdown', this.rs[thing.frameStem])//, this)
+            }
+          }
+          
+
         }
         else
         {
@@ -288,6 +312,7 @@ class Viewscreen extends Phaser.Scene
         thing.disableInteractive()
           .off('pointerover', thing.scene.thingOvered)
           .off('pointerout', thing.scene.thingOut)
+          .off('pointerdown')
       })
     } //end disableGroupChildren
 

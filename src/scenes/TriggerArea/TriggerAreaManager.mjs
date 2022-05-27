@@ -22,7 +22,7 @@ class TriggerAreaManager
       //.setActive(false)
       .setVisible(false)
       .setOrigin(0)
-      .setDepth(9e9)
+      .setDepth(1)//9e9)
       .setInteractive({hitArea: triggerAreaRect, hitAreaCallback: Phaser.Geom.Rectangle.Contains, cursor:'url(assets_prod/cursors/exit.cur), pointer' } )
 
     return zone

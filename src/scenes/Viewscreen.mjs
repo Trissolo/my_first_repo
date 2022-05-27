@@ -49,10 +49,12 @@ class Viewscreen extends Phaser.Scene
       //now is a getter
       //this.roomData = this.cache.json.get(`room${this.actualRoomID}data`)
 
+      //input: cursor
       this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
 
+
       //test clickable entities
-      this.interactiveThings = new Set()
+      this.interactiveThings = new Map()
 
       //test conditions
       
@@ -250,7 +252,7 @@ class Viewscreen extends Phaser.Scene
 
           //interactive AS
           .setName(name)
-          this.interactiveThings.add(name)
+          this.interactiveThings.set(name, roomThing)
 
           //test! test!
           //console.log("????????????????????", this.rs[thing.frame]||thing.frameSuffix)

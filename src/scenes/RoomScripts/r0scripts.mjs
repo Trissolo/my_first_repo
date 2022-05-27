@@ -9,26 +9,7 @@ export default class RS0 {
     {
         console.log("Called testFunc0")
     }
-
-    ITcardA()
-    {
-      console.log(this);
-    }
-
-    r2cabinetDoors()
-    {
-      console.log(this);
-    }
-
-    cabinet()
-    {
-      console.log(this);
-    }
-
-    otherRoom()
-    {
-      console.log(this);
-    }
+    
 
     wrench()
     {
@@ -37,7 +18,12 @@ export default class RS0 {
 
     crateLid()
     {
-      console.log(this);
+      console.log("Clicked on:", "crateLid")
+        
+        const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
+        this.setFrame(frameSuffix + this.scene.boolsManager.toggle(2))
+          .setOrigin(0)
+      
     }
 
     crate()
@@ -53,6 +39,11 @@ export default class RS0 {
     button()
     {
       console.log(this);
+      console.log("Clicked on:", "button")
+        
+        const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
+        this.setFrame(frameSuffix + this.scene.boolsManager.toggle(5))
+          .setOrigin(0)
     }
 
     mensole()
@@ -68,6 +59,9 @@ export default class RS0 {
     porta()
     {
       console.log(this);
+      const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
+      this.setFrame(frameSuffix + this.scene.boolsManager.toggle(0))
+        .setOrigin(0)
     }
 
     coso_dietro()

@@ -68,6 +68,7 @@ class TriggerAreaManager
       if(!child.zone.listenerCount('pointerover'))
       child.zone.on('pointerover', this.scene.thingOvered)
       child.zone.on('pointerout', this.scene.thingOut, this.scene)
+      child.zone.setName(params.name)
     }
 
     console.log("CHILD SETTED:", child)
@@ -88,6 +89,7 @@ class TriggerAreaManager
         child.zone.setVisible(false)
         child.zone.disableInteractive()
         child.zone.hoverName = null
+        child.zone.setName("")
       }
     }
   }

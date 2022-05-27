@@ -51,6 +51,9 @@ class Viewscreen extends Phaser.Scene
 
       this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
 
+      //test clickable entities
+      this.interactiveThings = new Set()
+
       //test conditions
       
         //0 "doorIsOpen", 
@@ -138,7 +141,7 @@ class Viewscreen extends Phaser.Scene
       //press Q key for test
       this.input.keyboard.on('keydown-Q', this.pressedQ, this)
 
-      //this.input.keyboard.on('keydown-O', () => { const obj = this.thingsGroup.children.entries[0]; console.log(obj.frame, obj.input.hitArea, obj.eventNames(), obj.listenerCount('pointerover'))}, this)
+      this.input.keyboard.on('keydown-O', () => {this.interactiveThings.forEach(el => console.log(el)) })
       /////////////////////////////
       
 
@@ -163,8 +166,14 @@ class Viewscreen extends Phaser.Scene
       this.input.enabled = false
 
       //get actual Room
-      this.actualRoomID ++
+      this.actualRoomID++
       if (this.actualRoomID > 1) { this.actualRoomID = 0 }
+
+      //get roomScripts!
+      this.rs = this.roomScript.grab(this.actualRoomID)
+
+      //interactiveThings Debug
+      this.interactiveThings.clear()
 
      
 
@@ -173,7 +182,7 @@ class Viewscreen extends Phaser.Scene
       //reset entities: sprites...
       this.disableGroupChildren(this.ppGroup)
 
-      //... and trigger areas.
+      //...and trigger areas.
       this.triggerAreas.disableChildren()
 
       //reset Deeptsort Ary
@@ -184,10 +193,6 @@ class Viewscreen extends Phaser.Scene
       this.drawWithGroups()
 
       this.clearOutput()
-
-      //testing disabling and reenabling input
-      //this.input.enabled = true
-
 
 
       //test! test!
@@ -237,10 +242,15 @@ class Viewscreen extends Phaser.Scene
           
           //Get or create one group child
           //const roomThing = this.thingsGroup.get(+x, +y)
+          const name = thing.frame || thing.frameStem
           const roomThing = this.ppGroup.get(+x, +y)
           .setTexture("atlas" + atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
           .setActive(true)
           .setVisible(true)
+
+          //interactive AS
+          .setName(name)
+          this.interactiveThings.add(name)
 
           //test! test!
           //console.log("????????????????????", this.rs[thing.frame]||thing.frameSuffix)
@@ -278,18 +288,20 @@ class Viewscreen extends Phaser.Scene
           roomThing.setInteractive()
 
           //mega input test
-          if(this.actualRoomID === 1)
-          {
+
+          console.log(`ECCHE!::::::::::::::::${name} - ${roomThing.name}`)
+          // if(this.actualRoomID === 1)
+          // {
             //thing.frame || thing.frameStem
-            if(thing.frame)
-            {
-              roomThing.on('pointerdown', this.rs[thing.frame])//, this)
-            }
-            else
-            {
-              roomThing.on('pointerdown', this.rs[thing.frameStem])//, this)
-            }
-          }
+            // if(thing.frame)
+            // {
+              roomThing.on('pointerdown', this.rs[roomThing.name])//, this)
+            // }
+            // else
+            // {
+            //   roomThing.on('pointerdown', this.rs[thing.frameStem])//, this)
+            // }
+          // }
           
 
         }
@@ -299,8 +311,11 @@ class Viewscreen extends Phaser.Scene
 
           const tz = this.triggerAreas.get(thing)
           console.log("BUILDING TZ", thing)
+          tz.zone.setName(thing.name)
         }
       } // end things loop
+
+      this.input.setPollAlways()
       
     }
 
@@ -351,8 +366,10 @@ class Viewscreen extends Phaser.Scene
     {
       this.text.setText("- - -")
       this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
-      //testing disabling and reenabling input
       this.input.enabled = true
+      // this.input.setPollRate(100)
+      //testing disabling and reenabling input
+      //this.input.setPollRate(-1)
     }
 
     sortSprites()

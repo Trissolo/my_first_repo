@@ -1,4 +1,5 @@
 import boolsManager from "./VarsManager/boolsManager.mjs";
+import RoomScript from "../scenes/RoomScripts/RoomScripts.mjs";
 
 //needed just for his length
 import conditions from "../constants/conditions.mjs";
@@ -14,6 +15,8 @@ class inGameManager extends Phaser.Plugins.BasePlugin
         this.igEvents = new Phaser.Events.EventEmitter()
 
         this.boolsManager = new boolsManager(conditions.length);
+
+        this.roomScripts = new RoomScript()
 
         this.pendingRoom = {}
 

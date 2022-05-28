@@ -45,10 +45,10 @@ class Viewscreen extends Phaser.Scene
       //room to draw
       //console.log(this.cache.json.get("room0data"))
 
+      // actual room ID: hmmm...
+      // Do we really need the actualId property?
+      // and HERE is the right place?
       this.actualRoomID = 1
-
-      //now is a getter
-      //this.roomData = this.cache.json.get(`room${this.actualRoomID}data`)
 
       //input: cursor
       this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
@@ -129,11 +129,8 @@ class Viewscreen extends Phaser.Scene
       //temp text
       this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
 
-
-      this.roomScript = new RoomScript()
-       //moved here: grabbing room scripts
-       this.rs = this.roomScript.grab(this.actualRoomID)
-       console.log("R S------HERE-----", this.rs)
+      //update rs
+      this.rs = this.igPlug.roomScripts.grab(this.actualRoomID)
 
       //for deepthsort
       this.events.on('prerender', this.sortSprites, this)
@@ -151,12 +148,6 @@ class Viewscreen extends Phaser.Scene
       /////////////////////////////
       
 
-
-
-
-
-
-
       //this.input.on('pointermove', function(pointer) {this.player.x = pointer.worldX; this.player.y = pointer.worldY}, this)
 
     }// end create
@@ -168,20 +159,21 @@ class Viewscreen extends Phaser.Scene
 
     pressedQ()
     {
-      //testing disabling and reenabling input
+      // testing disabling and reenabling input
       this.input.enabled = false
 
-      //get actual Room
+      // SET actual Room
       this.actualRoomID++
       if (this.actualRoomID > 1) { this.actualRoomID = 0 }
 
       //get roomScripts!
-      this.rs = this.roomScript.grab(this.actualRoomID)
+      this.rs = this.igPlug.roomScripts.grab(this.actualRoomID)//this.roomScript.grab(this.actualRoomID)
 
       //interactiveThings Debug
       this.interactiveThings.clear()
 
-     
+   
+      // Now Recylce!
       // reset entities: background...
       this.background.hide()
 
@@ -195,6 +187,7 @@ class Viewscreen extends Phaser.Scene
       this.dsAry.length = 0
       this.dsAry.push(this.player)
 
+
       //drawRoom
       this.drawWithGroups()
 
@@ -202,18 +195,7 @@ class Viewscreen extends Phaser.Scene
 
 
       //test! test!
-      //this.rs = this.roomScript.grab(this.actualRoomID)
 
-      
-
-      // if (this.actualRoomID === 1)
-      // {
-      //  this.ppGroup.getChildren()[2].once('pointerdown', this.rs.test, this)
-      // }
-      // else
-      // {
-      //   this.ppGroup.getChildren()[1].once('pointerdown', this.rs.testFunc1, this)
-      // }
 
     }
 
@@ -221,7 +203,6 @@ class Viewscreen extends Phaser.Scene
     {
       const {atlas, background, things} = this.roomData
 
-      //this.setBackground(atlas, background)
       this.background.revamp(atlas, background)
 
       // now room's things!
@@ -240,16 +221,24 @@ class Viewscreen extends Phaser.Scene
           }
         }
 
-        //avoid all Trigger Zones!
-        if (thing.depth !== "tz")
+        //do we have a Trigger Zones?
+        if (thing.depth == "tz")
+        {
+          const tz = this.triggerAreas.get(thing)
+
+          tz.zone.setName(thing.name)
+        }
+        else
         {
 
           //prepare coords:
           const [x, y] = thing.coords.split("_")
           
-          //Get or create one group child
-          //const roomThing = this.thingsGroup.get(+x, +y)
+          //Get (or create) one group child
+
+          // the constant 'name' is used to determine the name of the frame, and also the interaction function.
           const name = thing.frame || thing.frameStem
+
           const roomThing = this.ppGroup.get(+x, +y)
           .setTexture("atlas" + atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
           .setActive(true)
@@ -258,9 +247,6 @@ class Viewscreen extends Phaser.Scene
           //interactive AS
           .setName(name)
           this.interactiveThings.set(name, roomThing)
-
-          //test! test!
-          //console.log("????????????????????", this.rs[thing.frame]||thing.frameSuffix)
 
           //deepthSorted is different!
           if(thing.depth === "ds")
@@ -294,32 +280,13 @@ class Viewscreen extends Phaser.Scene
           //enable interactive!
           roomThing.setInteractive()
 
-          //mega input test
+          // input mega test
 
-          console.log(`ECCHE!::::::::::::::::${name} - ${roomThing.name}`)
-          // if(this.actualRoomID === 1)
-          // {
-            //thing.frame || thing.frameStem
-            // if(thing.frame)
-            // {
-              roomThing.on('pointerdown', this.rs[roomThing.name])//, this)
-            // }
-            // else
-            // {
-            //   roomThing.on('pointerdown', this.rs[thing.frameStem])//, this)
-            // }
-          // }
-          
+            roomThing.on('pointerdown', this.rs[roomThing.name])//, this)
+
 
         }
-        else
-        {
-          // if we are here, then we have a TriggerZone
 
-          const tz = this.triggerAreas.get(thing)
-          console.log("BUILDING TZ", thing)
-          tz.zone.setName(thing.name)
-        }
       } // end things loop
 
       this.input.setPollAlways()
@@ -337,26 +304,6 @@ class Viewscreen extends Phaser.Scene
           .off('pointerdown')
       })
     } //end disableGroupChildren
-
-    setBackground(atlasNum, frame)
-    {
-      //caveat for bg
-      if (this.background)
-      {
-        this.background
-          .setTexture("atlas" + atlasNum)
-          .setFrame(frame)
-          .setOrigin(0)
-          .setDepth(depthCategories.bg)
-      }
-      else
-      {
-        this.background = this.add.image(0, 0, "atlas" + atlasNum, frame)
-          .setOrigin(0)
-          .setDepth(depthCategories.bg)
-      }
-
-    } //end setBackground
 
 
     thingOvered(a)

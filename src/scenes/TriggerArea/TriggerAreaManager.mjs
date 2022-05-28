@@ -39,7 +39,7 @@ class TriggerAreaManager
 
         if (children[i].available)
         {
-          console.log("CHILD RECYCLED!")
+          //console.log("CHILD RECYCLED!")
           return this.setChild(children[i], params)
         }
       } // end for
@@ -71,7 +71,7 @@ class TriggerAreaManager
       child.zone.setName(params.name)
     }
 
-    console.log("CHILD SETTED:", child)
+    //console.log("CHILD SETTED:", child)
     return child
   }
 

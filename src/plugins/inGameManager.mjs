@@ -15,7 +15,9 @@ class inGameManager extends Phaser.Plugins.BasePlugin
 
         this.boolsManager = new boolsManager(conditions.length);
 
-        this.random = Math.random()
+        this.pendingRoom = {}
+
+        this.currentRoom = 0
 
     }
 
@@ -24,18 +26,27 @@ class inGameManager extends Phaser.Plugins.BasePlugin
         console.log('myGlobalPlugin is alive')
     }
 
-    setupBoolsManager(scene)
+    //not used
+    injectBoolsManager(scene)
     {
         scene.boolsManager = this.boolsManager
     }
 
     installOn(scene)
     {
+        //place this entire plugin into scene
+        scene.igPlug = this
+
         //In Game EventEmitter!
         scene.igEvents = this.igEvents
 
         //Bools (not yet 'Variables') Manager
         scene.boolsManager = this.boolsManager
+
+        if (scene.scene.key === "Viewscreen")
+        {
+            this.viewScreen = scene
+        }
     }
 
     getRandom()

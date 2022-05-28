@@ -4,6 +4,7 @@ import depthCategories from '../constants/depthCategories.mjs'
 import hoverNames from '../constants/hoverNames.mjs'
 
 import TriggerAreaManager from './TriggerArea/TriggerAreaManager.mjs';
+import RoomBackground from '../prefabs/roomBackground.mjs';
 
 //mega test
 import RoomScript from './RoomScripts/RoomScripts.mjs';
@@ -104,6 +105,9 @@ class Viewscreen extends Phaser.Scene
       //     thing.setInteractive({cursor: 'url(assets_prod/cursors/over.cur), pointer'})
       //   }
       // })
+
+      //the bg
+      this.background = new RoomBackground(this)
       
       //room things
       this.ppGroup = this.add.group({createCallback: function (thing)
@@ -178,13 +182,13 @@ class Viewscreen extends Phaser.Scene
       this.interactiveThings.clear()
 
      
+      // reset entities: background...
+      this.background.hide()
 
-
-
-      //reset entities: sprites...
+      // ...sprites...
       this.disableGroupChildren(this.ppGroup)
 
-      //...and trigger areas.
+      // ...and trigger areas.
       this.triggerAreas.disableChildren()
 
       //reset Deeptsort Ary
@@ -217,7 +221,8 @@ class Viewscreen extends Phaser.Scene
     {
       const {atlas, background, things} = this.roomData
 
-      this.setBackGround(atlas, background)
+      //this.setBackground(atlas, background)
+      this.background.revamp(atlas, background)
 
       // now room's things!
       console.log("Start drawing...")
@@ -333,7 +338,7 @@ class Viewscreen extends Phaser.Scene
       })
     } //end disableGroupChildren
 
-    setBackGround(atlasNum, frame)
+    setBackground(atlasNum, frame)
     {
       //caveat for bg
       if (this.background)
@@ -351,7 +356,7 @@ class Viewscreen extends Phaser.Scene
           .setDepth(depthCategories.bg)
       }
 
-    } //end setBackGround
+    } //end setBackground
 
 
     thingOvered(a)

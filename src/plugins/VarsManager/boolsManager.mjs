@@ -113,6 +113,13 @@ class boolsManager
     return (chunk >>> 0).toString(2).padStart(8, "0") + "\n76543210"
   }
 
+  boolCondIsSatisfied(condition)
+  {
+    const [varType, index, expected] = condition.split("_")
+
+    return this.bitStatus(+index) === +expected
+  }
+
 }//end Bitwise class
 
 export default boolsManager

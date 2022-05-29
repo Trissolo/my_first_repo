@@ -129,15 +129,15 @@ class Viewscreen extends Phaser.Scene
       this.events.on('prerender', this.sortSprites, this)
 
 
-      this.drawWithGroups()
+      //this.drawWithGroups()
 
 
       // TEST! TEST! TEST! TEST!
 
       //press Q key for test
-      this.input.keyboard.on('keydown-Q', this.pressedQ, this)
+      this.input.keyboard.on('keydown-Q', this.manifestRoom, this)
 
-      this.input.keyboard.on('keydown-O', () => {this.interactiveThings.forEach(el => console.log(el)) })
+      this.input.keyboard.on('keydown-O', () => {this.triggerAreas.stopRectChecking();this.interactiveThings.forEach(el => console.log(el)); this.triggerAreas.children.forEach(el => console.log(el)) })
       /////////////////////////////
       
 
@@ -153,14 +153,18 @@ class Viewscreen extends Phaser.Scene
 
     setActualRoom(roomId = 0)
     {
-      //temporary action
+      // test:
       this.actualRoomID++
       
       if (this.actualRoomID > 1) { this.actualRoomID = 0 }
 
-      //this.actualRoomID = roomId
+      // end test
 
-      //get roomScripts!
+      // real code:
+
+      // this.actualRoomID = roomId
+
+      // get roomScripts!
       this.rs = this.igPlug.roomScripts.grab(this.actualRoomID)
     }
     
@@ -168,7 +172,7 @@ class Viewscreen extends Phaser.Scene
     clearRoom()
     {
       //stop checking rects
-      //this.triggerAreas.stopTimerEvent()
+      this.triggerAreas.stopRectChecking()
 
       // testing disabling and reenabling input
       this.input.enabled = false
@@ -197,62 +201,6 @@ class Viewscreen extends Phaser.Scene
 
     } //end clearRoom
 
-    // PressedQ will most likely become something like 'changeRoom'
-    pressedQ()
-    {
-           
-
-      
-      
-      
-      // function clearRoom()
-
-      // testing disabling and reenabling input
-      this.input.enabled = false
-      // Now Recylce!
-      // reset entities: background (1/6)...
-      this.background.hide()
-      
-      // ...sprites(2/6)...
-      this.disableGroupChildren(this.ppGroup)
-      
-      // ...and trigger areas(3/6).
-      this.triggerAreas.disableChildren()
-      
-      //reset Deepthsort Array(4/6);
-      this.dsAry.length = 0
-      // this.dsAry.push(this.player)
-      
-      // reset player/actors (5/6);
-      // this.player.hide()
-      
-
-      // interactiveThings(6/6). Debug
-      this.interactiveThings.clear()
-
-      // Add something like this.igPlug.emit("onClearRoom", someListener)
-
-      //  end clearRoom
-
-
-
-      //function drawRoom()
-
-      // "onBeforeDrawing"
-      // SET actual Room
-      this.actualRoomID++
-      if (this.actualRoomID > 1) { this.actualRoomID = 0 }
-      
-      //get roomScripts!
-      this.rs = this.igPlug.roomScripts.grab(this.actualRoomID)//this.roomScript.grab(this.actualRoomID)
-
-      this.drawWithGroups()
-
-      this.clearOutput()
-
-      // end drawRoom
-
-    }
 
     drawWithGroups()
     {
@@ -346,7 +294,7 @@ class Viewscreen extends Phaser.Scene
       } // end things loop
     
       //start checking rectangles!
-      //this.triggerAreas.startRectChecking()
+      this.triggerAreas.startRectChecking()
       
       //all room things are ready, so:
       this.igEvents.emit('roomthingsetted', this, this.interactiveThings)
@@ -398,6 +346,17 @@ class Viewscreen extends Phaser.Scene
           element.setDepth(element.y)
         }
       }
+    }
+
+    manifestRoom()
+    {
+      this.clearRoom()
+
+      this.setActualRoom(1)
+
+      this.drawWithGroups()
+
+      this.input.enabled = true
     }
 
 }//end class

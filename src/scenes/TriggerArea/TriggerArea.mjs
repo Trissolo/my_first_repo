@@ -28,7 +28,7 @@ class TriggerArea
       this.checkRect = false
 
       //check for pointer input?
-      this.checkArea = false
+      this.checkZone = false
 
     }
 } // end Class 

@@ -14,7 +14,7 @@ class TriggerAreaManager
 
     this.children = []
 
-    this.timeEvent = null
+    this.timeEvent = scene.time.addEvent({ delay: 150, callback: this.checkRects, callbackScope: this, loop: true, paused: true });
 
     //this.rects = []
 
@@ -88,13 +88,38 @@ class TriggerAreaManager
       {
         child = children[i]
         child.available = true
-        child.area.setEmpty() 
+        child.checkRect = false
+        child.area.setEmpty()
+
 
         child.zone.setVisible(false)
+        
+        child.checkZone = false
+
         child.zone.disableInteractive()
+
         child.zone.hoverName = null
+
         child.zone.setName("")
       }
+    }
+  }
+
+  startRectChecking()
+  {
+    this.timeEvent.paused = false
+  }
+
+  stopRectChecking()
+  {
+    this.timeEvent.paused = true
+  }
+
+  checkRects()
+  {
+    for ( const triggerArea of this.children)
+    {
+      console.log(triggerArea)
     }
   }
 

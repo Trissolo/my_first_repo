@@ -14,6 +14,10 @@ class TriggerAreaManager
 
     this.children = []
 
+    this.timeEvent = null
+
+    //this.rects = []
+
   } // end constructor
 
   addZone(triggerAreaRect)

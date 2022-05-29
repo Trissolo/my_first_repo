@@ -5,9 +5,9 @@ export default class RS0 {
         console.log("Script RS0")
     }
 
-    test()
+    onStart()
     {
-        console.log("Called testFunc0")
+        console.log("Called %conStart RS0", "color: yellow; font-style: italic; background-color: blue;");
     }
     
 

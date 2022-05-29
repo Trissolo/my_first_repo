@@ -7,7 +7,9 @@ import TriggerAreaManager from './TriggerArea/TriggerAreaManager.mjs';
 import RoomBackground from '../prefabs/roomBackground.mjs';
 
 //mega test
-import RoomScript from './RoomScripts/RoomScripts.mjs';
+
+//moved on igPlug
+//import RoomScript from './RoomScripts/RoomScripts.mjs';
 
 class Viewscreen extends Phaser.Scene
 {
@@ -39,7 +41,7 @@ class Viewscreen extends Phaser.Scene
       //console.clear()
       console.log("Scene: %cViewscreen", "color:yellow;font-size: 1.2em;")
 
-      //inject stuff
+      //inject igPlug stuff in this scene
       this.plugins.get('inGameManager').installOn(this)
 
       //room to draw
@@ -66,6 +68,7 @@ class Viewscreen extends Phaser.Scene
         //4 "cardBlueTaken",
         //5 "buttonIsPressed"
         
+      //this.boolsManager.set(1)
       this.boolsManager.set(2)
       this.boolsManager.clear(3)
       this.boolsManager.clear(4)
@@ -95,16 +98,6 @@ class Viewscreen extends Phaser.Scene
       // this.fgGroup = this.add.layer()
       /////////////////////////////
      
-      
-      /////////////////////////////
-      //testing Recycle using Group:
-
-      // this.thingsGroup = this.add.group({createCallback: function (thing)
-      //   {
-      //     //console.log("Created:", thing)
-      //     thing.setInteractive({cursor: 'url(assets_prod/cursors/over.cur), pointer'})
-      //   }
-      // })
 
       //the bg
       this.background = new RoomBackground(this)
@@ -152,10 +145,57 @@ class Viewscreen extends Phaser.Scene
 
     }// end create
 
+    // getter to take the right room configuration
     get roomData()
     {
       return this.cache.json.get(`room${this.actualRoomID}data`)
     }
+
+    setActualRoom(roomId = 0)
+    {
+      //temporary action
+      this.actualRoomID++
+      
+      if (this.actualRoomID > 1) { this.actualRoomID = 0 }
+
+      //this.actualRoomID = roomId
+
+      //get roomScripts!
+      this.rs = this.igPlug.roomScripts.grab(this.actualRoomID)
+    }
+    
+
+    clearRoom()
+    {
+      //stop checking rects
+      //this.triggerAreas.stopTimerEvent()
+
+      // testing disabling and reenabling input
+      this.input.enabled = false
+      // Now Recylce!
+      // reset entities: background (1/6)...
+      this.background.hide()
+      
+      // ...sprites(2/6)...
+      this.disableGroupChildren(this.ppGroup)
+      
+      // ...and trigger areas(3/6).
+      this.triggerAreas.disableChildren()
+      
+      //reset Deepthsort Array(4/6);
+      this.dsAry.length = 0
+      
+      // reset player/actors (5/6);
+      // this.player.hide()
+      
+      // interactiveThings(6/6). Debug
+      this.interactiveThings.clear()
+
+      // 'onClearRoom' event
+      // Add something like this.igPlug.emit("onClearRoom", this)
+      this.igEvents.emit("onClearRoom", this)
+
+    } //end clearRoom
 
     // PressedQ will most likely become something like 'changeRoom'
     pressedQ()
@@ -227,13 +267,13 @@ class Viewscreen extends Phaser.Scene
       {
 
         //first of all check for skipCondition!
-        if (thing.skipCond)
+        if (  thing.skipCond && this.boolsManager.boolCondIsSatisfied(thing.skipCond)  )
         {
-          const [varType, index, expected] = thing.skipCond.split("_")
-          if (this.boolsManager.bitStatus(+index) === +expected)
-          {
+          // const [varType, index, expected] = thing.skipCond.split("_")
+          // if (this.boolsManager.bitStatus(+index) === +expected)
+          // {
             continue
-          }
+          // }
         }
 
         //do we have a Trigger Zones?
@@ -298,14 +338,21 @@ class Viewscreen extends Phaser.Scene
 
           // input mega test
 
-            roomThing.on('pointerdown', this.rs[roomThing.name])//, this)
+          roomThing.on('pointerdown', this.rs[roomThing.name])//, this)
 
 
         }
 
       } // end things loop
+    
+      //start checking rectangles!
+      //this.triggerAreas.startRectChecking()
+      
+      //all room things are ready, so:
+      this.igEvents.emit('roomthingsetted', this, this.interactiveThings)
 
-      this.input.setPollAlways()
+      //not needed really
+      //this.input.setPollAlways()
       
     }
 

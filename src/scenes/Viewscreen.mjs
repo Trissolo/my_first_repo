@@ -157,45 +157,60 @@ class Viewscreen extends Phaser.Scene
       return this.cache.json.get(`room${this.actualRoomID}data`)
     }
 
+    // PressedQ will most likely become something like 'changeRoom'
     pressedQ()
     {
+           
+
+      
+      
+      
+      // function clearRoom()
+
       // testing disabling and reenabling input
       this.input.enabled = false
+      // Now Recylce!
+      // reset entities: background (1/6)...
+      this.background.hide()
+      
+      // ...sprites(2/6)...
+      this.disableGroupChildren(this.ppGroup)
+      
+      // ...and trigger areas(3/6).
+      this.triggerAreas.disableChildren()
+      
+      //reset Deepthsort Array(4/6);
+      this.dsAry.length = 0
+      // this.dsAry.push(this.player)
+      
+      // reset player/actors (5/6);
+      // this.player.hide()
+      
 
+      // interactiveThings(6/6). Debug
+      this.interactiveThings.clear()
+
+      // Add something like this.igPlug.emit("onClearRoom", someListener)
+
+      //  end clearRoom
+
+
+
+      //function drawRoom()
+
+      // "onBeforeDrawing"
       // SET actual Room
       this.actualRoomID++
       if (this.actualRoomID > 1) { this.actualRoomID = 0 }
-
+      
       //get roomScripts!
       this.rs = this.igPlug.roomScripts.grab(this.actualRoomID)//this.roomScript.grab(this.actualRoomID)
 
-      //interactiveThings Debug
-      this.interactiveThings.clear()
-
-   
-      // Now Recylce!
-      // reset entities: background...
-      this.background.hide()
-
-      // ...sprites...
-      this.disableGroupChildren(this.ppGroup)
-
-      // ...and trigger areas.
-      this.triggerAreas.disableChildren()
-
-      //reset Deeptsort Ary
-      this.dsAry.length = 0
-      this.dsAry.push(this.player)
-
-
-      //drawRoom
       this.drawWithGroups()
 
       this.clearOutput()
 
-
-      //test! test!
-
+      // end drawRoom
 
     }
 
@@ -256,7 +271,8 @@ class Viewscreen extends Phaser.Scene
           }
           else
           {
-            roomThing.setOrigin(0).setDepth(depthCategories[thing.depth])
+            roomThing.setOrigin(0)
+              .setDepth(depthCategories[thing.depth])
           }
 
           //testing Foreground... 

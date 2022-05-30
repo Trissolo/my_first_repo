@@ -14,7 +14,8 @@ class TriggerAreaManager
 
     this.children = []
 
-    this.timeEvent = scene.time.addEvent({ delay: 150, callback: this.checkRects, callbackScope: this, loop: true, paused: true });
+    //250ms
+    this.timeEvent = scene.time.addEvent({ delay: 250, callback: this.checkRects, callbackScope: this, loop: true, paused: true });
 
     //this.rects = []
 
@@ -119,7 +120,11 @@ class TriggerAreaManager
   {
     for ( const triggerArea of this.children)
     {
-      console.log(triggerArea)
+      //console.log(triggerArea)
+      if (triggerArea.checkRect)
+      {
+
+      }
     }
   }
 

@@ -6,6 +6,8 @@ import hoverNames from '../constants/hoverNames.mjs'
 import TriggerAreaManager from './TriggerArea/TriggerAreaManager.mjs';
 import RoomBackground from '../prefabs/roomBackground.mjs';
 
+import Player from '../prefabs/Player.mjs';
+
 //mega test
 
 //moved on igPlug
@@ -116,8 +118,8 @@ class Viewscreen extends Phaser.Scene
       this.dsAry =[]
 
       //the player
-      this.player = this.add.sprite(0, 0, "atlas0", "robot_E_walk_0").setOrigin(0.5, 1)
-      this.dsAry.push(this.player)
+      this.player = new Player(this) //this.add.sprite(0, 0, "atlas0", "robot_E_walk_0").setOrigin(0.5, 1)
+      //this.dsAry.push(this.player)
 
       //temp text
       this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
@@ -190,7 +192,7 @@ class Viewscreen extends Phaser.Scene
       this.dsAry.length = 0
       
       // reset player/actors (5/6);
-      // this.player.hide()
+       this.player.hide()
       
       // interactiveThings(6/6). Debug
       this.interactiveThings.clear()
@@ -325,11 +327,14 @@ class Viewscreen extends Phaser.Scene
     allowUserInteraction()
     {
       this.text.setText("- - -")
-      //this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
+
+      this.triggerAreas.startRectChecking()
+
       this.input.enabled = true
 
       // to be implemented:
       // this.shield.hide()
+
 
       // almost useless:
       // this.input.setPollRate(100)
@@ -356,7 +361,16 @@ class Viewscreen extends Phaser.Scene
 
       this.produceActualRoom()
 
+      this.handlePlayer()
+
       this.allowUserInteraction()
+    }
+
+    handlePlayer()
+    {
+      this.dsAry.push(this.player)
+      this.player.place()
+        .show()
     }
 
 }//end class

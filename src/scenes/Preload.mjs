@@ -165,7 +165,7 @@ export default class Preload extends Phaser.Scene
     {
       const {Between} = Phaser.Math
       this.add.sprite(Between(20, 280), Between(30, 100)).play(key)
-      console.log(`Playing: ${key}`)
+      // console.log(`Playing: ${key}`)
     }
 
     pressedZ()

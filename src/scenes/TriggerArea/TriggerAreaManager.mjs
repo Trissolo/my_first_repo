@@ -62,18 +62,30 @@ class TriggerAreaManager
 
     child.area.setTo(...NumFromString(params.rect, 0))
 
+    child.checkRect = true
+
+    child._areaIsOccupied = false
+
+    //forced by code! :(
+    child.effectuators.push(this.scene.player)
+
+
+
     //maybe "name" is wrong, and some other property needs to be checked instead.
-    if (params.name)
+    if (params.name && params.name.startsWith('exit'))
     {
+      console.log(child)
       child.zone.hoverName = params.hoverName
       child.zone.setVisible(true)
       child.zone.setActive(true)
       child.zone.setInteractive()
 
       if(!child.zone.listenerCount('pointerover'))
+      {
       child.zone.on('pointerover', this.scene.thingOvered)
       child.zone.on('pointerout', this.scene.thingOut, this.scene)
       child.zone.setName(params.name)
+      }
     }
 
     //console.log("CHILD SETTED:", child)
@@ -82,17 +94,24 @@ class TriggerAreaManager
 
   disableChildren()
   {
-    const {children} = this
-    if (children.length)
+    // const {children} = this
+    if (this.children.length)
     {
-      for (let i = 0, child; i < children.length; i++)
+      for (const child of this.children)  // (let i = 0, child; i < children.length; i++)
       {
-        child = children[i]
-        child.available = true
+        // child = children[i]
+        
+
         child.checkRect = false
+
+        child._areaIsOccupied = false
+
         child.area.setEmpty()
 
+        child.effectuators.length = 0
 
+
+        // now the zone...
         child.zone.setVisible(false)
         
         child.checkZone = false
@@ -102,6 +121,9 @@ class TriggerAreaManager
         child.zone.hoverName = null
 
         child.zone.setName("")
+
+        // ...at least...
+        child.available = true
       }
     }
   }
@@ -123,7 +145,13 @@ class TriggerAreaManager
       //console.log(triggerArea)
       if (triggerArea.checkRect)
       {
+        for (const actor of triggerArea.effectuators)
+        {
+          if (1 > 0)
+          {
 
+          }
+        }
       }
     }
   }

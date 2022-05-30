@@ -6,28 +6,34 @@ import Phaser from 'phaser';
 
 
 
-class TriggerArea
+class TriggerArea extends Phaser.Events.EventEmitter
 {
     constructor(manager)//, coordsAsString, actor)
     {
+      super()
+      
       this.manager = manager
 
-      //the rectangle!
+      // Is this instance available for recycling or not?
+      this.available = true
+
+      // the rectangle!
       this.area = new Phaser.Geom.Rectangle()//...NumFromString(coordsAsString, 0))
       
-      //array of GameObjects that can trigger this area
+      // array of GameObjects that can trigger this area
       this.effectuators = []//Array.isArray(actor)? actor : [actor]
-      
-      //an input enabled, but inactive, GameObject.Zone
-      this.zone = this.manager.addZone(this.area)
-      
-      //Is this instance available or not?
-      this.available = false
 
-      //check for actors in rectangle area?
+      // flag for checkRect
+      this._areaIsOccupied = false
+      
+      // Check for actors in rectangle area?
       this.checkRect = false
 
-      //check for pointer input?
+
+      // An input enabled, but inactive, GameObject.Zone
+      this.zone = this.manager.addZone(this.area)
+      
+      // Check for pointer input?
       this.checkZone = false
 
     }

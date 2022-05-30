@@ -129,13 +129,13 @@ class Viewscreen extends Phaser.Scene
       this.events.on('prerender', this.sortSprites, this)
 
 
-      //this.drawWithGroups()
+      //this.produceActualRoom()
 
 
       // TEST! TEST! TEST! TEST!
 
       //press Q key for test
-      this.input.keyboard.on('keydown-Q', this.manifestRoom, this)
+      this.input.keyboard.on('keydown-Q', this.drawRoom, this)
 
       this.input.keyboard.on('keydown-O', () => {this.triggerAreas.stopRectChecking();this.interactiveThings.forEach(el => console.log(el)); this.triggerAreas.children.forEach(el => console.log(el)) })
       /////////////////////////////
@@ -202,7 +202,7 @@ class Viewscreen extends Phaser.Scene
     } //end clearRoom
 
 
-    drawWithGroups()
+    produceActualRoom()
     {
       const {atlas, background, things} = this.roomData
 
@@ -215,13 +215,9 @@ class Viewscreen extends Phaser.Scene
       {
 
         //first of all check for skipCondition!
-        if (  thing.skipCond && this.boolsManager.boolCondIsSatisfied(thing.skipCond)  )
+        if ( thing.skipCond && this.boolsManager.boolCondIsSatisfied(thing.skipCond) )
         {
-          // const [varType, index, expected] = thing.skipCond.split("_")
-          // if (this.boolsManager.bitStatus(+index) === +expected)
-          // {
-            continue
-          // }
+          continue
         }
 
         //do we have a Trigger Zones?
@@ -288,7 +284,6 @@ class Viewscreen extends Phaser.Scene
 
           roomThing.on('pointerdown', this.rs[roomThing.name])//, this)
 
-
         }
 
       } // end things loop
@@ -327,11 +322,16 @@ class Viewscreen extends Phaser.Scene
       this.text.setText("---")
     }
 
-    clearOutput()
+    allowUserInteraction()
     {
       this.text.setText("- - -")
-      this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
+      //this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
       this.input.enabled = true
+
+      // to be implemented:
+      // this.shield.hide()
+
+      // almost useless:
       // this.input.setPollRate(100)
       //testing disabling and reenabling input
       //this.input.setPollRate(-1)
@@ -348,15 +348,15 @@ class Viewscreen extends Phaser.Scene
       }
     }
 
-    manifestRoom()
+    drawRoom(roomId)
     {
       this.clearRoom()
 
-      this.setActualRoom(1)
+      this.setActualRoom(roomId)
 
-      this.drawWithGroups()
+      this.produceActualRoom()
 
-      this.input.enabled = true
+      this.allowUserInteraction()
     }
 
 }//end class

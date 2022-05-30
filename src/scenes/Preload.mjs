@@ -114,16 +114,22 @@ export default class Preload extends Phaser.Scene
     }// end create
 
     // harcoded
-    generateRobotAnims()
+    generateRobotAnims(prefix = 'robot_')
     {
       const { anims, genFrames } = this
 
       // robot walk anim
+
+      // keys are something like:
+      // robot_walk_W
+      // robot_walk_SW
+      // robot_walk_NE
+      // robot_walk_S
+
       for (const cp of cardinalsPoints)
       {
-        console.log(`walk${cp}`, "GEN_FRAMES====>",this.genFrames(cp))
         anims.create(  {
-          key: `walk${cp}`,
+          key: `${prefix}walk_${cp}`,
           frames: this.genFrames(cp),
           skipMissedFrames: false,
           repeat: -1,
@@ -133,22 +139,23 @@ export default class Preload extends Phaser.Scene
       }
 
       // robot rotation anim
+      // key: robot_rotate
       anims.create({
-        key: "rotate",
-        frames: cardinalsPoints.map(e => ({ key: "atlas0", frame: "robot_" + e + "_walk_0" })),
+        key: `${prefix}rotate`,
+        frames: cardinalsPoints.map(el => ({ key: "atlas0", frame: `${prefix}${el}_walk_0` })),
         skipMissedFrames: false,
         repeat: -1,
         frameRate: 10
       })
     }
 
-    genFrames(cardinal, key = "atlas0", name = "robot_", action = "_walk_")
+    genFrames(cardinal, textureKey = "atlas0", name = "robot_", action = "_walk_")
     {
       const ary = []
 
       for ( const frNum of Phaser.Utils.Array.NumberArray(0, 3) )
       {
-        ary.push({key: key, frame: `${name}${cardinal}${action}${frNum}`})
+        ary.push({key: textureKey, frame: `${name}${cardinal}${action}${frNum}`})
       }
 
       return ary
@@ -158,6 +165,7 @@ export default class Preload extends Phaser.Scene
     {
       const {Between} = Phaser.Math
       this.add.sprite(Between(20, 280), Between(30, 100)).play(key)
+      console.log(`Playing: ${key}`)
     }
 
     pressedZ()

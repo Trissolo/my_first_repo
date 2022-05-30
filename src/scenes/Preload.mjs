@@ -1,8 +1,10 @@
 import Phaser from 'phaser';
 //import boolsManager from '../plugins/VarsManager/boolsManager.mjs';
 
+import cardinalsPoints from '../constants/cardinalPoints.mjs';
 
-class Preload extends Phaser.Scene
+
+export default class Preload extends Phaser.Scene
 {
     constructor()
     {
@@ -69,12 +71,14 @@ class Preload extends Phaser.Scene
     {
         //console.log("Preload scene: create", this.cache)
 
-        this.add.image(10,8,"atlas0", "room1bg").setOrigin(0)
+        // this.add.image(10,8,"atlas0", "room1bg").setOrigin(0)
+
+        // generate Bitmap Text
         Phaser.GameObjects.BitmapText.ParseFromAtlas(this, 'fontWhite', 'atlas0', 'mio_font_tiny_mono', 'fontWhiteXML');
 
-        const str = '(tEST)WTRPyxv^}{! - Wall -';
+        const str = 'Press Z to start';
 
-        this.text = this.add.bitmapText(20, 100, 'fontWhite', this.plugins.get('inGameManager').random+ str);
+        this.text = this.add.bitmapText(20, 100, 'fontWhite', str);
 
 
         // this.boolsManager.boolsContainer[0] = 37
@@ -88,10 +92,17 @@ class Preload extends Phaser.Scene
 
         //this.boolsManager.clear(tempIdx)
 
-        this.text.setTintFill(0xababdb)
-        this.text.setCharacterTint(7 - tempIdx, 1, true, 0xff0000)
+        // this.text.setTintFill(0xababdb)
+        // this.text.setCharacterTint(7 - tempIdx, 1, true, 0xff0000)
 
-        this.text.setText(this.boolsManager.debugChunk() )
+        // this.text.setText(this.boolsManager.debugChunk() )
+
+
+
+        // generating anims (momentarily in this scene, just as test)
+
+        this.anims.on('add', this.testAnim, this)
+        this.generateRobotAnims()
 
 
         this.add.image(16, 120, 'atlas0', "singlePixel")
@@ -99,8 +110,55 @@ class Preload extends Phaser.Scene
           .setScale(30)
           .setAlpha(0.7)
 
-          this.input.keyboard.on('keydown-Z', this.pressedZ, this)
+          this.input.keyboard.once('keydown-Z', this.pressedZ, this)
     }// end create
+
+    // harcoded
+    generateRobotAnims()
+    {
+      const { anims, genFrames } = this
+
+      // robot walk anim
+      for (const cp of cardinalsPoints)
+      {
+        console.log(`walk${cp}`, "GEN_FRAMES====>",this.genFrames(cp))
+        anims.create(  {
+          key: `walk${cp}`,
+          frames: this.genFrames(cp),
+          skipMissedFrames: false,
+          repeat: -1,
+          frameRate: 8
+        })
+
+      }
+
+      // robot rotation anim
+      anims.create({
+        key: "rotate",
+        frames: cardinalsPoints.map(e => ({ key: "atlas0", frame: "robot_" + e + "_walk_0" })),
+        skipMissedFrames: false,
+        repeat: -1,
+        frameRate: 10
+      })
+    }
+
+    genFrames(cardinal, key = "atlas0", name = "robot_", action = "_walk_")
+    {
+      const ary = []
+
+      for ( const frNum of Phaser.Utils.Array.NumberArray(0, 3) )
+      {
+        ary.push({key: key, frame: `${name}${cardinal}${action}${frNum}`})
+      }
+
+      return ary
+    }
+
+    testAnim(key, animation)
+    {
+      const {Between} = Phaser.Math
+      this.add.sprite(Between(20, 280), Between(30, 100)).play(key)
+    }
 
     pressedZ()
     {
@@ -113,5 +171,3 @@ class Preload extends Phaser.Scene
     }
 
 }//end class
-
-export default Preload

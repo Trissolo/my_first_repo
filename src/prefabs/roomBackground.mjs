@@ -10,7 +10,7 @@ export default class RoomBackground extends Phaser.GameObjects.Image {
         this.setVisible(false)
 
         this.clickWorldCoords = new Phaser.Math.Vector2()
-        this.setInteractive({cursor:'url(assets_prod/cursors/wait.cur), pointer'})
+        this.setInteractive({cursor:'url(assets_prod/cursors/cross.cur), pointer'}) // {cursor:'url(assets_prod/cursors/wait.cur), pointer'})
         this.on('pointerdown', this.bgClicked, this)
 
         scene.add.existing(this)

@@ -122,7 +122,10 @@ class TriggerAreaManager
 
         child.zone.setName("")
 
-        // ...at least...
+
+        // lastly...
+        child.removeAllListeners();
+
         child.available = true
       }
     }

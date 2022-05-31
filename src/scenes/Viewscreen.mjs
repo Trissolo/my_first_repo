@@ -284,6 +284,7 @@ class Viewscreen extends Phaser.Scene
 
           // input mega test
 
+          //console.log('pointerdown', name, this.rs[name])
           roomThing.on('pointerdown', this.rs[roomThing.name])//, this)
 
         }
@@ -332,6 +333,8 @@ class Viewscreen extends Phaser.Scene
 
       this.input.enabled = true
 
+      console.log('Scene input is enabled?', this.input.enabled)
+
       // to be implemented:
       // this.shield.hide()
 
@@ -362,6 +365,12 @@ class Viewscreen extends Phaser.Scene
       this.produceActualRoom()
 
       this.handlePlayer()
+
+      //quick test: onEnterRoom in room script
+      if (this.rs.onStart)
+      {
+        this.rs.onStart.call(this)
+      }
 
       this.allowUserInteraction()
     }

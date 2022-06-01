@@ -41,7 +41,7 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.setActive(true)
     .setVisible(true)
     .setTexture('atlas0', "robot_E_walk_0")
-    .setOrigin(1, 0.5)
+    .setOrigin(0.5, 1)
 
     return this
   }

@@ -15,7 +15,7 @@ class TriggerAreaManager
     this.children = []
 
     //250ms
-    this.timeEvent = scene.time.addEvent({ delay: 250, callback: this.checkRects, callbackScope: this, loop: true, paused: true });
+    this.timeEvent = scene.time.addEvent({ delay: 50, callback: this.checkRects, callbackScope: this, loop: true, paused: true });
 
     //this.rects = []
 
@@ -146,16 +146,23 @@ class TriggerAreaManager
     for ( const triggerArea of this.children)
     {
       //console.log(triggerArea)
-      if (triggerArea.checkRect)
-      {
+      // if (triggerArea.checkRect)
+      // {
         for (const actor of triggerArea.effectuators)
         {
-          if (1 > 0)
+          if (!triggerArea._areaIsOccupied && triggerArea.area.contains(actor.x, actor.y))// (actor))
           {
+            triggerArea._areaIsOccupied = true
+            console.log("%cEntered on", "color:yellow;font-size: 1.8em;", triggerArea.zone.name)
+          }
 
+          else if ( triggerArea._areaIsOccupied && !triggerArea.area.contains(actor.x, actor.y))
+          {
+            triggerArea._areaIsOccupied = false
+            console.log("%cJust left", "color:orange;font-size: 1.8em;", triggerArea.zone.name)
           }
         }
-      }
+      // }
     }
   }
 

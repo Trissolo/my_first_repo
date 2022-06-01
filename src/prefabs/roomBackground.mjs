@@ -14,6 +14,8 @@ export default class RoomBackground extends Phaser.GameObjects.Image {
         this.on('pointerdown', this.bgClicked, this)
 
         scene.add.existing(this)
+
+        scene.igEvents.on('bgClicked', function(coords){this.player.walk.setPath(coords)}, this.scene)
     
     }
 

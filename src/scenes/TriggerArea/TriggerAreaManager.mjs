@@ -122,6 +122,10 @@ class TriggerAreaManager
 
         child.zone.setName("")
 
+        child.zone.off('entertriggerarea')
+
+        child.zone.off('leavetriggerarea')
+
 
         // lastly...
         child.removeAllListeners();
@@ -154,12 +158,15 @@ class TriggerAreaManager
           {
             triggerArea._areaIsOccupied = true
             console.log("%cEntered on", "color:yellow;font-size: 1.8em;", triggerArea.zone.name)
+            triggerArea.zone.emit('entertriggerarea')
+
           }
 
           else if ( triggerArea._areaIsOccupied && !triggerArea.area.contains(actor.x, actor.y))
           {
             triggerArea._areaIsOccupied = false
             console.log("%cJust left", "color:orange;font-size: 1.8em;", triggerArea.zone.name)
+            triggerArea.zone.emit('leavetriggerarea')
           }
         }
       // }

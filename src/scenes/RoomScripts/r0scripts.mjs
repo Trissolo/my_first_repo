@@ -7,7 +7,48 @@ export default class RS0 {
 
     onStart()
     {
-        console.log("Called %conStart RS0", "color: yellow; font-style: italic; background-color: blue;");
+      console.log("Called %conStart RS0", "color: yellow; font-style: italic; background-color: blue;");
+
+      //this.rs.setupTaRects()
+
+      // this.rs.setupTaRects.call(this)
+
+      //  console.log(this, Object.getPrototypeOf(this))
+
+
+      for (const ta of this.triggerAreas.children)
+      {
+        // console.dir(ta)
+
+        // console.log(ta.zone.name, ta.listeners() )//ta.zone.listeners())
+      }
+
+    }
+
+    // trigger Area behavor
+    stopDoor(triggerArea, actor)
+    {
+      console.log("Stop Door")
+    }
+
+    exitNord()
+    {
+      console.log("exitNord")
+    }
+
+    exitWest()
+    {
+      console.log("exitWest")
+    }
+
+    setupTaRects()
+    {
+      console.log("Called 'setupTaRects'!", this)
+
+      // for (const ta of this.triggerAreas.children)
+      // {
+      //   console.dir(ta)
+      // }
     }
     
 

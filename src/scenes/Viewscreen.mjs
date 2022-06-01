@@ -222,17 +222,26 @@ class Viewscreen extends Phaser.Scene
           continue
         }
 
-        //do we have a Trigger Zones?
+        // do we have a Trigger Zones?
         if (thing.depth == "tz")
         {
           const tz = this.triggerAreas.get(thing)
 
           tz.zone.setName(thing.name)
+
+          // MONSTROUSLY HARDCODED: A REFACTOR OF THE SCHEMA IS ABSOLUTELY NECESSARY!
+          console.log("NAMEEEEE", thing.name)
+          tz.zone.on('entertriggerarea', this.rs[thing.name])
+          if (this.rs[thing.name +"leave"])
+          {
+            tz.zone.on('leavetriggerarea', this.rs[thing.name] + "leave")
+          }
+          //console.log("TZ", thing)
         }
         else
         {
 
-          //prepare coords:
+          // prepare coords:
           const [x, y] = thing.coords.split("_")
           
           //Get (or create) one group child
@@ -260,12 +269,6 @@ class Viewscreen extends Phaser.Scene
             roomThing.setOrigin(0)
               .setDepth(depthCategories[thing.depth])
           }
-
-          // //testing Foreground...
-          // if(thing.depth === "fg")
-          // {
-          //   roomThing.setDepth(depthCategories.fg)
-          // }
 
 
           //Handle input:

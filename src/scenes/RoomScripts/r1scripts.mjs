@@ -10,6 +10,16 @@ class RS1 {
         console.log("Called testFunc1")
     }
 
+    exitEst()
+    {
+        console.log("Called exitEst")
+    }
+
+    exitWest()
+    {
+        console.log("Called exitWest")
+    }
+
     ITcardA()
     {
         console.log("Clicked on:", "ITcardA")

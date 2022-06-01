@@ -20,6 +20,14 @@ export default class Player extends Phaser.GameObjects.Sprite
     return this
   }
 
+  
+  // texture:
+
+  // actorName_
+  // CardinalDirection_
+  // action_
+  // frameNumber
+
   show()
   {
     this.setActive(true)

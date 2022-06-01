@@ -241,16 +241,16 @@ class Viewscreen extends Phaser.Scene
           const name = thing.frame || thing.frameStem
 
           const roomThing = this.ppGroup.get(+x, +y)
-          .setTexture("atlas" + atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
-          .setActive(true)
-          .setVisible(true)
+            .setTexture("atlas" + atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
+            .setActive(true)
+            .setVisible(true)
 
-          //interactive AS
+          //keep track of all interactive objects
           .setName(name)
           this.interactiveThings.set(name, roomThing)
 
           //deepthSorted is different!
-          if(thing.depth === "ds")
+          if (thing.depth === "ds")
           {
             roomThing.setOrigin(0.5, 1)
             this.dsAry.push(roomThing)
@@ -261,11 +261,12 @@ class Viewscreen extends Phaser.Scene
               .setDepth(depthCategories[thing.depth])
           }
 
-          //testing Foreground... 
-          if(thing.depth === "fg")
-          {
-            roomThing.setDepth(depthCategories.fg)
-          }
+          // //testing Foreground...
+          // if(thing.depth === "fg")
+          // {
+          //   roomThing.setDepth(depthCategories.fg)
+          // }
+
 
           //Handle input:
 
@@ -284,30 +285,25 @@ class Viewscreen extends Phaser.Scene
 
           // input mega test
 
-          //console.log('pointerdown', name, this.rs[name])
           roomThing.on('pointerdown', this.rs[roomThing.name])//, this)
 
         }
 
       } // end things loop
     
-      //start checking rectangles!
-      this.triggerAreas.startRectChecking()
-      
       //all room things are ready, so:
       this.igEvents.emit('roomthingsetted', this, this.interactiveThings)
 
-      //not needed really
-      //this.input.setPollAlways()
-      
     }
 
     disableGroupChildren(group = this.thingsGroup)
     {
       group.children.iterate(function (thing)
       {
-        group.killAndHide(thing)
+        // group.killAndHide(thing)
         thing.disableInteractive()
+          .setActive(false)
+          .setVisible(false)
           .off('pointerover', thing.scene.thingOvered)
           .off('pointerout', thing.scene.thingOut)
           .off('pointerdown')

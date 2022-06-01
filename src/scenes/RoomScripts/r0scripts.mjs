@@ -31,14 +31,14 @@ export default class RS0 {
       console.log("Stop Door")
     }
 
-    exitNord()
+    exitNord(a, b)
     {
-      console.log("exitNord")
+      console.log("exitNord", a, b)
     }
 
-    exitWest()
+    exitWest(a, b)
     {
-      console.log("exitWest")
+      console.log("exitWest", a, b)
     }
 
     setupTaRects()

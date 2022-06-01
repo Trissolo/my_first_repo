@@ -231,10 +231,10 @@ class Viewscreen extends Phaser.Scene
 
           // MONSTROUSLY HARDCODED: A REFACTOR OF THE SCHEMA IS ABSOLUTELY NECESSARY!
           console.log("NAMEEEEE", thing.name)
-          tz.zone.on('entertriggerarea', this.rs[thing.name])
+          tz.zone.on('entertriggerarea', this.rs[thing.name], this)
           if (this.rs[thing.name +"leave"])
           {
-            tz.zone.on('leavetriggerarea', this.rs[thing.name] + "leave")
+            tz.zone.on('leavetriggerarea', this.rs[thing.name] + "leave", this)
           }
           //console.log("TZ", thing)
         }
@@ -322,6 +322,13 @@ class Viewscreen extends Phaser.Scene
     thingOut()
     {
       this.text.setText("---")
+    }
+
+    moveToClick(pointer, relX, relY)
+    {
+      console.log(pointer, relX, relY)
+      //const {activePointer} = this.input
+      this.player.walk.setPath({x: pointer.worldX, y: pointer.worldY})
     }
 
     allowUserInteraction()

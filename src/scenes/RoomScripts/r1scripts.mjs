@@ -10,14 +10,14 @@ class RS1 {
         console.log("Called testFunc1")
     }
 
-    exitEst()
+    exitEst(a, b)
     {
-        console.log("Called exitEst")
+        console.log("Called exitEst", a, b)
     }
 
-    exitWest()
+    exitWest(a, b)
     {
-        console.log("Called exitWest")
+        console.log("Called exitWest", a, b)
     }
 
     ITcardA()

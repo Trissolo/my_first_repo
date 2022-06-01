@@ -82,9 +82,10 @@ class TriggerAreaManager
 
       if(!child.zone.listenerCount('pointerover'))
       {
-      child.zone.on('pointerover', this.scene.thingOvered)
-      child.zone.on('pointerout', this.scene.thingOut, this.scene)
-      child.zone.setName(params.name)
+        child.zone.on('pointerdown', this.scene.moveToClick, this.scene)
+        child.zone.on('pointerover', this.scene.thingOvered)
+        child.zone.on('pointerout', this.scene.thingOut, this.scene)
+        child.zone.setName(params.name)
       }
     }
 
@@ -158,7 +159,7 @@ class TriggerAreaManager
           {
             triggerArea._areaIsOccupied = true
             console.log("%cEntered on", "color:yellow;font-size: 1.8em;", triggerArea.zone.name)
-            triggerArea.zone.emit('entertriggerarea')
+            triggerArea.zone.emit('entertriggerarea', triggerArea, actor)
 
           }
 
@@ -166,7 +167,7 @@ class TriggerAreaManager
           {
             triggerArea._areaIsOccupied = false
             console.log("%cJust left", "color:orange;font-size: 1.8em;", triggerArea.zone.name)
-            triggerArea.zone.emit('leavetriggerarea')
+            triggerArea.zone.emit('leavetriggerarea', triggerArea, actor)
           }
         }
       // }

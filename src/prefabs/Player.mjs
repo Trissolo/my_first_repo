@@ -1,5 +1,8 @@
 import Phaser from 'phaser'
 
+import WalkComponent from './walkComponent/walkComponent.mjs'
+import WalkEvents from './walkComponent/walkEvents.mjs'
+
 export default class Player extends Phaser.GameObjects.Sprite
 {
   constructor(scene, name = "robot")
@@ -10,6 +13,11 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.hide()
 
     this.setName(name)
+
+    this.walk = new WalkComponent(this)
+    this.on(WalkEvents.WALK_START, function() { this.walk.aTargetExists = true }, this)
+    this.on(WalkEvents.WALK_SUBSTART, function() { this.walk.aTargetExists = true }, this)
+
   }
 
   hide()
@@ -46,6 +54,16 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     //this.scene.dsAry.push(this)
     return this
+  }
+
+  preUpdate(time, delta)
+  {
+    super.preUpdate(time, delta)
+
+    if (this.walk.aTargetExists)
+    {
+      this.walk.update(time, delta)
+    }
   }
 
 }

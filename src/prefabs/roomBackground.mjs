@@ -41,7 +41,7 @@ export default class RoomBackground extends Phaser.GameObjects.Image {
     {
         this.clickWorldCoords.setTo(pointer.worldX, pointer.worldY)
         this.scene.igEvents.emit('bgClicked', this.clickWorldCoords)
-        console.log("Background:", this)
+        // console.log("Background:", this)
     }
 
 

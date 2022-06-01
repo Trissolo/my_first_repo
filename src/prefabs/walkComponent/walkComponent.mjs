@@ -89,13 +89,13 @@ export default class WalkComponent
             // time for events events:
             if(this.destinations.length === this.highestIndex)
             {
-                console.log("Walk event:", walkEvents.WALK_START)
+                // console.log("Walk event:", walkEvents.WALK_START)
                 this.parent.emit(walkEvents.WALK_START, this.parent, this.startCoords, this.endCoords)
             }
 
             else
             {
-                console.log("Walk event:", walkEvents.WALK_SUBSTART)
+                // console.log("Walk event:", walkEvents.WALK_SUBSTART)
                 this.parent.emit(walkEvents.WALK_SUBSTART, this.parent, this.startCoords, this.endCoords)
             }
 
@@ -104,9 +104,9 @@ export default class WalkComponent
         else
         {
             // emit THERE ARE NO TARGETS!
-            console.log("Walk event:", walkEvents.WALK_STAY_IDLE)
+            // console.log("Walk event:", walkEvents.WALK_STAY_IDLE)
             this.parent.emit(walkEvents.WALK_STAY_IDLE)
-            console.log("Emitted: No more Target, or, maybe better: The previous Target turned out to be the last")
+            // console.log("Emitted: No more Target, or, maybe better: The previous Target turned out to be the last")
             // ...so let's wait for one.
             this.setIdle()
         }
@@ -138,7 +138,7 @@ export default class WalkComponent
 
                 if(this.destinations.length === 0)
                 {
-                    console.log("Walk event:", walkEvents.WALK_COMPLETE)
+                    // console.log("Walk event:", walkEvents.WALK_COMPLETE)
                     this.parent.emit(walkEvents.WALK_COMPLETE, this.parent)
                 }
                 else

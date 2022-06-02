@@ -286,6 +286,10 @@ class StudioGui
 
     const saveJson = this.addElement("b", mainBar, "Save Json")
     saveJson.addEventListener('click', this.saveBlob.bind(this))
+
+    const loadJson = this.addElement('input', mainBar, "Load")
+    loadJson.setAttribute('type', 'file')
+    loadJson.addEventListener('change', this.readSingleFile.bind(this), false)
   }
 
   addElement (type, parent, text = "")
@@ -458,6 +462,31 @@ class StudioGui
     document.body.removeChild(a);
     window.URL.revokeObjectURL(uri);
   }
+
+  readSingleFile(event)
+  {
+    let file = event.target.files[0];
+    
+      if (!file)
+      {
+          return;
+      }
+
+    const reader = new FileReader();
+    
+    reader.onload = (event) =>
+    {
+      // var contents = event.target.result;
+      // console.log(JSON.parse(contents))
+      // console.log(this.studioJsons)
+      const contents = JSON.parse(event.target.result)
+      this.studioJsons[contents.id] = contents
+    };
+    
+    reader.readAsText(file);
+  }
+
+  
 
 }
 

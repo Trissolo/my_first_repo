@@ -71,6 +71,37 @@ class StudioGui
     this.showThing()
   }
 
+  buildnoInput(prop)
+  {
+    const subCont = this.widgetMap.get(prop).children[1]
+
+    const buttonA = this.addElement('b', subCont, "Remove 'noInput'")
+    buttonA.addEventListener('click', this.noInputButtonA.bind(this))
+
+    const buttonB = this.addElement('b', subCont, "Set 'noInput'")
+    buttonB.addEventListener('click', this.noInputButtonB.bind(this))
+
+    this.noInputCurrent = this.addElement('p', subCont)
+    this.noInputCurrent.classList.add("prop_info")
+  }
+
+  noInputButtonA(element)
+  {
+    const specificProp = element.target.parentNode.parentNode.getAttribute('name')
+    delete this.actualThing[specificProp]
+    this.showThing()
+  }
+  
+  noInputButtonB(element)
+  {
+    const specificProp = element.target.parentNode.parentNode.getAttribute('name')
+    this.actualThing[specificProp] = true
+    // this.skipCondCurrent.innerText = "---"
+    // this.skipCondCurrent.classList.add('notset')
+    this.showThing()
+  }
+
+
   buildskipCond(prop)
   {
     //const specificProp = prop
@@ -367,6 +398,23 @@ class StudioGui
         this.skipCondCurrent.innerText = "Never Skip..."
         this.skipCondCurrent.classList.add("notset")
 
+      }
+
+      
+    }
+
+    if (this.noInputCurrent)
+    {
+      if (this.actualThing.noInput)
+      {
+        this.noInputCurrent.innerText = 'true'
+        this.noInputCurrent.classList.remove("notset")
+      }
+      
+      else
+      {
+        this.noInputCurrent.innerText = 'Is Input Enabled and Active'
+        this.noInputCurrent.classList.add("notset")
       }
     }
     /*

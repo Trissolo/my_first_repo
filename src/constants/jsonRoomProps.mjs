@@ -6,7 +6,7 @@ const jsonRoomProps = [
 "hoverName",
 "skipCond",
 //"isInteractive",
-"isPixelperfect",
+"noInput",
 "animationName"
 ]
 

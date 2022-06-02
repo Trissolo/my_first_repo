@@ -1,0 +1,102 @@
+{
+  "atlas": 0,
+  "background": "room0bg",
+  "id": 0,
+  "name": "room0_bisonte",
+  "things": [
+  {
+    "depth": "tz",
+    "name": "stopDoor",
+    "rect": "217_42_22_3",
+    "noInput": true
+  },
+  {
+    "depth": "tz",
+    "name": "exitNord",
+    "rect": "220_33_16_7",
+    "hoverName": 14
+  },
+  {
+    "depth": "tz",
+    "name": "exitWest",
+    "rect": "0_65_3_63",
+    "hoverName": 13
+  },
+  {
+    "coords": "118_26",
+    "depth": "ab",
+    "frame": "wrench",
+    "skipCond": "b_1_1",
+    "hoverName": 11
+  },
+  {
+    "coords": "84_41",
+    "depth": "ab",
+    "frameSuffix": 2,
+    "frameStem": "crateLid",
+    "hoverName": 2
+  },
+  {
+    "coords": "84_45",
+    "depth": "co",
+    "frame": "crate",
+    "hoverName": 3
+  },
+  {
+    "coords": "96_62",
+    "depth": "ab",
+    "frame": "crepa",
+    "hoverName": 4
+  },
+  {
+    "coords": "168_45",
+    "depth": "ab",
+    "frameSuffix": 5,
+    "frameStem": "button",
+    "hoverName": 0
+  },
+  {
+    "coords": "110_28",
+    "depth": "co",
+    "frame": "mensole",
+    "hoverName": 5
+  },
+  {
+    "coords": "37_64",
+    "depth": "ab",
+    "frame": "striscia",
+    "hoverName": 7
+  },
+  {
+    "coords": "219_15",
+    "depth": "ab",
+    "frameSuffix": 0,
+    "frameStem": "porta",
+    "hoverName": 6
+  },
+  {
+    "coords": "167_120",
+    "depth": "ds",
+    "frame": "coso_dietro",
+    "hoverName": 1
+  },
+  {
+    "coords": "59_92",
+    "depth": "fg",
+    "frame": "vasca",
+    "hoverName": 10
+  },
+  {
+    "coords": "219_72",
+    "depth": "fg",
+    "frame": "tubo",
+    "hoverName": 9
+  },
+  {
+    "coords": "217_0",
+    "depth": "fg",
+    "frame": "topDoor",
+    "noInput": true
+  }]
+  }
+

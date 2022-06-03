@@ -69,7 +69,7 @@ class TriggerAreaManager
     //forced by code! :(
     child.effectuators.push(this.scene.player)
 
-
+    
 
     //maybe "name" is wrong, and some other property needs to be checked instead.
     if (params.name && params.name.startsWith('exit'))
@@ -98,10 +98,8 @@ class TriggerAreaManager
     // const {children} = this
     if (this.children.length)
     {
-      for (const child of this.children)  // (let i = 0, child; i < children.length; i++)
+      for (const child of this.children)
       {
-        // child = children[i]
-        
 
         child.checkRect = false
 
@@ -123,9 +121,20 @@ class TriggerAreaManager
 
         child.zone.setName("")
 
+
+        // remove listeners:
+
+        // area:
         child.zone.off('entertriggerarea')
 
         child.zone.off('leavetriggerarea')
+
+        // pointer:
+        child.zone.off('pointerdown')
+
+        child.zone.off('pointerover')
+
+        child.zone.off('pointerout')
 
 
         // lastly...

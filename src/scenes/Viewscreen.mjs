@@ -229,14 +229,17 @@ class Viewscreen extends Phaser.Scene
 
           tz.zone.setName(thing.name)
 
+
+          tz.checkRect = true
+
           // MONSTROUSLY HARDCODED: A REFACTOR OF THE SCHEMA IS ABSOLUTELY NECESSARY!
-          console.log("NAMEEEEE", thing.name)
           tz.zone.on('entertriggerarea', this.rs[thing.name], this)
+
           if (this.rs[thing.name +"leave"])
           {
             tz.zone.on('leavetriggerarea', this.rs[thing.name] + "leave", this)
           }
-          //console.log("TZ", thing)
+
         }
         else
         {
@@ -273,6 +276,22 @@ class Viewscreen extends Phaser.Scene
 
           //Handle input:
 
+          if (thing.noInput)
+          {
+            //forced cause the Triggerare Class still needs refactoring
+            if (roomThing.input)
+            {
+              roomThing.disableInteractive()
+            }
+
+            else
+            {
+             roomThing.zone.disableInteractive()
+            }
+
+            continue
+          }
+
           //set hover name and enable mouse hovering:
 
           roomThing.hoverName = thing.hoverName
@@ -288,7 +307,7 @@ class Viewscreen extends Phaser.Scene
 
           // input mega test
 
-          roomThing.on('pointerdown', this.rs[roomThing.name])//, this)
+          roomThing.on('pointerdown', this.rs[roomThing.name])
 
         }
 
@@ -307,8 +326,8 @@ class Viewscreen extends Phaser.Scene
         thing.disableInteractive()
           .setActive(false)
           .setVisible(false)
-          .off('pointerover', thing.scene.thingOvered)
-          .off('pointerout', thing.scene.thingOut)
+          .off('pointerover')//, thing.scene.thingOvered)
+          .off('pointerout')//, thing.scene.thingOut)
           .off('pointerdown')
       })
     } //end disableGroupChildren

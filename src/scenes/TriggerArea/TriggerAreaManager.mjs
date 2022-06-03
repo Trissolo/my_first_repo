@@ -113,7 +113,7 @@ class TriggerAreaManager
         // now the zone...
         child.zone.setVisible(false)
         
-        child.checkZone = false
+        //child.checkZone = false
 
         child.zone.disableInteractive()
 
@@ -138,7 +138,7 @@ class TriggerAreaManager
 
 
         // lastly...
-        child.removeAllListeners();
+        //child.removeAllListeners();
 
         child.available = true
       }
@@ -160,8 +160,8 @@ class TriggerAreaManager
     for ( const triggerArea of this.children)
     {
       //console.log(triggerArea)
-      // if (triggerArea.checkRect)
-      // {
+       if (triggerArea.checkRect)
+      {
         for (const actor of triggerArea.effectuators)
         {
           if (!triggerArea._areaIsOccupied && triggerArea.area.contains(actor.x, actor.y))// (actor))
@@ -179,7 +179,7 @@ class TriggerAreaManager
             triggerArea.zone.emit('leavetriggerarea', triggerArea, actor)
           }
         }
-      // }
+      }
     }
   }
 

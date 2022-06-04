@@ -34,7 +34,7 @@ class TriggerArea extends Phaser.Events.EventEmitter
       this.zone = this.manager.addZone(this.area)
       
       // Check for pointer input?
-      this.checkZone = false
+      //this.checkZone = false
 
     }
 } // end Class 

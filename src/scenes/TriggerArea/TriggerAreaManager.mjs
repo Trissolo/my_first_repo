@@ -183,6 +183,33 @@ class TriggerAreaManager
     }
   }
 
+  initializeRects()
+  {
+    for ( const triggerArea of this.children)
+    {
+      //console.log(triggerArea)
+       if (triggerArea.checkRect)
+      {
+        for (const actor of triggerArea.effectuators)
+        {
+
+          // if (    triggerArea._areaIsOccupied = triggerArea.area.contains(actor.x, actor.y)    ) 
+          // {
+          //   continue
+          // }
+
+          if (triggerArea.area.contains(actor.x, actor.y))
+          {
+            triggerArea._areaIsOccupied = true
+            break
+          }
+
+
+        }
+      }
+    }
+  }
+
 } // end class
 
 export default TriggerAreaManager

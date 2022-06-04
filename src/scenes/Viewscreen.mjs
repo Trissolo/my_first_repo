@@ -245,23 +245,22 @@ class Viewscreen extends Phaser.Scene
         {
 
           // prepare coords:
-          const [x, y] = thing.coords.split("_")
+          const [x, y] = thing.coords.split("_")         
           
-          //Get (or create) one group child
-
           // the constant 'name' is used to determine the name of the frame, and also the interaction function.
           const name = thing.frame || thing.frameStem
-
+          
+          // Get (or create) one group child
           const roomThing = this.ppGroup.get(+x, +y)
             .setTexture("atlas" + atlas, thing.frame || thing.frameStem + this.boolsManager.bitStatus(+thing.frameSuffix))
             .setActive(true)
             .setVisible(true)
 
-          //keep track of all interactive objects
+          // keep track of all interactive objects
           .setName(name)
           this.interactiveThings.set(name, roomThing)
 
-          //deepthSorted is different!
+          // deepthSorted is different!
           if (thing.depth === "ds")
           {
             roomThing.setOrigin(0.5, 1)
@@ -278,7 +277,7 @@ class Viewscreen extends Phaser.Scene
 
           if (thing.noInput)
           {
-            //forced cause the Triggerare Class still needs refactoring
+            //  this oddity/quirk is mandatory until the Triggerarea Class is refactorized
             if (roomThing.input)
             {
               roomThing.disableInteractive()
@@ -292,8 +291,7 @@ class Viewscreen extends Phaser.Scene
             continue
           }
 
-          //set hover name and enable mouse hovering:
-
+          // set hover name and enable mouse hovering:
           roomThing.hoverName = thing.hoverName
  
           if (!roomThing.listenerCount('pointerover'))
@@ -346,7 +344,7 @@ class Viewscreen extends Phaser.Scene
     moveToClick(pointer, relX, relY)
     {
       console.log(pointer, relX, relY)
-      //const {activePointer} = this.input
+
       this.player.walk.setPath({x: pointer.worldX, y: pointer.worldY})
     }
 
@@ -354,20 +352,15 @@ class Viewscreen extends Phaser.Scene
     {
       this.text.setText("- - -")
 
+      //  set starting condition for all rects
+      this.triggerAreas.initializeRects()
+
       this.triggerAreas.startRectChecking()
 
       this.input.enabled = true
 
-      console.log('Scene input is enabled?', this.input.enabled)
-
       // to be implemented:
       // this.shield.hide()
-
-
-      // almost useless:
-      // this.input.setPollRate(100)
-      //testing disabling and reenabling input
-      //this.input.setPollRate(-1)
     }
 
     sortSprites()

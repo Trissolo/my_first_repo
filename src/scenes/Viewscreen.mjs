@@ -131,9 +131,6 @@ class Viewscreen extends Phaser.Scene
       this.events.on('prerender', this.sortSprites, this)
 
 
-      //this.produceActualRoom()
-
-
       // TEST! TEST! TEST! TEST!
 
       //press Q key for test
@@ -153,13 +150,26 @@ class Viewscreen extends Phaser.Scene
       return this.cache.json.get(`room${this.actualRoomID}data`)
     }
 
+    // get actualRoomID()
+    // {
+    //   return this.igPlug.pendingRoom.id
+    // }
+
+    // set actualRoomID(nnn)
+    // {
+    //   return this.igPlug.pendingRoom.id = nnn
+    // }
+
+
     setActualRoom(roomId = 0)
     {
       // test:
+      // this.igPlug.setPendingRoomId(roomId) //actualRoomID=1//++
+
       this.actualRoomID++
       
       if (this.actualRoomID > 1) { this.actualRoomID = 0 }
-
+      
       // end test
 
       // real code:

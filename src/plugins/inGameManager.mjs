@@ -22,6 +22,8 @@ class inGameManager extends Phaser.Plugins.BasePlugin
 
         this.currentRoom = 0
 
+        this.resetPending()
+
     }
 
     init ()
@@ -52,9 +54,51 @@ class inGameManager extends Phaser.Plugins.BasePlugin
         }
     }
 
-    getRandom()
+    resetPending()
     {
-        return this.random
+        this.pendingRoom.id = 0
+
+        this.pendingRoom.playerX = false
+
+        this.pendingRoom.playerY = false
+
+        this.pendingRoom.frameName = false
+
+        this.pendingRoom.actor = "robot"
+
+        this.pendingRoom.facingDir = "E"
+
+        // From frame.name:
+
+        // actorName_
+        // cardinalDirection_
+        // action_
+        // frameNumber
+    }
+
+    setPendingRoomId(roomId)
+    {
+        this.pendingRoom.id = roomId
+    }
+
+    setPendingRoomPlayerX(newPlayerX)
+    {
+        this.pendingRoom.playerX = newPlayerX
+    }
+
+    setPendingRoomPlayerY(newPlayerY)
+    {
+        this.pendingRoom.playerY = newPlayerY
+    }
+
+    setPendingRoomActor(actor = robot)
+    {
+        this.pendingRoom.actor = actor
+    }
+
+    setPendingRoomFacingDir(cardinal)
+    {
+        this.pendingRoom.facingDir = cardinal
     }
 
 } //End myGlobalPlugin

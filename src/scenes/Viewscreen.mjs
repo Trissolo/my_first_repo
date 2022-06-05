@@ -249,9 +249,9 @@ class Viewscreen extends Phaser.Scene
           // MONSTROUSLY HARDCODED: A REFACTOR OF THE SCHEMA IS ABSOLUTELY NECESSARY!
           tz.zone.on('entertriggerarea', this.rs[thing.name], this)
 
-          if (this.rs[thing.name +"leave"])
+          if (this.rs[thing.name + "leave"])
           {
-            tz.zone.on('leavetriggerarea', this.rs[thing.name] + "leave", this)
+            tz.zone.on('leavetriggerarea', this.rs[thing.name + "leave"], this)
           }
 
         }
@@ -435,8 +435,10 @@ class Viewscreen extends Phaser.Scene
         this.igPlug.setPendingRoomFacingDir(facing)
       }
 
-      console.dir("quickChangeRoom", this.igPlug.pendingRoom)
-    }
+      // must call drawRoom here? i.e.
+      // this.drawRoom()
+
+    } // end quickChangeRoom
 
 }//end class
 

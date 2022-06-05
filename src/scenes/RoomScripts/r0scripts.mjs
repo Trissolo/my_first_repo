@@ -31,14 +31,16 @@ export default class RS0 {
       console.log("Stop Door")
     }
 
-    exitNord(a, b)
+    exitNord(triggerArea, actor)
     {
-      console.log("exitNord", a, b)
+      console.log("exitNord", triggerArea, actor)
     }
 
-    exitWest(a, b)
+    exitWest(triggerArea, actor)
     {
-      console.log("exitWest", a, b)
+      //console.log("exitWest", triggerArea, actor)
+      actor.scene.quickChangeRoom(1, 133, false, "W")
+      actor.scene.drawRoom()
     }
 
     setupTaRects()

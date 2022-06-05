@@ -52,7 +52,7 @@ class Viewscreen extends Phaser.Scene
       // actual room ID: hmmm...
       // Do we really need the actualId property?
       // and HERE is the right place?
-      this.actualRoomID = 1
+      // this.actualRoomID = 1
 
       //input: cursor
       this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
@@ -74,6 +74,7 @@ class Viewscreen extends Phaser.Scene
       this.boolsManager.set(2)
       this.boolsManager.clear(3)
       this.boolsManager.clear(4)
+
     }
 
     create()
@@ -134,9 +135,12 @@ class Viewscreen extends Phaser.Scene
       // TEST! TEST! TEST! TEST!
 
       //press Q key for test
-      this.input.keyboard.on('keydown-Q', this.drawRoom, this)
 
-      this.input.keyboard.on('keydown-O', () => {this.triggerAreas.stopRectChecking();this.interactiveThings.forEach(el => console.log(el)); this.triggerAreas.children.forEach(el => console.log(el)) })
+      // test starting room
+      this.quickChangeRoom(0, 140, 65, "SW")
+      this.drawRoom()
+
+      // this.input.keyboard.on('keydown-O', () => {this.triggerAreas.stopRectChecking();this.interactiveThings.forEach(el => console.log(el)); this.triggerAreas.children.forEach(el => console.log(el)) })
       /////////////////////////////
       
 
@@ -150,10 +154,10 @@ class Viewscreen extends Phaser.Scene
       return this.cache.json.get(`room${this.actualRoomID}data`)
     }
 
-    // get actualRoomID()
-    // {
-    //   return this.igPlug.pendingRoom.id
-    // }
+    get actualRoomID()
+    {
+      return this.igPlug.pendingRoom.id
+    }
 
     // set actualRoomID(nnn)
     // {
@@ -166,9 +170,9 @@ class Viewscreen extends Phaser.Scene
       // test:
       // this.igPlug.setPendingRoomId(roomId) //actualRoomID=1//++
 
-      this.actualRoomID++
+      // this.actualRoomID++
       
-      if (this.actualRoomID > 1) { this.actualRoomID = 0 }
+      // if (this.actualRoomID > 1) { this.actualRoomID = 0 }
       
       // end test
 
@@ -353,7 +357,7 @@ class Viewscreen extends Phaser.Scene
 
     moveToClick(pointer, relX, relY)
     {
-      console.log(pointer, relX, relY)
+      // console.log(pointer, relX, relY)
 
       this.player.walk.setPath({x: pointer.worldX, y: pointer.worldY})
     }
@@ -408,6 +412,30 @@ class Viewscreen extends Phaser.Scene
       this.dsAry.push(this.player)
       this.player.place()
         .show()
+    }
+
+    quickChangeRoom(roomNum = 0, playerX, playerY, facing)
+    {
+      this.igPlug.resetPending()
+
+      this.igPlug.setPendingRoomId(roomNum)
+
+      if (typeof playerX === "number" )
+      {
+        this.igPlug.setPendingRoomPlayerX(playerX) // 133
+      }
+
+      if (typeof playerY === "number")
+      {
+        this.igPlug.setPendingRoomPlayerY(playerY)
+      }
+
+      if (typeof facing === "string")
+      {
+        this.igPlug.setPendingRoomFacingDir(facing)
+      }
+
+      console.dir("quickChangeRoom", this.igPlug.pendingRoom)
     }
 
 }//end class

@@ -74,7 +74,7 @@ class TriggerAreaManager
     //maybe "name" is wrong, and some other property needs to be checked instead.
     if (params.name && params.name.startsWith('exit'))
     {
-      console.log(child)
+      // console.log(child)
       child.zone.hoverName = params.hoverName
       child.zone.setVisible(true)
       child.zone.setActive(true)
@@ -167,7 +167,7 @@ class TriggerAreaManager
           if (!triggerArea._areaIsOccupied && triggerArea.area.contains(actor.x, actor.y))// (actor))
           {
             triggerArea._areaIsOccupied = true
-            console.log("%cEntered on", "color:yellow;font-size: 1.8em;", triggerArea.zone.name)
+            // console.log("%cEntered on", "color:yellow;font-size: 1.8em;", triggerArea.zone.name)
             triggerArea.zone.emit('entertriggerarea', triggerArea, actor)
 
           }
@@ -175,7 +175,7 @@ class TriggerAreaManager
           else if ( triggerArea._areaIsOccupied && !triggerArea.area.contains(actor.x, actor.y))
           {
             triggerArea._areaIsOccupied = false
-            console.log("%cJust left", "color:orange;font-size: 1.8em;", triggerArea.zone.name)
+            // console.log("%cJust left", "color:orange;font-size: 1.8em;", triggerArea.zone.name)
             triggerArea.zone.emit('leavetriggerarea', triggerArea, actor)
           }
         }

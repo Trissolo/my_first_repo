@@ -10,14 +10,16 @@ class RS1 {
         console.log("Called testFunc1")
     }
 
-    exitEst(a, b)
+    exitEst(triggerArea, actor)
     {
-        console.log("Called exitEst", a, b)
+        actor.scene.quickChangeRoom(0, 15, false, "E")
+        actor.scene.drawRoom()
+        // console.log("Called exitEst", triggerArea, actor)
     }
-
-    exitWest(a, b)
+    
+    exitWest(triggerAra, actor)
     {
-        console.log("Called exitWest", a, b)
+        // console.log("Called exitWest", triggerArea, actor)
     }
 
     ITcardA()

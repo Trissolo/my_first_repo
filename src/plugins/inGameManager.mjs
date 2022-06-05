@@ -58,6 +58,8 @@ class inGameManager extends Phaser.Plugins.BasePlugin
     {
         this.pendingRoom.id = 0
 
+        this.pendingRoom.playerVisible = true
+
         this.pendingRoom.playerX = false
 
         this.pendingRoom.playerY = false

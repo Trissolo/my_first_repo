@@ -7,15 +7,19 @@ export default class Player extends Phaser.GameObjects.Sprite
 {
   constructor(scene, name = "robot")
   {
-    super(scene, 0, 0, "__DEFAULT")
+    super(scene, 0, 0, 'atlas0', "__DEFAULT")
 
     this.addToDisplayList()
-    this.hide()
+    
 
     this.setName(name)
 
     this.walk = new WalkComponent(this)
+
+    this.hide()
+
     this.on(WalkEvents.WALK_START, function() { this.walk.aTargetExists = true }, this)
+
     this.on(WalkEvents.WALK_SUBSTART, function() { this.walk.aTargetExists = true }, this)
 
   }
@@ -24,6 +28,9 @@ export default class Player extends Phaser.GameObjects.Sprite
   {
     this.setActive(false)
       .setVisible(false)
+
+    // console.log("PL WALK", this.walk)
+    this.walk.setIdle()
     
     return this
   }
@@ -39,20 +46,57 @@ export default class Player extends Phaser.GameObjects.Sprite
   show()
   {
     this.setActive(true)
-    .setVisible(true)
-    .setTexture('atlas0', "robot_E_walk_0")
-    .setOrigin(0.5, 1)
+    .setVisible(true);
 
-    return this
+
+    if (this.scene.igPlug.pendingRoom.facingDir)
+    {
+      const assembledFrameName = "robot_" + this.scene.igPlug.pendingRoom.facingDir + "_walk_0"
+
+      this.setFrame(assembledFrameName)
+    }
+
+    else
+    {
+      this.setTexture('atlas0', "robot_E_walk_0")
+    }
+
+    return this.setOrigin(0.5, 1)
+
   }
 
   place(x, y)
   {
-    const {Between} = Phaser.Math
+    const {playerX, playerY, facingDir} = this.scene.igPlug.pendingRoom
 
-    this.setPosition(Between(20, 256), Between(20, 100))
+    if ( playerX === 0 || playerX)
+    {
+      this.x = playerX
+    }
 
-    //this.scene.dsAry.push(this)
+    if (playerY === 0 || playerY )
+    {
+      this.y = playerY
+    }
+
+    // if (facingDir)
+    // {
+    //   const assembledFrameName = "robot_" + facingDir + "_walk_0"
+
+    //   console.log("FacingDir:", assembledFrameName)
+      
+    //   this.setFrame(assembledFrameName)
+
+    //   .setOrigin(0.5, 1);
+
+    //   console.log(this.frame.name)
+
+    // }
+    // const {Between} = Phaser.Math
+
+    // this.setPosition(Between(20, 256), Between(20, 100))
+
+    // //this.scene.dsAry.push(this)
     return this
   }
 

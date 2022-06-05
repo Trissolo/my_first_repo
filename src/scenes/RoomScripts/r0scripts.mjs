@@ -28,8 +28,25 @@ export default class RS0 {
     // trigger Area behavor
     stopDoor(triggerArea, actor)
     {
-      console.log("Stop Door")
+      // console.log("Stop Door", actor.scene.boolsManager.bitStatus(0), typeof actor.scene.boolsManager.bitStatus(0))
+      if (!actor.scene.boolsManager.bitStatus(0)) // === 0)
+      {
+        actor.scene.player.walk.setIdle()
+
+        // hardcoded "separate down"
+        actor.scene.player.y = triggerArea.area.y + triggerArea.area.height + 1
+      }
+
     }
+
+    // stopDoorleave(triggerArea, actor)
+    // {
+    //   // console.log("Stop Door LEAVE", triggerArea, actor)
+    //   // actor.scene.player.walk.setIdle()
+
+    //   // actor.scene.player.y = triggerArea.area.y + triggerArea.area.width + 1
+
+    // }
 
     exitNord(triggerArea, actor)
     {

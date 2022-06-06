@@ -8,10 +8,6 @@ import RoomBackground from '../prefabs/roomBackground.mjs';
 
 import Player from '../prefabs/Player.mjs';
 
-//mega test
-
-//moved on igPlug
-//import RoomScript from './RoomScripts/RoomScripts.mjs';
 
 class Viewscreen extends Phaser.Scene
 {
@@ -46,14 +42,6 @@ class Viewscreen extends Phaser.Scene
       //inject igPlug stuff in this scene
       this.plugins.get('inGameManager').installOn(this)
 
-      //room to draw
-      //console.log(this.cache.json.get("room0data"))
-
-      // actual room ID: hmmm...
-      // Do we really need the actualId property?
-      // and HERE is the right place?
-      // this.actualRoomID = 1
-
       //input: cursor
       this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
 
@@ -83,26 +71,14 @@ class Viewscreen extends Phaser.Scene
 	
       //actionManager
 
-      //ClickDetector! --MUST stopPropagation!--
-      // this.clickDetector = new ClickDetector(this)
-
-      //groups as layers
-      // this. this.add
-
-      //set of ALL interactive objects in this scene
-      // this.allInteractive = new Set()
 
       //Shield!
       // this.shield
 
-      // this.coGroup = this.add.layer()
-      // this.abGroup = this.add.layer()
-      // this.dsGroup = this.add.layer()
-      // this.fgGroup = this.add.layer()
-      /////////////////////////////
+
      
 
-      //the bg
+      //the bg. Also click detector
       this.background = new RoomBackground(this)
       
       //room things
@@ -119,14 +95,21 @@ class Viewscreen extends Phaser.Scene
       this.dsAry =[]
 
       //the player
-      this.player = new Player(this) //this.add.sprite(0, 0, "atlas0", "robot_E_walk_0").setOrigin(0.5, 1)
+      this.player = new Player(this)
+
       //this.dsAry.push(this.player)
+
+      
+
+      // most likely, we also need some blank, generic, all-encompassing movable sprites; and also a timerEvent
+
+
 
       //temp text
       this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
 
-      //update rs
-      this.rs = this.igPlug.roomScripts.grab(this.actualRoomID)
+      //current  room script
+      this.rs = null //this.igPlug.roomScripts.grab(this.actualRoomID)
 
       //for deepthsort
       this.events.on('prerender', this.sortSprites, this)
@@ -140,13 +123,17 @@ class Viewscreen extends Phaser.Scene
       this.quickChangeRoom(0, 140, 65, "SW")
       this.drawRoom()
 
+
+      /////////////////////////////
       // this.input.keyboard.on('keydown-O', () => {this.triggerAreas.stopRectChecking();this.interactiveThings.forEach(el => console.log(el)); this.triggerAreas.children.forEach(el => console.log(el)) })
+      //
+      //this.input.on('pointermove', function(pointer) {this.player.x = pointer.worldX; this.player.y = pointer.worldY}, this)
       /////////////////////////////
       
 
-      //this.input.on('pointermove', function(pointer) {this.player.x = pointer.worldX; this.player.y = pointer.worldY}, this)
 
     }// end create
+
 
     // getter to take the right room configuration
     get roomData()
@@ -159,12 +146,7 @@ class Viewscreen extends Phaser.Scene
       return this.igPlug.pendingRoom.id
     }
 
-    // set actualRoomID(nnn)
-    // {
-    //   return this.igPlug.pendingRoom.id = nnn
-    // }
-
-
+    // hmmm: by this time this setActualRoom method is weird:
     setActualRoom(roomId = 0)
     {
       // test:
@@ -192,6 +174,7 @@ class Viewscreen extends Phaser.Scene
 
       // testing disabling and reenabling input
       this.input.enabled = false
+
       // Now Recylce!
       // reset entities: background (1/6)...
       this.background.hide()

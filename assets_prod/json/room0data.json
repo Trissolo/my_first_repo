@@ -19,7 +19,7 @@
   {
     "depth": "tz",
     "name": "exitWest",
-    "rect": "0_65_3_63",
+    "rect": "0_65_13_63",
     "hoverName": 13
   },
   {
@@ -90,6 +90,7 @@
     "coords": "219_72",
     "depth": "fg",
     "frame": "tubo",
+    "noInput": true,
     "hoverName": 9
   },
   {

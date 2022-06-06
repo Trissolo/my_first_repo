@@ -1,12 +1,14 @@
 import Phaser from 'phaser';
 
-import depthCategories from '../constants/depthCategories.mjs'
-import hoverNames from '../constants/hoverNames.mjs'
+import depthCategories from '../constants/depthCategories.mjs';
+import hoverNames from '../constants/hoverNames.mjs';
 
 import TriggerAreaManager from './TriggerArea/TriggerAreaManager.mjs';
 import RoomBackground from '../prefabs/roomBackground.mjs';
 
 import Player from '../prefabs/Player.mjs';
+
+import Shield from '../prefabs/Shield.mjs';
 
 
 class Viewscreen extends Phaser.Scene
@@ -73,7 +75,7 @@ class Viewscreen extends Phaser.Scene
 
 
       //Shield!
-      // this.shield
+       this.shield = new Shield(this)
 
 
      
@@ -356,6 +358,8 @@ class Viewscreen extends Phaser.Scene
 
       this.input.enabled = true
 
+      this.shield.lower()
+
       // to be implemented:
       // this.shield.hide()
     }
@@ -373,6 +377,8 @@ class Viewscreen extends Phaser.Scene
 
     drawRoom(roomId)
     {
+      this.shield.raise()
+
       this.clearRoom()
 
       this.setActualRoom(roomId)

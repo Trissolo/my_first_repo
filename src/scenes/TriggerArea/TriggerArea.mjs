@@ -6,11 +6,11 @@ import Phaser from 'phaser';
 
 
 
-class TriggerArea extends Phaser.Events.EventEmitter
+class TriggerArea extends Phaser.GameObjects.Zone // Phaser.Events.EventEmitter
 {
     constructor(manager)//, coordsAsString, actor)
     {
-      super()
+      super(manager.scene)
       
       this.manager = manager
 
@@ -29,10 +29,14 @@ class TriggerArea extends Phaser.Events.EventEmitter
       // Check for actors in rectangle area?
       this.checkRect = false
 
-
-      // An input enabled, but inactive, GameObject.Zone
-      this.zone = this.manager.addZone(this.area)
-      
+      this
+        .setVisible(false)
+        .setOrigin(0)
+        .setDepth(1)
+        .setInteractive({hitArea: this.area, hitAreaCallback: Phaser.Geom.Rectangle.Contains, cursor:'url(assets_prod/cursors/exit.cur), pointer' } )
+        .addToDisplayList();
+      // hoverNames array index
+      this.hoverName = null
       // Check for pointer input?
       //this.checkZone = false
 

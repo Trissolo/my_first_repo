@@ -222,21 +222,20 @@ class Viewscreen extends Phaser.Scene
         }
 
         // do we have a Trigger Zones?
-        if (thing.depth == "tz")
+        if (thing.depth === "tz")
         {
           const tz = this.triggerAreas.get(thing)
 
-          tz.zone.setName(thing.name)
-
+          tz.setName(thing.name)
 
           tz.checkRect = true
 
           // MONSTROUSLY HARDCODED: A REFACTOR OF THE SCHEMA IS ABSOLUTELY NECESSARY!
-          tz.zone.on('entertriggerarea', this.rs[thing.name], this)
+          tz.on('entertriggerarea', this.rs[thing.name], this)
 
           if (this.rs[thing.name + "leave"])
           {
-            tz.zone.on('leavetriggerarea', this.rs[thing.name + "leave"], this)
+            tz.on('leavetriggerarea', this.rs[thing.name + "leave"], this)
           }
 
         }
@@ -277,15 +276,10 @@ class Viewscreen extends Phaser.Scene
           if (thing.noInput)
           {
             //  this oddity/quirk is mandatory until the Triggerarea Class is refactorized
-            if (roomThing.input)
-            {
+            // if (roomThing.input)
+            // {
               roomThing.disableInteractive()
-            }
-
-            else
-            {
-             roomThing.zone.disableInteractive()
-            }
+            // }
 
             continue
           }
@@ -293,11 +287,11 @@ class Viewscreen extends Phaser.Scene
           // set hover name and enable mouse hovering:
           roomThing.hoverName = thing.hoverName
  
-          if (!roomThing.listenerCount('pointerover'))
-          {
+          // if (!roomThing.listenerCount('pointerover'))
+          // {
             roomThing.on('pointerover', this.thingOvered)
             roomThing.on('pointerout', this.thingOut, this)
-          }
+          // }
 
           //enable interactive!
           roomThing.setInteractive()
@@ -332,6 +326,7 @@ class Viewscreen extends Phaser.Scene
 
     thingOvered(a)
     {
+      console.log("OVER", this, this.name)
       this.scene.text.setText(hoverNames[this.hoverName])
     }
 

@@ -21,17 +21,7 @@ class TriggerAreaManager
 
   } // end constructor
 
-  addZone(triggerAreaRect)
-  {
-    const zone = this.scene.add.zone(0, 0, 0, 0)
-      //.setActive(false)
-      .setVisible(false)
-      .setOrigin(0)
-      .setDepth(1)//9e9)
-      .setInteractive({hitArea: triggerAreaRect, hitAreaCallback: Phaser.Geom.Rectangle.Contains, cursor:'url(assets_prod/cursors/exit.cur), pointer' } )
 
-    return zone
-  }
 
   get(params)
   {
@@ -75,17 +65,17 @@ class TriggerAreaManager
     if (params.name && params.name.startsWith('exit'))
     {
       // console.log(child)
-      child.zone.hoverName = params.hoverName
-      child.zone.setVisible(true)
-      child.zone.setActive(true)
-      child.zone.setInteractive()
+      child.hoverName = params.hoverName
+      child.setVisible(true)
+      child.setActive(true)
+      child.setInteractive()
 
-      if(!child.zone.listenerCount('pointerover'))
+      if(!child.listenerCount('pointerover'))
       {
-        child.zone.on('pointerdown', this.scene.moveToClick, this.scene)
-        child.zone.on('pointerover', this.scene.thingOvered)
-        child.zone.on('pointerout', this.scene.thingOut, this.scene)
-        child.zone.setName(params.name)
+        child.on('pointerdown', this.scene.moveToClick, this.scene)
+        child.on('pointerover', this.scene.thingOvered)
+        child.on('pointerout', this.scene.thingOut, this.scene)
+        child.setName(params.name)
       }
     }
 
@@ -111,30 +101,30 @@ class TriggerAreaManager
 
 
         // now the zone...
-        child.zone.setVisible(false)
+        child.setVisible(false)
         
         //child.checkZone = false
 
-        child.zone.disableInteractive()
+        child.disableInteractive()
 
-        child.zone.hoverName = null
+        child.hoverName = null
 
-        child.zone.setName("")
+        child.setName("")
 
 
         // remove listeners:
 
         // area:
-        child.zone.off('entertriggerarea')
+        child.off('entertriggerarea')
 
-        child.zone.off('leavetriggerarea')
+        child.off('leavetriggerarea')
 
         // pointer:
-        child.zone.off('pointerdown')
+        child.off('pointerdown')
 
-        child.zone.off('pointerover')
+        child.off('pointerover')
 
-        child.zone.off('pointerout')
+        child.off('pointerout')
 
 
         // lastly...
@@ -167,16 +157,16 @@ class TriggerAreaManager
           if (!triggerArea._areaIsOccupied && triggerArea.area.contains(actor.x, actor.y))// (actor))
           {
             triggerArea._areaIsOccupied = true
-            // console.log("%cEntered on", "color:yellow;font-size: 1.8em;", triggerArea.zone.name)
-            triggerArea.zone.emit('entertriggerarea', triggerArea, actor)
+            // console.log("%cEntered on", "color:yellow;font-size: 1.8em;", triggerArea.name)
+            triggerArea.emit('entertriggerarea', triggerArea, actor)
 
           }
 
           else if ( triggerArea._areaIsOccupied && !triggerArea.area.contains(actor.x, actor.y))
           {
             triggerArea._areaIsOccupied = false
-            // console.log("%cJust left", "color:orange;font-size: 1.8em;", triggerArea.zone.name)
-            triggerArea.zone.emit('leavetriggerarea', triggerArea, actor)
+            // console.log("%cJust left", "color:orange;font-size: 1.8em;", triggerArea.name)
+            triggerArea.emit('leavetriggerarea', triggerArea, actor)
           }
         }
       }

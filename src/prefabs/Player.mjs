@@ -5,9 +5,9 @@ import WalkEvents from './walkComponent/walkEvents.mjs'
 
 export default class Player extends Phaser.GameObjects.Sprite
 {
-  constructor(scene, name = "robot")
+  constructor(scene, name = "robot", textureId = 0)
   {
-    super(scene, 0, 0, 'atlas0', "__DEFAULT")
+    super(scene, 0, 0, 'atlas' + textureId, "__DEFAULT")
 
     this.addToDisplayList()
     

@@ -326,7 +326,7 @@ class Viewscreen extends Phaser.Scene
 
     thingOvered(a)
     {
-      console.log("OVER", this, this.name)
+      // console.log("OVER", this, this.name)
       this.scene.text.setText(hoverNames[this.hoverName])
     }
 

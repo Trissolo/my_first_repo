@@ -1,9 +1,10 @@
 const WalkEvents = {
-    WALK_START: "start",
-    WALK_READY: "ready",
-    WALK_SUBSTART: "subsequentstart",
-    WALK_STAY_IDLE: "idle",
-    WALK_COMPLETE: "complete"
+    WALK_BEFORE_START: "walkbeforestart",
+    WALK_START: "walkstart",
+    WALK_READY: "walkready",
+    WALK_SUBSTART: "walksubsequentstart",
+    WALK_STAY_IDLE: "walkidle",
+    WALK_COMPLETE: "walkcomplete"
   }
 
  export default WalkEvents

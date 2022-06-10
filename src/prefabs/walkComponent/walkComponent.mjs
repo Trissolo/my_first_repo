@@ -8,9 +8,13 @@ export default class WalkComponent
     {
 
         this.parent = parent
+
+        //basically isPaused
         this.aTargetExists = false
+
         this.destinations = []
         this.highestIndex = 0
+        
         // this.totalStages = 0
 
         this.startCoords = new Phaser.Math.Vector2()
@@ -18,7 +22,9 @@ export default class WalkComponent
         this.velocity = new Phaser.Math.Vector2()
 
         this.maxDistAllowed = 0
-        this.speed = speed * 0.001
+
+        // this.defaultSpeed = this.calcSpeed(speed)
+        this.speed = this.calcSpeed(speed) // speed * 0.001
     } // end constructor
 
     // Idle status: no movement/destination/velocity setted. The sprite stay still/stops
@@ -26,8 +32,12 @@ export default class WalkComponent
     {
         this.aTargetExists = false
         this.destinations.length = 0
+
+        // reset speed (not velocity) to default
+        // this.speed = null
+
         // dubbio su questo:
-        this.velocity.reset()
+        //this.velocity.reset()
     }
 
     /*
@@ -40,9 +50,9 @@ export default class WalkComponent
         this.setIdle()
 
         // add destination(s) to destinations array
-        if(Array.isArray(dest))
+        if (Array.isArray(dest))
         {
-            if(!dest.length)
+            if (!dest.length)
             {
                 return false
             }
@@ -58,7 +68,7 @@ export default class WalkComponent
         // DO we need the following 'if'?
         this.highestIndex = this.destinations.length - 1
 
-        if(this.destinations.length)
+        if (this.destinations.length)
         {
             // there are targets, so let's 'grab one
             this.grabTarget()
@@ -71,7 +81,7 @@ export default class WalkComponent
     {
         const dest = this.destinations.pop()
 
-        if(dest)
+        if (dest)
         {
             // ok! Setup target!
             this.startCoords.setFromObject(this.parent)
@@ -87,7 +97,7 @@ export default class WalkComponent
             this.velocity.copy(this.endCoords).subtract(this.startCoords).normalize()
 
             // time for events events:
-            if(this.destinations.length === this.highestIndex)
+            if (this.destinations.length === this.highestIndex)
             {
                 // console.log("Walk event:", walkEvents.WALK_START)
                 this.parent.emit(walkEvents.WALK_START, this.parent, this.startCoords, this.endCoords)
@@ -119,24 +129,25 @@ export default class WalkComponent
 
     update(time, delta)
     {
-        if(this.aTargetExists)
+        if (this.aTargetExists)
         {
-            const vel = this.speed * delta // /1000 <= no more needed: this is done by the constructor
+            const vel = this.speed * delta
 
             this.parent.x += this.velocity.x * vel
+
             this.parent.y += this.velocity.y * vel
 
             // (Maybe... squared?)
-            if(this.startCoords.distanceSq(this.parent) >= this.maxDistAllowed)
+            if (this.startCoords.distanceSq(this.parent) >= this.maxDistAllowed)
             // if(this.startCoords.distance(this.parent) >= this.maxDistAllowed)
             
-            // target as been reached!
+            // our target as been reached!
             {
                 this.aTargetExists = false
                 this.parent.x = this.endCoords.x
                 this.parent.y = this.endCoords.y
 
-                if(this.destinations.length === 0)
+                if (this.destinations.length === 0)
                 {
                     // console.log("Walk event:", walkEvents.WALK_COMPLETE)
                     this.parent.emit(walkEvents.WALK_COMPLETE, this.parent)
@@ -172,5 +183,16 @@ export default class WalkComponent
     this.maxDistAllowed = undefined
     this.speed = undefined
   }
+
+  calcSpeed(numSpeed)
+  {
+      console.log("SP", WalkComponent)
+      return Phaser.Math.GetSpeed(numSpeed, 1)
+  }
+
+//   setSpeed(n)
+//   {
+//       this.speed = this.calcSpeed(n)
+//   }
 
 }

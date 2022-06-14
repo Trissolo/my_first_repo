@@ -6,16 +6,15 @@ export default class WalkComponent
 {
     constructor(parent, speed = 60)
     {
-
         this.parent = parent
 
-        //basically isPaused
+        //basically 'isPaused'
         this.aTargetExists = false
 
         this.destinations = []
         this.highestIndex = 0
         
-        // this.totalStages = 0
+        this.automaticStart = false
 
         this.startCoords = new Phaser.Math.Vector2()
         this.endCoords = new Phaser.Math.Vector2()
@@ -25,6 +24,7 @@ export default class WalkComponent
 
         // this.defaultSpeed = this.calcSpeed(speed)
         this.speed = this.calcSpeed(speed) // speed * 0.001
+
     } // end constructor
 
     // Idle status: no movement/destination/velocity setted. The sprite stay still/stops
@@ -32,12 +32,11 @@ export default class WalkComponent
     {
         this.aTargetExists = false
         this.destinations.length = 0
+    }
 
-        // reset speed (not velocity) to default
-        // this.speed = null
-
-        // dubbio su questo:
-        //this.velocity.reset()
+    pause()
+    {
+        this.aTargetExists = false
     }
 
     /*
@@ -64,7 +63,6 @@ export default class WalkComponent
             this.destinations.push(dest)
         }
 
-        // this.totalStages = this.destinations.length
         // DO we need the following 'if'?
         this.highestIndex = this.destinations.length - 1
 
@@ -84,17 +82,15 @@ export default class WalkComponent
         if (dest)
         {
             // ok! Setup target!
-            this.startCoords.setFromObject(this.parent)
-            this.endCoords.setFromObject(dest)
+            this.startCoords.copy(this.parent)
+            this.endCoords.copy(dest)
 
-            // being a straight line movement...
-            // this.maxDistAllowed = this.startCoords.distance(this.endCoords)
-
-            // (Maybe... squared?)
             this.maxDistAllowed = this.startCoords.distanceSq(this.endCoords)
 
-
-            this.velocity.copy(this.endCoords).subtract(this.startCoords).normalize()
+            this.velocity
+                .copy(this.endCoords)
+                .subtract(this.startCoords)
+                .normalize()
 
             // time for events events:
             if (this.destinations.length === this.highestIndex)
@@ -174,7 +170,6 @@ export default class WalkComponent
     this.parent = undefined
     this.destinations.length = 0
     this.destinations = undefined
-    // this.totalStages = undefined
 
     this.startCoords = undefined
     this.endCoords = undefined
@@ -189,6 +184,7 @@ export default class WalkComponent
       console.log("SP", WalkComponent)
       return Phaser.Math.GetSpeed(numSpeed, 1)
   }
+
 
 //   setSpeed(n)
 //   {

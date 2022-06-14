@@ -110,4 +110,24 @@ export default class Player extends Phaser.GameObjects.Sprite
     }
   }
 
+  clearWalkEvents()
+  {
+    for (const eventName of Object.values(WalkEvents))
+    {
+      this.off(eventName)
+    }
+
+    return this
+  }
+
+  setWalkEventsFacing()
+  {
+
+  }
+
+  setWalkEventsRotateBefore()
+  {
+    
+  }
+
 }

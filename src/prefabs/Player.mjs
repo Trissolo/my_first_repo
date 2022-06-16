@@ -3,6 +3,8 @@ import Phaser from 'phaser'
 import WalkComponent from './walkComponent/walkComponent.mjs'
 import WalkEvents from './walkComponent/walkEvents.mjs'
 
+import SEPARATOR from '../constants/SEPARATOR.mjs'
+
 export default class Player extends Phaser.GameObjects.Sprite
 {
   constructor(scene, name = "robot", textureId = 0)
@@ -11,16 +13,18 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     this.addToDisplayList()
     
-
+    // just a raw test:
     this.setName(name)
 
     this.walk = new WalkComponent(this)
 
     this.hide()
 
-    this.on(WalkEvents.WALK_START, function() { this.walk.aTargetExists = true }, this)
+    this.setWalkEventsFacing() // setJustWalk()
 
-    this.on(WalkEvents.WALK_SUBSTART, function() { this.walk.aTargetExists = true }, this)
+    //this.on(WalkEvents.WALK_START, function() { this.walk.aTargetExists = true }, this)
+
+    //this.on(WalkEvents.WALK_SUBSTART, function() { this.walk.aTargetExists = true }, this)
 
   }
 
@@ -122,12 +126,42 @@ export default class Player extends Phaser.GameObjects.Sprite
 
   setWalkEventsFacing()
   {
+    this.clearWalkEvents()
+    
+    this.on(WalkEvents.WALK_START, this.playFacingAndWalk, this)//function() { this.walk.aTargetExists = true }, this)
 
+    this.on(WalkEvents.WALK_SUBSTART, this.playFacingAndWalk, this)
   }
 
   setWalkEventsRotateBefore()
   {
     
+  }
+
+  setJustWalk()
+  {
+    this.clearWalkEvents()
+       
+    this.on(WalkEvents.WALK_START, this.walk.start, this)//function() { this.walk.aTargetExists = true }, this)
+
+    this.on(WalkEvents.WALK_SUBSTART, this.walk.start, this)//function() { this.walk.aTargetExists = true }, this)
+  }
+
+  playFacingAndWalk()
+  {
+    const [actorName, cardinal, action, frame] = this.getInfoFromFrameName()
+    console.log(this.originX, this.originY)
+
+    //console.log(actorName, cardinal, action, frame)
+    this.play(`${actorName}_walk_` + this.scene.rotationHelper.getRelativeCardinal(this, this.walk.endCoords))
+
+    this.setOrigin(0.5, 1)
+    this.walk.aTargetExists = true//.start()
+  }
+
+  getInfoFromFrameName()
+  {
+    return this.frame.name.split(SEPARATOR)
   }
 
 }

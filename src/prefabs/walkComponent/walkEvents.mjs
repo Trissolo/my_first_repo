@@ -1,5 +1,5 @@
 const WalkEvents = {
-    WALK_BEFORE_START: "walkbeforestart",
+    // WALK_BEFORE_START: "walkbeforestart",
     WALK_START: "walkstart",
     WALK_READY: "walkready",
     WALK_SUBSTART: "walksubsequentstart",

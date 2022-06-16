@@ -120,7 +120,7 @@ export default class WalkComponent
 
     start()
     {
-        this.aTargetExists = true
+        this.walk.aTargetExists = true
     }
 
     update(time, delta)

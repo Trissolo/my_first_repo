@@ -1,4 +1,4 @@
-
+const ARC = Math.PI / 4
 
 const directionsMap = new Map([
     [2.356194490192345, "SW"],
@@ -13,7 +13,7 @@ const directionsMap = new Map([
     [3.141592653589793, "W"]
   ])
 
-  export default directionsMap
+  export { directionsMap, ARC }
   /*
   function generateDirectionsMap()
   {

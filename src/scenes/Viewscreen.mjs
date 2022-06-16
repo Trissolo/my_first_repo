@@ -10,6 +10,8 @@ import Player from '../prefabs/Player.mjs';
 
 import Shield from '../prefabs/Shield.mjs';
 
+import RotationHelper from './RotationHelper/RotationHelper.mjs';
+
 
 class Viewscreen extends Phaser.Scene
 {
@@ -70,6 +72,8 @@ class Viewscreen extends Phaser.Scene
     create()
     {
       //walkManager
+
+      this.rotationHelper = new RotationHelper(this)
 	
       //actionManager
 

@@ -5,6 +5,7 @@ import WalkEvents from './walkComponent/walkEvents.mjs'
 
 import SEPARATOR from '../constants/SEPARATOR.mjs'
 
+// methods are needed to get sprite information from frameName
 export default class Player extends Phaser.GameObjects.Sprite
 {
   constructor(scene, name = "robot", textureId = 0)
@@ -35,6 +36,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     // console.log("PL WALK", this.walk)
     this.walk.setIdle()
+    this.anims.stop()
     
     return this
   }
@@ -52,7 +54,7 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.setActive(true)
     .setVisible(true);
 
-
+    console.log("TEST FAC DIR", this.scene.igPlug.pendingRoom.facingDir)
     if (this.scene.igPlug.pendingRoom.facingDir)
     {
       const assembledFrameName = "robot_" + this.scene.igPlug.pendingRoom.facingDir + "_walk_0"
@@ -131,6 +133,8 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.on(WalkEvents.WALK_START, this.playFacingAndWalk, this)//function() { this.walk.aTargetExists = true }, this)
 
     this.on(WalkEvents.WALK_SUBSTART, this.playFacingAndWalk, this)
+
+    this.on(WalkEvents.WALK_COMPLETE, this.stopWalking, this)
   }
 
   setWalkEventsRotateBefore()
@@ -150,9 +154,7 @@ export default class Player extends Phaser.GameObjects.Sprite
   playFacingAndWalk()
   {
     const [actorName, cardinal, action, frame] = this.getInfoFromFrameName()
-    console.log(this.originX, this.originY)
 
-    //console.log(actorName, cardinal, action, frame)
     this.play(`${actorName}_walk_` + this.scene.rotationHelper.getRelativeCardinal(this, this.walk.endCoords))
 
     this.setOrigin(0.5, 1)
@@ -162,6 +164,15 @@ export default class Player extends Phaser.GameObjects.Sprite
   getInfoFromFrameName()
   {
     return this.frame.name.split(SEPARATOR)
+  }
+
+  stopWalking()
+  {
+    this.walk.aTargetExists = false
+    this.anims.stop()
+    const [actorName, cardinal, action, frame] = this.getInfoFromFrameName()
+    this.setFrame(`${actorName}_${cardinal}_${action}_0`)
+
   }
 
 }

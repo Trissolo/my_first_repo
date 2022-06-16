@@ -8,3 +8,4 @@ const WalkEvents = {
   }
 
  export default WalkEvents
+ 

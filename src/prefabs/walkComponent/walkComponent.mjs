@@ -118,10 +118,10 @@ export default class WalkComponent
         }
     }
 
-    start()
-    {
-        this.walk.aTargetExists = true
-    }
+    // start()
+    // {
+    //     this.walk.aTargetExists = true
+    // }
 
     update(time, delta)
     {

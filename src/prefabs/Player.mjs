@@ -54,7 +54,7 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.setActive(true)
     .setVisible(true);
 
-    console.log("TEST FAC DIR", this.scene.igPlug.pendingRoom.facingDir)
+    // console.log("TEST FAC DIR", this.scene.igPlug.pendingRoom.facingDir)
     if (this.scene.igPlug.pendingRoom.facingDir)
     {
       const assembledFrameName = "robot_" + this.scene.igPlug.pendingRoom.facingDir + "_walk_0"
@@ -153,17 +153,36 @@ export default class Player extends Phaser.GameObjects.Sprite
 
   playFacingAndWalk()
   {
-    const [actorName, cardinal, action, frame] = this.getInfoFromFrameName()
+    //const [actorName, cardinal, action, frame] = this.getInfoFromFrameName()
 
-    this.play(`${actorName}_walk_` + this.scene.rotationHelper.getRelativeCardinal(this, this.walk.endCoords))
+    this.play(`${this.getActorNameFromFrameName()}_walk_` + this.scene.rotationHelper.getRelativeCardinal(this, this.walk.endCoords))
 
     this.setOrigin(0.5, 1)
-    this.walk.aTargetExists = true//.start()
+    this.startWalking() // walk.aTargetExists = true//.start()
+  }
+
+  startWalking()
+  {
+      this.walk.aTargetExists = true
   }
 
   getInfoFromFrameName()
   {
     return this.frame.name.split(SEPARATOR)
+  }
+
+  getCardinalFromFrameName()// [actorName, cardinal, action, frame] = this.getInfoFromFrameName())
+  {
+    // console.log("GetInfo:", cardinal)
+    // return cardinal
+    return this.getInfoFromFrameName()[1]
+  }
+
+  getActorNameFromFrameName()// [actorName, cardinal, action, frame] = this.getInfoFromFrameName())
+  {
+    // console.log("GetInfo:", cardinal)
+    // return cardinal
+    return this.getInfoFromFrameName()[0]
   }
 
   stopWalking()

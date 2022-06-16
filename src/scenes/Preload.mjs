@@ -108,9 +108,25 @@ export default class Preload extends Phaser.Scene
         this.add.image(16, 120, 'atlas0', "singlePixel")
           .setOrigin(0)
           .setScale(30)
-          .setAlpha(0.7)
+          .setAlpha(0.7);
 
-          this.input.keyboard.once('keydown-Z', this.pressedZ, this)
+        // test anim as
+        this.anims.create({key: 'blinkingButton', frames: [ {
+            key: "atlas0",
+            frame: "button0",
+            duration: 555
+          },
+          {
+            key: "atlas0",
+            frame: "button1",
+            duration: 222
+          }],
+          repeat: -1
+        });
+
+        //this.add.sprite(20, 280).play('blinkingButton')
+
+        this.input.keyboard.once('keydown-Z', this.pressedZ, this)
     }// end create
 
     // harcoded

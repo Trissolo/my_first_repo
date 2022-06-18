@@ -5,6 +5,8 @@ import WalkEvents from './walkComponent/walkEvents.mjs'
 
 import SEPARATOR from '../constants/SEPARATOR.mjs'
 
+import RotationHelper from '../scenes/RotationHelper/RotationHelper.mjs'
+
 // methods are needed to get sprite information from frameName
 export default class Player extends Phaser.GameObjects.Sprite
 {
@@ -155,7 +157,7 @@ export default class Player extends Phaser.GameObjects.Sprite
   {
     //const [actorName, cardinal, action, frame] = this.getInfoFromFrameName()
 
-    this.play(`${this.getActorNameFromFrameName()}_walk_` + this.scene.rotationHelper.getRelativeCardinal(this, this.walk.endCoords))
+    this.play(`${this.getActorNameFromFrameName()}_walk_` + /*this.scene.rotationHelper*/RotationHelper.getRelativeCardinal(this, this.walk.endCoords))
 
     this.setOrigin(0.5, 1)
     this.startWalking() // walk.aTargetExists = true//.start()

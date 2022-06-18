@@ -73,7 +73,7 @@ class Viewscreen extends Phaser.Scene
     {
       //walkManager
 
-      this.rotationHelper = new RotationHelper(this)
+      //this.rotationHelper = new RotationHelper(this)
 	
       //actionManager
 

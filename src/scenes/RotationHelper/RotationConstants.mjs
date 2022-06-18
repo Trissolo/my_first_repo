@@ -1,5 +1,7 @@
 const ARC = Math.PI / 4
 
+const cardinalsPoints = ["W", "NW", "N", "NE", "E", "SE", "S", "SW"]
+
 const directionsMap = new Map([
     [2.356194490192345, "SW"],
     [1.5707963267948966, "S"],
@@ -13,7 +15,7 @@ const directionsMap = new Map([
     [3.141592653589793, "W"]
   ])
 
-  export { directionsMap, ARC }
+  export { directionsMap, ARC, cardinalsPoints}
   /*
   function generateDirectionsMap()
   {

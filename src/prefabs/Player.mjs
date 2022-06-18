@@ -23,7 +23,9 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     this.hide()
 
-    this.setWalkEventsFacing() // setJustWalk()
+    //this.setWalkEventsFacing() // setJustWalk()
+
+    this.setWalkEventsRotateBefore()
 
     //this.on(WalkEvents.WALK_START, function() { this.walk.aTargetExists = true }, this)
 
@@ -141,7 +143,16 @@ export default class Player extends Phaser.GameObjects.Sprite
 
   setWalkEventsRotateBefore()
   {
+    this.clearWalkEvents()
+    // console.log(RotationHelper, typeof RotationHelper.checkRotation, RotationHelper.checkRotation.toString())
+
+    this.on(WalkEvents.WALK_START, RotationHelper.checkRotation, RotationHelper);
     
+    // this.on(WalkEvents.WALK_START, RotationHelper.checkRotation, RotationHelper);//function() { this.walk.aTargetExists = true }, this)
+
+    this.on(WalkEvents.WALK_SUBSTART, this.startWalking, this)//function() { this.walk.aTargetExists = true }, this)
+
+    this.on(WalkEvents.WALK_COMPLETE, this.stopWalking, this)
   }
 
   setJustWalk()
@@ -151,6 +162,8 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.on(WalkEvents.WALK_START, this.walk.start, this)//function() { this.walk.aTargetExists = true }, this)
 
     this.on(WalkEvents.WALK_SUBSTART, this.walk.start, this)//function() { this.walk.aTargetExists = true }, this)
+
+    this.on(WalkEvents.WALK_COMPLETE, this.stopWalking, this)
   }
 
   playFacingAndWalk()
@@ -195,5 +208,68 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.setFrame(`${actorName}_${cardinal}_${action}_0`)
 
   }
+
+  // checkRotation(actor, startCoords, endCoords)
+  //   {
+  //     // console.log('CheckRotation:')
+  //     const direction = actor.getCardinalFromFrameName()
+  
+  //     const endAcronym = RotationHelper.getRelativeCardinal(actor, endCoords)
+  
+  //     const rot = RotationHelper.minDistance(direction, endAcronym)
+  
+  //     //is a rotation necessary?
+  //     if(rot)
+  //     {
+  
+  //       const startAcronym = rot.startingDirectionAcronym
+  //       const realEnd = rot.goalDirectionAcronym
+  //       //      let startAcronym, realEnd
+  //       //  
+  //       //      if (rot.resDistance == 2)
+  //       //      {
+  //       //        startAcronym = rot.startingDirectionAcronym
+  //       //        realEnd = rot.goalDirectionAcronym
+  //       //      }
+  //       //      else
+  //       //      {
+  //       //        startAcronym = rot.adjustedStart
+  //       //        realEnd = rot.adjustedEnd
+  //       //      }
+  
+  
+  //       log("Ani start/end:", startAcronym, realEnd, rot.resDistance)
+  //       //...forse...
+  
+  //       const rotAnim = actor.scene.anims.get('rotate');
+  //       const {frames: rotFrames} = rotAnim;//.frames;
+  //       const stopFrame = GetFirst(rotFrames, 'textureFrame', this.buildNameByAcronym(realEnd));
+  //       const startFrame = rotFrames.indexOf(this.getAniFrameByName(rotFrames, this.buildNameByAcronym(startAcronym)))
+  
+  //       if(rot.resIsCW)
+  //       {
+  //         actor.play({ key: 'rotate', startFrame }) //, delay: rot.resDistance == 2? 500: 1})
+  //       }
+  //       else
+  //       {
+  //         actor.playReverse({ key: 'rotate', startFrame }) //, delay: rot.resDistance == 2? 500: 1})
+  //       }
+  
+  //       actor.anims.stopOnFrame(stopFrame)
+  //       actor.once('animationstop', () =>
+  //       {
+  //         actor.play('walk' + endAcronym);
+  //         actor.walk.start()
+  //       })
+  
+  //     }
+  //     else
+  //     //just walk
+  //     {
+  //       actor.play('walk' + endAcronym)
+  //       actor.walk.start()
+  //     }
+  
+    // } //end checkRotation
 
 }

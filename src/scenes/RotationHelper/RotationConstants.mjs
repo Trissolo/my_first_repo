@@ -15,7 +15,11 @@ const directionsMap = new Map([
     [3.141592653589793, "W"]
   ])
 
-  export { directionsMap, ARC, cardinalsPoints}
+  const wholeCircumference = cardinalsPoints.length;
+  const lastElementIndex = wholeCircumference - 1;
+  const halfCircumference = wholeCircumference / 2;
+
+  export { directionsMap, ARC, cardinalsPoints, wholeCircumference, lastElementIndex, halfCircumference}
   /*
   function generateDirectionsMap()
   {

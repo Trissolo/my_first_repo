@@ -181,7 +181,7 @@ export default class WalkComponent
 
   calcSpeed(numSpeed)
   {
-      console.log("SP", WalkComponent)
+      //console.log("SP", WalkComponent)
       return Phaser.Math.GetSpeed(numSpeed, 1)
   }
 

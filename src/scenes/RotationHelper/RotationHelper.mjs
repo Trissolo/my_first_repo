@@ -12,17 +12,17 @@ class RotationHelper
   // static lastElementIndex = RotationHelper.wholeCircumference - 1;
   // static halfCircumference = RotationHelper.wholeCircumference / 2;
 
-    constructor()//scene)
-    {
-        // hmm...
-        // this.scene = scene
+    // constructor()
+    // {
+    //     // hmm...
+    //     // this.scene = scene
 
-        // this.wholeCircumference = cardinalsPoints.length
+    //     // this.wholeCircumference = cardinalsPoints.length
 
-        // this.lastElementIndex = this.wholeCircumference - 1
+    //     // this.lastElementIndex = this.wholeCircumference - 1
     
-        // this.halfCircumference = this.wholeCircumference / 2
-    }
+    //     // this.halfCircumference = this.wholeCircumference / 2
+    // }
 
     static minDistance(startingDirectionAcronym, goalDirectionAcronym)
     {
@@ -47,7 +47,6 @@ class RotationHelper
       {
         resDistance = distanceA
         resIsCW = Math.random() > 0.5 ? true : false
-        // console.log("resDistance halfCircumference", halfCircumference)
       }
 
       else
@@ -62,12 +61,10 @@ class RotationHelper
         if (distanceB > distanceA)
         {
           resDistance = distanceA, resIsCW = isClockwiseA
-          // console.log("resDistanceA", resDistance)
         }
         else
         {
           resDistance = distanceB, resIsCW = !isClockwiseA
-          // console.log("resDistanceB", resDistance)
         }
       }
 
@@ -80,10 +77,10 @@ class RotationHelper
     static getRelativeCardinal(actor, endCoords)
     {
       //console.log("Now is STATIC!")
-      const { x, y } = actor
-      const { x: endX, y: endY } = endCoords
-      const angle = Phaser.Math.Angle.Between(x, y, endX, endY)
-      const snapped = Phaser.Math.Snap.To(angle,  ARC)  // Phaser.Math.Snap.To(angle, ARC)
+      // const { x, y } = actor
+      // const { x: endX, y: endY } = endCoords
+      // const angle = Phaser.Math.Angle.Between(x, y, endX, endY)
+      // const snapped = Phaser.Math.Snap.To(angle,  ARC)  // Phaser.Math.Snap.To(angle, ARC)
       return directionsMap.get(Phaser.Math.Snap.To(Phaser.Math.Angle.Between(actor.x, actor.y, endCoords.x, endCoords.y), ARC)) // (snapped)
     }
 
@@ -93,45 +90,28 @@ class RotationHelper
       const direction = actor.getCardinalFromFrameName()
   
       const endAcronym = RotationHelper.getRelativeCardinal(actor, endCoords)
-  
+
       const rot = RotationHelper.minDistance(direction, endAcronym)
   
       //is a rotation necessary?
-      if(rot)
+      if (rot)
       {
   
-        const startAcronym = rot.startingDirectionAcronym
-        const realEnd = rot.goalDirectionAcronym
-        //      let startAcronym, realEnd
-        //  
-        //      if (rot.resDistance == 2)
-        //      {
-        //        startAcronym = rot.startingDirectionAcronym
-        //        realEnd = rot.goalDirectionAcronym
-        //      }
-        //      else
-        //      {
-        //        startAcronym = rot.adjustedStart
-        //        realEnd = rot.adjustedEnd
-        //      }
-  
-  
-        // console.log("Ani start/end:", startAcronym, realEnd, rot)
-        //...forse...
+        // const startAcronym = rot.startingDirectionAcronym
+        
   
         const rotAnim = actor.scene.anims.get(actor.getActorNameFromFrameName() + SEPARATOR + 'rotate');
-        const {frames: rotFrames} = rotAnim;//.frames;
-        const stopFrame = GetFirst(rotFrames, 'textureFrame', actor.getActorNameFromFrameName() + SEPARATOR + realEnd + "_walk_0");
-        // console.log("stopFrame",  stopFrame)
-        const startFrame = rotFrames.indexOf(GetFirst(rotFrames, 'textureFrame', actor.getActorNameFromFrameName() + SEPARATOR + startAcronym + "_walk_0"))//rotFrames.indexOf(this.getAniFrameByName(rotFrames, actor.getActorNameFromFrameName() + SEPARATOR + startAcronym + "_walk_0"))
-  
-        if(rot.resIsCW)
+        const {frames: rotFrames} = rotAnim;
+        const stopFrame = GetFirst(rotFrames, 'textureFrame', actor.getActorNameFromFrameName() + SEPARATOR + endAcronym + "_walk_0");
+        const startFrame = rotFrames.indexOf(GetFirst(rotFrames, 'textureFrame', actor.getActorNameFromFrameName() + SEPARATOR + rot.startingDirectionAcronym + "_walk_0"))
+
+        if (rot.resIsCW)
         {
-          actor.play({ key: actor.getActorNameFromFrameName() + SEPARATOR + 'rotate', startFrame }) //, delay: rot.resDistance == 2? 500: 1})
+          actor.play({ key: actor.getActorNameFromFrameName() + SEPARATOR + 'rotate', startFrame })
         }
         else
         {
-          actor.playReverse({ key: actor.getActorNameFromFrameName() + SEPARATOR + 'rotate', startFrame }) //, delay: rot.resDistance == 2? 500: 1})
+          actor.playReverse({ key: actor.getActorNameFromFrameName() + SEPARATOR + 'rotate', startFrame })
         }
   
         actor.anims.stopOnFrame(stopFrame)

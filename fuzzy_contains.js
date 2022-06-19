@@ -1,9 +1,9 @@
-player: x: 82.333, 63,6666
-goal: 218.33333333333331, 112
+// player: x: 82.333, 63,6666
+// goal: 218.33333333333331, 112
 
-map ori
-player 201.666, 117.666
-dest 45.333 , 119.666
+// map ori
+// player 201.666, 117.666
+// dest 45.333 , 119.666
 /*
 const {clear, log, dir} = console
 clear()

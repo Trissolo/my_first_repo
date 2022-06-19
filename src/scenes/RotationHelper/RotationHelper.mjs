@@ -39,8 +39,11 @@ class RotationHelper
       //arc A
       const distanceA = Math.abs(rawDistance)
 
-      //baits
-      if (distanceA < 2 || distanceA === lastElementIndex) { return false }
+      //bait
+      if (distanceA < 2 || distanceA === lastElementIndex)
+      {
+        return false
+      }
 
 
       if (distanceA === halfCircumference)
@@ -55,7 +58,6 @@ class RotationHelper
 
         //now let's get arc B
         const distanceB = wholeCircumference - distanceA
-        //const isClockwiseB = !isClockwiseA
 
         //which is the minor?
         if (distanceB > distanceA)
@@ -98,12 +100,14 @@ class RotationHelper
       {
   
         // const startAcronym = rot.startingDirectionAcronym
-        
-  
-        const rotAnim = actor.scene.anims.get(actor.getActorNameFromFrameName() + SEPARATOR + 'rotate');
-        const {frames: rotFrames} = rotAnim;
+        // const rotAnim = actor.scene.anims.get(actor.getActorNameFromFrameName() + SEPARATOR + 'rotate');
+        // const {frames: rotFrames} = rotAnim;
+
+        const rotFrames = actor.scene.anims.get(actor.getActorNameFromFrameName() + SEPARATOR + 'rotate').frames;
+
         const stopFrame = GetFirst(rotFrames, 'textureFrame', actor.getActorNameFromFrameName() + SEPARATOR + endAcronym + "_walk_0");
-        const startFrame = rotFrames.indexOf(GetFirst(rotFrames, 'textureFrame', actor.getActorNameFromFrameName() + SEPARATOR + rot.startingDirectionAcronym + "_walk_0"))
+
+        const startFrame = rotFrames.indexOf(GetFirst(rotFrames, 'textureFrame', actor.getActorNameFromFrameName() + SEPARATOR + rot.startingDirectionAcronym + "_walk_0"));
 
         if (rot.resIsCW)
         {
@@ -117,17 +121,16 @@ class RotationHelper
         actor.anims.stopOnFrame(stopFrame)
         actor.once('animationstop', () =>
         {
-          actor.play(actor.getActorNameFromFrameName() + SEPARATOR + 'walk' + SEPARATOR + endAcronym);
-          actor.startWalking()
+          // actor.playAnimAndWalk(actor.getActorNameFromFrameName() + SEPARATOR + 'walk' + SEPARATOR + endAcronym)
+          actor.playAnimAndWalk(actor.name + SEPARATOR + 'walk' + SEPARATOR + endAcronym)
         })
   
       }
       else
       //just walk
       {
-        // console.log("NOT ROT!!")
-        actor.play(actor.getActorNameFromFrameName() + SEPARATOR + 'walk' + SEPARATOR + endAcronym)
-        actor.startWalking()
+        // actor.playAnimAndWalk(actor.getActorNameFromFrameName() + SEPARATOR + 'walk' + SEPARATOR + endAcronym)
+        actor.playAnimAndWalk(actor.name + SEPARATOR + 'walk' + SEPARATOR + endAcronym)
       }
     }
 }

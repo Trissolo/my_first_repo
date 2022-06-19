@@ -27,9 +27,6 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     this.setWalkEventsRotateBefore()
 
-    //this.on(WalkEvents.WALK_START, function() { this.walk.aTargetExists = true }, this)
-
-    //this.on(WalkEvents.WALK_SUBSTART, function() { this.walk.aTargetExists = true }, this)
 
   }
 
@@ -150,30 +147,38 @@ export default class Player extends Phaser.GameObjects.Sprite
     
     // this.on(WalkEvents.WALK_START, RotationHelper.checkRotation, RotationHelper);//function() { this.walk.aTargetExists = true }, this)
 
+    this.on(WalkEvents.WALK_SUBSTART, this.playFacingAndWalk, this)//function() { this.walk.aTargetExists = true }, this)
+
+    this.on(WalkEvents.WALK_COMPLETE, this.stopWalking, this)
+  }
+
+  setWalkEventsJustWalk()
+  {
+    this.clearWalkEvents()
+       
+    this.on(WalkEvents.WALK_START, this.startWalking, this)//function() { this.walk.aTargetExists = true }, this)
+
     this.on(WalkEvents.WALK_SUBSTART, this.startWalking, this)//function() { this.walk.aTargetExists = true }, this)
 
     this.on(WalkEvents.WALK_COMPLETE, this.stopWalking, this)
   }
 
-  setJustWalk()
+  playFacingAndWalk(actor, startCoords, endCoords)
   {
-    this.clearWalkEvents()
-       
-    this.on(WalkEvents.WALK_START, this.walk.start, this)//function() { this.walk.aTargetExists = true }, this)
-
-    this.on(WalkEvents.WALK_SUBSTART, this.walk.start, this)//function() { this.walk.aTargetExists = true }, this)
-
-    this.on(WalkEvents.WALK_COMPLETE, this.stopWalking, this)
-  }
-
-  playFacingAndWalk()
-  {
+    actor.playAnimAndWalk(`${actor.name}_walk_` + RotationHelper.getRelativeCardinal(startCoords, endCoords))
+    // console.log("testing playFacingAndWalk:", actor)
     //const [actorName, cardinal, action, frame] = this.getInfoFromFrameName()
 
-    this.play(`${this.getActorNameFromFrameName()}_walk_` + /*this.scene.rotationHelper*/RotationHelper.getRelativeCardinal(this, this.walk.endCoords))
+    //actor.play(`${/*this.getActorNameFromFrameName()*/actor.name}_walk_` + RotationHelper.getRelativeCardinal(startCoords, endCoords))
 
-    this.setOrigin(0.5, 1)
-    this.startWalking() // walk.aTargetExists = true//.start()
+    // actor.setOrigin(0.5, 1)
+    // actor.startWalking() // walk.aTargetExists = true//.start()
+  }
+
+  playAnimAndWalk(animKey)
+  {
+    this.play(animKey)
+    this.startWalking()
   }
 
   startWalking()

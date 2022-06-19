@@ -111,7 +111,7 @@ export default class WalkComponent
         {
             // emit THERE ARE NO TARGETS!
             // console.log("Walk event:", walkEvents.WALK_STAY_IDLE)
-            this.parent.emit(walkEvents.WALK_STAY_IDLE)
+            this.parent.emit(walkEvents.WALK_STAY_IDLE, this.parent)
             // console.log("Emitted: No more Target, or, maybe better: The previous Target turned out to be the last")
             // ...so let's wait for one.
             this.setIdle()

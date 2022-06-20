@@ -8,6 +8,6 @@ export default class UndirectedGraph
 
 		this.graph = new VisibilityGraph()
 
-		this.name = null
+		// this.name = null
     }
 }

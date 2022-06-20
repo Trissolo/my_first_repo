@@ -309,7 +309,7 @@ export default class PMStroll
         console.log("VecPAth:", res)
 
         //show something
-        this.debug.showPath(res, {x: startVector.x, y: startVector.y})
+        //this.debug.showPath(res, {x: startVector.x, y: startVector.y})
       
         console.log("AFTER", weakMap)
 

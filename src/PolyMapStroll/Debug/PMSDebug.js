@@ -24,7 +24,7 @@ export default class PMSDebug {
             fill: "gray"
         }).setDepth(9999)
 
-		this.scene.input.keyboard.on('keydown-Z', this.pressedZ, this)
+		// this.scene.input.keyboard.on('keydown-Z', this.pressedZ, this)
     }
 
     showAsImage(polygonalMap, showConcave = true)

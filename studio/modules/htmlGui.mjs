@@ -20,10 +20,7 @@ class StudioGui
     console.log("QQQQQQQQWEEEE", this.studioJsons[0] === this.allLoadedJsons[0], this.studioJsons[1], this.allLoadedJsons[1])
 
     this.thingsIdx = 0;
-    //this.actualRoom = Phaser.Utils.Objects.DeepCopy(loadedJson[0])
-    //this.actualRoom = this.studioJsons[this.allJsonsIdx]
 
-    //console.dir("!!", this.loadedJson, this.actualRoom)
 
     this.widgetMap = new Map()
     
@@ -40,11 +37,10 @@ class StudioGui
 
     this.buildWidgets()
 
-    //console.log(this.widgetMap)
-    //this.scene.events.emit('show')
+
   }
 
-  updateJson( obj = this.actualRoom )//, sort = true)
+  updateJson()
   {
     this.actualJsonName.innerText = `Room${this.jsonIdx} / ${this.studioJsons.length -1}`
     this.thingsIdx = 0
@@ -96,8 +92,7 @@ class StudioGui
   {
     const specificProp = element.target.parentNode.parentNode.getAttribute('name')
     this.actualThing[specificProp] = true
-    // this.skipCondCurrent.innerText = "---"
-    // this.skipCondCurrent.classList.add('notset')
+
     this.showThing()
   }
 
@@ -126,10 +121,8 @@ class StudioGui
     {
       
       const [skipCondIndex, skipExpectedValue] = element.target.value.split("_")
-      //console.log("SkipCondSELECTED:", element.target.value, skipCondIndex, skipExpectedValue)
+
       this.actualThing[specificProp] = "b_" + skipCondIndex + "_" + skipExpectedValue
-      //console.log("List skipCond:", element.target.parentNode.parentNode, element.target.parentNode.parentNode.getAttribute('name'))
-      //this.skipCondCurrent.innerText = `Skip if ${conditions[+skipCondIndex]} is ` + skipExpectedValue === "1" ? "TRUE" : "FALSE"
 
       this.showThing()
     }
@@ -494,7 +487,7 @@ class StudioGui
     }
   }
 
-  saveBlob()//originalData = this.actualRoom, fileName = `room${this.jsonIdx}data.json`)
+  saveBlob()
   {
     const originalData = this.actualRoom, fileName = `room${this.jsonIdx}data.json`
     console.log("%c%ARGUMENTS SAVE:", "background-color:green;", [...arguments])

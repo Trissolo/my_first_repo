@@ -3,6 +3,8 @@ import Phaser from 'phaser';
 import depthCategories from '../constants/depthCategories.mjs';
 import hoverNames from '../constants/hoverNames.mjs';
 
+import PMStroll from "../PolyMapStroll/PMStroll.js"
+
 import TriggerAreaManager from './TriggerArea/TriggerAreaManager.mjs';
 import RoomBackground from '../prefabs/roomBackground.mjs';
 
@@ -49,6 +51,11 @@ class Viewscreen extends Phaser.Scene
       //input: cursor
       this.input.setDefaultCursor('url(assets_prod/cursors/cross.cur), pointer')
 
+      //PolyMapStroll
+      this.pmsManager = new PMStroll(this, true)
+      
+      this.buildFloors(this.cache.json.get('floors'))
+
 
       //test clickable entities
       this.interactiveThings = new Map()
@@ -71,7 +78,8 @@ class Viewscreen extends Phaser.Scene
 
     create()
     {
-      //walkManager
+      //Poly Map Stroll
+      this.floors = []
 
       //this.rotationHelper = new RotationHelper(this)
 	
@@ -427,6 +435,18 @@ class Viewscreen extends Phaser.Scene
       // this.drawRoom()
 
     } // end quickChangeRoom
+
+    buildFloors(aryFloors)
+    {
+      for (const floorData of aryFloors)
+      {
+        console.log(floorData.nome, floorData.coords)
+        //console.log("NewFl", this.pmsManager.buildSinglePolyMap(floorData))
+        this.cache.custom.floors.add(floorData.nome, this.pmsManager.buildSinglePolyMap(floorData))
+      }
+
+      console.log(this.cache.custom.floors)
+    }
 
 }//end class
 

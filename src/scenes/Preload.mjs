@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 //import boolsManager from '../plugins/VarsManager/boolsManager.mjs';
 
+// import PMStroll from "../PolyMapStroll/PMStroll.js"
+
 import cardinalsPoints from '../constants/cardinalPoints.mjs';
 
 
@@ -34,6 +36,11 @@ export default class Preload extends Phaser.Scene
         this.plugins.get('inGameManager').installOn(this)
         //console.log(  "Plugins SETUP:", this  )
         this.events.once("destroy", this.onDestroy, this)
+
+        this.cache.addCustom('floors')
+        // this.cache.custom.floors.events.on('add', this.countPolyMaps, this)
+
+        // console.log("CacheFloors:", PMStroll.buildSinglePolyMap, this.cache.custom.floors)
     }
     preload()
     {
@@ -63,6 +70,11 @@ export default class Preload extends Phaser.Scene
             //console.log(roomName, `json/${roomName}.json`)
             this.load.json(roomName, `${currentSubfolder}/${roomName}.json`)
         }
+
+        //floors?
+        this.load.json('floors', `${currentSubfolder}/floors.json`)
+
+        //this.load.once('filecomplete-json-floors', this.buildFloors, this) // (a,b,c) => console.log("Floors:", a, b, c, PMStroll))
         
         //this.load.on('complete', this.loadGame, this)
     }
@@ -193,5 +205,21 @@ export default class Preload extends Phaser.Scene
     {
         this.boolsManager = undefined
     }
+
+    // buildFloors(a, b, aryFloors)
+    // {
+    //   for (const floorData of aryFloors)
+    //   {
+    //     console.log(floorData.nome, floorData, floorData.coords)
+    //     this.cache.custom.floors.add(floorData.nome, PMStroll.buildSinglePolyMap(floorData.coords))
+    //   }
+
+    //   console.log(this.cache.custom.floors)
+    // }
+
+    // countPolyMaps(a,b,c)
+    // {
+    //   console.log("Added", a, b, c)
+    // }
 
 }//end class

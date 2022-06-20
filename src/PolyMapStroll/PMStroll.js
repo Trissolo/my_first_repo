@@ -56,7 +56,7 @@ export default class PMStroll
     {
         console.log("building:", data)
         const graph = new PolygonalMap()
-        for (const polyData of data.polyVertices)
+        for (const polyData of data.coords) //polyVertices)
         {
             graph.polygons.push( new Polygon(polyData))
         }

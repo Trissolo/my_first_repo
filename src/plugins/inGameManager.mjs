@@ -70,7 +70,7 @@ class inGameManager extends Phaser.Plugins.BasePlugin
 
         this.pendingRoom.facingDir = "E"
 
-        this.pendingRoom.floor = "fl00"
+        this.pendingRoom.playerFloor = "fl00"
 
         // From frame.name:
 
@@ -105,9 +105,9 @@ class inGameManager extends Phaser.Plugins.BasePlugin
         this.pendingRoom.facingDir = cardinal
     }
 
-    setPendingRoomFloor(floorNome)
+    setPendingRoomPlayerFloor(floorNome)
     {
-        //this.pendingRoom.floor = floorNome
+        this.pendingRoom.playerFloor = floorNome
     }
 
 } //End myGlobalPlugin

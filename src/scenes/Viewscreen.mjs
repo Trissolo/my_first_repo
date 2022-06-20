@@ -408,9 +408,10 @@ class Viewscreen extends Phaser.Scene
       this.dsAry.push(this.player)
       this.player.place()
         .show()
+        .setFloor()
     }
 
-    quickChangeRoom(roomNum = 0, playerX, playerY, facing)
+    quickChangeRoom(roomNum = 0, playerX, playerY, facing, floorID = null)
     {
       this.igPlug.resetPending()
 
@@ -431,6 +432,17 @@ class Viewscreen extends Phaser.Scene
         this.igPlug.setPendingRoomFacingDir(facing)
       }
 
+      //hmmm playerFloor...
+      if (floorID)
+      {
+        this.igPlug.setPendingRoomPlayerFloor(floorID)
+      }
+      else
+      {
+        this.igPlug.setPendingRoomPlayerFloor("fl0" + this.igPlug.pendingRoom.id)
+      }
+
+
       // must call drawRoom here? i.e.
       // this.drawRoom()
 
@@ -440,8 +452,8 @@ class Viewscreen extends Phaser.Scene
     {
       for (const floorData of aryFloors)
       {
-        console.log(floorData.nome, floorData.coords)
-        //console.log("NewFl", this.pmsManager.buildSinglePolyMap(floorData))
+        // console.log(floorData.nome, floorData.coords)
+        // console.log("NewFl", this.pmsManager.buildSinglePolyMap(floorData))
         this.cache.custom.floors.add(floorData.nome, this.pmsManager.buildSinglePolyMap(floorData))
       }
 

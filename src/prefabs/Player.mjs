@@ -23,6 +23,9 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     this.hide()
 
+    //the polygonal Map in which this actor can currently move
+    this.floor = null
+
     //this.setWalkEventsFacing() // setJustWalk()
 
     this.setWalkEventsRotateBefore()
@@ -38,6 +41,8 @@ export default class Player extends Phaser.GameObjects.Sprite
     // console.log("PL WALK", this.walk)
     this.walk.setIdle()
     this.anims.stop()
+
+    this.floor = null
     
     return this
   }
@@ -211,7 +216,12 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.anims.stop()
     const [actorName, cardinal, action, frame] = this.getInfoFromFrameName()
     this.setFrame(`${actorName}_${cardinal}_${action}_0`)
+  }
 
+  setFloor()
+  {
+    //hardcoded for test
+    console.log(this.floor = this.scene.cache.custom.floors.get(this.scene.igPlug.pendingRoom.playerFloor) )//("fl0" + 0)
   }
 
   // checkRotation(actor, startCoords, endCoords)

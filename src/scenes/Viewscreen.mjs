@@ -349,9 +349,12 @@ class Viewscreen extends Phaser.Scene
 
     moveToClick(pointer, relX, relY)
     {
-      // console.log(pointer, relX, relY)
+       console.log(pointer, relX, relY, this)
 
-      this.player.walk.setPath({x: pointer.worldX, y: pointer.worldY})
+      const path = this.pmsManager.generatePath(this.player, {x: pointer.worldX, y: pointer.worldY}, this.player.floor)
+        
+      this.player.walk.setPath(path)
+      //this.player.walk.setPath({x: pointer.worldX, y: pointer.worldY})
     }
 
     allowUserInteraction()

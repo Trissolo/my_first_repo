@@ -122,7 +122,7 @@ class Viewscreen extends Phaser.Scene
       //temp text
       this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
 
-      //current  room script
+      //current room script
       this.rs = null //this.igPlug.roomScripts.grab(this.actualRoomID)
 
       //for deepthsort
@@ -203,8 +203,12 @@ class Viewscreen extends Phaser.Scene
       this.dsAry.length = 0
       
       // reset player/actors (5/6);
-       this.player.hide()
-      
+      this.player.hide()
+    
+      // reset floors
+      this.floors.length = 0
+      this.igPlug.pendingRoom.playerFloor = null
+
       // interactiveThings(6/6). Debug
       this.interactiveThings.clear()
 
@@ -217,9 +221,13 @@ class Viewscreen extends Phaser.Scene
 
     produceActualRoom()
     {
+      //console.dir(this.roomData)
       const {atlas, background, things} = this.roomData
 
       this.background.revamp(atlas, background)
+
+      this.grabFloors()
+      console.log("Floors grabbed:", this.floors)
 
       // now room's things!
       console.log("Start drawing...")
@@ -316,9 +324,31 @@ class Viewscreen extends Phaser.Scene
 
       } // end things loop
     
+      //the floors:
+
+      // this.grabFloors()
+
       //all room things are ready, so:
       this.igEvents.emit('roomthingsetted', this, this.interactiveThings)
 
+    }
+
+    grabFloors()
+    {
+      const {floors} = this.cache.custom
+
+      for (const floorName of floors.getKeys())
+      {
+        console.log("Considering:", 'fl'+ ("" + this.roomData.id).padStart(2, '0'), floorName)
+        if (floorName.startsWith('fl'+ ("" + this.roomData.id).padStart(2, '0') ))
+        {
+          console.log("Passed:", floorName)
+
+          this.floors.push(floors.get(floorName))
+        }
+      }
+      //this.floor.
+       console.log("Our floors:", this.floors)
     }
 
     disableGroupChildren(group = this.thingsGroup)
@@ -349,7 +379,7 @@ class Viewscreen extends Phaser.Scene
 
     moveToClick(pointer, relX, relY)
     {
-       console.log(pointer, relX, relY, this)
+      //  console.log(pointer, relX, relY, this)
 
       const path = this.pmsManager.generatePath(this.player, {x: pointer.worldX, y: pointer.worldY}, this.player.floor)
         
@@ -440,10 +470,11 @@ class Viewscreen extends Phaser.Scene
       {
         this.igPlug.setPendingRoomPlayerFloor(floorID)
       }
-      else
-      {
-        this.igPlug.setPendingRoomPlayerFloor("fl0" + this.igPlug.pendingRoom.id)
-      }
+      else {console.log("quickChangeRoom skips floor pl")}
+      // else
+      // {
+      //   this.igPlug.setPendingRoomPlayerFloor("fl0" + this.igPlug.pendingRoom.id)
+      // }
 
 
       // must call drawRoom here? i.e.
@@ -457,7 +488,7 @@ class Viewscreen extends Phaser.Scene
       {
         // console.log(floorData.nome, floorData.coords)
         // console.log("NewFl", this.pmsManager.buildSinglePolyMap(floorData))
-        this.cache.custom.floors.add(floorData.nome, this.pmsManager.buildSinglePolyMap(floorData))
+        this.cache.custom.floors.add(floorData.nome, this.pmsManager.buildSinglePolyMap(floorData, floorData.nome))
       }
 
       console.log(this.cache.custom.floors)

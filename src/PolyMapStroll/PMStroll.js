@@ -52,7 +52,7 @@ export default class PMStroll
         this.out = new Vector2()
     }
 
-    buildSinglePolyMap(data)
+    buildSinglePolyMap(data, debugName)
     {
         console.log("building:", data)
         const graph = new PolygonalMap()
@@ -74,6 +74,9 @@ export default class PMStroll
         this.scene.floors.push(polyMap)
         */
 
+        // just for debug!
+        graph.debugName = debugName
+        
         return graph
     }
 
@@ -278,13 +281,13 @@ export default class PMStroll
 
     generatePath(startVector, goalVector, visibilityMap)
     {
-        console.log("%c Testing Astar! ", "color: #000; background: #8de;")
+        // console.log("%c Testing Astar! ", "color: #000; background: #8de;")
 
         const weakMap =  this.toWeakMap(visibilityMap.graph)
 
         const startIdx = this.addVectorToWeakMap(startVector, weakMap, visibilityMap)
         const goalIdx = this.addVectorToWeakMap(goalVector, weakMap, visibilityMap)
-        console.log(weakMap)
+        // console.log(weakMap)
         const res = []
 
         if (this.inLineOfSight(startVector, goalVector, visibilityMap))
@@ -295,7 +298,7 @@ export default class PMStroll
         {
           const finder = new AstarAlgorithm(weakMap.wmEdges, startIdx, goalIdx, goalVector)
           const indexes = finder.getPath()
-          console.log("Finder!:", indexes)
+          // console.log("Finder!:", indexes)
 
           //first element of path array must be removed here:
           for (const index of indexes) //weakMap.wmNodes)
@@ -306,12 +309,12 @@ export default class PMStroll
 
         }
         
-        console.log("VecPAth:", res)
+        // console.log("VecPAth:", res)
 
         //show something
         //this.debug.showPath(res, {x: startVector.x, y: startVector.y})
       
-        console.log("AFTER", weakMap)
+        // console.log("AFTER", weakMap)
 
         weakMap.destroy()
 

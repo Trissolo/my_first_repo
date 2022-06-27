@@ -220,9 +220,32 @@ export default class Player extends Phaser.GameObjects.Sprite
 
   setFloor()
   {
-    //hardcoded for test
-    console.log(this.floor = this.scene.cache.custom.floors.get(this.scene.igPlug.pendingRoom.playerFloor) )//("fl0" + 0)
-  }
+    console.log("Called Player#setFloor")
+
+    this.floor = null
+
+    if (this.scene.igPlug.pendingRoom.playerFloor)
+    {
+      console.log("Player#floor is already set")
+      this.floor = this.scene.cache.custom.floors.get(this.scene.igPlug.pendingRoom.playerFloor)
+      console.log(this.floor.debugName)
+    }
+    else
+    {
+      for (const floor of this.scene.floors)
+      {
+           console.dir("Pl floor check:", floor, floor.debugName)
+          // console.log("Floor contains player:", floor.polygons[0].contains(this.x, this.y))
+          if (floor.polygons[0].contains(this.x, this.y))
+          {
+            console.log("Setting floor:", floor)
+            this.floor = floor
+            break
+          }
+      }
+    }
+
+  } // end setFloor
 
   // checkRotation(actor, startCoords, endCoords)
   //   {

@@ -51,7 +51,7 @@ export default class RS0 {
     exitNord(triggerArea, actor)
     {
       console.log("exitNord", triggerArea, actor, "testing floor")
-      actor.scene.quickChangeRoom(1, 90, 26, "SW", "fl01su")
+      actor.scene.quickChangeRoom(1, 90, 26, "SW")//, "fl01su")
       actor.scene.drawRoom()
     }
 

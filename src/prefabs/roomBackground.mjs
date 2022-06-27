@@ -25,7 +25,7 @@ export default class RoomBackground extends Phaser.GameObjects.Image {
     calcPath(clickCoords)
     {
         const path = this.scene.pmsManager.generatePath(this.scene.player, clickCoords, this.scene.player.floor)
-        console.log("Path:", path)
+        // console.log("Path:", path)
         this.scene.player.walk.setPath(path)
     }
 

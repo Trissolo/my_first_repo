@@ -56,7 +56,7 @@ class inGameManager extends Phaser.Plugins.BasePlugin
 
     resetPending()
     {
-        this.pendingRoom.id = 0
+        this.pendingRoom.id = null
 
         this.pendingRoom.playerVisible = true
 
@@ -70,7 +70,7 @@ class inGameManager extends Phaser.Plugins.BasePlugin
 
         this.pendingRoom.facingDir = "E"
 
-        this.pendingRoom.playerFloor = "fl00"
+        this.pendingRoom.playerFloor = null
 
         // From frame.name:
 
@@ -95,7 +95,7 @@ class inGameManager extends Phaser.Plugins.BasePlugin
         this.pendingRoom.playerY = newPlayerY
     }
 
-    setPendingRoomActor(actor = robot)
+    setPendingRoomActor(actor = "robot")
     {
         this.pendingRoom.actor = actor
     }

@@ -134,7 +134,7 @@ class Viewscreen extends Phaser.Scene
       //press Q key for test
 
       // test starting room
-      this.quickChangeRoom(0, 140, 65, "SW")
+      this.quickChangeRoom(0, 140, 65, "SW", "fl00")
       this.drawRoom()
 
 
@@ -206,8 +206,9 @@ class Viewscreen extends Phaser.Scene
       this.player.hide()
     
       // reset floors
-      this.floors.length = 0
-      this.igPlug.pendingRoom.playerFloor = null
+      this.resetRoomFloors()
+      // this.floors.length = 0
+      // this.igPlug.pendingRoom.playerFloor = null
 
       // interactiveThings(6/6). Debug
       this.interactiveThings.clear()
@@ -492,6 +493,12 @@ class Viewscreen extends Phaser.Scene
       }
 
       console.log(this.cache.custom.floors)
+    }
+
+    resetRoomFloors()
+    {
+      this.floors.length = 0
+      this.igPlug.pendingRoom.playerFloor = null
     }
 
 }//end class

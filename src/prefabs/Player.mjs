@@ -222,7 +222,7 @@ export default class Player extends Phaser.GameObjects.Sprite
   {
     console.log("Called Player#setFloor")
 
-    this.floor = null
+    //this.floor = null
 
     if (this.scene.igPlug.pendingRoom.playerFloor)
     {

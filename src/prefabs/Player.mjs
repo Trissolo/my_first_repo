@@ -30,6 +30,9 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     this.setWalkEventsRotateBefore()
 
+    //testing rotationComplete event
+    this.on('rotationComplete', () => console.log("Actor: 'rotationComplete' emitted! ;)"))
+
 
   }
 
@@ -226,16 +229,15 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     if (this.scene.igPlug.pendingRoom.playerFloor)
     {
-      console.log("Player#floor is already set")
       this.floor = this.scene.cache.custom.floors.get(this.scene.igPlug.pendingRoom.playerFloor)
-      console.log(this.floor.debugName)
+      console.log("Set the specified Player#floor now!", this.floor.debugName)
     }
     else
     {
+      console.log("Fetching player floor")
       for (const floor of this.scene.floors)
       {
            console.dir("Pl floor check:", floor, floor.debugName)
-          // console.log("Floor contains player:", floor.polygons[0].contains(this.x, this.y))
           if (floor.polygons[0].contains(this.x, this.y))
           {
             console.log("Setting floor:", floor)
@@ -246,6 +248,19 @@ export default class Player extends Phaser.GameObjects.Sprite
     }
 
   } // end setFloor
+
+  rotationIsComplete()
+  {
+    console.log("rotationIsComplete method!!!!!!!!!!!!!")
+    this.anims.stop()
+    this.emit("rotationComplete", this)
+  }
+
+  rotateTo(cardinalAcronym)
+  {
+    console.log("RotateTo Player:", cardinalAcronym)
+    RotationHelper.RotateTo(this, null, cardinalAcronym)
+  }
 
   // checkRotation(actor, startCoords, endCoords)
   //   {

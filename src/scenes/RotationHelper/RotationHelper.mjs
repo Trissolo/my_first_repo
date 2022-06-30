@@ -133,6 +133,54 @@ class RotationHelper
         actor.playAnimAndWalk(actor.name + SEPARATOR + 'walk' + SEPARATOR + endAcronym)
       }
     }
+
+    //almost duplicate...
+    static RotateTo (actor, startCoords, endAcronym)
+    {
+      const direction = actor.getCardinalFromFrameName()
+      
+      // const endAcronym =  RotationHelper.getRelativeCardinal(actor, endCoords)
+      
+      const rot = RotationHelper.minDistance(direction, endAcronym)
+      
+      console.log('static RotateTo:', direction, endAcronym, rot)
+  
+      //is a rotation necessary?
+      if (rot)
+      {
+  
+        // const startAcronym = rot.startingDirectionAcronym
+        // const rotAnim = actor.scene.anims.get(actor.getActorNameFromFrameName() + SEPARATOR + 'rotate');
+        // const {frames: rotFrames} = rotAnim;
+
+        const rotFrames = actor.scene.anims.get(actor.getActorNameFromFrameName() + SEPARATOR + 'rotate').frames;
+
+        const stopFrame = GetFirst(rotFrames, 'textureFrame', actor.getActorNameFromFrameName() + SEPARATOR + endAcronym + "_walk_0");
+
+        const startFrame = rotFrames.indexOf(GetFirst(rotFrames, 'textureFrame', actor.getActorNameFromFrameName() + SEPARATOR + rot.startingDirectionAcronym + "_walk_0"));
+
+        if (rot.resIsCW)
+        {
+          actor.play({ key: actor.getActorNameFromFrameName() + SEPARATOR + 'rotate', startFrame })
+        }
+        else
+        {
+          actor.playReverse({ key: actor.getActorNameFromFrameName() + SEPARATOR + 'rotate', startFrame })
+        }
+  
+        actor.anims.stopOnFrame(stopFrame)
+        actor.once('animationstop', actor.rotationIsComplete, actor)
+
+  
+      }
+      else
+      //just walk
+      {
+        // actor.playAnimAndWalk(actor.getActorNameFromFrameName() + SEPARATOR + 'walk' + SEPARATOR + endAcronym)
+        // actor.playAnimAndWalk(actor.name + SEPARATOR + 'walk' + SEPARATOR + endAcronym)
+        actor.rotationIsComplete.call(actor)//, actor)
+      }
+    }
 }
 
 export default RotationHelper

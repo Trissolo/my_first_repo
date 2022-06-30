@@ -20,7 +20,7 @@ class inGameManager extends Phaser.Plugins.BasePlugin
 
         this.pendingRoom = {}
 
-        this.currentRoom = 0
+        // this.currentRoom = 0
 
         this.resetPending()
 
@@ -60,9 +60,9 @@ class inGameManager extends Phaser.Plugins.BasePlugin
 
         this.pendingRoom.playerVisible = true
 
-        this.pendingRoom.playerX = false
+        this.pendingRoom.playerX = null
 
-        this.pendingRoom.playerY = false
+        this.pendingRoom.playerY = null
 
         this.pendingRoom.frameName = false
 

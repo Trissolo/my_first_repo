@@ -334,6 +334,7 @@ class Viewscreen extends Phaser.Scene
 
     }
 
+    // Gross: it must be rewritten at all costs!
     grabFloors()
     {
       const {floors} = this.cache.custom
@@ -453,7 +454,7 @@ class Viewscreen extends Phaser.Scene
 
       if (typeof playerX === "number" )
       {
-        this.igPlug.setPendingRoomPlayerX(playerX) // 133
+        this.igPlug.setPendingRoomPlayerX(playerX)
       }
 
       if (typeof playerY === "number")

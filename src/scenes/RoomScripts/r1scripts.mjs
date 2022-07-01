@@ -29,11 +29,26 @@ class RS1 {
 
     r2cabinetDoors()
     {
-        console.log("Clicked on:", "r2cabinetDoors")
+        console.log("Clicked on:", "r2cabinetDoors", this)
+        //this.player. 85,98
+
+            const path = this.scene.pmsManager.generatePath(this.scene.player, {x:85, y:98}, this.scene.player.floor)
+            // console.log("Path:", path)
+            this.scene.player.once('walkcomplete', () => this.scene.player.rotateTo("NE"));
+
+            this.scene.player.once('rotationComplete', () => {const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1);
+
+                this.setFrame(frameSuffix + this.scene.boolsManager.toggle(3))
+                  .setOrigin(0);
+                });
+
+            this.scene.player.walk.setPath(path)
         
-        const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
-        this.setFrame(frameSuffix + this.scene.boolsManager.toggle(3))
-          .setOrigin(0)
+
+
+        // const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
+        // this.setFrame(frameSuffix + this.scene.boolsManager.toggle(3))
+        //   .setOrigin(0)
     }
 
     cabinet()

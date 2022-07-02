@@ -178,7 +178,7 @@ class RotationHelper
       {
         // actor.playAnimAndWalk(actor.getActorNameFromFrameName() + SEPARATOR + 'walk' + SEPARATOR + endAcronym)
         // actor.playAnimAndWalk(actor.name + SEPARATOR + 'walk' + SEPARATOR + endAcronym)
-        actor.rotationIsComplete.call(actor)//, actor)
+        actor.rotationIsComplete(actor)//, actor)
       }
     }
 }

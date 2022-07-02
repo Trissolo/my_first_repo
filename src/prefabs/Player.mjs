@@ -189,6 +189,24 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.startWalking()
   }
 
+  walkTo(path, floor)
+  {
+    if (Array.isArray(path))
+    {
+      this.walk.setPath(path)
+    }
+    else
+    {
+      if (floor)
+      {
+
+      }
+
+      this.walk.setPath(this.scene.pmsManager.generatePath(this, path, this.floor))
+
+    }
+  }
+
   startWalking()
   {
       this.walk.aTargetExists = true

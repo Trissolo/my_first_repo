@@ -164,6 +164,18 @@ export default class Preload extends Phaser.Scene
           frameRate: 8
         })
 
+        //test interact anims
+        anims.create(  {
+          key: `${prefix}interact_${cp}`,
+          frames: [
+            {key: 'atlas0', frame: `${prefix}${cp}_interactCenter_0`, duration:530},
+            {key: 'atlas0', frame: `${prefix}${cp}_walk_0`, duration:60}
+            ],
+          skipMissedFrames: false,
+          repeat: -1,
+          frameRate: 8
+        })
+
       }
 
       // robot rotation anim

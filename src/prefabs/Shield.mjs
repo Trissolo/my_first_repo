@@ -1,5 +1,7 @@
 import Phaser from 'phaser'
 
+import { ShieldEvents } from './ShieldEvents.mjs';
+
 export default class Shield extends Phaser.GameObjects.Image
 {
   constructor(scene)
@@ -22,6 +24,7 @@ export default class Shield extends Phaser.GameObjects.Image
     this.setInteractive()
         .setActive(true)
         .setVisible(true)
+        // .scene.igEvents.emit(ShieldEvents.RAISE, this.scene)
   }
 
   lower()
@@ -29,5 +32,6 @@ export default class Shield extends Phaser.GameObjects.Image
     this.disableInteractive()
         .setActive(false)
         .setVisible(false)
+        // this.emit(ShieldEvents.LOWER,)
   }
 }

@@ -6,11 +6,15 @@ import hoverNames from '../constants/hoverNames.mjs';
 import PMStroll from "../PolyMapStroll/PMStroll.js"
 
 import TriggerAreaManager from './TriggerArea/TriggerAreaManager.mjs';
+import TriggerAreaEvents from './TriggerArea/TriggerAreaEvents.mjs';
+
 import RoomBackground from '../prefabs/roomBackground.mjs';
 
 import Player from '../prefabs/Player.mjs';
 
 import Shield from '../prefabs/Shield.mjs';
+
+import ScriptedActions from '../plugins/ScriptedActions.mjs';
 
 import RotationHelper from './RotationHelper/RotationHelper.mjs';
 
@@ -254,11 +258,11 @@ class Viewscreen extends Phaser.Scene
           tz.checkRect = true
 
           // MONSTROUSLY HARDCODED: A REFACTOR OF THE SCHEMA IS ABSOLUTELY NECESSARY!
-          tz.on('entertriggerarea', this.rs[thing.name], this)
+          tz.on(TriggerAreaEvents.TRIGGERED, this.rs[thing.name], this)//('entertriggerarea', this.rs[thing.name], this)
 
           if (this.rs[thing.name + "leave"])
           {
-            tz.on('leavetriggerarea', this.rs[thing.name + "leave"], this)
+            tz.on(TriggerAreaEvents.DISENGAGED, this.rs[thing.name + "leave"], this)//'leavetriggerarea', this.rs[thing.name + "leave"], this)
           }
 
         }

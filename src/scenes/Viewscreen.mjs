@@ -14,6 +14,8 @@ import Shield from '../prefabs/Shield.mjs';
 
 import RotationHelper from './RotationHelper/RotationHelper.mjs';
 
+import { ViewscreenEvents } from './ViewscreenEvents.mjs';
+
 
 class Viewscreen extends Phaser.Scene
 {
@@ -215,7 +217,7 @@ class Viewscreen extends Phaser.Scene
 
       // 'onClearRoom' event
       // Add something like this.igPlug.emit("onClearRoom", this)
-      this.igEvents.emit("onClearRoom", this)
+      this.igEvents.emit(ViewscreenEvents.ROOM_CLEARED, this)
 
     } //end clearRoom
 
@@ -330,7 +332,7 @@ class Viewscreen extends Phaser.Scene
       // this.grabFloors()
 
       //all room things are ready, so:
-      this.igEvents.emit('roomthingsetted', this, this.interactiveThings)
+      this.igEvents.emit(ViewscreenEvents.ROOM_THINGS_SET, this, this.interactiveThings)
 
     }
 

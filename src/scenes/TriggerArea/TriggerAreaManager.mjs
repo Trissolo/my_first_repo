@@ -2,6 +2,9 @@ import Phaser from 'phaser'
 import TriggerArea from './TriggerArea.mjs'
 import NumFromString from '../../utils/NumFromString.mjs'
 
+import TriggerAreaEvents  from './TriggerAreaEvents.mjs'
+ 
+
 import hoverNames from '../../constants/hoverNames.mjs'
 
 class TriggerAreaManager
@@ -158,7 +161,7 @@ class TriggerAreaManager
           {
             triggerArea._areaIsOccupied = true
             // console.log("%cEntered on", "color:yellow;font-size: 1.8em;", triggerArea.name)
-            triggerArea.emit('entertriggerarea', triggerArea, actor)
+            triggerArea.emit(TriggerAreaEvents.TRIGGERED, triggerArea, actor)
 
           }
 
@@ -166,7 +169,7 @@ class TriggerAreaManager
           {
             triggerArea._areaIsOccupied = false
             // console.log("%cJust left", "color:orange;font-size: 1.8em;", triggerArea.name)
-            triggerArea.emit('leavetriggerarea', triggerArea, actor)
+            triggerArea.emit(TriggerAreaEvents.DISENGAGED, triggerArea, actor)
           }
         }
       }

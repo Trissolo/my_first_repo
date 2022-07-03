@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 
+import { RoomBackgroundEvents } from './RoomBackgroundEvents.mjs';
+
 export default class RoomBackground extends Phaser.GameObjects.Image {
 
     constructor(scene)
@@ -50,7 +52,7 @@ export default class RoomBackground extends Phaser.GameObjects.Image {
     bgClicked(pointer, localX, localY, prevent)
     {
         this.clickWorldCoords.setTo(pointer.worldX, pointer.worldY)
-        this.scene.igEvents.emit('bgClicked', this.clickWorldCoords)
+        this.scene.igEvents.emit(RoomBackgroundEvents.Background_Clicked, this.clickWorldCoords)
         // console.log("Background:", this)
     }
 

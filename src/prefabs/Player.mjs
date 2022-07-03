@@ -6,6 +6,7 @@ import WalkEvents from './walkComponent/walkEvents.mjs'
 import SEPARATOR from '../constants/SEPARATOR.mjs'
 
 import RotationHelper from '../scenes/RotationHelper/RotationHelper.mjs'
+import { RotationHelperEvents } from '../scenes/RotationHelper/RotationHelperEvents.mjs'
 
 // methods are needed to get sprite information from frameName
 export default class Player extends Phaser.GameObjects.Sprite
@@ -197,10 +198,10 @@ export default class Player extends Phaser.GameObjects.Sprite
     }
     else
     {
-      if (floor)
-      {
+      // if (floor)
+      // {
 
-      }
+      // }
 
       this.walk.setPath(this.scene.pmsManager.generatePath(this, path, this.floor))
 
@@ -248,17 +249,17 @@ export default class Player extends Phaser.GameObjects.Sprite
     if (this.scene.igPlug.pendingRoom.playerFloor)
     {
       this.floor = this.scene.cache.custom.floors.get(this.scene.igPlug.pendingRoom.playerFloor)
-      console.log("Set the specified Player#floor now!", this.floor.debugName)
+      // console.log("Set the specified Player#floor now!", this.floor.debugName)
     }
     else
     {
-      console.log("Fetching player floor")
+      // console.log("Fetching player floor")
       for (const floor of this.scene.floors)
       {
-           console.dir("Pl floor check:", floor, floor.debugName)
+          //  console.dir("Pl floor check:", floor, floor.debugName)
           if (floor.polygons[0].contains(this.x, this.y))
           {
-            console.log("Setting floor:", floor)
+            // console.log("Setting floor:", floor)
             this.floor = floor
             break
           }
@@ -269,78 +270,14 @@ export default class Player extends Phaser.GameObjects.Sprite
 
   rotationIsComplete()
   {
-    console.log("rotationIsComplete method!!!!!!!!!!!!!")
     this.anims.stop()
-    this.emit("rotationComplete", this)
+    this.emit(RotationHelperEvents.RotationComplete, this)
   }
 
   rotateTo(cardinalAcronym)
   {
-    console.log("RotateTo Player:", cardinalAcronym)
+    // console.log("RotateTo Player:", cardinalAcronym)
     RotationHelper.RotateTo(this, null, cardinalAcronym)
   }
-
-  // checkRotation(actor, startCoords, endCoords)
-  //   {
-  //     // console.log('CheckRotation:')
-  //     const direction = actor.getCardinalFromFrameName()
-  
-  //     const endAcronym = RotationHelper.getRelativeCardinal(actor, endCoords)
-  
-  //     const rot = RotationHelper.minDistance(direction, endAcronym)
-  
-  //     //is a rotation necessary?
-  //     if(rot)
-  //     {
-  
-  //       const startAcronym = rot.startingDirectionAcronym
-  //       const realEnd = rot.goalDirectionAcronym
-  //       //      let startAcronym, realEnd
-  //       //  
-  //       //      if (rot.resDistance == 2)
-  //       //      {
-  //       //        startAcronym = rot.startingDirectionAcronym
-  //       //        realEnd = rot.goalDirectionAcronym
-  //       //      }
-  //       //      else
-  //       //      {
-  //       //        startAcronym = rot.adjustedStart
-  //       //        realEnd = rot.adjustedEnd
-  //       //      }
-  
-  
-  //       log("Ani start/end:", startAcronym, realEnd, rot.resDistance)
-  //       //...forse...
-  
-  //       const rotAnim = actor.scene.anims.get('rotate');
-  //       const {frames: rotFrames} = rotAnim;//.frames;
-  //       const stopFrame = GetFirst(rotFrames, 'textureFrame', this.buildNameByAcronym(realEnd));
-  //       const startFrame = rotFrames.indexOf(this.getAniFrameByName(rotFrames, this.buildNameByAcronym(startAcronym)))
-  
-  //       if(rot.resIsCW)
-  //       {
-  //         actor.play({ key: 'rotate', startFrame }) //, delay: rot.resDistance == 2? 500: 1})
-  //       }
-  //       else
-  //       {
-  //         actor.playReverse({ key: 'rotate', startFrame }) //, delay: rot.resDistance == 2? 500: 1})
-  //       }
-  
-  //       actor.anims.stopOnFrame(stopFrame)
-  //       actor.once('animationstop', () =>
-  //       {
-  //         actor.play('walk' + endAcronym);
-  //         actor.walk.start()
-  //       })
-  
-  //     }
-  //     else
-  //     //just walk
-  //     {
-  //       actor.play('walk' + endAcronym)
-  //       actor.walk.start()
-  //     }
-  
-    // } //end checkRotation
 
 }

@@ -38,7 +38,7 @@ class RS1 {
             // console.log("Path:", path)
             this.scene.player.once('walkcomplete', () => this.scene.player.rotateTo("NE"));
 
-         this.scene.player.once('rotationComplete', () => {this.scene.player.anims.play({key:'robot_interact_NE', repeat:0})})
+         this.scene.player.once('rotationcomplete', () => {this.scene.player.anims.play({key:'robot_interact_NE', repeat:0})})
 
             this.scene.player.once('animationcomplete', () => {const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1);
 

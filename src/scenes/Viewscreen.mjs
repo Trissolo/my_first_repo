@@ -96,8 +96,6 @@ class Viewscreen extends Phaser.Scene
        this.shield = new Shield(this)
 
 
-     
-
       //the bg. Also click detector
       this.background = new RoomBackground(this)
       
@@ -234,10 +232,10 @@ class Viewscreen extends Phaser.Scene
       this.background.revamp(atlas, background)
 
       this.grabFloors()
-      console.log("Floors grabbed:", this.floors)
+      // console.log("Floors grabbed:", this.floors)
 
       // now room's things!
-      console.log("Start drawing...")
+      // console.log("Start drawing...")
 
       for (const thing of things)
       {
@@ -347,16 +345,16 @@ class Viewscreen extends Phaser.Scene
 
       for (const floorName of floors.getKeys())
       {
-        console.log("Considering:", 'fl'+ ("" + this.roomData.id).padStart(2, '0'), floorName)
+        // console.log("Considering:", 'fl'+ ("" + this.roomData.id).padStart(2, '0'), floorName)
         if (floorName.startsWith('fl'+ ("" + this.roomData.id).padStart(2, '0') ))
         {
-          console.log("Passed:", floorName)
+          // console.log("Passed:", floorName)
 
           this.floors.push(floors.get(floorName))
         }
       }
       //this.floor.
-       console.log("Our floors:", this.floors)
+      //  console.log("Our floors:", this.floors)
     }
 
     disableGroupChildren(group = this.thingsGroup)

@@ -32,7 +32,7 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.setWalkEventsRotateBefore()
 
     //testing rotationComplete event
-    this.on('rotationComplete', () => console.log("Actor: 'rotationComplete' emitted! ;)"))
+    this.on(RotationHelperEvents.RotationComplete, () => console.log("Actor: 'rotationcomplete' emitted! ;)"))
 
 
   }
@@ -242,7 +242,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
   setFloor()
   {
-    console.log("Called Player#setFloor")
+    // console.log("Called Player#setFloor")
 
     //this.floor = null
 

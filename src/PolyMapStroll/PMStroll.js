@@ -54,7 +54,7 @@ export default class PMStroll
 
     buildSinglePolyMap(data, debugName)
     {
-        console.log("building:", data)
+        // console.log("building:", data)
         const graph = new PolygonalMap()
         for (const polyData of data.coords) //polyVertices)
         {
@@ -118,7 +118,7 @@ export default class PMStroll
 
       const aryNodes = [...graph.nodeMap.keys()]
 
-      console.log("%cGraph.nodeMap: ", DBG1, polygonalMap, aryNodes)
+      // console.log("%cGraph.nodeMap: ", DBG1, polygonalMap, aryNodes)
 
       for(let currentNodeIdx = 0, len = aryNodes.length; currentNodeIdx < len; currentNodeIdx++)
       {

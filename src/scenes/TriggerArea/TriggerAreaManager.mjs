@@ -118,9 +118,9 @@ class TriggerAreaManager
         // remove listeners:
 
         // area:
-        child.off('entertriggerarea')
+        child.off(TriggerAreaEvents.TRIGGERED)//'entertriggerarea')
 
-        child.off('leavetriggerarea')
+        child.off(TriggerAreaEvents.DISENGAGED)//'leavetriggerarea')
 
         // pointer:
         child.off('pointerdown')

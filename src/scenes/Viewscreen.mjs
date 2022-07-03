@@ -447,7 +447,7 @@ class Viewscreen extends Phaser.Scene
       this.dsAry.push(this.player)
       this.player.place()
         .show()
-        .setFloor()
+        .setFloor();
     }
 
     quickChangeRoom(roomNum = 0, playerX, playerY, facing, floorID = null)
@@ -476,7 +476,12 @@ class Viewscreen extends Phaser.Scene
       {
         this.igPlug.setPendingRoomPlayerFloor(floorID)
       }
-      else {console.log("quickChangeRoom skips floor pl")}
+      // else
+      // {
+      //   console.log("------------------------------------------quickChangeRoom skips floor pl")
+      // }
+
+
       // else
       // {
       //   this.igPlug.setPendingRoomPlayerFloor("fl0" + this.igPlug.pendingRoom.id)
@@ -504,6 +509,8 @@ class Viewscreen extends Phaser.Scene
     {
       this.floors.length = 0
       this.igPlug.pendingRoom.playerFloor = null
+
+      
     }
 
 }//end class

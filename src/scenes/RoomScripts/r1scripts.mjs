@@ -14,7 +14,7 @@ class RS1 {
 
     exitEst(triggerArea, actor)
     {
-        actor.scene.quickChangeRoom(0, 15, false, "E")
+        actor.scene.quickChangeRoom(0, 15, false, "E", "fl00")
         actor.scene.drawRoom()
         // console.log("Called exitEst", triggerArea, actor)
     }

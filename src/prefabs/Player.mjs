@@ -81,7 +81,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
   }
 
-  place(x, y)
+  place()
   {
     const {playerX, playerY, facingDir} = this.scene.igPlug.pendingRoom
 
@@ -94,6 +94,7 @@ export default class Player extends Phaser.GameObjects.Sprite
     {
       this.y = playerY
     }
+
 
     // if (facingDir)
     // {
@@ -264,6 +265,7 @@ export default class Player extends Phaser.GameObjects.Sprite
             break
           }
       }
+      console.log("FLOOR ANC:", this.floor)
     }
 
   } // end setFloor

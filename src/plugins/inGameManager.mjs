@@ -1,6 +1,8 @@
 import boolsManager from "./VarsManager/boolsManager.mjs";
 import RoomScript from "../scenes/RoomScripts/RoomScripts.mjs";
 
+import ScriptedActions from "./ScriptedActions.mjs";
+
 //needed just for his length
 import conditions from "../constants/conditions.mjs";
 
@@ -23,6 +25,8 @@ class inGameManager extends Phaser.Plugins.BasePlugin
         // this.currentRoom = 0
 
         this.resetPending()
+
+        this.scrActions = new ScriptedActions()
 
     }
 

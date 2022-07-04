@@ -32,7 +32,7 @@ export default class ScriptedActions {
     return this.aryActions[this.currentIdx]
   }
 
-  setUp(actionsArray)
+  add(actionsArray)
   {
     this.clear()
 

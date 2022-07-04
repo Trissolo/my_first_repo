@@ -519,6 +519,12 @@ class Viewscreen extends Phaser.Scene
       gameObject.setFrame(gameObject.frame.name.substring(0, gameObject.frame.name.length - 1) + gameObject.scene.boolsManager.toggle(boolID))
     }
 
+    scriptedAction(actionsArray)
+    {
+      this.igPlug.scrActions.add(actionsArray)
+      this.igPlug.scrActions.execute()
+    }
+
 }//end class
 
 export default Viewscreen

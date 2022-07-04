@@ -33,27 +33,19 @@ class RS1 {
     r2cabinetDoors()
     {
         console.log("Clicked on:", "r2cabinetDoors", this)
-        //this.player. 85,98
 
-            const path = this.scene.pmsManager.generatePath(this.scene.player, {x:85, y:98}, this.scene.player.floor)
-            // console.log("Path:", path)
-            this.scene.player.once('walkcomplete', () => this.scene.player.rotateTo("NE"));
+        // hardcoded:
 
-         this.scene.player.once('rotationcomplete', () => {this.scene.player.anims.play({key:'robot_interact_NE', repeat:0})})
+        this.scene.player.once('walkcomplete', () => this.scene.player.rotateTo("NE"));
 
-            this.scene.player.once('animationcomplete', () => {this.scene.toggleFrameAndBool(this, 3)})/*{const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1);
+        this.scene.player.once('rotationcomplete', () => {this.scene.player.anims.play({key:'robot_interact_NE', repeat:0})})
 
-                this.setFrame(frameSuffix + this.scene.boolsManager.toggle(3))
-                  .setOrigin(0);
-                });*/
+        this.scene.player.once('animationcomplete', () => {this.scene.toggleFrameAndBool(this, 3)})
 
-            this.scene.player.walk.setPath(path)
-     
-                //this.scene.toggleFrameAndBool(this, 3)
 
-        // const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
-        // this.setFrame(frameSuffix + this.scene.boolsManager.toggle(3))
-        //   .setOrigin(0)
+        // start (hardcoded)
+        this.scene.player.walkTo({x: 85, y:98 })
+
     }
 
     cabinet()

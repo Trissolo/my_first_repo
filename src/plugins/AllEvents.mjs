@@ -4,7 +4,7 @@ export {RoomBackgroundEvents } from "../prefabs/RoomBackgroundEvents.mjs"
 export {default as walkEvents } from "../prefabs/walkComponent/walkEvents.mjs"
 export {RotationHelperEvents } from "../scenes/RotationHelper/RotationHelperEvents.mjs"
 export {default as TriggerAreaEvents} from '../scenes/TriggerArea/TriggerAreaEvents.mjs'
-
+export {GenericEvents} from '../scenes/GenericEvents.mjs'
 
 // import ShieldEvents from '../prefabs/ShieldEvents.mjs'
 // import ViewscreenEvents from "../scenes/ViewscreenEvents.mjs"

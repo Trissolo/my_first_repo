@@ -1,4 +1,5 @@
  import * as AllEvents from "../../plugins/AllEvents.mjs"
+ import conditions from "../../constants/conditions.mjs"
 
  import GenerateSingleAction from "../../utils/GenerateSingleAction.mjs"
 
@@ -29,6 +30,14 @@ class RS1 {
     ITcardA()
     {
         console.log("Clicked on:", "ITcardA")
+        this.scene.scriptedAction(
+            [
+                GenerateSingleAction(this.scene.player, 'walkTo', AllEvents.walkEvents.WALK_COMPLETE, {x: 85, y:98 }),
+                GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE", repeat: false, duration: 600}),
+                GenerateSingleAction(this, 'hideAndSetBool', AllEvents.GenericEvents.SPRITE_HIDE, [this, 4, 1], this.scene),
+                GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE", repeat: false, duration: 300}),
+                GenerateSingleAction(this.scene.player, 'rotateTo', AllEvents.RotationHelperEvents.RotationComplete, "SE")
+            ])
     }
 
     r2cabinetDoors()
@@ -58,7 +67,7 @@ class RS1 {
 
                 GenerateSingleAction(this.scene.player, 'rotateTo', AllEvents.RotationHelperEvents.RotationComplete, "NE"),
 
-                GenerateSingleAction(this, 'toggleFrameAndBool', 'frametoggled', [this, 3], this.scene)
+                GenerateSingleAction(this, 'toggleFrameAndBool', AllEvents.GenericEvents.TOGGLE_FRAME_AND_BOOL, [this, 3], this.scene)
 
                 
 

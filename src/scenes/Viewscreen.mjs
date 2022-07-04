@@ -14,11 +14,13 @@ import Player from '../prefabs/Player.mjs';
 
 import Shield from '../prefabs/Shield.mjs';
 
-import ScriptedActions from '../plugins/ScriptedActions.mjs';
+// import ScriptedActions from '../plugins/ScriptedActions.mjs';
 
-import RotationHelper from './RotationHelper/RotationHelper.mjs';
+// import RotationHelper from './RotationHelper/RotationHelper.mjs';
 
 import { ViewscreenEvents } from './ViewscreenEvents.mjs';
+
+import {GenericEvents} from '../scenes/GenericEvents.mjs'
 
 
 class Viewscreen extends Phaser.Scene
@@ -521,7 +523,45 @@ class Viewscreen extends Phaser.Scene
       }
       // const frameSuffix =  gameObject.frame.name.substring(0, gameObject.frame.name.length - 1);
       gameObject.setFrame(gameObject.frame.name.substring(0, gameObject.frame.name.length - 1) + gameObject.scene.boolsManager.toggle(boolID))
-      gameObject.emit('frametoggled', gameObject, boolID)
+      gameObject.emit(GenericEvents.TOGGLE_FRAME_AND_BOOL, gameObject, boolID)
+    }
+
+    setGameObjectFrame(gameObject, frameName)
+    {
+      if (Array.isArray(gameObject))
+      {
+        [gameObject, frameName] = gameObject
+      }
+
+      gameObject.setFrame(frameName, false, false)
+
+      gameObject.emit(GenericEvents.SPRITE_SET_FRAME, gameObject)
+    }
+
+    hideAndSetBool(gameObject, boolID, value = 1)
+    {
+      console.log(gameObject.name, "hiding")
+      if (Array.isArray(gameObject))
+      {
+        [gameObject, boolID = undefined, value = 1] = gameObject
+      }
+
+      gameObject.setVisible(false)
+      gameObject.setActive(false)
+
+      if (boolID !== undefined)
+      {
+        if (value)
+        {
+          gameObject.scene.igPlug.boolsManager.set(boolID)
+        }
+        else
+        {
+          gameObject.scene.igPlug.boolsManager.clear(boolID)
+        }
+      }
+
+      gameObject.emit(GenericEvents.SPRITE_HIDE, gameObject, boolID)
     }
 
     scriptedAction(actionsArray)

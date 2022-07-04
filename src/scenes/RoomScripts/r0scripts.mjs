@@ -33,8 +33,11 @@ export default class RS0 {
       {
         actor.scene.player.walk.setIdle()
 
+
         // hardcoded "separate down"
         actor.scene.player.y = triggerArea.area.y + triggerArea.area.height + 1
+
+        actor.stop()
       }
 
     }
@@ -81,10 +84,11 @@ export default class RS0 {
     crateLid()
     {
       console.log("Clicked on:", "crateLid")
-        
+        /*
         const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
         this.setFrame(frameSuffix + this.scene.boolsManager.toggle(2))
-          .setOrigin(0)
+          .setOrigin(0)*/
+          this.scene.toggleFrameAndBool(this, 2)
       
     }
 
@@ -103,9 +107,10 @@ export default class RS0 {
       console.log(this);
       console.log("Clicked on:", "button")
         
-        const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
-        this.setFrame(frameSuffix + this.scene.boolsManager.toggle(5))
-          .setOrigin(0)
+        // const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
+        // this.setFrame(frameSuffix + this.scene.boolsManager.toggle(5))
+        //   .setOrigin(0)
+        this.scene.toggleFrameAndBool(this, 5)
     }
 
     mensole()
@@ -121,9 +126,10 @@ export default class RS0 {
     porta()
     {
       console.log(this);
-      const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
-      this.setFrame(frameSuffix + this.scene.boolsManager.toggle(0))
-        .setOrigin(0)
+      // const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
+      // this.setFrame(frameSuffix + this.scene.boolsManager.toggle(0))
+      //   .setOrigin(0)
+      this.scene.toggleFrameAndBool(this, 0)
     }
 
     coso_dietro()

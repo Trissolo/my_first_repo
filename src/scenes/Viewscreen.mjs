@@ -513,6 +513,12 @@ class Viewscreen extends Phaser.Scene
       
     }
 
+    toggleFrameAndBool(gameObject, boolID)
+    {
+      // const frameSuffix =  gameObject.frame.name.substring(0, gameObject.frame.name.length - 1);
+      gameObject.setFrame(gameObject.frame.name.substring(0, gameObject.frame.name.length - 1) + gameObject.scene.boolsManager.toggle(boolID))
+    }
+
 }//end class
 
 export default Viewscreen

@@ -14,7 +14,7 @@ class RS1 {
 
     exitEst(triggerArea, actor)
     {
-        actor.scene.quickChangeRoom(0, 15, false, "E", "fl00")
+        actor.scene.quickChangeRoom(0, 15, false, "SE")//, "fl00")
         actor.scene.drawRoom()
         // console.log("Called exitEst", triggerArea, actor)
     }
@@ -40,15 +40,15 @@ class RS1 {
 
          this.scene.player.once('rotationcomplete', () => {this.scene.player.anims.play({key:'robot_interact_NE', repeat:0})})
 
-            this.scene.player.once('animationcomplete', () => {const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1);
+            this.scene.player.once('animationcomplete', () => {this.scene.toggleFrameAndBool(this, 3)})/*{const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1);
 
                 this.setFrame(frameSuffix + this.scene.boolsManager.toggle(3))
                   .setOrigin(0);
-                });
+                });*/
 
             this.scene.player.walk.setPath(path)
-        
-
+     
+                //this.scene.toggleFrameAndBool(this, 3)
 
         // const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
         // this.setFrame(frameSuffix + this.scene.boolsManager.toggle(3))

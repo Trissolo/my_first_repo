@@ -273,12 +273,13 @@ export default class Player extends Phaser.GameObjects.Sprite
   rotationIsComplete()
   {
     this.anims.stop()
+    console.log("DuoB!")
     this.emit(RotationHelperEvents.RotationComplete, this)
   }
 
   rotateTo(cardinalAcronym)
   {
-    // console.log("RotateTo Player:", cardinalAcronym)
+    console.log("Player...RotateTo:", cardinalAcronym, this.listeners(RotationHelperEvents.RotationComplete))
     RotationHelper.RotateTo(this, null, cardinalAcronym)
   }
 

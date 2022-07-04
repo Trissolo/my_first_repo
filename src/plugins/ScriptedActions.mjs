@@ -24,7 +24,7 @@ export default class ScriptedActions {
 
     this.endAt = 0
 
-    this.action = null
+    // this.action = null
   }
 
   get action()
@@ -36,12 +36,35 @@ export default class ScriptedActions {
   {
     this.clear()
 
-    this.aryActions.push(...actionsArray)
+    // this.aryActions.push(...actionsArray)
+
+    // this.endAt = this.aryActions.length
+
+    console.log("actionsArray", actionsArray)
+    this.endAt = this.aryActions.push(...actionsArray)
   }
 
   execute()
   {
-    console.log(this.action)
+    console.log("Executing:", this.currentIdx, ":", this.action.action)
+    console.log("Actions:", this.aryActions, this.action)//.emitter.once, this.action.emitter.once)
+    this.action.emitter.once(this.action.completeWhen, this.advance, this)
+
+    this.action.context[this.action.action].call(this.action.context, this.action.params)
+  }
+
+  advance()
+  {
+    this.currentIdx += 1
+
+    if (this.currentIdx === this.endAt)
+    {
+      console.log("Actions complete")
+    }
+    else
+    {
+      this.execute()
+    }
   }
     // // static count = 0;
     // get value() {

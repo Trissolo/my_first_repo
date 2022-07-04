@@ -1,4 +1,5 @@
-// import ScriptedActions from "../../plugins/ScriptedActions.mjs"
+ import * as AllEvents from "../../plugins/AllEvents.mjs"
+//  console.log("YYAYYYYYYYYYYYYYYYYYYYYYYYY", AllEvents.walkEvents, AllEvents.RotationHelperEvents.RotationComplete)
 
 class RS1 {
 

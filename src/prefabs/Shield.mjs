@@ -25,6 +25,7 @@ export default class Shield extends Phaser.GameObjects.Image
         .setActive(true)
         .setVisible(true)
         // .scene.igEvents.emit(ShieldEvents.RAISE, this.scene)
+        .emit(ShieldEvents.RAISE, this)
   }
 
   lower()
@@ -32,6 +33,6 @@ export default class Shield extends Phaser.GameObjects.Image
     this.disableInteractive()
         .setActive(false)
         .setVisible(false)
-        // this.emit(ShieldEvents.LOWER,)
+        .emit(ShieldEvents.LOWER, this)
   }
 }

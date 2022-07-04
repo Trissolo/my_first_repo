@@ -55,6 +55,7 @@ class inGameManager extends Phaser.Plugins.BasePlugin
         if (scene.scene.key === "Viewscreen")
         {
             this.viewScreen = scene
+            this.scrActions.setScene(scene)
         }
     }
 

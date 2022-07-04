@@ -33,6 +33,7 @@ class RS1 {
         this.scene.scriptedAction(
             [
                 GenerateSingleAction(this.scene.player, 'walkTo', AllEvents.walkEvents.WALK_COMPLETE, {x: 85, y:98 }),
+                GenerateSingleAction(this.scene.shield, 'raise', AllEvents.ShieldEvents.RAISE),
                 GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE", repeat: false, duration: 600}),
                 GenerateSingleAction(this, 'hideAndSetBool', AllEvents.GenericEvents.SPRITE_HIDE, [this, 4, 1], this.scene),
                 GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE", repeat: false, duration: 300}),

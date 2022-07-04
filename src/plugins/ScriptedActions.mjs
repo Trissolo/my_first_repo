@@ -9,11 +9,20 @@
 
 export default class ScriptedActions {
 
-  constructor()
+  constructor()//scene)
   {
     this.aryActions = []
     this.currentIdx = 0
     this.endAt = 0
+
+    this.lowerShieldOnEnd = true
+
+    // this.scene = scene
+  }
+
+  setScene(scene)
+  {
+    this.scene = scene
   }
 
   clear()
@@ -29,12 +38,17 @@ export default class ScriptedActions {
 
   get action()
   {
-    return this.aryActions[this.currentIdx]
+    if (this.aryActions.length)
+    {
+      return this.aryActions[this.currentIdx]
+    }
   }
 
-  add(actionsArray)
+  add(actionsArray, lowerShieldOnEnd = true)
   {
     this.clear()
+
+    this.lowerShieldOnEnd = lowerShieldOnEnd
 
     // this.aryActions.push(...actionsArray)
 
@@ -60,6 +74,12 @@ export default class ScriptedActions {
     if (this.currentIdx === this.endAt)
     {
       console.log("Actions complete")
+      this.clear()
+
+      if (this.lowerShieldOnEnd)
+      {
+        this.scene.shield.lower()
+      }
     }
     else
     {

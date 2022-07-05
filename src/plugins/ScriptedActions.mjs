@@ -12,8 +12,11 @@ export default class ScriptedActions {
   constructor()//scene)
   {
     this.aryActions = []
+
     this.currentIdx = 0
+
     this.endAt = 0
+
 
     this.lowerShieldOnEnd = true
 
@@ -46,6 +49,16 @@ export default class ScriptedActions {
 
   add(actionsArray, lowerShieldOnEnd = true)
   {
+
+    if (this.aryActions.length !== 0)
+    {
+      // console.warn("There is another action set/executing!")
+      // console.dir(this.action)
+      // console.error("Trying to remove listener...", this.currentIdx)
+      this.action.emitter.off(this.action.completeWhen, this.advance, this, true)
+      // return false
+    }
+
     this.clear()
 
     this.lowerShieldOnEnd = lowerShieldOnEnd
@@ -61,7 +74,7 @@ export default class ScriptedActions {
   execute()
   {
     console.log("Executing:", this.currentIdx, ":", this.action.action)
-    console.log("Actions:", this.aryActions, this.action)//.emitter.once, this.action.emitter.once)
+    console.log("Actions:", this.aryActions, this.action)
     this.action.emitter.once(this.action.completeWhen, this.advance, this)
 
     this.action.context[this.action.action].call(this.action.context, this.action.params)

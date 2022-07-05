@@ -68,7 +68,11 @@ class RS1 {
 
                 GenerateSingleAction(this.scene.player, 'rotateTo', AllEvents.RotationHelperEvents.RotationComplete, "NE"),
 
-                GenerateSingleAction(this, 'toggleFrameAndBool', AllEvents.GenericEvents.TOGGLE_FRAME_AND_BOOL, [this, 3], this.scene)
+                GenerateSingleAction(this, 'toggleFrameAndBool', AllEvents.GenericEvents.TOGGLE_FRAME_AND_BOOL, [this, 3], this.scene),
+
+                GenerateSingleAction(this.scene.player, 'play', 'animationcomplete', {key: 'robot_interact_NE', repeat: false}), // , duration: 10}),
+
+                GenerateSingleAction(this.scene.player, "setGameObjectFrame", AllEvents.GenericEvents.SPRITE_SET_FRAME, [this.scene.player, "robot_N_walk_0"], this.scene)
 
                 
 

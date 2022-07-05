@@ -6,5 +6,5 @@ const conditions = [
     "cardBlueTaken",
     "buttonIsPressed"
     ]
-    
-    export default conditions
+
+export default conditions

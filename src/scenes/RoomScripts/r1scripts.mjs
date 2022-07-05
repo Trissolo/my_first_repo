@@ -1,9 +1,14 @@
- import * as AllEvents from "../../plugins/AllEvents.mjs"
- import conditions from "../../constants/conditions.mjs"
+import * as AllEvents from "../../plugins/AllEvents.mjs"
 
- import GenerateSingleAction from "../../utils/GenerateSingleAction.mjs"
+import { crazyCodingHelper } from "../../utils/crazyCodingHelper.mjs"
 
-class RS1 {
+
+import GenerateSingleAction from "../../utils/GenerateSingleAction.mjs"
+
+
+AllEvents.RoomBackgroundEvents.Background_Clicked
+class RS1
+{
 
     constructor()
     {

@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
 import inGameManager from './plugins/inGameManager.mjs';
 
-import Preload from './scenes/Preload.mjs'
-import Viewscreen from './scenes/Viewscreen.mjs'
+import Preload from './scenes/Preload.mjs';
+import Viewscreen from './scenes/Viewscreen.mjs';
+import Inventory from './scenes/inventory/InventoryScene.mjs';
 
 
 const config = {
@@ -36,7 +37,7 @@ const config = {
         global:[ {key: "inGameManager", plugin: inGameManager, start: true}]
     },
     
-    scene: [Preload, Viewscreen]
+    scene: [Preload, Viewscreen, Inventory]
   }
 
 window.game = new Phaser.Game(config)

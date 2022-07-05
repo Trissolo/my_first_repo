@@ -211,6 +211,7 @@ export default class Preload extends Phaser.Scene
     pressedZ()
     {
         this.scene.start('Viewscreen')
+        this.scene.launch('Inventory')
     }
 
     onDestroy()

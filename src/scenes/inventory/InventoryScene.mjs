@@ -39,10 +39,13 @@ class Inventory extends Phaser.Scene
     create()
     {
         this.rectangle = this.add.image(0, 0, "atlas0", "inventory_selected_item")
-        .setOrigin(0)
+        .setOrigin(0).setVisible()
 
         console.log(this)
-        this.inventory = []
+        this.inventoryItems = []
+
+        this.item = null
+
 
         for (let i = 0; i < 17; i++)
         {
@@ -50,12 +53,11 @@ class Inventory extends Phaser.Scene
             .setOrigin(0)
             .setInteractive()
             .on('pointerdown', this.placeRect)
-            // .setScale(-1);
 
-            this.inventory.push(obj)
+            this.inventoryItems.push(obj)
         }
 
-        Phaser.Actions.GridAlign(this.inventory, {
+        Phaser.Actions.GridAlign(this.inventoryItems, {
             width: 9,
             height: 2,
             cellWidth: 32,
@@ -65,11 +67,71 @@ class Inventory extends Phaser.Scene
         });
     }
 
-    placeRect(a,b,c)
+    placeRect(pointer,relX,relY, stopPropagation)
     {
-        console.log(a,b,c)
-        console.log(this.scene.rectangle)
-        this.scene.rectangle.setPosition(this.x, this.y)
+        // console.log(pointer,relX,relY, stopPropagation)
+        // console.log(this.frame.name)
+
+        if(this.scene.noActiveItem())
+        {
+          this.scene.rectangle.setPosition(this.x, this.y).setVisible(true)
+          this.scene.item = this
+        }
+
+        else if (this.scene.item === this)
+        {
+          this.scene.rectangle.setVisible(false)
+          this.scene.item = null
+        }
+
+        else
+        {
+          console.log(`${this.frame.name} + ${this.scene.item.frame.name} = ??\nCombine Items not implemented yet.`)
+
+          //select item
+          this.scene.rectangle
+            .setPosition(this.x, this.y)
+            .setVisible(true);
+
+          this.scene.item = this
+        }
+
+
+        // console.log("no sel:", this.scene.noActiveItem())
+        // if (pointer.leftButtonDown())
+        // {
+        //   console.log("Left Clicked")
+        // }
+
+        // else if (pointer.rightButtonDown())
+        // {
+        //   console.log("Right Clicked")
+        // }
+    }
+
+    noActiveItem()
+    {
+      return !this.item
+    }
+
+    getInv()
+    {
+      return this.inventoryItems
+    }
+
+    add()
+    {
+
+    }
+
+    remove()
+    {
+
+    }
+
+    grab()
+    {
+
     }
 }
 

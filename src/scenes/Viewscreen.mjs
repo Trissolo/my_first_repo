@@ -154,6 +154,13 @@ class Viewscreen extends Phaser.Scene
 
     }// end create
 
+    // active inventory Item
+    // Maybe this getter must be installed by the igPlug...
+    get item()
+    {
+      return this.igPlug.activeInventoryItem
+    }
+
 
     // getter to take the right room configuration
     get roomData()

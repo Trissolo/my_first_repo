@@ -28,6 +28,8 @@ class inGameManager extends Phaser.Plugins.BasePlugin
 
         this.scrActions = new ScriptedActions()
 
+        this.activeInventoryItem = null
+
     }
 
     init ()

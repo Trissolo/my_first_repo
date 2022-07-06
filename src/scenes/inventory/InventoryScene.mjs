@@ -44,7 +44,7 @@ class Inventory extends Phaser.Scene
         console.log(this)
         this.inventoryItems = []
 
-        this.item = null
+        //this.item = null
 
 
         for (let i = 0; i < 17; i++)
@@ -67,20 +67,24 @@ class Inventory extends Phaser.Scene
         });
     }
 
-    placeRect(pointer,relX,relY, stopPropagation)
+    placeRect(pointer,relX, relY, stopPropagation)
     {
-        // console.log(pointer,relX,relY, stopPropagation)
+        // console.log(pointer,relX, relY, stopPropagation)
         // console.log(this.frame.name)
 
         if(this.scene.noActiveItem())
         {
-          this.scene.rectangle.setPosition(this.x, this.y).setVisible(true)
+          this.scene.rectangle
+            .setPosition(this.x, this.y)
+            .setVisible(true);
+
           this.scene.item = this
         }
 
         else if (this.scene.item === this)
         {
           this.scene.rectangle.setVisible(false)
+
           this.scene.item = null
         }
 
@@ -107,6 +111,16 @@ class Inventory extends Phaser.Scene
         // {
         //   console.log("Right Clicked")
         // }
+    }
+
+    get item()
+    {
+      return this.igPlug.activeInventoryItem
+    }
+
+    set item(value)
+    {
+      return this.igPlug.activeInventoryItem = value
     }
 
     noActiveItem()

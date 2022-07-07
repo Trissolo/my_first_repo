@@ -33,20 +33,47 @@ class Inventory extends Phaser.Scene
 
         this.plugins.get('inGameManager').installOn(this)
 
-        this.names = ["obj_card1", "obj_card2", "obj_wrench"]
+        this.names = ["obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench", "obj_card1"]
     }
 
     create()
     {
+
+      this.gridWidth = 2
+
+      this.gridHeight = 4
+
+      this.gridOffset = 19
+
+      this.cellHeight = 32
+      
+      this.cameraStep = 16
+
+
       this.rectangle = this.add.image(0, 0, "atlas0", "inventory_selected_item")
         .setOrigin(0)
         .setVisible();
-     
-  
+
+      this.arrowUp = this.add.image(256, 0, "atlas0", "inventory_arrow_up_1")
+        .setScrollFactor(0)
+        .setOrigin(0)
+        .setInteractive()
+        .on('pointerdown', this.arrowUpScroll, this)
+        .setVisible();
+
+      this.arrowDown = this.add.image(256, 32, "atlas0", "inventory_arrow_up_1")
+        .setScrollFactor(0)
+        .setOrigin(0)
+        .setScale(1, -1)
+        .setInteractive()
+        .on('pointerdown', this.arrowDownScroll, this)
+        .setVisible();
+
+    
       console.log(this)
 
 
-      this.tempInventory = new Set([0, 2])
+      this.tempInventory = new Set([0, 2, 1, 3, 4, 5, 6])
 
       this.tempOwner = "robot"
 
@@ -63,6 +90,8 @@ class Inventory extends Phaser.Scene
           .on('pointerdown', this.scene.placeRect)
         }
       })
+
+      this.setArrowsVisibility()
 
       this.showItems()
 
@@ -87,6 +116,38 @@ class Inventory extends Phaser.Scene
       //     x: 19,
       //     y: 19
       // });
+    }
+
+    arrowUpScroll()
+    {
+      this.cameras.main.scrollY -= this.cellHeight
+
+      this.setArrowsVisibility()
+      // this.arrowUp.setVisible(this.cameras.main.scrollY !== 0)
+
+      // console.log(this.cameras.main.scrollY / this.cameraStep)
+      // console.log(Math.floor(this.tempInventory.size / this.gridWidth))
+
+      // this.arrowDown.setVisible((this.cameras.main.scrollY / this.cameraStep) < (Math.floor(this.tempInventory.size / this.gridWidth) ))
+    }
+
+    arrowDownScroll()
+    {
+      this.cameras.main.scrollY += this.cellHeight
+
+      this.setArrowsVisibility()
+      // this.arrowUp.setVisible(this.cameras.main.scrollY !== 0)
+
+      // console.log(this.cameras.main.scrollY / this.cameraStep)
+      // console.log(Math.floor(this.tempInventory.size / this.gridWidth))
+
+      
+    }
+
+    setArrowsVisibility()
+    {
+      this.arrowUp.setVisible(this.cameras.main.scrollY !== 0)
+      this.arrowDown.setVisible((this.cameras.main.scrollY / this.cameraStep) < (Math.floor(this.tempInventory.size / this.gridWidth) ))
     }
 
     showItems()
@@ -118,17 +179,25 @@ class Inventory extends Phaser.Scene
         this.renderableItems.push(item)
       }
 
-          Phaser.Actions.GridAlign(this.renderableItems, {
-          width: 9,
-          height: 2,
-          cellWidth: 32,
-          cellHeight: 32,
-          x: 19,
-          y: 19
-      });
+      console.dir(this.renderableItems)
 
+      
+      this.alignItems()
 
+      // this.arrowUp.setVisible(this.cameras.main.scrollY !== 0)
 
+    }
+
+    alignItems()
+    {
+      Phaser.Actions.GridAlign(this.renderableItems, {
+        width: this.gridWidth,
+        height: this.gridHeight,
+        cellWidth: this.cellHeight,
+        cellHeight: this.cellHeight,
+        x: this.gridOffset,
+        y: this.gridOffset
+    });
     }
 
     placeRect(pointer,relX, relY, stopPropagation)

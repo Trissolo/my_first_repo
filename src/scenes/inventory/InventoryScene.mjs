@@ -38,39 +38,103 @@ class Inventory extends Phaser.Scene
 
     create()
     {
-        this.rectangle = this.add.image(0, 0, "atlas0", "inventory_selected_item")
-        .setOrigin(0).setVisible()
+      this.rectangle = this.add.image(0, 0, "atlas0", "inventory_selected_item")
+        .setOrigin(0)
+        .setVisible();
+     
+  
+      console.log(this)
 
-        console.log(this)
-        this.inventoryItems = []
 
-        //this.item = null
+      this.tempInventory = new Set([0, 2])
+
+      this.tempOwner = "robot"
 
 
-        for (let i = 0; i < 17; i++)
+      this.renderableItems = []
+
+      this.itemGroup = this.add.group({createCallback: function (thing)
         {
-            const obj = this.add.image(0, 0, "atlas0", this.names[Phaser.Math.Between(0, 2)])
-            .setOrigin(0)
-            .setInteractive()
-            .on('pointerdown', this.placeRect)
-
-            this.inventoryItems.push(obj)
+          thing.setInteractive({cursor: 'url(assets_prod/cursors/over.cur), pointer'})
+          .setTexture("atlas0", "singlePixel")
+          // .setFrame()
+          .setVisible(false)
+          .setOrigin(0)
+          .on('pointerdown', this.scene.placeRect)
         }
+      })
 
-        Phaser.Actions.GridAlign(this.inventoryItems, {
-            width: 9,
-            height: 2,
-            cellWidth: 32,
-            cellHeight: 32,
-            x: 19,
-            y: 19
-        });
+      this.showItems()
+
+      //this.item = null
+
+
+      // for (let i = 0; i < 17; i++)
+      // {
+      //     const obj = this.add.image(0, 0, "atlas0", this.names[Phaser.Math.Between(0, 2)])
+      //     .setOrigin(0)
+      //     .setInteractive()
+      //     .on('pointerdown', this.placeRect)
+
+      //     this.tempInventory.push(obj)
+      // }
+
+      // Phaser.Actions.GridAlign(this.tempInventory, {
+      //     width: 9,
+      //     height: 2,
+      //     cellWidth: 32,
+      //     cellHeight: 32,
+      //     x: 19,
+      //     y: 19
+      // });
+    }
+
+    showItems()
+    {
+      this.renderableItems.length = 0
+
+      // this.itemGroup.children.iterate(function (thing)
+      // {
+      //   // group.killAndHide(thing)
+      //   thing.disableInteractive()
+      //     .setActive(false)
+      //     .setVisible(false)
+      //     // .off('pointerover')//, thing.scene.thingOvered)
+      //     // .off('pointerout')//, thing.scene.thingOut)
+      //     // .off('pointerdown')
+      // })
+
+      for (const id of this.getInv())
+      {
+        const item = this.itemGroup.get(0, 0, "atlas0")
+        .setFrame(this.names[id])
+        .setVisible(true)
+        .setActive(true)
+        .setInteractive()
+
+        item.input.hitArea.setSize(26, 26)
+        // console.log(item.input.hitArea)
+
+        this.renderableItems.push(item)
+      }
+
+          Phaser.Actions.GridAlign(this.renderableItems, {
+          width: 9,
+          height: 2,
+          cellWidth: 32,
+          cellHeight: 32,
+          x: 19,
+          y: 19
+      });
+
+
+
     }
 
     placeRect(pointer,relX, relY, stopPropagation)
     {
         // console.log(pointer,relX, relY, stopPropagation)
-        // console.log(this.frame.name)
+        console.log("Item:", this.frame.name)
 
         if(this.scene.noActiveItem())
         {
@@ -83,9 +147,10 @@ class Inventory extends Phaser.Scene
 
         else if (this.scene.item === this)
         {
-          this.scene.rectangle.setVisible(false)
+          // this.scene.rectangle.setVisible(false)
 
-          this.scene.item = null
+          // this.scene.item = null
+          this.scene.setNoneSelect() // .call(this.scene)
         }
 
         else
@@ -128,19 +193,52 @@ class Inventory extends Phaser.Scene
       return !this.item
     }
 
+    setNoneSelect()
+    {
+      this.item = null
+      this.rectangle.setVisible(false) // visible(false)
+    }
+
     getInv()
     {
-      return this.inventoryItems
+      return this.tempInventory
     }
 
-    add()
+    addItem(id)
     {
+      // const item = this.itemGroup.get(0, 0)
+      // .setFrame(this.names[id])
+      // .setVisible(true)
+      // .setActive(true)
 
+      //unselect?
+      this.setNoneSelect()
+
+      this.getInv().add(id) // .push(id)
+
+      this.showItems()
     }
 
-    remove()
+    removeItem(id)
     {
+      this.setNoneSelect()
 
+      this.getInv().delete(id) // .push(id)
+
+
+      //clear all items... It'is right? And this is the correct place?
+      this.itemGroup.children.iterate(function (thing)
+      {
+        // group.killAndHide(thing)
+        thing.disableInteractive()
+          .setActive(false)
+          .setVisible(false)
+          // .off('pointerover')//, thing.scene.thingOvered)
+          // .off('pointerout')//, thing.scene.thingOut)
+          // .off('pointerdown')
+      })
+
+      this.showItems()
     }
 
     grab()

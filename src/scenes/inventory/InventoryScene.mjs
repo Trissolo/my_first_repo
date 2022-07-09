@@ -33,13 +33,14 @@ class Inventory extends Phaser.Scene
 
         this.plugins.get('inGameManager').installOn(this)
 
-        this.names = ["obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench", "obj_card1"]
+        this.names = ["obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench", "obj_card1"]
+        console.log(this.names.length, "LENGTH NAMES")
     }
 
     create()
     {
 
-      this.gridWidth = 2
+      this.gridWidth = 9
 
       this.gridHeight = 4
 
@@ -49,31 +50,43 @@ class Inventory extends Phaser.Scene
       
       this.cameraStep = 16
 
+      this.gridAlignOptions = {
+        width: this.gridWidth,
+        height: this.gridHeight,
+        cellWidth: this.cellHeight,
+        cellHeight: this.cellHeight,
+        x: this.gridOffset,
+        y: this.gridOffset
+    }
+
 
       this.rectangle = this.add.image(0, 0, "atlas0", "inventory_selected_item")
         .setOrigin(0)
         .setVisible();
 
-      this.arrowUp = this.add.image(256, 0, "atlas0", "inventory_arrow_up_1")
+      this.arrowUp = this.add.image(286, 0, "atlas0", "inventory_arrow_up_1")
         .setScrollFactor(0)
         .setOrigin(0)
         .setInteractive()
-        .on('pointerdown', this.arrowUpScroll, this)
+        // .on('pointerdown', this.arrowUpScroll, this)
+        .on('pointerdown', this.scrollCamera)
         .setVisible();
 
-      this.arrowDown = this.add.image(256, 32, "atlas0", "inventory_arrow_up_1")
+      this.arrowDown = this.add.image(286, 32, "atlas0", "inventory_arrow_up_1")
         .setScrollFactor(0)
         .setOrigin(0)
         .setScale(1, -1)
+        .setState(1)
         .setInteractive()
-        .on('pointerdown', this.arrowDownScroll, this)
+        // .on('pointerdown', this.arrowDownScroll, this)
+        .on('pointerdown', this.scrollCamera)
         .setVisible();
 
     
       console.log(this)
 
 
-      this.tempInventory = new Set([0, 2, 1, 3, 4, 5, 6])
+      this.tempInventory = new Set([1, 0, 2, 3, 4, 5, 6,7,8,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30])
 
       this.tempOwner = "robot"
 
@@ -90,88 +103,62 @@ class Inventory extends Phaser.Scene
           .on('pointerdown', this.scene.placeRect)
         }
       })
-
-      this.setArrowsVisibility()
-
+    
       this.showItems()
 
-      //this.item = null
+      this.setArrowsVisibility()
 
-
-      // for (let i = 0; i < 17; i++)
-      // {
-      //     const obj = this.add.image(0, 0, "atlas0", this.names[Phaser.Math.Between(0, 2)])
-      //     .setOrigin(0)
-      //     .setInteractive()
-      //     .on('pointerdown', this.placeRect)
-
-      //     this.tempInventory.push(obj)
-      // }
-
-      // Phaser.Actions.GridAlign(this.tempInventory, {
-      //     width: 9,
-      //     height: 2,
-      //     cellWidth: 32,
-      //     cellHeight: 32,
-      //     x: 19,
-      //     y: 19
-      // });
     }
 
-    arrowUpScroll()
+    scrollCamera()
     {
-      this.cameras.main.scrollY -= this.cellHeight
+      this.scene.cameras.main.scrollY += this.scene.cellHeight * (this.state === 0 ? -1 : 1)
 
-      this.setArrowsVisibility()
-      // this.arrowUp.setVisible(this.cameras.main.scrollY !== 0)
+      console.log(this.state, this.scene.cameras.main.scrollY, this)
 
-      // console.log(this.cameras.main.scrollY / this.cameraStep)
-      // console.log(Math.floor(this.tempInventory.size / this.gridWidth))
-
-      // this.arrowDown.setVisible((this.cameras.main.scrollY / this.cameraStep) < (Math.floor(this.tempInventory.size / this.gridWidth) ))
-    }
-
-    arrowDownScroll()
-    {
-      this.cameras.main.scrollY += this.cellHeight
-
-      this.setArrowsVisibility()
-      // this.arrowUp.setVisible(this.cameras.main.scrollY !== 0)
-
-      // console.log(this.cameras.main.scrollY / this.cameraStep)
-      // console.log(Math.floor(this.tempInventory.size / this.gridWidth))
-
-      
+      this.scene.setArrowsVisibility()
     }
 
     setArrowsVisibility()
     {
       this.arrowUp.setVisible(this.cameras.main.scrollY !== 0)
-      this.arrowDown.setVisible((this.cameras.main.scrollY / this.cameraStep) < (Math.floor(this.tempInventory.size / this.gridWidth) ))
+      console.log("Scrolly / cellHeight", this.cameras.main.scrollY / this.cellHeight)
+      console.log("Inv size / gridWidth", Math.floor(this.getInv().size / this.gridWidth)-1)
+      this.arrowDown.setVisible((this.cameras.main.scrollY / this.cellHeight) < (Math.floor(this.getInv().size / this.gridWidth) -1))
+    }
+
+    placeCamera()
+    {
+      console.log("PREV:", this.cameras.main.scrollY, (Math.floor(this.getInv().size / this.gridWidth) - 1))
+
+      if (this.getInv().size > this.gridWidth + this.gridWidth)
+      {
+        this.cameras.main.scrollY = Math.max(
+          (Math.floor(this.getInv().size / this.gridWidth) - 1) * this.cellHeight, 0
+        )
+      }
+      else
+      {
+        this.cameras.main.scrollY = 0
+      }
+      console.log("Dopo CAMERAY:", this.cameras.main.scrollY)
+
+      this.setArrowsVisibility()
+
     }
 
     showItems()
     {
-      this.renderableItems.length = 0
-
-      // this.itemGroup.children.iterate(function (thing)
-      // {
-      //   // group.killAndHide(thing)
-      //   thing.disableInteractive()
-      //     .setActive(false)
-      //     .setVisible(false)
-      //     // .off('pointerover')//, thing.scene.thingOvered)
-      //     // .off('pointerout')//, thing.scene.thingOut)
-      //     // .off('pointerdown')
-      // })
-
+      this.disableAll()
+      
+      //prepare renderable items array
       for (const id of this.getInv())
       {
         const item = this.itemGroup.get(0, 0, "atlas0")
-        .setFrame(this.names[id])
-        .setVisible(true)
-        .setActive(true)
-        .setInteractive()
+          .setFrame(this.names[id])
+          .setVisible(true)
+          .setActive(true)
+          .setInteractive()
 
         item.input.hitArea.setSize(26, 26)
         // console.log(item.input.hitArea)
@@ -179,25 +166,15 @@ class Inventory extends Phaser.Scene
         this.renderableItems.push(item)
       }
 
-      console.dir(this.renderableItems)
-
-      
       this.alignItems()
 
-      // this.arrowUp.setVisible(this.cameras.main.scrollY !== 0)
+      this.placeCamera()
 
     }
 
     alignItems()
     {
-      Phaser.Actions.GridAlign(this.renderableItems, {
-        width: this.gridWidth,
-        height: this.gridHeight,
-        cellWidth: this.cellHeight,
-        cellHeight: this.cellHeight,
-        x: this.gridOffset,
-        y: this.gridOffset
-    });
+      Phaser.Actions.GridAlign(this.renderableItems, this.gridAlignOptions);
     }
 
     placeRect(pointer,relX, relY, stopPropagation)
@@ -295,17 +272,18 @@ class Inventory extends Phaser.Scene
       this.getInv().delete(id) // .push(id)
 
 
-      //clear all items... It'is right? And this is the correct place?
-      this.itemGroup.children.iterate(function (thing)
-      {
-        // group.killAndHide(thing)
-        thing.disableInteractive()
-          .setActive(false)
-          .setVisible(false)
-          // .off('pointerover')//, thing.scene.thingOvered)
-          // .off('pointerout')//, thing.scene.thingOut)
-          // .off('pointerdown')
-      })
+      this.disableAll()
+      // //clear all items... It'is right? And this is the correct place?
+      // this.itemGroup.children.iterate(function (item)
+      // {
+      //   // group.killAndHide(thing)
+      //   item.disableInteractive()
+      //     .setActive(false)
+      //     .setVisible(false)
+      //     // .off('pointerover')//, thing.scene.thingOvered)
+      //     // .off('pointerout')//, thing.scene.thingOut)
+      //     // .off('pointerdown')
+      // })
 
       this.showItems()
     }
@@ -313,6 +291,24 @@ class Inventory extends Phaser.Scene
     grab()
     {
 
+    }
+
+    disableAll(hard = true)
+    {
+      if (hard)
+      {
+        for (const item of this.renderableItems)
+        {
+          item
+            .disableInteractive()
+            .setActive(false)
+            .setVisible(false)
+       }
+      }
+
+      this.renderableItems.length = 0
+
+      return this
     }
 }
 

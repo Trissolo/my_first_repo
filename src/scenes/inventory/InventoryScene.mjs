@@ -40,7 +40,7 @@ class Inventory extends Phaser.Scene
     create()
     {
 
-      this.gridWidth = 9
+      this.gridWidth = 3
 
       this.gridHeight = 4
 
@@ -86,7 +86,7 @@ class Inventory extends Phaser.Scene
       console.log(this)
 
 
-      this.tempInventory = new Set([1, 0, 2, 3, 4, 5, 6,7,8,9,10,11,12,13,14,15,16,17,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30])
+      this.tempInventory = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8])// 10,11,12,13,14,15,16,17])//,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30])
 
       this.tempOwner = "robot"
 
@@ -114,7 +114,9 @@ class Inventory extends Phaser.Scene
     {
       this.scene.cameras.main.scrollY += this.scene.cellHeight * (this.state === 0 ? -1 : 1)
 
-      console.log(this.state, this.scene.cameras.main.scrollY, this)
+      console.log("ADJUSTED SCrollCamera:", this.scene.cameras.main.scrollY, "EXisting:", this.scene.existingColumns, "EX-1", this.scene.existingColumns -1)
+
+      // console.log(this.state, this.scene.cameras.main.scrollY, this)
 
       this.scene.setArrowsVisibility()
     }
@@ -123,25 +125,37 @@ class Inventory extends Phaser.Scene
     {
       this.arrowUp.setVisible(this.cameras.main.scrollY !== 0)
       console.log("Scrolly / cellHeight", this.cameras.main.scrollY / this.cellHeight)
-      console.log("Inv size / gridWidth", Math.floor(this.getInv().size / this.gridWidth)-1)
-      this.arrowDown.setVisible((this.cameras.main.scrollY / this.cellHeight) < (Math.floor(this.getInv().size / this.gridWidth) -1))
+      console.log("existingColumns", this.existingColumns)
+      this.arrowDown.setVisible( this.cameras.main.scrollY <= (this.existingColumns - 2) * this.cellHeight)//(this.cameras.main.scrollY / this.cellHeight) < (this.existingColumns ))
     }
 
     placeCamera()
     {
-      console.log("PREV:", this.cameras.main.scrollY, (Math.floor(this.getInv().size / this.gridWidth) - 1))
+      console.log("PREV:", this.cameras.main.scrollY, this.existingColumns, this.getInv().size, this.gridWidth)
 
       if (this.getInv().size > this.gridWidth + this.gridWidth)
       {
-        this.cameras.main.scrollY = Math.max(
-          (Math.floor(this.getInv().size / this.gridWidth) - 1) * this.cellHeight, 0
-        )
+
+        console.log("%%%%%%%%%%%%%%%%%%%", this.existingColumns, this.getInv().size % this.gridWidth) 
+        // this.cameras.main.scrollY = Math.max( (this.existingColumns - 1) * this.cellHeight, 0 )
+        // if(this.getInv().size % this.gridWidth=== 0)
+        // {
+        //   this.cameras.main.scrollY = Math.max( (this.existingColumns - 2) * this.cellHeight, 0 )
+        // }
+        // else
+        // {
+          this.cameras.main.scrollY = Math.max( (this.existingColumns -1) * this.cellHeight, 0 )
+        // }
+
       }
       else
       {
+
         this.cameras.main.scrollY = 0
+
       }
-      console.log("Dopo CAMERAY:", this.cameras.main.scrollY)
+
+      console.log("Dopo CAMERA_Y:", this.cameras.main.scrollY, "EXCOL:", this.existingColumns)
 
       this.setArrowsVisibility()
 
@@ -193,10 +207,9 @@ class Inventory extends Phaser.Scene
 
         else if (this.scene.item === this)
         {
-          // this.scene.rectangle.setVisible(false)
 
-          // this.scene.item = null
-          this.scene.setNoneSelect() // .call(this.scene)
+          this.scene.setNoneSelect()
+
         }
 
         else
@@ -234,6 +247,11 @@ class Inventory extends Phaser.Scene
       return this.igPlug.activeInventoryItem = value
     }
 
+    get existingColumns()
+    {
+      return Math.floor( (this.getInv().size - 1) / this.gridWidth)
+    }
+
     noActiveItem()
     {
       return !this.item
@@ -242,7 +260,7 @@ class Inventory extends Phaser.Scene
     setNoneSelect()
     {
       this.item = null
-      this.rectangle.setVisible(false) // visible(false)
+      this.rectangle.setVisible(false)
     }
 
     getInv()

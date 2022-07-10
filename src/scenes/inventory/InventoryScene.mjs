@@ -56,7 +56,8 @@ class Inventory extends Phaser.Scene
         cellWidth: this.cellHeight,
         cellHeight: this.cellHeight,
         x: this.gridOffset,
-        y: this.gridOffset
+        y: this.gridOffset,
+        position: 0
     }
 
 
@@ -87,6 +88,7 @@ class Inventory extends Phaser.Scene
                                     // 9 ])// 10,11,12,13,14,15,16,17])//,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30])
 
       this.tempOwner = "robot"
+
 
 
       this.renderableItems = []
@@ -124,15 +126,21 @@ class Inventory extends Phaser.Scene
       // (this.existingColumns - 2) * this.cellHeight)//(this.cameras.main.scrollY / this.cellHeight) < (this.existingColumns ))
     }
 
-    placeCamera()
+    placeCamera(forceTop = true)
     {
-      this.cameras.main.scrollY = this.existingColumns * this.cellHeight
+      if (forceTop)
+      {
+        this.cameras.main.scrollY = 0
+      }
+      else
+      {
+        this.cameras.main.scrollY = this.existingColumns * this.cellHeight
+      }
 
       this.setArrowsVisibility()
-
     }
 
-    showItems()
+    showItems(forceTop)
     {
       this.disableAll()
       
@@ -152,7 +160,7 @@ class Inventory extends Phaser.Scene
 
       this.alignItems()
 
-      this.placeCamera()
+      this.placeCamera(forceTop)
 
     }
 
@@ -250,7 +258,7 @@ class Inventory extends Phaser.Scene
 
       this.getInv().add(id) // .push(id)
 
-      this.showItems()
+      this.showItems(false)
     }
 
     removeItem(id)
@@ -260,18 +268,7 @@ class Inventory extends Phaser.Scene
       this.getInv().delete(id) // .push(id)
 
 
-      this.disableAll()
-      // //clear all items... It'is right? And this is the correct place?
-      // this.itemGroup.children.iterate(function (item)
-      // {
-      //   // group.killAndHide(thing)
-      //   item.disableInteractive()
-      //     .setActive(false)
-      //     .setVisible(false)
-      //     // .off('pointerover')//, thing.scene.thingOvered)
-      //     // .off('pointerout')//, thing.scene.thingOut)
-      //     // .off('pointerdown')
-      // })
+      // this.disableAll()
 
       this.showItems()
     }

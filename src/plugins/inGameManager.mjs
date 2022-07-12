@@ -30,6 +30,20 @@ class inGameManager extends Phaser.Plugins.BasePlugin
 
         this.activeInventoryItem = null
 
+        this.characters = new Map([
+            ['robot',
+            {
+            "inv": new Set([2]),
+            "sprite": null
+            }],
+
+            ['generic',
+            {
+            "inv": new Set([0, 1]),
+            'sprite': null
+             }]
+    ])
+
     }
 
     init ()

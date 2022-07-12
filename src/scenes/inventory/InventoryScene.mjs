@@ -33,22 +33,29 @@ class Inventory extends Phaser.Scene
 
         this.plugins.get('inGameManager').installOn(this)
 
-        this.names = ["obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench", "obj_card1"]
+        this.names = ["obj_card1", "obj_card2", "obj_wrench", "GUImusic_off", "GUImusic_on", "GUIsfx_off", "GUIsfx_on", "inventory_arrows"]//"obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench", "obj_card1"]
         console.log(this.names.length, "LENGTH NAMES")
     }
 
     create()
     {
 
+      // items in a row
       this.gridWidth = 3
 
+      // max rows allowed
       this.gridHeight = 4
 
+      // hardcoded grid offset in pixel
       this.gridOffset = 19
 
+      // length of the side (in pixels) of the rectangular area of each item
       this.cellHeight = 32
       
-      this.cameraStep = 16
+      // this.cameraStep = 16
+
+      this.doubleSize = this.gridWidth + this.gridWidth
+
 
       this.gridAlignOptions = {
         width: this.gridWidth,
@@ -60,8 +67,9 @@ class Inventory extends Phaser.Scene
         position: 0
     }
 
+      // marker for selected item, and scroll arrows
 
-      this.rectangle = this.add.image(0, 0, "atlas0", "inventory_selected_item")
+      this.marker = this.add.image(0, 0, "atlas0", "inventory_selected_item")
         .setOrigin(0)
         .setVisible();
 
@@ -84,10 +92,10 @@ class Inventory extends Phaser.Scene
 
       this.tempInventory = new Set([0, 1, 2,
                                     3, 4, 5,
-                                    6])//, 7, 8,
+                                    6, 7])//, 7, 8,
                                     // 9 ])// 10,11,12,13,14,15,16,17])//,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30])
 
-      this.tempOwner = "robot"
+      this.owner = "robot"
 
 
 
@@ -121,7 +129,7 @@ class Inventory extends Phaser.Scene
     {
       this.arrowUp.setVisible(this.cameras.main.scrollY > 0)
 
-      this.arrowDown.setVisible( (this.getInv().size > this.gridWidth + this.gridWidth) && (this.cameras.main.scrollY < this.existingColumns * this.cellHeight))
+      this.arrowDown.setVisible( (this.getInv(this.owner).size > this.doubleSize) && (this.cameras.main.scrollY < this.existingColumns * this.cellHeight))
       
       // (this.existingColumns - 2) * this.cellHeight)//(this.cameras.main.scrollY / this.cellHeight) < (this.existingColumns ))
     }
@@ -145,7 +153,7 @@ class Inventory extends Phaser.Scene
       this.disableAll()
       
       //prepare renderable items array
-      for (const id of this.getInv())
+      for (const id of this.getInv(this.owner))
       {
         const item = this.itemGroup.get(0, 0, "atlas0")
           .setFrame(this.names[id])
@@ -176,7 +184,7 @@ class Inventory extends Phaser.Scene
 
         if(this.scene.noActiveItem())
         {
-          this.scene.rectangle
+          this.scene.marker
             .setPosition(this.x, this.y)
             .setVisible(true);
 
@@ -195,7 +203,7 @@ class Inventory extends Phaser.Scene
           console.log(`${this.frame.name} + ${this.scene.item.frame.name} = ??\nCombine Items not implemented yet.`)
 
           //select item
-          this.scene.rectangle
+          this.scene.marker
             .setPosition(this.x, this.y)
             .setVisible(true);
 
@@ -227,7 +235,7 @@ class Inventory extends Phaser.Scene
 
     get existingColumns()
     {
-      return Math.max(Math.floor( (this.getInv().size - 1) / this.gridWidth ) - 1)
+      return Math.max(Math.floor( (this.getInv(this.owner).size - 1) / this.gridWidth ) - 1, 0)
     }
 
     noActiveItem()
@@ -238,12 +246,13 @@ class Inventory extends Phaser.Scene
     setNoneSelect()
     {
       this.item = null
-      this.rectangle.setVisible(false)
+      this.marker.setVisible(false)
     }
 
-    getInv()
+    getInv(name = this.owner)
     {
-      return this.tempInventory
+      // return this.tempInventory
+      return this.igPlug.characters.get(name).inv
     }
 
     addItem(id)
@@ -256,7 +265,7 @@ class Inventory extends Phaser.Scene
       //unselect?
       this.setNoneSelect()
 
-      this.getInv().add(id) // .push(id)
+      this.getInv(this.owner).add(id)
 
       this.showItems(false)
     }
@@ -265,7 +274,7 @@ class Inventory extends Phaser.Scene
     {
       this.setNoneSelect()
 
-      this.getInv().delete(id) // .push(id)
+      this.getInv(this.owner).delete(id)
 
 
       // this.disableAll()

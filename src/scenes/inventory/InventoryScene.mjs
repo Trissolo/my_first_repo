@@ -1,5 +1,58 @@
 import Phaser from 'phaser';
 
+const ATLAS_NAME = "atlas0"
+
+const TEST_ALL_ITEMS = [
+  {
+    "id": 0,
+    "frameName": "obj_card1",
+    "name": "ID Card Lev. A",
+    "desc": ""
+  },
+  {
+    "id": 1,
+    "frameName": "obj_card2",
+    "name": "ID Card Lev. B",
+    "desc": ""
+  },
+  {
+    "id": 2,
+    "frameName": "obj_wrench",
+    "name": "Wrench",
+    "desc": ""
+  },
+  {
+    "id": 3,
+    "frameName": "GUImusic_off",
+    "name": "Icon Note off",
+    "desc": ""
+  },
+  {
+    "id": 4,
+    "frameName": "GUImusic_on",
+    "name": "Icon Note on",
+    "desc": ""
+  },
+  {
+    "id": 5,
+    "frameName": "GUIsfx_off",
+    "name": "Icon Speaker off",
+    "desc": ""
+  },
+  {
+    "id": 6,
+    "frameName": "GUIsfx_on",
+    "name": "Icon Speaker on",
+    "desc": ""
+  },
+  {
+    "id": 7,
+    "frameName": "inventory_arrows",
+    "name": "Arrows",
+    "desc": ""
+  }
+]
+
 class Inventory extends Phaser.Scene
 {
     constructor()
@@ -33,14 +86,15 @@ class Inventory extends Phaser.Scene
 
         this.plugins.get('inGameManager').installOn(this)
 
-        this.names = ["obj_card1", "obj_card2", "obj_wrench", "GUImusic_off", "GUImusic_on", "GUIsfx_off", "GUIsfx_on", "inventory_arrows"]//"obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench", "obj_card1"]
-        console.log(this.names.length, "LENGTH NAMES")
+        // this.names = ["obj_card1", "obj_card2", "obj_wrench", "GUImusic_off", "GUImusic_on", "GUIsfx_off", "GUIsfx_on", "inventory_arrows"]//"obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench","obj_card1", "obj_card2", "obj_wrench","obj_wrench","obj_wrench", "obj_wrench", "obj_card1"]
+        
+        // console.log("LENGTH NAMES", this.names.length)
     }
 
     create()
     {
 
-      // items in a row
+      // items in a row (will be 9)
       this.gridWidth = 3
 
       // max rows allowed
@@ -63,24 +117,24 @@ class Inventory extends Phaser.Scene
         cellWidth: this.cellHeight,
         cellHeight: this.cellHeight,
         x: this.gridOffset,
-        y: this.gridOffset,
-        position: 0
+        y: this.gridOffset//,
+        // position: 0
     }
 
       // marker for selected item, and scroll arrows
 
-      this.marker = this.add.image(0, 0, "atlas0", "inventory_selected_item")
+      this.marker = this.add.image(0, 0, ATLAS_NAME, "inventory_selected_item")
         .setOrigin(0)
         .setVisible();
 
-      this.arrowUp = this.add.image(286, 0, "atlas0", "inventory_arrow_up_1")
+      this.arrowUp = this.add.image(286, 0, ATLAS_NAME, "inventory_arrow_up_1")
         .setScrollFactor(0)
         .setOrigin(0)
         .setInteractive()
         .on('pointerdown', this.scrollCamera)
         .setVisible();
 
-      this.arrowDown = this.add.image(286, 32, "atlas0", "inventory_arrow_up_1")
+      this.arrowDown = this.add.image(286, 32, ATLAS_NAME, "inventory_arrow_up_1")
         .setScrollFactor(0)
         .setOrigin(0)
         .setScale(1, -1)
@@ -104,11 +158,11 @@ class Inventory extends Phaser.Scene
       this.itemGroup = this.add.group({createCallback: function (thing)
         {
           thing.setInteractive({cursor: 'url(assets_prod/cursors/over.cur), pointer'})
-          .setTexture("atlas0", "singlePixel")
+          .setTexture(ATLAS_NAME, "singlePixel")
           // .setFrame()
           .setVisible(false)
           .setOrigin(0)
-          .on('pointerdown', this.scene.placeRect)
+          .on('pointerdown', this.scene.onClickedItem)
         }
       })
     
@@ -120,7 +174,9 @@ class Inventory extends Phaser.Scene
 
     scrollCamera()
     {
-      this.scene.cameras.main.scrollY += this.scene.cellHeight * (this.state === 0 ? -1 : 1)
+      // this.scene.cameras.main.scrollY += this.scene.cellHeight * (this.state === 0 ? -1 : 1)
+
+      this.state === 0 ? this.scene.cameras.main.scrollY -= this.scene.cellHeight : this.scene.cameras.main.scrollY += this.scene.cellHeight
 
       this.scene.setArrowsVisibility()
     }
@@ -129,7 +185,7 @@ class Inventory extends Phaser.Scene
     {
       this.arrowUp.setVisible(this.cameras.main.scrollY > 0)
 
-      this.arrowDown.setVisible( (this.getInv(this.owner).size > this.doubleSize) && (this.cameras.main.scrollY < this.existingColumns * this.cellHeight))
+      this.arrowDown.setVisible( (this.getInv().size > this.doubleSize) && (this.cameras.main.scrollY < this.existingColumns * this.cellHeight))
       
       // (this.existingColumns - 2) * this.cellHeight)//(this.cameras.main.scrollY / this.cellHeight) < (this.existingColumns ))
     }
@@ -153,10 +209,13 @@ class Inventory extends Phaser.Scene
       this.disableAll()
       
       //prepare renderable items array
-      for (const id of this.getInv(this.owner))
+      for (const id of this.getInv())
       {
-        const item = this.itemGroup.get(0, 0, "atlas0")
-          .setFrame(this.names[id])
+        const item = this.itemGroup.get(0, 0, ATLAS_NAME)
+          // .setFrame(this.names[id])
+          .setFrame(TEST_ALL_ITEMS[id].frameName)
+          .setState(id)
+
           .setVisible(true)
           .setActive(true)
           .setInteractive()
@@ -177,10 +236,10 @@ class Inventory extends Phaser.Scene
       Phaser.Actions.GridAlign(this.renderableItems, this.gridAlignOptions);
     }
 
-    placeRect(pointer,relX, relY, stopPropagation)
+    onClickedItem(pointer,relX, relY, stopPropagation)
     {
         // console.log(pointer,relX, relY, stopPropagation)
-        console.log("Item:", this.frame.name)
+        console.log("Item:", TEST_ALL_ITEMS[this.state].name)//this.frame.name)
 
         if(this.scene.noActiveItem())
         {
@@ -235,7 +294,7 @@ class Inventory extends Phaser.Scene
 
     get existingColumns()
     {
-      return Math.max(Math.floor( (this.getInv(this.owner).size - 1) / this.gridWidth ) - 1, 0)
+      return Math.max(Math.floor( (this.getInv().size - 1) / this.gridWidth ) - 1, 0)
     }
 
     noActiveItem()
@@ -255,7 +314,7 @@ class Inventory extends Phaser.Scene
       return this.igPlug.characters.get(name).inv
     }
 
-    addItem(id)
+    addItem(id, ownerId = this.owner)
     {
       // const item = this.itemGroup.get(0, 0)
       // .setFrame(this.names[id])
@@ -265,16 +324,16 @@ class Inventory extends Phaser.Scene
       //unselect?
       this.setNoneSelect()
 
-      this.getInv(this.owner).add(id)
+      this.getInv(ownerId).add(id)
 
       this.showItems(false)
     }
 
-    removeItem(id)
+    removeItem(id, ownerId = this.owner)
     {
       this.setNoneSelect()
 
-      this.getInv(this.owner).delete(id)
+      this.getInv(ownerId).delete(id)
 
 
       // this.disableAll()
@@ -297,6 +356,7 @@ class Inventory extends Phaser.Scene
             .disableInteractive()
             .setActive(false)
             .setVisible(false)
+            .setState()
        }
       }
 

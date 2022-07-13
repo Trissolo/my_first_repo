@@ -67,14 +67,14 @@ export default class Player extends Phaser.GameObjects.Sprite
     // console.log("TEST FAC DIR", this.scene.igPlug.pendingRoom.facingDir)
     if (this.scene.igPlug.pendingRoom.facingDir)
     {
-      const assembledFrameName = "robot_" + this.scene.igPlug.pendingRoom.facingDir + "_walk_0"
+      const assembledFrameName = this.name + SEPARATOR + this.scene.igPlug.pendingRoom.facingDir + "_walk_0"
 
       this.setFrame(assembledFrameName)
     }
 
     else
     {
-      this.setTexture('atlas0', "robot_E_walk_0")
+      this.setTexture('atlas0', this.name + SEPARATOR + "E_walk_0")
     }
 
     return this.setOrigin(0.5, 1)

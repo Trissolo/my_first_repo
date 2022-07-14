@@ -33,7 +33,7 @@ class inGameManager extends Phaser.Plugins.BasePlugin
         this.characters = new Map([
             ['robot',
             {
-            "inv": new Set([2]),
+            "inv": new Set([2]), // Phaser.Utils.Array.NumberArray(0, 9)), 
             "sprite": null
             }],
 

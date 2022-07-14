@@ -50,7 +50,26 @@ const TEST_ALL_ITEMS = [
     "frameName": "inventory_arrows",
     "name": "Arrows",
     "desc": ""
+  },
+  {
+    "id": 8,
+    "frameName": "button0",
+    "name": "Pulsante spento",
+    "desc": ""
+  },
+  {
+    "id": 9,
+    "frameName": "button1",
+    "name": "Pulsante acceso",
+    "desc": "" 
+  },
+  {
+  "id": 10,
+  "frameName": "crateLid0",
+  "name": "CoperchioAS",
+  "desc": ""
   }
+
 ]
 
 class Inventory extends Phaser.Scene
@@ -95,7 +114,7 @@ class Inventory extends Phaser.Scene
     {
 
       // items in a row (will be 9)
-      this.gridWidth = 3
+      this.gridWidth = 9
 
       // max rows allowed
       this.gridHeight = 4
@@ -183,11 +202,13 @@ class Inventory extends Phaser.Scene
 
     setArrowsVisibility()
     {
+      console.log("EXISTING COLS:", this.exceedingColumns, "Size:", this.getInv().size)
+
       this.arrowUp.setVisible(this.cameras.main.scrollY > 0)
 
-      this.arrowDown.setVisible( (this.getInv().size > this.doubleSize) && (this.cameras.main.scrollY < this.existingColumns * this.cellHeight))
+      this.arrowDown.setVisible( (this.getInv().size > this.doubleSize) && (this.cameras.main.scrollY < this.exceedingColumns * this.cellHeight))
       
-      // (this.existingColumns - 2) * this.cellHeight)//(this.cameras.main.scrollY / this.cellHeight) < (this.existingColumns ))
+      // (this.exceedingColumns - 2) * this.cellHeight)//(this.cameras.main.scrollY / this.cellHeight) < (this.exceedingColumns ))
     }
 
     placeCamera(forceTop = true)
@@ -198,7 +219,7 @@ class Inventory extends Phaser.Scene
       }
       else
       {
-        this.cameras.main.scrollY = this.existingColumns * this.cellHeight
+        this.cameras.main.scrollY = this.exceedingColumns * this.cellHeight
       }
 
       this.setArrowsVisibility()
@@ -292,7 +313,7 @@ class Inventory extends Phaser.Scene
       return this.igPlug.activeInventoryItem = value
     }
 
-    get existingColumns()
+    get exceedingColumns()
     {
       return Math.max(Math.floor( (this.getInv().size - 1) / this.gridWidth ) - 1, 0)
     }

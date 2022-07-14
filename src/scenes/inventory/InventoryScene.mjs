@@ -114,7 +114,7 @@ class Inventory extends Phaser.Scene
     {
 
       // items in a row (will be 9)
-      this.gridWidth = 9
+      this.gridWidth = 4
 
       // max rows allowed
       this.gridHeight = 4
@@ -125,8 +125,6 @@ class Inventory extends Phaser.Scene
       // length of the side (in pixels) of the rectangular area of each item
       this.cellHeight = 32
       
-      // this.cameraStep = 16
-
       this.doubleSize = this.gridWidth + this.gridWidth
 
 
@@ -135,10 +133,10 @@ class Inventory extends Phaser.Scene
         height: this.gridHeight,
         cellWidth: this.cellHeight,
         cellHeight: this.cellHeight,
-        x: this.gridOffset,
+        x: this.gridOffset, // + 32,
         y: this.gridOffset//,
         // position: 0
-    }
+      }
 
       // marker for selected item, and scroll arrows
 

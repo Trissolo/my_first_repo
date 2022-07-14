@@ -8,6 +8,8 @@ import SEPARATOR from '../constants/SEPARATOR.mjs'
 import RotationHelper from '../scenes/RotationHelper/RotationHelper.mjs'
 import { RotationHelperEvents } from '../scenes/RotationHelper/RotationHelperEvents.mjs'
 
+import { GenericEvents } from '../scenes/GenericEvents.mjs'
+
 // methods are needed to get sprite information from frameName
 export default class Player extends Phaser.GameObjects.Sprite
 {
@@ -281,6 +283,19 @@ export default class Player extends Phaser.GameObjects.Sprite
   {
     console.log("Player...RotateTo:", cardinalAcronym, this.listeners(RotationHelperEvents.RotationComplete))
     RotationHelper.RotateTo(this, null, cardinalAcronym)
+  }
+
+  temporaryAddItem(itemId)
+  {
+
+    this.scene.igPlug.inventory.addItem(itemId, this.name)
+    this.emit(GenericEvents.ADD_INVENTORY_ITEM, this, itemId)
+  }
+
+  temporaryLoseItem(itemId)
+  {
+    this.scene.igPlug.inventory.removeItem(itemId, this.name)
+    this.emit(GenericEvents.LOSE_INVENTORY_ITEM, this, itemId)
   }
 
 }

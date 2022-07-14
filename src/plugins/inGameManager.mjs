@@ -33,7 +33,7 @@ class inGameManager extends Phaser.Plugins.BasePlugin
         this.characters = new Map([
             ['robot',
             {
-            "inv": new Set([2]), // Phaser.Utils.Array.NumberArray(0, 9)), 
+            "inv": new Set(), // Phaser.Utils.Array.NumberArray(0, 10)), 
             "sprite": null
             }],
 
@@ -73,6 +73,13 @@ class inGameManager extends Phaser.Plugins.BasePlugin
             this.viewScreen = scene
             this.scrActions.setScene(scene)
         }
+
+        if (scene.scene.key === "Inventory")
+        {
+            this.inventory = scene
+        }
+
+
     }
 
     resetPending()

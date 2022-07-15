@@ -1,3 +1,10 @@
+import * as AllEvents from "../../plugins/AllEvents.mjs"
+
+import { crazyCodingHelper } from "../../utils/crazyCodingHelper.mjs"
+
+
+import GenerateSingleAction from "../../utils/GenerateSingleAction.mjs"
+
 export default class RS0 {
 
     constructor()
@@ -79,6 +86,17 @@ export default class RS0 {
     wrench()
     {
       console.log(this);
+      // 116, 48
+      this.scene.scriptedAction(
+        [
+            GenerateSingleAction(this.scene.player, 'walkTo', AllEvents.walkEvents.WALK_COMPLETE, {x: 116, y:48 }),
+            // GenerateSingleAction(this.scene.shield, 'raise', AllEvents.ShieldEvents.RAISE),
+            GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE"/*, repeat: 0, duration: 100*/}),
+            GenerateSingleAction(this, 'hideAndSetBool', AllEvents.GenericEvents.SPRITE_HIDE, [this, 1, 1], this.scene),
+            GenerateSingleAction(this.scene.player, "temporaryAddItem", AllEvents.GenericEvents.ADD_INVENTORY_ITEM, 2),
+            // GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE"/*, repeat: 0, duration: 90*/}),
+            GenerateSingleAction(this.scene.player, 'rotateTo', AllEvents.RotationHelperEvents.RotationComplete, "SE")
+        ])
     }
 
     crateLid()

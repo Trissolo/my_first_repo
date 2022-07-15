@@ -39,10 +39,10 @@ class RS1
             [
                 GenerateSingleAction(this.scene.player, 'walkTo', AllEvents.walkEvents.WALK_COMPLETE, {x: 85, y:98 }),
                 GenerateSingleAction(this.scene.shield, 'raise', AllEvents.ShieldEvents.RAISE),
-                GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE", repeat: false, duration: 100}),
+                GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE"/*, repeat: 0, duration: 100*/}),
                 GenerateSingleAction(this, 'hideAndSetBool', AllEvents.GenericEvents.SPRITE_HIDE, [this, 4, 1], this.scene),
                 GenerateSingleAction(this.scene.player, "temporaryAddItem", AllEvents.GenericEvents.ADD_INVENTORY_ITEM, 0),
-                GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE", repeat: false, duration: 90}),
+                GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE"/*, repeat: 0, duration: 90*/}),
                 GenerateSingleAction(this.scene.player, 'rotateTo', AllEvents.RotationHelperEvents.RotationComplete, "SE")
             ])
     }
@@ -76,7 +76,7 @@ class RS1
 
                 GenerateSingleAction(this, 'toggleFrameAndBool', AllEvents.GenericEvents.TOGGLE_FRAME_AND_BOOL, [this, 3], this.scene),
 
-                GenerateSingleAction(this.scene.player, 'play', 'animationcomplete', {key: 'robot_interact_NE', repeat: false, duration: 90}), // , duration: 10}),
+                GenerateSingleAction(this.scene.player, 'play', 'animationcomplete', {key: 'robot_interact_NE', /*repeat: 0, duration: 90*/}), // , duration: 10}),
 
                 GenerateSingleAction(this.scene.player, "setGameObjectFrame", AllEvents.GenericEvents.SPRITE_SET_FRAME, [this.scene.player, "robot_N_walk_0"], this.scene)
 

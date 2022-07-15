@@ -168,11 +168,11 @@ export default class Preload extends Phaser.Scene
         anims.create(  {
           key: `${prefix}interact_${cp}`,
           frames: [
-            {key: 'atlas0', frame: `${prefix}${cp}_interactCenter_0`, duration:530} //,
+            {key: 'atlas0', frame: `${prefix}${cp}_interactCenter_0`, duration: 60} //,
             // {key: 'atlas0', frame: `${prefix}${cp}_walk_0`, duration:60}
             ],
           skipMissedFrames: false,
-          repeat: -1,
+          repeat: 0,
           frameRate: 8
         })
 

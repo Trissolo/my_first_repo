@@ -161,10 +161,10 @@ class Inventory extends Phaser.Scene
         .setVisible();
 
 
-      this.tempInventory = new Set([0, 1, 2,
-                                    3, 4, 5,
-                                    6, 7])//, 7, 8,
-                                    // 9 ])// 10,11,12,13,14,15,16,17])//,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30])
+      // this.tempInventory = new Set([0, 1, 2,
+      //                               3, 4, 5,
+      //                               6, 7])//, 7, 8,
+      //                               // 9 ])// 10,11,12,13,14,15,16,17])//,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30])
 
       this.owner = "robot"
 
@@ -258,9 +258,9 @@ class Inventory extends Phaser.Scene
     onClickedItem(pointer,relX, relY, stopPropagation)
     {
         // console.log(pointer,relX, relY, stopPropagation)
-        console.log("Item:", TEST_ALL_ITEMS[this.state].name)//this.frame.name)
+        console.log("Item:", TEST_ALL_ITEMS[this.state].name, `-|-  Id: ${this.state}`)
 
-        if(this.scene.noActiveItem())
+        if (this.scene.noActiveItem())
         {
           this.scene.marker
             .setPosition(this.x, this.y)

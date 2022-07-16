@@ -547,11 +547,12 @@ class Viewscreen extends Phaser.Scene
 
     hideAndSetBool(gameObject, boolID, value = 1)
     {
-      console.log(gameObject.name, "hiding")
       if (Array.isArray(gameObject))
       {
         [gameObject, boolID = undefined, value = 1] = gameObject
       }
+      
+      console.log(gameObject.frame.name, "hiding")
 
       gameObject.setVisible(false)
       gameObject.setActive(false)
@@ -569,6 +570,11 @@ class Viewscreen extends Phaser.Scene
       }
 
       gameObject.emit(GenericEvents.SPRITE_HIDE, gameObject, boolID)
+    }
+
+    checkActiveItem(wantedId)
+    {
+      return this.item && this.item.state === wantedId
     }
 
     scriptedAction(actionsArray)

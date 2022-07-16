@@ -87,6 +87,7 @@ export default class RS0 {
     {
       console.log(this);
       // 116, 48
+      // this.scene.player.setTint(0x789abd)
       this.scene.scriptedAction(
         [
             GenerateSingleAction(this.scene.player, 'walkTo', AllEvents.walkEvents.WALK_COMPLETE, {x: 116, y:48 }),
@@ -124,11 +125,25 @@ export default class RS0 {
     {
       console.log(this);
       console.log("Clicked on:", "button")
+
+      if (this.scene.checkActiveItem(0))
+      {
+        this.scene.scriptedAction(
+          [
+            GenerateSingleAction(this.scene.player, 'walkTo', AllEvents.walkEvents.WALK_COMPLETE, {x: 166, y:68 }),
+            GenerateSingleAction(this.scene.player, 'rotateTo', AllEvents.RotationHelperEvents.RotationComplete, "NE"),
+            GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE"}),
+            GenerateSingleAction(this, "toggleFrameAndBool", AllEvents.GenericEvents.TOGGLE_FRAME_AND_BOOL, [this, 5], this.scene),
+            GenerateSingleAction(this.scene.player, 'rotateTo', AllEvents.RotationHelperEvents.RotationComplete, "S")
+
+          ])
+        // x:166, y:68
+      }
         
         // const frameSuffix =  this.frame.name.substring(0, this.frame.name.length - 1)
         // this.setFrame(frameSuffix + this.scene.boolsManager.toggle(5))
         //   .setOrigin(0)
-        this.scene.toggleFrameAndBool(this, 5)
+        // this.scene.toggleFrameAndBool(this, 5)
     }
 
     mensole()

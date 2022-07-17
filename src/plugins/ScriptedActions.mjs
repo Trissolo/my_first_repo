@@ -6,6 +6,8 @@
 // import RotationHelperEvents from "../scenes/RotationHelper/RotationHelperEvents.mjs"
 // import TriggerAreaEvents from '../scenes/TriggerArea/TriggerAreaEvents.mjs'
 //console.log("MODULE:", ViewscreenEvents, TriggerAreaEvents)
+import ClearArray from "../utils/ClearArray.mjs"
+
 
 export default class ScriptedActions {
 
@@ -16,6 +18,8 @@ export default class ScriptedActions {
     this.currentIdx = 0
 
     this.endAt = 0
+
+    this.skip = false
 
 
     this.lowerShieldOnEnd = true
@@ -30,11 +34,28 @@ export default class ScriptedActions {
 
   clear()
   {
+    // console.log("Act CLEARING...")
+    // for (const [idx, singleAction] of this.aryActions.entries())
+    // {
+    //   console.dir(`Clearing ${idx+1} of ${this.aryActions.length}`, singleAction)
+    //   singleAction.context = undefined
+    //   singleAction.emitter = undefined
+    //   if (Array.isArray(singleAction.params))
+    //   {
+    //     singleAction.params.forEach(ClearArray)
+    //   }
+    //   singleAction.params = undefined
+    // }
+
+    // console.log("Act END!")
+
     this.aryActions.length = 0
 
     this.currentIdx = 0
 
     this.endAt = 0
+
+    this.skip = false
 
     // this.action = null
   }
@@ -55,7 +76,15 @@ export default class ScriptedActions {
       // console.warn("There is another action set/executing!")
       // console.dir(this.action)
       // console.error("Trying to remove listener...", this.currentIdx)
+
+      // console.log("%cREMOVING SA", "color: yellow; background-color: blue;", this.action.completeWhen, "from", this.action.emitter, `at POS: ${this.currentIdx}`);
+
+      // console.dir("DARN:", this.action.emitter.listeners(this.action.completeWhen) )
       this.action.emitter.off(this.action.completeWhen, this.advance, this, true)
+
+      console.log(this.skip,"AS!!!!")
+      this.skip = true
+      // console.dir("DARN2:", this.action.emitter.listeners(this.action.completeWhen) )
       // return false
     }
 
@@ -76,12 +105,22 @@ export default class ScriptedActions {
     console.log("Executing:", this.currentIdx, ":", this.action.action)
     console.log("Actions:", this.aryActions, this.action)
     this.action.emitter.once(this.action.completeWhen, this.advance, this)
+    // console.dir("DARN:", this.action.emitter.listeners(this.action.completeWhen) )
 
     this.action.context[this.action.action].call(this.action.context, this.action.params)
   }
 
   advance()
   {
+    console.log("Current SKIP status:", this.skip, this)
+    if (this.skip)
+    {
+      console.log("'Advance' SKIPPINGG!!!!!!!!!!!!!!")
+      return this.skip = false
+    }
+
+    console.log("Advance' NOT SKIPPED")
+
     this.currentIdx += 1
 
     if (this.currentIdx === this.endAt)

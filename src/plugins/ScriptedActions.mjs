@@ -19,7 +19,7 @@ export default class ScriptedActions {
 
     this.endAt = 0
 
-    this.skip = false
+    this.forceBreak = false
 
 
     this.lowerShieldOnEnd = true
@@ -55,7 +55,7 @@ export default class ScriptedActions {
 
     this.endAt = 0
 
-    this.skip = false
+    this.forceBreak = false
 
     // this.action = null
   }
@@ -82,8 +82,8 @@ export default class ScriptedActions {
       // console.dir("DARN:", this.action.emitter.listeners(this.action.completeWhen) )
       this.action.emitter.off(this.action.completeWhen, this.advance, this, true)
 
-      console.log(this.skip,"AS!!!!")
-      this.skip = true
+      console.log(this.forceBreak,"AS!!!!")
+      this.forceBreak = true
       // console.dir("DARN2:", this.action.emitter.listeners(this.action.completeWhen) )
       // return false
     }
@@ -112,11 +112,11 @@ export default class ScriptedActions {
 
   advance()
   {
-    console.log("Current SKIP status:", this.skip, this)
-    if (this.skip)
+    console.log("Current SKIP status:", this.forceBreak, this)
+    if (this.forceBreak)
     {
       console.log("'Advance' SKIPPINGG!!!!!!!!!!!!!!")
-      return this.skip = false
+      return this.forceBreak = false
     }
 
     console.log("Advance' NOT SKIPPED")

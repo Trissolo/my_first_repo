@@ -392,15 +392,15 @@ class Viewscreen extends Phaser.Scene
       this.text.setText("---")
     }
 
-    moveToClick(pointer, relX, relY)
-    {
-      //  console.log(pointer, relX, relY, this)
+    // moveToClick(pointer, relX, relY)
+    // {
+    //   //  console.log(pointer, relX, relY, this)
 
-      const path = this.pmsManager.generatePath(this.player, {x: pointer.worldX, y: pointer.worldY}, this.player.floor)
+    //   const path = this.pmsManager.generatePath(this.player, {x: pointer.worldX, y: pointer.worldY}, this.player.floor)
         
-      this.player.walk.setPath(path)
-      //this.player.walk.setPath({x: pointer.worldX, y: pointer.worldY})
-    }
+    //   this.player.walk.setPath(path)
+    //   //this.player.walk.setPath({x: pointer.worldX, y: pointer.worldY})
+    // }
 
     allowUserInteraction()
     {

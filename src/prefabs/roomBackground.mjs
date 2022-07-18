@@ -18,14 +18,15 @@ export default class RoomBackground extends Phaser.GameObjects.Image {
         scene.add.existing(this)
 
         //.pmsManager.generatePath(this.player, this.dest, this.testMap)
-        scene.igEvents.on(RoomBackgroundEvents.Background_Clicked, this.calcPath, this)
+        scene.igEvents.on(RoomBackgroundEvents.Background_Clicked, this.manageUserClick, this)
     
     }
 
     //wrong place here?
-    calcPath(clickCoords)
+    manageUserClick(clickCoords)
     {
-        console.dir("DARN!:", this.scene.igPlug.scrActions.skip = true)
+        // if some ScriptedAction is currently executed, stop it!
+        this.scene.igPlug.scrActions.forceBreak = true
 
         const path = this.scene.pmsManager.generatePath(this.scene.player, clickCoords, this.scene.player.floor)
 

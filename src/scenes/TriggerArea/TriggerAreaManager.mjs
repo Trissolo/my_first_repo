@@ -75,7 +75,7 @@ class TriggerAreaManager
 
       if(!child.listenerCount('pointerover'))
       {
-        child.on('pointerdown', this.scene.moveToClick, this.scene)
+        child.on('pointerdown', this.scene.background.bgClicked, this.scene.background) //this.scene.moveToClick, this.scene)
         child.on('pointerover', this.scene.thingOvered)
         child.on('pointerout', this.scene.thingOut, this.scene)
         child.setName(params.name)

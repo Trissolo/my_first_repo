@@ -19,6 +19,7 @@ export default class ScriptedActions {
 
     this.endAt = 0
 
+    // see 'manageUserClick' method in roomBackground
     this.forceBreak = false
 
 
@@ -107,6 +108,8 @@ export default class ScriptedActions {
     this.action.emitter.once(this.action.completeWhen, this.advance, this)
     // console.dir("DARN:", this.action.emitter.listeners(this.action.completeWhen) )
 
+    // debugger
+    
     this.action.context[this.action.action].call(this.action.context, this.action.params)
   }
 

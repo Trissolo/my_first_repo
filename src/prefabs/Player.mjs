@@ -206,7 +206,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
       // }
 
-      this.walk.setPath(this.scene.pmsManager.generatePath(this, path, this.floor))
+      this.walk.setPath(this.scene.pmsManager.generatePath(this, path, floor || this.floor))
 
     }
   }

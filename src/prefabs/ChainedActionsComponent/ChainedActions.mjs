@@ -5,8 +5,13 @@ export default class ChainedActions {
 
         this.parent = parent
 
+        this.scene = parent.scene
+
         //a string that identifies the current Action being executed
         this.id = ""
+
+        //
+        this.signature = Symbol(this.parent.name)
 
         //an array of Actions which are processed in sequence
         this.aryActions = []
@@ -25,15 +30,6 @@ export default class ChainedActions {
   
     }
   
-    clear()
-    {
-      this.aryActions.length = 0
-  
-      this.currentIdx = 0
-  
-      this.endAt = 0
-  
-    }
   
     clear()
     {
@@ -57,6 +53,8 @@ export default class ChainedActions {
       this.currentIdx = 0
 
       this.endAt = 0
+
+      this.id = ""
 
       this.forceBreak = false
 
@@ -107,6 +105,7 @@ export default class ChainedActions {
     {
       console.log("Executing:", this.currentIdx, ":", this.action.action)
       console.log("Actions:", this.aryActions, this.action)
+
       this.action.emitter.once(this.action.completeWhen, this.advance, this)
       // console.dir("DARN:", this.action.emitter.listeners(this.action.completeWhen) )
 

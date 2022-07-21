@@ -30,7 +30,8 @@ export default class RoomBackground extends Phaser.GameObjects.Image {
 
         const path = this.scene.pmsManager.generatePath(this.scene.player, clickCoords, this.scene.player.floor)
 
-        this.scene.player.walk.setPath(path)
+        // this.scene.player.walk.setPath(path)
+        this.scene.player.walkTo(this.scene.pmsManager.generatePath(this.scene.player, clickCoords, this.scene.player.floor))
     }
 
     revamp(atlasNum, background)

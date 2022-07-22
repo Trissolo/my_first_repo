@@ -121,7 +121,10 @@ export default class RS0 {
 
       this.scene.player.actions.add(randomId, [
         makeSingleAction(randomId, AllEvents.walkEvents.WALK_COMPLETE, this.scene.player, 'walkTo', {x: 100, y:54 }),
-        makeSingleAction(randomId, "animationcomplete", this.scene.player, "play",  {key:"robot_interact_W"})
+        makeSingleAction(randomId, "animationcomplete", this.scene.player, "play",  {key:"robot_interact_W"}),
+        // getMatching('visible', true)
+        makeSingleAction(randomId, AllEvents.GenericEvents.ADD_INVENTORY_ITEM, this.scene.player, "temporaryAddItem", 1),
+        makeSingleAction(randomId, AllEvents.RotationHelperEvents.RotationComplete, this.scene.player, 'rotateTo', "SE")
       ])
 
     }

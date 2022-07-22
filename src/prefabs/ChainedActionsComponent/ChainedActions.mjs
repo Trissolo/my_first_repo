@@ -136,10 +136,10 @@ export default class ChainedActions {
 
     advance()
     {
-      console.log("advance:", this.action.id , this.id, this.action.id !== this.id)
+      console.log("advance checking...", this.action.id , this.id)
       if (this.action.id !== this.id)
       {
-        console.log("advance -> clearing!")
+        console.log("Action -> %cABORTED", "color:orange;")
         return this.clear()
       }
 
@@ -150,7 +150,7 @@ export default class ChainedActions {
       //   return this.forceBreak = false
       // }
 
-      // console.log("Advance' NOT SKIPPED")
+      console.log("Action -> %cContinuing", "color:green;")
 
       this.currentIdx += 1
 

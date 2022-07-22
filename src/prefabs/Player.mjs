@@ -10,6 +10,8 @@ import { RotationHelperEvents } from '../scenes/RotationHelper/RotationHelperEve
 
 import { GenericEvents } from '../scenes/GenericEvents.mjs'
 
+import ChainedActions from './ChainedActionsComponent/ChainedActions.mjs'
+
 // methods are needed to get sprite information from frameName
 export default class Player extends Phaser.GameObjects.Sprite
 {
@@ -23,6 +25,8 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.setName(name)
 
     this.walk = new WalkComponent(this)
+
+    this.actions = new ChainedActions(this)
 
     this.hide()
 

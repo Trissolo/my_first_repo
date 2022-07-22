@@ -28,7 +28,10 @@ export default class RoomBackground extends Phaser.GameObjects.Image {
         // if some ScriptedAction is currently executed, stop it!
         this.scene.igPlug.scrActions.forceBreak = true
 
-        const path = this.scene.pmsManager.generatePath(this.scene.player, clickCoords, this.scene.player.floor)
+        //TEST cLEAR PLAYER ACTION
+        this.scene.player.actions.id = null
+
+        // const path = this.scene.pmsManager.generatePath(this.scene.player, clickCoords, this.scene.player.floor)
 
         // this.scene.player.walk.setPath(path)
         this.scene.player.walkTo(this.scene.pmsManager.generatePath(this.scene.player, clickCoords, this.scene.player.floor))

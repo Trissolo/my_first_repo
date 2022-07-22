@@ -1,3 +1,5 @@
+import SingleAction from "./SingleAction.mjs"
+
 export default class ChainedActions {
 
     constructor(parent)
@@ -29,6 +31,11 @@ export default class ChainedActions {
         this.lowerShieldOnEnd = true
   
     }
+
+    makeSingleAction(id, completeWhen, emitter, func, params, context)
+    {
+      return new SingleAction(id, completeWhen, emitter, func, params, context)
+    }
   
   
     clear()
@@ -47,6 +54,12 @@ export default class ChainedActions {
       // }
 
       // console.log("Act END!")
+
+      //new
+      for (const action of this.aryActions)
+      {
+        action.destroy()
+      }
 
       this.aryActions.length = 0
 
@@ -69,7 +82,7 @@ export default class ChainedActions {
       }
     }
 
-    add(actionsArray, lowerShieldOnEnd = true)
+    add(id, actionsArray, autoStart = true, lowerShieldOnEnd = true)
     {
 
       if (this.aryActions.length !== 0)
@@ -83,47 +96,61 @@ export default class ChainedActions {
         // console.dir("DARN:", this.action.emitter.listeners(this.action.completeWhen) )
         this.action.emitter.off(this.action.completeWhen, this.advance, this, true)
 
-        console.log(this.forceBreak,"AS!!!!")
-        this.forceBreak = true
+        // console.log(this.forceBreak,"AS!!!!")
+        // this.forceBreak = true
         // console.dir("DARN2:", this.action.emitter.listeners(this.action.completeWhen) )
         // return false
       }
 
       this.clear()
 
+      this.id = id
+
       this.lowerShieldOnEnd = lowerShieldOnEnd
 
+      console.log("actionsArray", actionsArray)
+
+      //more readable:
       // this.aryActions.push(...actionsArray)
 
       // this.endAt = this.aryActions.length
 
-      console.log("actionsArray", actionsArray)
       this.endAt = this.aryActions.push(...actionsArray)
+
+      if (autoStart)
+      {
+        this.execute()
+      }
+
     }
 
     execute()
     {
-      console.log("Executing:", this.currentIdx, ":", this.action.action)
-      console.log("Actions:", this.aryActions, this.action)
+      console.log("Executing:", this.currentIdx, ":", this.action.func)
+      console.log("IDS:", this.action.id , this.id)
 
       this.action.emitter.once(this.action.completeWhen, this.advance, this)
-      // console.dir("DARN:", this.action.emitter.listeners(this.action.completeWhen) )
 
-      // debugger
-      
-      this.action.context[this.action.action].call(this.action.context, this.action.params)
+      this.action.context[this.action.func].call(this.action.context, this.action.params)
     }
 
     advance()
     {
-      console.log("Current SKIP status:", this.forceBreak, this)
-      if (this.forceBreak)
+      console.log("advance:", this.action.id , this.id, this.action.id !== this.id)
+      if (this.action.id !== this.id)
       {
-        console.log("'Advance' SKIPPINGG!!!!!!!!!!!!!!")
-        return this.forceBreak = false
+        console.log("advance -> clearing!")
+        return this.clear()
       }
 
-      console.log("Advance' NOT SKIPPED")
+      // console.log("Current SKIP status:", this.forceBreak, this)
+      // if (this.forceBreak)
+      // {
+      //   console.log("'Advance' SKIPPINGG!!!!!!!!!!!!!!")
+      //   return this.forceBreak = false
+      // }
+
+      // console.log("Advance' NOT SKIPPED")
 
       this.currentIdx += 1
 

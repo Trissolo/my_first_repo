@@ -114,6 +114,16 @@ export default class RS0 {
     crate()
     {
       console.log(this);
+      // id, completeWhen, emitter, func, params, context
+      console.log(this.scene.player.actions)
+      const {makeSingleAction} = this.scene.player.actions
+      const randomId = Math.random()
+
+      this.scene.player.actions.add(randomId, [
+        makeSingleAction(randomId, AllEvents.walkEvents.WALK_COMPLETE, this.scene.player, 'walkTo', {x: 100, y:54 }),
+        makeSingleAction(randomId, "animationcomplete", this.scene.player, "play",  {key:"robot_interact_W"})
+      ])
+
     }
 
     crepa()

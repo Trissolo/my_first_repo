@@ -1,6 +1,8 @@
+import ClearArray from "../../utils/ClearArray.mjs"
+
 export default class SingleAction {
 
-    constructor(completeWhen, emitter, func, params)
+    constructor(id, completeWhen, emitter, func, params, context = emitter)
     {
         //event name that determine the completition of this action
         this.completeWhen = completeWhen
@@ -13,10 +15,36 @@ export default class SingleAction {
 
         // the params for function
         this.params = params
+
+        this.context = context
+
+        //hmmm
+        this.id = id
+    }
+
+    setId(id)
+    {
+        this.id = id
+
+        return this
     }
 
     destroy()
     {
+        this.completeWhen = undefined
 
+        this.emitter = undefined
+
+        this.func = undefined
+
+        if (Array.isArray(this.params))
+        {
+          this.params.forEach(ClearArray)
+        }
+        this.params = undefined
+
+        this.context = undefined
+
+        this.id = undefined
     }
 }

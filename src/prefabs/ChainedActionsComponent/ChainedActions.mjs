@@ -58,6 +58,7 @@ export default class ChainedActions {
       //new
       for (const action of this.aryActions)
       {
+        action.emitter.off(action.completeWhen, this.advance, this, true)
         action.destroy()
       }
 
@@ -140,6 +141,7 @@ export default class ChainedActions {
       if (this.action.id !== this.id)
       {
         console.log("Action -> %cABORTED", "color:orange;")
+
         return this.clear()
       }
 

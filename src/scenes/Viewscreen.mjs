@@ -10,6 +10,8 @@ import TriggerAreaEvents from './TriggerArea/TriggerAreaEvents.mjs';
 
 import RoomBackground from '../prefabs/roomBackground.mjs';
 
+import BBmText from '../prefabs/BBmText.mjs';
+
 import Player from '../prefabs/Player.mjs';
 
 import Shield from '../prefabs/Shield.mjs';
@@ -126,7 +128,7 @@ class Viewscreen extends Phaser.Scene
 
 
       //temp text
-      this.text = this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
+      this.text = new BBmText(this) //this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
 
       //current room script
       this.rs = null //this.igPlug.roomScripts.grab(this.actualRoomID)

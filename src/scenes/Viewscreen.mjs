@@ -128,13 +128,16 @@ class Viewscreen extends Phaser.Scene
 
 
       //temp text
-      this.text = new BBmText(this) //this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
+      this.text = new BBmText(this, "QWER") //this.add.bitmapText(8, 8, 'fontWhite', this.plugins.get('inGameManager').random).setDepth(10e9);
 
       //current room script
       this.rs = null //this.igPlug.roomScripts.grab(this.actualRoomID)
 
       //for deepthsort
       this.events.on('prerender', this.sortSprites, this)
+
+      // console.log(this.text, "TEXT!!!!")
+      // this.events.on('prerender', this.showDescription, this.text)
 
 
       // TEST! TEST! TEST! TEST!
@@ -387,11 +390,13 @@ class Viewscreen extends Phaser.Scene
     {
       // console.log("OVER", this, this.name)
       this.scene.text.setText(hoverNames[this.hoverName])
+      this.scene.text.setVisible(true)
     }
 
     thingOut()
     {
-      this.text.setText("---")
+      // this.text.setText("---")
+      this.text.setVisible()
     }
 
     // moveToClick(pointer, relX, relY)
@@ -421,7 +426,7 @@ class Viewscreen extends Phaser.Scene
       // this.shield.hide()
     }
 
-    sortSprites()
+    sortSprites(a,b,c,d)
     {
       if (this.dsAry.length)
       {
@@ -430,6 +435,9 @@ class Viewscreen extends Phaser.Scene
           element.setDepth(element.y)
         }
       }
+
+      //console.dir(a,b,c,d)
+      this.text.showDescription.call(this.text, this.input.activePointer)
     }
 
     drawRoom(roomId)

@@ -1,5 +1,7 @@
 import Phaser from "phaser";
 
+const {Clamp} = Phaser.Math
+
 export default class BBmText // extends Phaser.GameObjects.Sprite
 {
     constructor(scene, text, offsetX = 3, offsetY = 4)
@@ -66,6 +68,9 @@ export default class BBmText // extends Phaser.GameObjects.Sprite
 
     place(x, y)
     {
+      x = Clamp(x, 0, x - Math.floor(this.textBackground.scaleX / 2))
+      y = Clamp(y, this.global.height, y - Math.floor(this.textBackground.scaleY / 2)) - this.global.height
+
       this.bmText.setPosition(x, y)
 
       this
@@ -78,8 +83,8 @@ export default class BBmText // extends Phaser.GameObjects.Sprite
       // console.log(a,b,c,d)
       if (this.bmText.visible)
       {
-        const {x, y} = pointer
-        this.place(x, y)
+        // const {x, y} = pointer
+        this.place(pointer.x, pointer.y)
       }
     }
 }

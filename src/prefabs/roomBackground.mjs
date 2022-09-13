@@ -62,6 +62,16 @@ export default class RoomBackground extends Phaser.GameObjects.Image {
         // console.log("Background:", this)
     }
 
+    frameWidth()
+    {
+        return this.frame.width
+    }
+
+    frameHeight()
+    {
+        return this.frame.height
+    }
+
 
     
     // preUpdate (time, delta)

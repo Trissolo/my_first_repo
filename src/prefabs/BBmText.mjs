@@ -84,7 +84,7 @@ export default class BBmText // extends Phaser.GameObjects.Sprite
       if (this.bmText.visible)
       {
         // const {x, y} = pointer
-        this.place(pointer.x, pointer.y)
+        this.place(pointer.worldX, pointer.worldY)
       }
     }
 }

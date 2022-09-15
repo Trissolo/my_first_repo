@@ -24,6 +24,9 @@ export default class BBmText // extends Phaser.GameObjects.Sprite
           .setVisible(false)
           .setDepth(10e7)
           .setText(text);
+        
+        // a reference to scene's main camera
+        this.cam = scene.cameras.main
     }
 
     setVisible(value = false)
@@ -59,7 +62,7 @@ export default class BBmText // extends Phaser.GameObjects.Sprite
 
     scaleBg()
     {
-      const {width, height} = this.bmText.getTextBounds().global
+      const {width, height} = this.global
 
       this.textBackground.setScale(width + this.offsetX, height + this.offsetY)
 
@@ -68,14 +71,30 @@ export default class BBmText // extends Phaser.GameObjects.Sprite
 
     place(x, y)
     {
-      x = Clamp(x, 0, x - Math.floor(this.textBackground.scaleX / 2))
-      y = Clamp(y, this.global.height, y - Math.floor(this.textBackground.scaleY / 2)) - this.global.height
+      //x = Clamp(x, 0, x - Math.floor(this.textBackground.scaleX / 2))
+      //y = Clamp(y, this.global.height, y - Math.floor(this.textBackground.scaleY / 2)) - this.global.height
 
-      this.bmText.setPosition(x, y)
+      //this.bmText.setPosition(x, y)
+
+      //raw way:
+      this.bmText.setPosition(
+        Clamp(
+            x,
+            this.cam.scrollX /*- Math.floor(this.textBackground.scaleX / 2)*/,
+            /*this.cam.scrollX +*/ this.scene.background.width - this.global.width
+          ),
+        Clamp(
+            y - this.global.height -9,
+            this.cam.scrollY,// + this.global.height,
+            this.scene.background.height// - this.global.height
+          ) 
+        //Clamp(y, )
+      )
+      // console.log(x, y, this.bmText.x, this.bmText.y, this.scene.background.width, this.global.width)//, "shit: ", this.cam.scrollX - Math.floor(this.textBackground.scaleX / 2))
 
       this
         .scaleBg()
-        .textBackground.setPosition(x - 2 /*this.offsetX*/, y)    
+        .textBackground.setPosition(this.bmText.x - 2 /*this.offsetX*/, this.bmText.y)  
     }
 
     showDescription(pointer)

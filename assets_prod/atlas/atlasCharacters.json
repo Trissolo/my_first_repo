@@ -1,0 +1,1935 @@
+{
+  "frames": {
+    "player_E_interactCenter_0": {
+      "frame": {
+        "x": 1,
+        "y": 1,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_E_walk_0": {
+      "frame": {
+        "x": 26,
+        "y": 1,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_E_walk_1": {
+      "frame": {
+        "x": 1,
+        "y": 28,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_E_walk_3": {
+      "frame": {
+        "x": 26,
+        "y": 28,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_NE_interactCenter_0": {
+      "frame": {
+        "x": 51,
+        "y": 1,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_NE_walk_0": {
+      "frame": {
+        "x": 51,
+        "y": 28,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_NE_walk_1": {
+      "frame": {
+        "x": 1,
+        "y": 55,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_NE_walk_3": {
+      "frame": {
+        "x": 26,
+        "y": 55,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_NW_interactCenter_0": {
+      "frame": {
+        "x": 51,
+        "y": 55,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_NW_walk_0": {
+      "frame": {
+        "x": 76,
+        "y": 1,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_NW_walk_1": {
+      "frame": {
+        "x": 76,
+        "y": 28,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_NW_walk_3": {
+      "frame": {
+        "x": 76,
+        "y": 55,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_N_interactCenter_0": {
+      "frame": {
+        "x": 1,
+        "y": 82,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_N_walk_0": {
+      "frame": {
+        "x": 26,
+        "y": 82,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_N_walk_1": {
+      "frame": {
+        "x": 51,
+        "y": 82,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_N_walk_3": {
+      "frame": {
+        "x": 76,
+        "y": 82,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_SE_interactCenter_0": {
+      "frame": {
+        "x": 101,
+        "y": 1,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_SE_walk_0": {
+      "frame": {
+        "x": 101,
+        "y": 28,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_SE_walk_1": {
+      "frame": {
+        "x": 101,
+        "y": 55,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_SE_walk_3": {
+      "frame": {
+        "x": 101,
+        "y": 82,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_SW_interactCenter_0": {
+      "frame": {
+        "x": 1,
+        "y": 109,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_SW_walk_0": {
+      "frame": {
+        "x": 26,
+        "y": 109,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_SW_walk_1": {
+      "frame": {
+        "x": 51,
+        "y": 109,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_SW_walk_3": {
+      "frame": {
+        "x": 76,
+        "y": 109,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_S_interactCenter_0": {
+      "frame": {
+        "x": 101,
+        "y": 109,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_S_walk_0": {
+      "frame": {
+        "x": 126,
+        "y": 1,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_S_walk_1": {
+      "frame": {
+        "x": 126,
+        "y": 28,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_S_walk_3": {
+      "frame": {
+        "x": 126,
+        "y": 55,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_W_interactCenter_0": {
+      "frame": {
+        "x": 126,
+        "y": 82,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_W_walk_0": {
+      "frame": {
+        "x": 126,
+        "y": 109,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_W_walk_1": {
+      "frame": {
+        "x": 1,
+        "y": 136,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_W_walk_3": {
+      "frame": {
+        "x": 26,
+        "y": 136,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_E_interactCenter_0": {
+      "frame": {
+        "x": 51,
+        "y": 136,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_E_walk_0": {
+      "frame": {
+        "x": 75,
+        "y": 136,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_E_walk_1": {
+      "frame": {
+        "x": 99,
+        "y": 136,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_E_walk_3": {
+      "frame": {
+        "x": 123,
+        "y": 136,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_NE_interactCenter_0": {
+      "frame": {
+        "x": 147,
+        "y": 136,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_NE_walk_0": {
+      "frame": {
+        "x": 151,
+        "y": 1,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_NE_walk_1": {
+      "frame": {
+        "x": 151,
+        "y": 28,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_NE_walk_3": {
+      "frame": {
+        "x": 151,
+        "y": 55,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_NW_interactCenter_0": {
+      "frame": {
+        "x": 151,
+        "y": 82,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_NW_walk_0": {
+      "frame": {
+        "x": 151,
+        "y": 109,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_NW_walk_1": {
+      "frame": {
+        "x": 1,
+        "y": 163,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_NW_walk_3": {
+      "frame": {
+        "x": 25,
+        "y": 163,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_N_interactCenter_0": {
+      "frame": {
+        "x": 49,
+        "y": 163,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_N_walk_0": {
+      "frame": {
+        "x": 73,
+        "y": 163,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_N_walk_1": {
+      "frame": {
+        "x": 97,
+        "y": 163,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_N_walk_3": {
+      "frame": {
+        "x": 121,
+        "y": 163,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_SE_interactCenter_0": {
+      "frame": {
+        "x": 145,
+        "y": 163,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_SE_walk_0": {
+      "frame": {
+        "x": 169,
+        "y": 163,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_SE_walk_1": {
+      "frame": {
+        "x": 171,
+        "y": 136,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_SE_walk_3": {
+      "frame": {
+        "x": 175,
+        "y": 1,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_SW_interactCenter_0": {
+      "frame": {
+        "x": 175,
+        "y": 28,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_SW_walk_0": {
+      "frame": {
+        "x": 175,
+        "y": 55,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_SW_walk_1": {
+      "frame": {
+        "x": 175,
+        "y": 82,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_SW_walk_3": {
+      "frame": {
+        "x": 175,
+        "y": 109,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_S_interactCenter_0": {
+      "frame": {
+        "x": 1,
+        "y": 190,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_S_walk_0": {
+      "frame": {
+        "x": 25,
+        "y": 190,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_S_walk_1": {
+      "frame": {
+        "x": 49,
+        "y": 190,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_S_walk_3": {
+      "frame": {
+        "x": 73,
+        "y": 190,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_W_interactCenter_0": {
+      "frame": {
+        "x": 97,
+        "y": 190,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_W_walk_0": {
+      "frame": {
+        "x": 121,
+        "y": 190,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_W_walk_1": {
+      "frame": {
+        "x": 145,
+        "y": 190,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_W_walk_3": {
+      "frame": {
+        "x": 169,
+        "y": 190,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_E_walk_2": {
+      "frame": {
+        "x": 26,
+        "y": 1,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_NE_walk_2": {
+      "frame": {
+        "x": 51,
+        "y": 28,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_NW_walk_2": {
+      "frame": {
+        "x": 76,
+        "y": 1,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_N_walk_2": {
+      "frame": {
+        "x": 26,
+        "y": 82,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_SE_walk_2": {
+      "frame": {
+        "x": 101,
+        "y": 28,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_SW_walk_2": {
+      "frame": {
+        "x": 26,
+        "y": 109,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_S_walk_2": {
+      "frame": {
+        "x": 126,
+        "y": 1,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "player_W_walk_2": {
+      "frame": {
+        "x": 126,
+        "y": 109,
+        "w": 23,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 23,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_E_walk_2": {
+      "frame": {
+        "x": 75,
+        "y": 136,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_NE_walk_2": {
+      "frame": {
+        "x": 151,
+        "y": 1,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_NW_walk_2": {
+      "frame": {
+        "x": 151,
+        "y": 109,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_N_walk_2": {
+      "frame": {
+        "x": 73,
+        "y": 163,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_SE_walk_2": {
+      "frame": {
+        "x": 169,
+        "y": 163,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_SW_walk_2": {
+      "frame": {
+        "x": 175,
+        "y": 55,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_S_walk_2": {
+      "frame": {
+        "x": 25,
+        "y": 190,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "robot_W_walk_2": {
+      "frame": {
+        "x": 121,
+        "y": 190,
+        "w": 22,
+        "h": 25
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 22,
+        "h": 25
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 25
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "atlasCharacters.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 198,
+      "h": 216
+    },
+    "scale": 1
+  }
+}

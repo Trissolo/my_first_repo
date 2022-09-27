@@ -49,13 +49,15 @@ export default class Preload extends Phaser.Scene
 
         this.load.xml('fontWhiteXML', 'mio_font_tiny_mono.xml')
 
+        this.load.atlas(`atlasChars`, `atlas/atlasCharacters.png`, `atlas/atlasCharacters.json`);
+
         //const ROOM_PREFIX = 
         let currentSubfolder = "atlas" 
         let fileIndex = 0
 
         const totalRooms = 2
 
-        //atlas
+        //atlas for rooms
         this.load.atlas(`atlas${fileIndex}`, `${currentSubfolder}/atlas${fileIndex}.png`, `${currentSubfolder}/atlas${fileIndex}.json`);
         
 
@@ -120,6 +122,10 @@ export default class Preload extends Phaser.Scene
         this.add.image(16, 120, 'atlas0', "singlePixel")
           .setOrigin(0)
           .setScale(30)
+          .setAlpha(0.7);
+
+          this.add.image(0, 0, 'atlasChars', "__BASE" )
+          .setOrigin(0)
           .setAlpha(0.7);
 
         // test anim as

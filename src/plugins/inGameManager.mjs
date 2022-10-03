@@ -41,7 +41,13 @@ class inGameManager extends Phaser.Plugins.BasePlugin
             {
             "inv": new Set([0, 1]),
             'sprite': null
-             }]
+             }],
+
+             ['player',
+             {
+             "inv": new Set([0, 1]),
+             'sprite': null
+              }]
     ])
 
     }

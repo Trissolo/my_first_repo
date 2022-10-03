@@ -117,7 +117,7 @@ class Viewscreen extends Phaser.Scene
       this.dsAry =[]
 
       //the player
-      this.player = new Player(this)
+      this.player = new Player(this, "robot")
 
       //this.dsAry.push(this.player)
 

@@ -116,7 +116,8 @@ export default class Preload extends Phaser.Scene
         // generating anims (momentarily in this scene, just as test)
 
         this.anims.on('add', this.testAnim, this)
-        this.generateRobotAnims()
+        this.generateGameAnims()
+        this.generateGameAnims('player_')
 
 
         this.add.image(16, 120, 'atlas0', "singlePixel")
@@ -124,9 +125,9 @@ export default class Preload extends Phaser.Scene
           .setScale(30)
           .setAlpha(0.7);
 
-          this.add.image(0, 0, 'atlasChars', "__BASE" )
-          .setOrigin(0)
-          .setAlpha(0.7);
+          // this.add.image(0, 0, 'atlasChars', "__BASE" )
+          // .setOrigin(0)
+          // .setAlpha(0.7);
 
         // test anim as
         this.anims.create({key: 'blinkingButton', frames: [ {
@@ -148,7 +149,7 @@ export default class Preload extends Phaser.Scene
     }// end create
 
     // harcoded
-    generateRobotAnims(prefix = 'robot_')
+    generateGameAnims(prefix = 'robot_')
     {
       const { anims, genFrames } = this
 
@@ -164,7 +165,7 @@ export default class Preload extends Phaser.Scene
       {
         anims.create(  {
           key: `${prefix}walk_${cp}`,
-          frames: this.genFrames(cp),
+          frames: this.genFrames(cp, prefix),
           skipMissedFrames: false,
           repeat: -1,
           frameRate: 8
@@ -174,7 +175,7 @@ export default class Preload extends Phaser.Scene
         anims.create(  {
           key: `${prefix}interact_${cp}`,
           frames: [
-            {key: 'atlas0', frame: `${prefix}${cp}_interactCenter_0`, duration: 60} //,
+            {key: 'atlasChars', frame: `${prefix}${cp}_interactCenter_0`, duration: 60} //,
             // {key: 'atlas0', frame: `${prefix}${cp}_walk_0`, duration:60}
             ],
           skipMissedFrames: false,
@@ -188,14 +189,14 @@ export default class Preload extends Phaser.Scene
       // key: robot_rotate
       anims.create({
         key: `${prefix}rotate`,
-        frames: cardinalsPoints.map(el => ({ key: "atlas0", frame: `${prefix}${el}_walk_0` })),
+        frames: cardinalsPoints.map(el => ({ key: "atlasChars", frame: `${prefix}${el}_walk_0` })),
         skipMissedFrames: false,
         repeat: -1,
         frameRate: 10
       })
     }
 
-    genFrames(cardinal, textureKey = "atlas0", name = "robot_", action = "_walk_")
+    genFrames(cardinal, name = "robot_", textureKey = "atlasChars", action = "_walk_")
     {
       const ary = []
 
@@ -210,8 +211,8 @@ export default class Preload extends Phaser.Scene
     testAnim(key, animation)
     {
       const {Between} = Phaser.Math
-      this.add.sprite(Between(20, 280), Between(30, 100)).play(key)
-      // console.log(`Playing: ${key}`)
+      const qqq = this.add.sprite(Between(20, 280), Between(30, 100)).play(key)
+      console.log(`Playing: ${key}`, qqq)
     }
 
     pressedZ()

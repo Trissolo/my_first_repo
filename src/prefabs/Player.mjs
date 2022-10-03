@@ -19,8 +19,8 @@ import ChainedActions from './ChainedActionsComponent/ChainedActions.mjs'
 // must have one own floor.
 // And Trigger Areas must have it as an effectuator.
 
-// a 'costume' property, that cam be different form 'nme' property, is better
-// a facong direction set
+// a 'costume' property, that cam be different form 'name' property, is better
+// a facing direction set
 
 
 // methods are needed to get sprite information from frameName

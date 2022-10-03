@@ -19,7 +19,7 @@ import ChainedActions from './ChainedActionsComponent/ChainedActions.mjs'
 // must have one own floor.
 // And Trigger Areas must have it as an effectuator.
 
-// a 'costume' property, that cam be different form 'name' property, is better
+// a 'costume' property, that can be different form 'name' property, is better
 // a facing direction set
 
 

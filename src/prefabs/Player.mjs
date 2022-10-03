@@ -12,6 +12,17 @@ import { GenericEvents } from '../scenes/GenericEvents.mjs'
 
 import ChainedActions from './ChainedActionsComponent/ChainedActions.mjs'
 
+// To be usable, each instance:
+
+// must be active and visible,
+// must have the 'x,' 'y' and 'room' properties set,
+// must have one own floor.
+// And Trigger Areas must have it as an effectuator.
+
+// a 'costume' property, that cam be different form 'nme' property, is better
+// a facong direction set
+
+
 // methods are needed to get sprite information from frameName
 export default class Player extends Phaser.GameObjects.Sprite
 {

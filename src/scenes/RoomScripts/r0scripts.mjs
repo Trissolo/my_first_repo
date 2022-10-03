@@ -92,7 +92,7 @@ export default class RS0 {
         [
             GenerateSingleAction(this.scene.player, 'walkTo', AllEvents.walkEvents.WALK_COMPLETE, {x: 116, y:48 }),
             // GenerateSingleAction(this.scene.shield, 'raise', AllEvents.ShieldEvents.RAISE),
-            GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE"/*, repeat: 0, duration: 100*/}),
+            GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:`${this.scene.player.name}_interact_NE`/*, repeat: 0, duration: 100*/}),
             GenerateSingleAction(this, 'hideAndSetBool', AllEvents.GenericEvents.SPRITE_HIDE, [this, 1, 1], this.scene),
             GenerateSingleAction(this.scene.player, "temporaryAddItem", AllEvents.GenericEvents.ADD_INVENTORY_ITEM, 2),
             // GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE"/*, repeat: 0, duration: 90*/}),
@@ -121,7 +121,7 @@ export default class RS0 {
 
       this.scene.player.actions.add(randomId, [
         makeSingleAction(randomId, AllEvents.walkEvents.WALK_COMPLETE, this.scene.player, 'walkTo', {x: 100, y:54 }),
-        makeSingleAction(randomId, "animationcomplete", this.scene.player, "play",  {key:"robot_interact_W"}),
+        makeSingleAction(randomId, "animationcomplete", this.scene.player, "play",  {key:`${this.scene.player.name}_interact_W`}),
         // getMatching('visible', true)
         makeSingleAction(randomId, AllEvents.GenericEvents.ADD_INVENTORY_ITEM, this.scene.player, "temporaryAddItem", 1),
         makeSingleAction(randomId, AllEvents.RotationHelperEvents.RotationComplete, this.scene.player, 'rotateTo', "SE")
@@ -145,7 +145,7 @@ export default class RS0 {
           [
             GenerateSingleAction(this.scene.player, 'walkTo', AllEvents.walkEvents.WALK_COMPLETE, {x: 166, y:68 }),
             GenerateSingleAction(this.scene.player, 'rotateTo', AllEvents.RotationHelperEvents.RotationComplete, "NE"),
-            GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:"robot_interact_NE"}),
+            GenerateSingleAction(this.scene.player, "play", "animationcomplete", {key:`${this.scene.player.name}_interact_NE`}),
             GenerateSingleAction(this, "toggleFrameAndBool", AllEvents.GenericEvents.TOGGLE_FRAME_AND_BOOL, [this, 5], this.scene),
             GenerateSingleAction(this.scene.player, 'rotateTo', AllEvents.RotationHelperEvents.RotationComplete, "S")
 

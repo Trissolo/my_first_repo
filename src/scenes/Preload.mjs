@@ -92,7 +92,8 @@ export default class Preload extends Phaser.Scene
 
         const str = 'Press Z to start';
 
-        this.text = this.add.bitmapText(20, 100, 'fontWhite', str);
+        this.text = this.add.bitmapText(20, 100, 'fontWhite', str)
+          .setDepth(200)
 
 
         // this.boolsManager.boolsContainer[0] = 37

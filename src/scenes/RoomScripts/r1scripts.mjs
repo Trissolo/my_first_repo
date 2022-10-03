@@ -5,8 +5,8 @@ import { crazyCodingHelper } from "../../utils/crazyCodingHelper.mjs"
 
 import GenerateSingleAction from "../../utils/GenerateSingleAction.mjs"
 
+// AllEvents.RoomBackgroundEvents.Background_Clicked
 
-AllEvents.RoomBackgroundEvents.Background_Clicked
 class RS1
 {
 

@@ -166,7 +166,7 @@ class Inventory extends Phaser.Scene
       //                               6, 7])//, 7, 8,
       //                               // 9 ])// 10,11,12,13,14,15,16,17])//,18,19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30])
 
-      this.owner = "robot"
+      //this.owner = "robot"
 
 
 
@@ -301,6 +301,11 @@ class Inventory extends Phaser.Scene
         // }
     }
 
+    get owner()
+    {
+      return this.igPlug.viewScreen.player.name
+    }
+
     get item()
     {
       return this.igPlug.activeInventoryItem
@@ -327,7 +332,7 @@ class Inventory extends Phaser.Scene
       this.marker.setVisible(false)
     }
 
-    getInv(name = this.owner)
+    getInv(name = this.owner) // this.viewScreen.player.name)
     {
       // return this.tempInventory
       return this.igPlug.characters.get(name).inv

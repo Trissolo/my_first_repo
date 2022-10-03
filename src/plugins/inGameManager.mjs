@@ -30,6 +30,7 @@ class inGameManager extends Phaser.Plugins.BasePlugin
 
         this.activeInventoryItem = null
 
+        // this one need a TOTAL restructuring/reorganization
         this.characters = new Map([
             ['robot',
             {
@@ -37,13 +38,13 @@ class inGameManager extends Phaser.Plugins.BasePlugin
             "sprite": null
             }],
 
-            ['generic',
+            ['greenGuy',
             {
-            "inv": new Set([0, 1]),
+            "inv": new Set(),
             'sprite': null
              }],
 
-             ['player',
+             ['generic',
              {
              "inv": new Set([0, 1]),
              'sprite': null

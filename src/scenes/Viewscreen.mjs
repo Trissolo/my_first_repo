@@ -116,8 +116,13 @@ class Viewscreen extends Phaser.Scene
       //deepsorted gameObjects
       this.dsAry =[]
 
+      //Actors (aka players?)
+      this.robot = new Player(this, "robot")
+
+      this.greenGuy = new Player(this, "greenGuy")
+
       //the player
-      this.player = new Player(this, "robot")
+      this.player = this.greenGuy
 
       //this.dsAry.push(this.player)
 

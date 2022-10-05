@@ -51,7 +51,8 @@ export default class Player extends Phaser.GameObjects.Sprite
     //testing rotationComplete event
     this.on(RotationHelperEvents.RotationComplete, () => console.log("Actor: 'rotationcomplete' emitted! ;)"))
 
-
+    // object containing all info about this Actor position
+    this.locationData = {}
   }
 
   hide()
@@ -311,6 +312,38 @@ export default class Player extends Phaser.GameObjects.Sprite
   {
     this.scene.igPlug.inventory.removeItem(itemId, this.name)
     this.emit(GenericEvents.LOSE_INVENTORY_ITEM, this, itemId)
+  }
+
+  storeLocation(locData = this.locationData)
+  {
+      locData.id = this.scene.actualRoomID
+
+      ///this.locData.playerVisible = true
+
+      locData.playerX = this.x
+
+      locData.playerY = this.y
+
+      //locData.frameName = false
+
+      // locData.actor = "robot"
+
+      locData.facingDir =  this.frame.name
+      
+      locData.playerFloor = this.floor
+  }
+
+  put(roomId, x, y, facing, floor)
+  {
+    this.locationData.id = roomId
+
+    this.locationData.playerX = x
+
+    this.locationData.playerY = y
+
+    this.locationData.facingDir =  facing.length < 3 ? this.name + SEPARATOR + facing + "_walk_0" : facing
+
+    this.locationData.playerFloor = floor
   }
 
 }

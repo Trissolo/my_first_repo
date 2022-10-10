@@ -346,4 +346,22 @@ export default class Player extends Phaser.GameObjects.Sprite
     this.locationData.playerFloor = floor
   }
 
+  placeFromLocationData()
+  {
+    if (this.locationData.id === this.scene.actualRoomID)
+    {
+
+      this.x = this.locationData.playerX
+
+      this.y = this.locationData.playerY
+
+      this.setFrame(this.locationData.facingDir)
+
+      this.floor = this.locationData.playerFloor
+      
+    }
+
+
+  }
+
 }

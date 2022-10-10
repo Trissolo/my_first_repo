@@ -13,6 +13,7 @@ import RoomBackground from '../prefabs/roomBackground.mjs';
 import BBmText from '../prefabs/BBmText.mjs';
 
 import Player from '../prefabs/Player.mjs';
+import actorsNames from '../constants/actorsNames.mjs';
 
 import Shield from '../prefabs/Shield.mjs';
 
@@ -23,6 +24,7 @@ import Shield from '../prefabs/Shield.mjs';
 import { ViewscreenEvents } from './ViewscreenEvents.mjs';
 
 import {GenericEvents} from '../scenes/GenericEvents.mjs'
+import actorsNames from '../constants/actorsNames.mjs';
 
 
 class Viewscreen extends Phaser.Scene
@@ -116,13 +118,28 @@ class Viewscreen extends Phaser.Scene
       //deepsorted gameObjects
       this.dsAry =[]
 
-      //Actors (aka players?)
-      this.robot = new Player(this, "robot")
 
-      this.greenGuy = new Player(this, "greenGuy")
+      // new Map for all Actors
+      this.actors = new Map()
+
+      //hard populate the Actors map
+
+      this.actors.set(actorsNames.ROBOT, new Player(this, actorsNames.ROBOT))
+
+      this.actors.set(actorsNames.GREEN_GUY, new Player(this, actorsNames.GREEN_GUY))
+
+      this.currentPlayerName = actorsNames.GREEN_GUY
+
+      // old way?
+      //Actors (aka players?)
+      // this.robot = new Player(this, "robot")
+
+      // this.greenGuy = new Player(this, "greenGuy")
 
       //the player
-      this.player = this.greenGuy
+      //maybe a getter is better?
+      
+      this.player = this.actors.get(actorsNames.GREEN_GUY)
 
       //this.dsAry.push(this.player)
 

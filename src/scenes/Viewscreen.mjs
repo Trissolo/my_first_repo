@@ -24,7 +24,7 @@ import Shield from '../prefabs/Shield.mjs';
 import { ViewscreenEvents } from './ViewscreenEvents.mjs';
 
 import {GenericEvents} from '../scenes/GenericEvents.mjs'
-import actorsNames from '../constants/actorsNames.mjs';
+//import actorsNames from '../constants/actorsNames.mjs';
 
 
 class Viewscreen extends Phaser.Scene
@@ -139,7 +139,7 @@ class Viewscreen extends Phaser.Scene
       //the player
       //maybe a getter is better?
       
-      this.player = this.actors.get(actorsNames.GREEN_GUY)
+      this.player = this.actors.get(actorsNames.ROBOT)
 
       //this.dsAry.push(this.player)
 

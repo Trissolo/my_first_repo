@@ -5,5 +5,6 @@ const ScriptsAry = {
     RS0,
     RS1
 }
-
+console.clear()
+console.log("SCRIPTSARY:", ScriptsAry)
 export default ScriptsAry

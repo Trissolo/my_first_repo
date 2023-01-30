@@ -22,14 +22,14 @@ class boolsManager
   */
   readBit(boolIndex, chunkIndex)
   {
-    return this.boolsContainer[chunkIndex] & (1 << boolIndex)
+    return (this.boolsContainer[chunkIndex] >> boolIndex) & 1;// (1 << boolIndex)
   }
 
   bitStatus(offset)
   {
     const {boolIndex, chunkIndex} = this.deriveBitCoords(offset)
 
-    return this.readBit(boolIndex, chunkIndex) ? 1 : 0
+    return this.readBit(boolIndex, chunkIndex);// ? 1 : 0
   }
 
   setBitOn(boolIndex, chunkIndex)

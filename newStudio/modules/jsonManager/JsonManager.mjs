@@ -1,8 +1,7 @@
 import DepthCategories from '../../not_yet_defined_path/DepthCategories.mjs';
 import buildInterface from '../shared/BuildInterface.mjs';
 
-import cssSelectors from '../shared/cssSelectors.mjs';
-import THINGS_PROPS from './THINGS_PROPS.mjs';
+import AutoComplete from '../autocomplete/AutoComplete.mjs';
 
 // 1/3
 // get all JSON from Gimp:
@@ -92,52 +91,52 @@ class JsonManager {
 
     static removeFrameSuffix()
     {
-        delete this.currentThing[THINGS_PROPS.FRAME_SUFFIX];
+        delete this.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX]; // [THINGS_PROPS.FRAME_SUFFIX];
     }
 
     static setFrameSuffix(condition)
     {
-        this.currentThing[THINGS_PROPS.FRAME_SUFFIX] = condition;
+        this.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX] = condition;
     }
 
     static removeHoverName()
     {
-        delete this.currentThing[THINGS_PROPS.HOVER_NAME];
+        delete this.currentThing[AutoComplete.THINGS_PROPS.HOVER_NAME];
     }
 
     static setHoverName(index)
     {
-        this.currentThing[THINGS_PROPS.HOVER_NAME] = index;
+        this.currentThing[AutoComplete.THINGS_PROPS.HOVER_NAME] = index;
     }
 
     static removeFrameSuffix()
     {
-        delete this.currentThing[THINGS_PROPS.SKIP_CONDITION];
+        delete this.currentThing[AutoComplete.THINGS_PROPS.SKIP_CONDITION];
     }
 
     static setSkipCondition(condition)
     {
-        this.currentThing[THINGS_PROPS.SKIP_CONDITION] = condition;
+        this.currentThing[AutoComplete.THINGS_PROPS.SKIP_CONDITION] = condition;
     }
 
     static removeNoInput()
     {
-        delete this.currentThing[THINGS_PROPS.NO_INPUT];
+        delete this.currentThing[AutoComplete.THINGS_PROPS.NO_INPUT];
     }
 
     static setNoInput()
     {
-        this.currentThing[THINGS_PROPS.NO_INPUT] = true;
+        this.currentThing[AutoComplete.THINGS_PROPS.NO_INPUT] = true;
     }
 
     static removeAnimationName()
     {
-        delete this.currentThing[THINGS_PROPS.ANIMATION_NAME];
+        delete this.currentThing[AutoComplete.THINGS_PROPS.ANIMATION_NAME];
     }
 
     static setAnimationName()
     {
-        this.currentThing[THINGS_PROPS.ANIMATION_NAME] = true;
+        this.currentThing[AutoComplete.THINGS_PROPS.ANIMATION_NAME] = true;
     }
     // *Thing*:
 
@@ -162,7 +161,6 @@ class JsonManager {
     // rid,
     // hoverName,
     // actors
-
 
 }
 

@@ -14,6 +14,6 @@ const ids = {
 }
 
 export default {
-    classes: classes,
-    ids: ids
+    classes, // : classes,
+    ids // : ids
 }

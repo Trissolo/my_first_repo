@@ -1,0 +1,72 @@
+{
+    "atlas": 0,
+    "background": "room1bg",
+    "id": 1,
+    "things": [
+    {
+        "depth": "ab",
+        "frame": "porta1",
+        "x": 82,
+        "y": 2
+    },
+    {
+        "depth": "ta",
+        "height": 169,
+        "name": " test_grata",
+        "width": 195,
+        "x": -59,
+        "y": -69
+    },
+    {
+        "depth": "ab",
+        "frame": "passaggio_a",
+        "x": 12,
+        "y": 28
+    },
+    {
+        "depth": "ta",
+        "height": 63,
+        "name": "exitEst",
+        "width": 4,
+        "x": 137,
+        "y": 65
+    },
+    {
+        "depth": "ta",
+        "height": 29,
+        "name": "exitWest",
+        "width": 11,
+        "x": 36,
+        "y": 87
+    },
+    {
+        "depth": "co",
+        "frame": "ITcardA",
+        "x": 90,
+        "y": 82
+    },
+    {
+        "depth": "ab",
+        "frame": "r2cabinetDoors1",
+        "x": 75,
+        "y": 68
+    },
+    {
+        "depth": "ab",
+        "frame": "r2cabinetDoors0",
+        "x": 75,
+        "y": 68
+    },
+    {
+        "depth": "ab",
+        "frame": "cabinet",
+        "x": 81,
+        "y": 65
+    },
+    {
+        "depth": "ab",
+        "frame": "otherRoom",
+        "x": 39,
+        "y": 72
+    }]
+}

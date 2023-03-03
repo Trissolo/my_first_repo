@@ -1,0 +1,120 @@
+{
+    "atlas": 0,
+    "background": "room0bg",
+    "id": 0,
+    "things": [
+    {
+        "depth": "ab",
+        "frame": "wrench",
+        "x": 118,
+        "y": 26
+    },
+    {
+        "depth": "ab",
+        "frame": "crateLid0",
+        "x": 84,
+        "y": 41
+    },
+    {
+        "depth": "ab",
+        "frame": "crateLid1",
+        "x": 84,
+        "y": 41
+    },
+    {
+        "depth": "ab",
+        "frame": "crate",
+        "x": 84,
+        "y": 45
+    },
+    {
+        "depth": "ds",
+        "frame": "coso_dietro",
+        "x": 167,
+        "y": 120
+    },
+    {
+        "depth": "ta",
+        "height": 3,
+        "name": "stopDoor",
+        "width": 22,
+        "x": 217,
+        "y": 42
+    },
+    {
+        "depth": "ta",
+        "height": 7,
+        "name": "exitNord",
+        "width": 16,
+        "x": 220,
+        "y": 33
+    },
+    {
+        "depth": "ta",
+        "height": 63,
+        "name": "exitWest",
+        "width": 3,
+        "x": 0,
+        "y": 65
+    },
+    {
+        "depth": "ab",
+        "frame": "crepa",
+        "x": 96,
+        "y": 62
+    },
+    {
+        "depth": "ab",
+        "frame": "button1",
+        "x": 168,
+        "y": 45
+    },
+    {
+        "depth": "ab",
+        "frame": "button0",
+        "x": 168,
+        "y": 45
+    },
+    {
+        "depth": "ab",
+        "frame": "mensole",
+        "x": 110,
+        "y": 28
+    },
+    {
+        "depth": "ab",
+        "frame": "striscia",
+        "x": 37,
+        "y": 64
+    },
+    {
+        "depth": "ab",
+        "frame": "porta1",
+        "x": 219,
+        "y": 15
+    },
+    {
+        "depth": "ab",
+        "frame": "porta0",
+        "x": 219,
+        "y": 15
+    },
+    {
+        "depth": "fg",
+        "frame": "vasca",
+        "x": 59,
+        "y": 92
+    },
+    {
+        "depth": "fg",
+        "frame": "tubo",
+        "x": 219,
+        "y": 72
+    },
+    {
+        "depth": "fg",
+        "frame": "topDoor",
+        "x": 217,
+        "y": 0
+    }]
+}

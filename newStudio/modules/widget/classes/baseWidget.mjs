@@ -7,12 +7,13 @@ export default class BaseWidget
 {
     constructor(name)
     {
-        this.case = addElement('div', document.getElementById("demo"));
+        this.case = addElement('div', document.getElementById(AutoComplete.cssSelectors.ids.GUI_widgets));
         this.title = addElement('h4', this.case, name);
         this.widget = addElement('div', this.case, "-- Content --");
 
-        this.title.addEventListener('click', this.clickedTitle)
 
+        this.title.addEventListener('click', this.clickedTitle)
+        this.addClass(AutoComplete.cssSelectors.classes.widget_container)
     }
 
     addClass(className)

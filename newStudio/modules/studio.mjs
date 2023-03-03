@@ -1,4 +1,5 @@
-// import Phaser from "phaser";
+import testWidget from "./widget/testWidget.mjs";
+
 import StudioPhaser from "./phaserGame/phaserGame.mjs";
 console.log("TESTPH", Phaser)
 const config = {
@@ -9,11 +10,11 @@ const config = {
     disableContextMenu: true,
     scale:
     {
-      mode: Phaser.Scale.NONE,
-      //autoCenter: Phaser.Scale.CENTER_BOTH,
-      width: 256,
-      height: 200,
-      zoom: 3
+        mode: Phaser.Scale.NONE,
+        //autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 256,
+        height: 200,
+        zoom: 3
     },
     // loader:
     // {
@@ -22,10 +23,12 @@ const config = {
     // },
     input:
     {
-      touch: false
+        touch: false
     },
         
     scene: StudioPhaser
   }
 
 window.game = new Phaser.Game(config)
+
+const qqq = new testWidget();

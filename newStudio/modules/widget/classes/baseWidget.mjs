@@ -12,7 +12,8 @@ export default class BaseWidget
         this.widget = addElement('div', this.case, "-- Content --");
 
 
-        this.title.addEventListener('click', this.clickedTitle)
+        this.title.addEventListener('click', this.clickedTitle);
+        
         this.addClass(AutoComplete.cssSelectors.classes.widget_container)
     }
 

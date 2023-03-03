@@ -9,16 +9,23 @@ export default class TextField
         this.textField = addElement('p', parent, text)
     }
 
+    get classList()
+    {
+        return this.textField.classList
+    }
+
     addClass(className)
     {
-        this.textField.classList.add(className);
+        // this.textField.classList.add(className);
+        this.classList.add(className);
+
 
         return this
     }
 
     removeClass(className)
     {
-        this.textField.classList.remove(className);
+        this.classList.remove(className);
 
         return this
     }

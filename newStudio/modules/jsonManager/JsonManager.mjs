@@ -1,5 +1,6 @@
-import DepthCategories from '../../not_yet_defined_path/DepthCategories.mjs';
-import buildInterface from '../shared/BuildInterface.mjs';
+// import DepthCategories from '../../not_yet_defined_path/DepthCategories.mjs';
+// import buildInterface from '../shared/BuildInterface.mjs';
+import DepthCategories from './DepthCategories.mjs';
 
 import AutoComplete from '../autocomplete/AutoComplete.mjs';
 
@@ -31,7 +32,7 @@ class JsonManager {
 
     static thingsCursor = 0;
 
-    static domThings = document.getElementById(cssSelectors.ids.things_window)
+    static domThings = document.getElementById(AutoComplete.cssSelectors.ids.things_window);
 
     //whole JSON nav
     static get currentJson() { return this.studioJSONs[this.jsonCursor] }
@@ -81,7 +82,7 @@ class JsonManager {
 
     static wholeJsonToJson()
     {
-        return JSON.stringify(this.currentJson, buildInterface.parseJsonProps, 2)
+        return JSON.stringify(this.currentJson, /*buildInterface.parseJsonProps*/ null, 2)
     }
 
     static thingToJson()

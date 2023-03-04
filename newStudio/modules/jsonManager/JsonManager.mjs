@@ -47,7 +47,7 @@ class JsonManager {
 
     static prevJson()
     {
-        this.jsonCursor = this.jsonCursor === 0 ? this.studioJSONs.length - 1 : --this.thingsCursor;
+        this.jsonCursor = this.jsonCursor === 0 ? this.studioJSONs.length - 1 : this.jsonCursor - 1;
         // this.jsonCursor = Math.max(this.jsonCursor - 1, 0);
         this.thingsCursor = 0;
         return this.currentJson;
@@ -60,15 +60,13 @@ class JsonManager {
 
     static prevThing()
     {
-        this.thingsCursor = this.thingsCursor === 0 ? this.things.length - 1 : --this.thingsCursor;
-        // this.thingsCursor = Math.max(this.thingsCursor - 1, 0);
+        this.thingsCursor = this.thingsCursor === 0 ? this.things.length - 1 : this.thingsCursor - 1;
         return this.currentThing;
     }
 
     static nextThing()
     {
         this.thingsCursor = ++this.thingsCursor % this.things.length
-        // this.thingsCursor = Math.min(this.thingsCursor + 1, this.things.length - 1);
         return this.currentThing;
     }
 

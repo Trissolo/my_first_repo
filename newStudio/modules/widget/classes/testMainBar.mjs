@@ -28,18 +28,19 @@ export default class MainBar
     {
         this.prevThing = new baseClassesWrapper.PseudoButton(container, labels.labelPrevThing);
         this.prevThing.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
+        this.prevThing.setOnClick(this.backtrackThing)
     }
 
     advanceThing = () => {
         JsonManager.nextThing();
         studioEvents.emitter.emit(studioEvents.events.thingChanged);
-        JsonManager.showThing();
+        // JsonManager.showThing();
     }
 
     backtrackThing = () => {
         JsonManager.prevThing();
         studioEvents.emitter.emit(studioEvents.events.thingChanged);
-        JsonManager.showThing();
+        // JsonManager.showThing();
     }
 
     buildNextThingButton(container)

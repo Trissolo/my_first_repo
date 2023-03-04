@@ -2,6 +2,8 @@ import testWidget from "./widget/testWidget.mjs";
 import MainBar from "./widget/classes/testMainBar.mjs";
 
 import StudioPhaser from "./phaserGame/phaserGame.mjs";
+import studioEvents from "./eventEmitter/StudioEvents.mjs";
+import JsonManager from "./jsonManager/JsonManager.mjs";
 console.log("TESTPH", Phaser)
 const config = {
     type: Phaser.WEBGL,
@@ -35,3 +37,5 @@ window.game = new Phaser.Game(config)
 const qqq = new testWidget();
 
 const mainBar = new MainBar();
+
+studioEvents.emitter.on(studioEvents.events.thingChanged, JsonManager.showThing, JsonManager)

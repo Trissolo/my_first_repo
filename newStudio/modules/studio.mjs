@@ -1,4 +1,5 @@
 import testWidget from "./widget/testWidget.mjs";
+import MainBar from "./widget/classes/testMainBar.mjs";
 
 import StudioPhaser from "./phaserGame/phaserGame.mjs";
 console.log("TESTPH", Phaser)
@@ -32,3 +33,5 @@ const config = {
 window.game = new Phaser.Game(config)
 
 const qqq = new testWidget();
+
+const mainBar = new MainBar();

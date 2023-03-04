@@ -20,9 +20,12 @@ export default class testWidget extends BaseWidget
         this.button.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
 
         this.buttBeh = (event) => {
-            console.log(JsonManager.currentThing, JsonManager.wholeJsonToJson());
+            // console.log(JsonManager.currentThing, JsonManager.wholeJsonToJson());
+            JsonManager.nextThing()
+            JsonManager.showThing()
             this.qwe.classList.length? this.qwe.removeClass(AutoComplete.cssSelectors.classes.textFieldA):this.qwe.addClass(AutoComplete.cssSelectors.classes.textFieldA)
         }
+
         this.button.setOnClick(this.buttBeh)
 
     }

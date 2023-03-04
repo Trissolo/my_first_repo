@@ -65,6 +65,7 @@ h4:hover {
     color:black;
     background-color: #acacac;
     border-color: black;
+    display: inline-block;
 }
 
 .buttonStyleA:hover {
@@ -97,6 +98,15 @@ h4:hover {
     /* height: 2em; */
 }
 
+.textFieldB {
+    text-align: center;
+    width: 15%;
+    display: inline-block;
+    background-color: var(--col-c64-darkgreen);
+    color: var(--col-c64-gray);
+    /* height: 2em; */
+}
+
 .marginRight {
     margin-right: 1em;
 }
@@ -106,7 +116,7 @@ h4:hover {
     right: 1em;
     top: 3em;
     color: yellow;
-    /* background-color: #333; */
+    background-color: #333;
     width: 18em;
     /* border: 2px solid #888; */
     padding: 1px; 

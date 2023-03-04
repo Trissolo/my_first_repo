@@ -4,6 +4,7 @@ const classes = {
     buttonStyleA: "buttonStyleA",
     buttonStyleB: "buttonStyleB",
     textFieldA: "textFieldA",
+    textFieldB: "textFieldB",
     marginRight: "marginRight"
 }
 

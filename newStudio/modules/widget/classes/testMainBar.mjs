@@ -40,7 +40,6 @@ export default class MainBar
     backtrackThing = () => {
         JsonManager.prevThing();
         studioEvents.emitter.emit(studioEvents.events.thingChanged);
-        // JsonManager.showThing();
     }
 
     buildNextThingButton(container)
@@ -54,6 +53,9 @@ export default class MainBar
     {
         this.labelThing = new baseClassesWrapper.TextField(container, "---")
         this.labelThing.addClass(AutoComplete.cssSelectors.classes.textFieldB);
+        studioEvents.emitter.on(studioEvents.events.thingChanged, this.moDove, this);
     }
+
+    moDove = ()=> this.labelThing.setText(`Thing[${JsonManager.thingsCursor}]/${JsonManager.things.length - 1}`)
 
 }

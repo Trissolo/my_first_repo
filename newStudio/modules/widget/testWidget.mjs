@@ -14,19 +14,22 @@ export default class testWidget extends BaseWidget
         this.button = new PseudoButton(this.widget, "add Prefix")
 
         this.qwe = new TextField(this.widget, "Orcus");
-        this.qwe.addClass(AutoComplete.cssSelectors.classes.textFieldA);
-
+        // this.qwe.addClass(AutoComplete.cssSelectors.classes.textField);
+        
+        
         this.button.addClass(AutoComplete.cssSelectors.classes.pseudoButton);
         this.button.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
+        this.button.addClass(AutoComplete.cssSelectors.classes.marginRight);
 
         this.buttBeh = (event) => {
             // console.log(JsonManager.currentThing, JsonManager.wholeJsonToJson());
-            JsonManager.nextThing()
-            JsonManager.showThing()
-            this.qwe.classList.length? this.qwe.removeClass(AutoComplete.cssSelectors.classes.textFieldA):this.qwe.addClass(AutoComplete.cssSelectors.classes.textFieldA)
+            // JsonManager.nextThing()
+            // JsonManager.showThing()
+            // this.qwe.classList.length? this.qwe.removeClass(AutoComplete.cssSelectors.classes.textFieldA):this.qwe.addClass(AutoComplete.cssSelectors.classes.textFieldA)
+            (this.qwe.classList.length === 2)?this.qwe.setInUse():this.qwe.setDisabled();
         }
 
-        this.button.setOnClick(this.buttBeh)
+        this.button.setOnClick(this.buttBeh);
 
     }
 }

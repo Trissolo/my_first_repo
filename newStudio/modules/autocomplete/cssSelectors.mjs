@@ -5,7 +5,9 @@ const classes = {
     buttonStyleB: "buttonStyleB",
     textFieldA: "textFieldA",
     textFieldB: "textFieldB",
-    marginRight: "marginRight"
+    marginRight: "marginRight",
+    textFieldDisabled: "textFieldDisabled",
+    textField: "textField"
 }
 
 const ids = {

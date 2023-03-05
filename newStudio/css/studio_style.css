@@ -90,6 +90,29 @@ h4:hover {
 
 } */
 
+.textField {
+    background-color:var(--col-c64-green);
+    color: var(--col-c64-darkgreen);
+    /* border: 1px solid #aeb2b5; */
+    text-align: center;
+    /* width: 15%; */
+    min-width: 16%;
+    display: inline-block;
+}
+
+.textFieldDisabled {
+    background-color: var(--col-c64-gray);
+    /* color: #222; */
+    color: var(--col-c64-azure);
+    opacity: 0.4;
+    /* border-style: dashed; */
+}
+
+.textField::after, .textField::before, .pseudoButton::before, .pseudoButton::after {
+    content: " ";
+}
+
+
 .textFieldA {
     text-align: center;
     width: 15%;

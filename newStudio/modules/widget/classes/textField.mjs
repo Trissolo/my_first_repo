@@ -4,9 +4,10 @@ import addElement from "../addElement.mjs";
 
 export default class TextField
 {
-    constructor(parent, text)
+    constructor(parent, text, defaultBehavior = true)
     {
-        this.textField = addElement('p', parent, text)
+        this.textField = addElement('p', parent, text);
+        if (defaultBehavior) this.setStandard();
     }
 
     get classList()
@@ -33,6 +34,29 @@ export default class TextField
     setText(text)
     {
         this.textField.innerText = text;
+
+        return this
+    }
+
+    setStandard()
+    {
+        this.addClass(AutoComplete.cssSelectors.classes.textField);
+
+        return this
+    }
+
+    setDisabled(text = "---")
+    {
+        this.addClass(AutoComplete.cssSelectors.classes.textFieldDisabled);
+        this.setText(text);
+
+        return this
+    }
+
+    setInUse(text = "In use")
+    {
+        this.removeClass(AutoComplete.cssSelectors.classes.textFieldDisabled);
+        this.setText(text);
 
         return this
     }

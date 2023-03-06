@@ -16,7 +16,7 @@ const OnHoverNames = [
     "Vai corridoio",
     "Vai altra stanza",
     "Torna Est",
-    "Armadietto",
+    "Armadietto"
     ]
     
     export default OnHoverNames

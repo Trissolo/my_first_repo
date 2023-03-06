@@ -4,14 +4,16 @@ html, body {
 }*/
 
 :root {
-    --col-c64-azure: #31a2f2;
-    --col-c64-blu: #005784;
-    --col-c64-green: #44891a;
-    --col-c64-gray: #9D9D9D;
     --col-c64-darkgreen: #2f484e;
     --col-c64-nightblu: #1b2632;
-    --col-c64-yellow: #f7e26b;
+    --col-c64-red: #be2633;
+    --col-c64-blu: #005784;
+    --col-c64-brown: #a46422;
+    --col-c64-green: #44891a;
+    --col-c64-azure: #31a2f2;
     --col-c64-orange: #eb8931;
+    --col-c64-gray: #9D9D9D;
+    --col-c64-yellow: #f7e26b;
 }
 
   /*
@@ -22,7 +24,7 @@ html, body {
   */
   
 #GUI_main_container {
-    width: 660px;
+    width: 680px;
     font-family: monospace;
     user-select: none;
 
@@ -63,19 +65,20 @@ h4:hover {
 }
   
 .buttonStyleA {
-    color:black;
-    background-color: #acacac;
-    border-color: black;
-    display: inline-block;
+    color:var(--col-c64-blu);
+    background-color: var(--col-c64-brown);
+    /* border-color: black; */
+    /* display: inline-block; */
 }
 
 .buttonStyleA:hover {
     color:white;
     background-color: var(--col-c64-azure);
+    /* display: inline-block; */
 }
 
 .buttonStyleB {
-    color: azure;
+    color: var(--col-c64-brown);
     background-color: var(--col-c64-nightblu);
     /* border-color: #dfba75; */
 }
@@ -105,7 +108,7 @@ h4:hover {
     background-color: var(--col-c64-gray);
     /* color: #222; */
     color: var(--col-c64-azure);
-    opacity: 0.4;
+    opacity: 0.6;
     /* border-style: dashed; */
 }
 
@@ -139,7 +142,7 @@ h4:hover {
     position: fixed;
     right: 1em;
     top: 3em;
-    color: yellow;
+    color: var(--col-c64-yellow);
     background-color: #333;
     width: 18em;
     /* border: 2px solid #888; */

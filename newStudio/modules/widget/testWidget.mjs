@@ -5,17 +5,20 @@ import PseudoButton from "./classes/pseudoButton.mjs";
 import OptionsList from "./classes/baseOptionsList.mjs";
 
 import AutoComplete from "../autocomplete/AutoComplete.mjs";
+import THINGS_PROPS from "../autocomplete/THINGS_PROPS.mjs";
 import JsonManager from "../jsonManager/JsonManager.mjs";
 
 import OnHoverNames from "../placeholders/OnHoverNames.mjs";
 
 export default class testWidget extends BaseWidget
 {
-    constructor()
+    constructor(managedProp = THINGS_PROPS.HOVER_NAME)
     {
         super("TestWidget");
 
-        this.button = new PseudoButton(this.widget, "add Prefix");
+        this.managedProp = managedProp;
+
+        this.button = new PseudoButton(this.widget, "Remove");
 
         this.selectElem = new OptionsList(this.widget, OnHoverNames, "->Select<-")
 
@@ -32,7 +35,10 @@ export default class testWidget extends BaseWidget
             // JsonManager.nextThing()
             // JsonManager.showThing()
             // this.qwe.classList.length? this.qwe.removeClass(AutoComplete.cssSelectors.classes.textFieldA):this.qwe.addClass(AutoComplete.cssSelectors.classes.textFieldA)
-            (this.qwe.classList.length === 2)?this.qwe.setInUse():this.qwe.setDisabled();
+            // (this.qwe.classList.length === 2)?this.qwe.setInUse():this.qwe.setDisabled();
+            JsonManager.removeHoverName();
+
+            this.refresh(true);
         }
 
         this.button.setOnClick(this.buttBeh);
@@ -49,9 +55,32 @@ export default class testWidget extends BaseWidget
             return
         }
 
-        const hoverNamesIndex = +event.target.value;
+        JsonManager.setHoverName(+event.target.value);
 
-        console.log('HoverNamesListOnchange', hoverNamesIndex, this.selectElem.optionsAry[hoverNamesIndex]);
+        this.refresh(true)
+        // const hoverNamesIndex = +event.target.value;
+    
+        // console.log('HoverNamesListOnchange', hoverNamesIndex, this.selectElem.optionsAry[hoverNamesIndex]);
+    }
+
+    refresh(refreshThing)
+    {
+        if (JsonManager.currentThing.hasOwnProperty(this.managedProp))
+        {
+            const idx = JsonManager.currentThing[this.managedProp];
+
+            this.qwe.setInUse(`${this.selectElem.optionsAry[idx]} (${idx})`)
+        }
+
+        else
+        {
+            this.qwe.setDisabled()
+        }
+
+        if (refreshThing)
+        {
+            JsonManager.showThing()
+        }
     }
 }
 

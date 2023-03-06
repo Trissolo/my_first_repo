@@ -14,6 +14,7 @@ export default class OptionsList
     constructor(parent, ary, firstOption = "Select")
     {
         this.select = addElement('select', parent);
+        this.addClass(AutoComplete.cssSelectors.classes.marginRight);
 
         this.optionsAry = ary;
 
@@ -70,13 +71,13 @@ export default class OptionsList
     //     return this.textField.classList
     // }
 
-    // addClass(className)
-    // {
-    //     this.classList.add(className);
+    addClass(className)
+    {
+        this.select.classList.add(className);
 
 
-    //     return this
-    // }
+        return this
+    }
 
     // removeClass(className)
     // {

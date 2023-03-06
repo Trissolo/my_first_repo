@@ -38,4 +38,9 @@ const qqq = new testWidget();
 
 const mainBar = new MainBar();
 
-studioEvents.emitter.on(studioEvents.events.thingChanged, JsonManager.showThing, JsonManager)
+studioEvents.emitter.emit(studioEvents.events.thingChanged)
+
+studioEvents.emitter.on(studioEvents.events.thingChanged, ()=>{
+    qqq.refresh()
+    JsonManager.showThing();
+});

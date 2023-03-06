@@ -63,7 +63,6 @@ export default class BaseWidget
         this.toggleHidden()
     }
 
-
     /**buildSingleWidget(name = "TEST NAME", addNameAsProp = false)
     {
         const {addElement} = this

@@ -2,8 +2,12 @@ import BaseWidget from "./classes/baseWidget.mjs";
 import TextField from "./classes/textField.mjs";
 import PseudoButton from "./classes/pseudoButton.mjs";
 
+import OptionsList from "./classes/baseOptionsList.mjs";
+
 import AutoComplete from "../autocomplete/AutoComplete.mjs";
 import JsonManager from "../jsonManager/JsonManager.mjs";
+
+import OnHoverNames from "../placeholders/OnHoverNames.mjs";
 
 export default class testWidget extends BaseWidget
 {
@@ -11,7 +15,9 @@ export default class testWidget extends BaseWidget
     {
         super("TestWidget");
 
-        this.button = new PseudoButton(this.widget, "add Prefix")
+        this.button = new PseudoButton(this.widget, "add Prefix");
+
+        this.selectElem = new OptionsList(this.widget, OnHoverNames, "->Select<-")
 
         this.qwe = new TextField(this.widget, "Orcus");
         // this.qwe.addClass(AutoComplete.cssSelectors.classes.textField);
@@ -31,6 +37,21 @@ export default class testWidget extends BaseWidget
 
         this.button.setOnClick(this.buttBeh);
 
+        this.selectElem.setOnChange(this.onChange)
+
+    }
+
+    onChange = (event) => {
+
+        if (event.target.value === "")
+        {
+            console.log("NONE Selected! Returning...");
+            return
+        }
+
+        const hoverNamesIndex = +event.target.value;
+
+        console.log('HoverNamesListOnchange', hoverNamesIndex, this.selectElem.optionsAry[hoverNamesIndex]);
     }
 }
 

@@ -11,6 +11,7 @@ html, body {
     --col-c64-darkgreen: #2f484e;
     --col-c64-nightblu: #1b2632;
     --col-c64-yellow: #f7e26b;
+    --col-c64-orange: #eb8931;
 }
 
   /*
@@ -21,7 +22,7 @@ html, body {
   */
   
 #GUI_main_container {
-    width: 600px;
+    width: 660px;
     font-family: monospace;
     user-select: none;
 

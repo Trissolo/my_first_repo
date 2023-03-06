@@ -29,6 +29,11 @@ export default class OptionsList
         return this.optionsAry
     }
 
+    setSelectedIndex(idx = 0)
+    {
+        this.select.selectedIndex = idx;
+    }
+
     buildOptions(ary = this.optionsAry, selectElem = this.select)
     {
         for (const [idx, elem] of ary.entries())

@@ -63,23 +63,4 @@ export default class BaseWidget
         this.toggleHidden()
     }
 
-    /**buildSingleWidget(name = "TEST NAME", addNameAsProp = false)
-    {
-        const {addElement} = this
-
-        const widgetCase = addElement('div', document.getElementById('studioContainer'))
-        const title = addElement("h4", widgetCase, name)
-
-        const wCommands = addElement("div", widgetCase)
-        wCommands.classList.add("sub-cont")
-
-        if (addNameAsProp)
-        {
-            widgetCase.setAttribute("name", name)
-        }
-
-        return widgetCase
-        //const buttonAdd = addElement("i", wCommands, "Add " + name)
-        //buttonAdd.addEventListener('click', this.prevThing.bind(this))
-    } */
 }

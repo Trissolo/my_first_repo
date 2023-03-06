@@ -6,7 +6,8 @@ export default class PseudoButton
 {
     constructor(parent, text)
     {
-        this.pseudoButton = addElement('p', parent, text)
+        this.pseudoButton = addElement('p', parent, text);
+        this.addClass(AutoComplete.cssSelectors.classes.pseudoButton);
     }
 
     addClass(className)

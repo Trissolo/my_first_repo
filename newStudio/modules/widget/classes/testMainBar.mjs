@@ -27,7 +27,9 @@ export default class MainBar
     buildPrevThingButton(container)
     {
         this.prevThing = new baseClassesWrapper.PseudoButton(container, labels.labelPrevThing);
-        this.prevThing.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
+        // this.prevThing.addClass(AutoComplete.cssSelectors.classes.pseudoButton);
+        this.prevThing.addClass(AutoComplete.cssSelectors.classes.buttonStyleB);
+
         this.prevThing.setOnClick(this.backtrackThing)
     }
 
@@ -45,7 +47,8 @@ export default class MainBar
     buildNextThingButton(container)
     {
         this.nextThing = new baseClassesWrapper.PseudoButton(container, labels.labelNextThing);
-        this.nextThing.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
+        // this.nextThing.addClass(AutoComplete.cssSelectors.classes.pseudoButton);
+        this.nextThing.addClass(AutoComplete.cssSelectors.classes.buttonStyleB);
         this.nextThing.setOnClick(this.advanceThing)
     }
 

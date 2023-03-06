@@ -1,11 +1,3 @@
-// qwert()
-// {
-//     const HoverNamesList = this.addElement('select', subCont)
-//     HoverNamesList.add( new Option("Select Hover Name:", "", true))
-//     this.buildOptions(HoverNamesList, hoverNames)
-//     HoverNamesList.addEventListener('change', this.hoverNamesListOnchange.bind(this))
-// }
-
 import AutoComplete from "../../autocomplete/AutoComplete.mjs";
 import addElement from "../addElement.mjs";
 
@@ -29,6 +21,11 @@ export default class OptionsList
         return this.optionsAry
     }
 
+    get classList()
+    {
+        return this.select.classList
+    }
+
     setSelectedIndex(idx = 0)
     {
         this.select.selectedIndex = idx;
@@ -39,6 +36,7 @@ export default class OptionsList
         for (const [idx, elem] of ary.entries())
         {
             const option = document.createElement("option");
+
             option.text = elem;
 
             option.value = idx;
@@ -71,15 +69,9 @@ export default class OptionsList
         return this
     }
 
-    // get classList()
-    // {
-    //     return this.textField.classList
-    // }
-
     addClass(className)
     {
-        this.select.classList.add(className);
-
+        this.classList.add(className);
 
         return this
     }

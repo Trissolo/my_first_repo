@@ -23,21 +23,22 @@ export default class testWidget extends BaseWidget
         this.selectElem = new OptionsList(this.widget, OnHoverNames, "->Select<-")
 
         this.info = new TextField(this.widget, "Orcus");
-        // this.info.addClass(AutoComplete.cssSelectors.classes.textField);
-        
+        this.info.setDisabled();
         
         this.button.addClass(AutoComplete.cssSelectors.classes.pseudoButton);
         this.button.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
         this.button.addClass(AutoComplete.cssSelectors.classes.marginRight);
+        // this.button.setDisabled();
 
-        this.buttBeh = (event) => {
+
+        this.buttonBehavior = (event) => {
 
             JsonManager.removeHoverName();
 
             this.refresh(true);
         }
 
-        this.button.setOnClick(this.buttBeh);
+        this.button.setOnClick(this.buttonBehavior);
 
         this.selectElem.setOnChange(this.onChange);
 

@@ -5,11 +5,14 @@ import addElement from "../addElement.mjs";
 
 export default class BaseWidget
 {
+    // managedProp = null;
+    // refresh = null;
+
     constructor(name)
     {
         this.case = addElement('div', document.getElementById(AutoComplete.cssSelectors.ids.GUI_widgets));
         this.title = addElement('h4', this.case, name);
-        this.widget = addElement('div', this.case, "-- Content --");
+        this.widget = addElement('div', this.case);
 
 
         this.title.addEventListener('click', this.clickedTitle);

@@ -120,6 +120,14 @@ class boolsManager
     return this.bitStatus(+index) === +expected
   }
 
+  //experimental!!
+  extractArbitraryBits(x, y, extraBits)
+  {
+    const shifted = this.boolsContainer[y] >> (x - extraBits);
+    const bm = (1 << (extraBits + 1)) - 1;
+    return shifted & bm
+  }
+
 }//end Bitwise class
 
 export default boolsManager

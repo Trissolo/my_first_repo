@@ -7,6 +7,7 @@ export default class PseudoButton
     constructor(parent, text)
     {
         this.pseudoButton = addElement('p', parent, text);
+
         this.addClass(AutoComplete.cssSelectors.classes.pseudoButton);
     }
 
@@ -34,6 +35,34 @@ export default class PseudoButton
     setOnClick(func)
     {
         this.pseudoButton.addEventListener('click', func);
+
+        return this
+    }
+
+    setStyleA()
+    {
+        this.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
+
+        return this
+    }
+
+    setStyleB()
+    {
+        this.addClass(AutoComplete.cssSelectors.classes.buttonStyleB);
+
+        return this
+    }
+
+    setMarginRight()
+    {
+        this.addClass(AutoComplete.cssSelectors.classes.marginRight);
+
+        return this
+    }
+    
+    setMarginLeft()
+    {
+        this.addClass(AutoComplete.cssSelectors.classes.marginLeft);
 
         return this
     }

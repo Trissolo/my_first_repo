@@ -25,10 +25,10 @@ export default class testWidget extends BaseWidget
         this.info = new TextField(this.widget, "Orcus");
         this.info.setDisabled();
         
-        this.button.addClass(AutoComplete.cssSelectors.classes.pseudoButton);
-        this.button.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
-        this.button.addClass(AutoComplete.cssSelectors.classes.marginRight);
-        // this.button.setDisabled();
+        this.button.setStyleB();
+        this.button.setMarginRight();
+        this.button.setMarginLeft();
+
 
 
         this.buttonBehavior = (event) => {
@@ -80,4 +80,11 @@ export default class testWidget extends BaseWidget
             JsonManager.showThing();
         }
     }
+
+    lastCharIsDigit(str, pos = str.length - 1)
+    {
+        const lastChar = str.charCodeAt(pos);
+        return lastChar < 58 && lastChar > 47
+    }
+
 }

@@ -14,7 +14,7 @@ export default class testWidget extends BaseWidget
 {
     constructor(managedProp = THINGS_PROPS.HOVER_NAME)
     {
-        super("TestWidget");
+        super(managedProp);
 
         this.managedProp = managedProp;
 
@@ -22,15 +22,19 @@ export default class testWidget extends BaseWidget
 
         this.selectElem = new OptionsList(this.widget, OnHoverNames, "->Select<-")
 
-        this.info = new TextField(this.widget, "Orcus");
+        this.info = new TextField(this.widget);
+
         this.info.setDisabled();
-        
+
+        //
         this.button.setStyleB();
+
         this.button.setMarginRight();
+
         this.button.setMarginLeft();
 
 
-
+        //
         this.buttonBehavior = (event) => {
 
             JsonManager.removeHoverName();

@@ -1,9 +1,11 @@
-import testWidget from "./widget/testWidget.mjs";
+// import testWidget from "./widget/testWidget.mjs";
+import WidgetHoverNames from "./widget/WidgetHoverNames.mjs";
 import MainBar from "./widget/classes/testMainBar.mjs";
 
 import StudioPhaser from "./phaserGame/phaserGame.mjs";
 import studioEvents from "./eventEmitter/StudioEvents.mjs";
 import JsonManager from "./jsonManager/JsonManager.mjs";
+import THINGS_PROPS from "./autocomplete/THINGS_PROPS.mjs";
 console.log("TESTPH", Phaser)
 const config = {
     type: Phaser.WEBGL,
@@ -34,7 +36,7 @@ const config = {
 
 window.game = new Phaser.Game(config)
 
-const qqq = new testWidget();
+const qqq = new WidgetHoverNames(THINGS_PROPS.HOVER_NAME);
 
 const mainBar = new MainBar();
 

@@ -1,16 +1,16 @@
-import BaseWidget from "./classes/baseWidget.mjs";
-import TextField from "./classes/textField.mjs";
-import PseudoButton from "./classes/pseudoButton.mjs";
+import BaseWidget from "../classes/baseWidget.mjs";
+import TextField from "../classes/textField.mjs";
+import PseudoButton from "../classes/pseudoButton.mjs";
 
-import OptionsList from "./classes/baseOptionsList.mjs";
+import OptionsList from "../classes/baseOptionsList.mjs";
 
-import AutoComplete from "../autocomplete/AutoComplete.mjs";
-import THINGS_PROPS from "../autocomplete/THINGS_PROPS.mjs";
-import JsonManager from "../jsonManager/JsonManager.mjs";
+// import AutoComplete from "../autocomplete/AutoComplete.mjs";
+import THINGS_PROPS from "../../autocomplete/THINGS_PROPS.mjs";
+import JsonManager from "../../jsonManager/JsonManager.mjs";
 
-import OnHoverNames from "../placeholders/OnHoverNames.mjs";
+import OnHoverNames from "../../placeholders/OnHoverNames.mjs";
 
-export default class testWidget extends BaseWidget
+export default class WidgetHoverNames extends BaseWidget
 {
     constructor(managedProp = THINGS_PROPS.HOVER_NAME)
     {

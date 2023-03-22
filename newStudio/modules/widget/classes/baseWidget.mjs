@@ -63,7 +63,7 @@ export default class BaseWidget
     }
     
     clickedTitle = (event) => {
-        this.toggleHidden()
+        this.toggleHidden();
     }
 
 }

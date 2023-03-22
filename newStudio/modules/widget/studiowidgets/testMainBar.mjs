@@ -1,8 +1,8 @@
 import studioEvents from "../../eventEmitter/StudioEvents.mjs";
 import JsonManager from "../../jsonManager/JsonManager.mjs";
 import AutoComplete from "../../autocomplete/AutoComplete.mjs";
-import labels from "./labels.mjs";
-import baseClassesWrapper from "./baseClassesWrapper.mjs";
+import labels from "../classes/labels.mjs";
+import baseClassesWrapper from "../classes/baseClassesWrapper.mjs";
 
 export default class MainBar
 {

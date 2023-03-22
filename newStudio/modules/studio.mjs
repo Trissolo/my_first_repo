@@ -1,6 +1,6 @@
-// import testWidget from "./widget/testWidget.mjs";
-import WidgetHoverNames from "./widget/WidgetHoverNames.mjs";
-import MainBar from "./widget/classes/testMainBar.mjs";
+import WidgetHoverNames from "./widget/studiowidgets/WidgetHoverNames.mjs";
+// import testWidget from "./widget/studiowidgets/testWidget.mjs";
+import MainBar from "./widget/studiowidgets/testMainBar.mjs";
 
 import StudioPhaser from "./phaserGame/phaserGame.mjs";
 import studioEvents from "./eventEmitter/StudioEvents.mjs";
@@ -36,13 +36,25 @@ const config = {
 
 window.game = new Phaser.Game(config)
 
-const qqq = new WidgetHoverNames(THINGS_PROPS.HOVER_NAME);
+// const qqq = new WidgetHoverNames(THINGS_PROPS.HOVER_NAME);
 
 const mainBar = new MainBar();
 
-studioEvents.emitter.emit(studioEvents.events.thingChanged)
+const studioWidgets = new Set();
+
+studioWidgets.add( new WidgetHoverNames(THINGS_PROPS.HOVER_NAME));
+
+// studioWidgets.add( new testWidget("Test"));
+
 
 studioEvents.emitter.on(studioEvents.events.thingChanged, ()=>{
-    qqq.refresh()
+    // qqq.refresh()
+    for (const elem of studioWidgets)
+    {
+        elem.refresh();
+    }
+    
     JsonManager.showThing();
 });
+
+studioEvents.emitter.emit(studioEvents.events.thingChanged);

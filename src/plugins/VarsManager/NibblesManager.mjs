@@ -63,6 +63,32 @@ class NibblesManager
 
         this.nibblesContainer[y] |= (value << x * 4);
     }
+
+    static nibbleCoordsTable()
+    {
+        let res = "";
+    
+        // Nibble size:
+        const size = 4;
+    
+        for (let i = 32; i--; /* */ )
+        {
+            const quibus = Math.floor(i / size);
+    
+            const relPos = i - quibus * size;
+    
+            //Align
+            res += i < 10 ? " " : "";
+    
+            res += `${i} [${quibus}][${relPos}]\n`;
+    
+            // Separate text block
+            if (relPos === 0) res += "\n";
+        }
+    
+        return res;
+    }
+    
 }
 
 

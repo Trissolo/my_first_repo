@@ -20,7 +20,7 @@ export default class WidgetHoverNames extends BaseWidget
 
         this.button = new PseudoButton(this.widget, "Remove hover name");
 
-        this.selectElem = new OptionsList(this.widget, OnHoverNames, "->Select<-")
+        this.selectElem = new OptionsList(this.widget, OnHoverNames, "->Select (1 bit)<-")
 
         this.info = new TextField(this.widget);
 
@@ -88,7 +88,7 @@ export default class WidgetHoverNames extends BaseWidget
     lastCharIsDigit(str, pos = str.length - 1)
     {
         const lastChar = str.charCodeAt(pos);
-        return lastChar < 58 && lastChar > 47
+        return lastChar < 58 && lastChar > 47;
     }
 
 }

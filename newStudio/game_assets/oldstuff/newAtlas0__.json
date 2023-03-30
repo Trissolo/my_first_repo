@@ -1,0 +1,183 @@
+{
+  "frames": [
+    {
+      "filename": "room1bg",
+      "frame": {
+        "x": 1,
+        "y": 1,
+        "w": 141,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 141,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 141,
+        "h": 128
+      }
+    },
+    {
+      "filename": "passaggio_a",
+      "frame": {
+        "x": 1,
+        "y": 131,
+        "w": 96,
+        "h": 69
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 69
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 69
+      }
+    },
+    {
+      "filename": "otherRoom",
+      "frame": {
+        "x": 99,
+        "y": 131,
+        "w": 18,
+        "h": 45
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 18,
+        "h": 45
+      },
+      "sourceSize": {
+        "w": 18,
+        "h": 45
+      }
+    },
+    {
+      "filename": "r2cabinetDoors1",
+      "frame": {
+        "x": 99,
+        "y": 178,
+        "w": 30,
+        "h": 21
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 30,
+        "h": 21
+      },
+      "sourceSize": {
+        "w": 30,
+        "h": 22
+      }
+    },
+    {
+      "filename": "cabinet",
+      "frame": {
+        "x": 119,
+        "y": 131,
+        "w": 21,
+        "h": 26
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 1,
+        "y": 0,
+        "w": 21,
+        "h": 26
+      },
+      "sourceSize": {
+        "w": 22,
+        "h": 26
+      }
+    },
+    {
+      "filename": "porta1",
+      "frame": {
+        "x": 131,
+        "y": 159,
+        "w": 18,
+        "h": 27
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 18,
+        "h": 27
+      },
+      "sourceSize": {
+        "w": 18,
+        "h": 27
+      }
+    },
+    {
+      "filename": "r2cabinetDoors0",
+      "frame": {
+        "x": 142,
+        "y": 131,
+        "w": 20,
+        "h": 21
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 7,
+        "y": 0,
+        "w": 20,
+        "h": 21
+      },
+      "sourceSize": {
+        "w": 30,
+        "h": 22
+      }
+    },
+    {
+      "filename": "ITcardA",
+      "frame": {
+        "x": 142,
+        "y": 154,
+        "w": 3,
+        "h": 3
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 3,
+        "h": 3
+      },
+      "sourceSize": {
+        "w": 3,
+        "h": 3
+      }
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "newAtlas0.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 163,
+      "h": 201
+    },
+    "scale": 1
+  }
+}

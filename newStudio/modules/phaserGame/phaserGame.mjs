@@ -42,6 +42,8 @@ export default class StudioPhaser extends Phaser.Scene
 
         this.activeThing = this.add.image().setDepth(801);
 
+        this.activeArea = this.add.rectangle(0, 0, 1, 1, 0xffff66).setDepth(801).setVisible(false);
+
         this.drawRoom();
 
         studioEvents.emitter.on(studioEvents.events.thingChanged, this.setActiveThing, this);
@@ -67,6 +69,7 @@ export default class StudioPhaser extends Phaser.Scene
         {
             if (thing.depth !== 'ta')
             {
+                this.activeArea.setVisible(false);
                 console.log("THING:", thing);
                 const roomThing = this.thingsGroup.get(thing.x, thing.y)
                     .setTexture("atlas" + JsonManager.currentJson.atlas, thing.frame)
@@ -77,7 +80,10 @@ export default class StudioPhaser extends Phaser.Scene
                     .setOrigin(thing.depth === "ds"? (1, 0.5) : 0);
 
             }
+
         }
+
+        this.setActiveThing();
 
     }
 
@@ -103,6 +109,11 @@ export default class StudioPhaser extends Phaser.Scene
         if  (currentThing.depth === 'ta')
         {
             this.activeThing.setVisible(false);
+
+            this.activeArea
+                    .setVisible(true)
+                    .setPosition(currentThing.x, currentThing.y)
+                    .setScale(currentThing.width, currentThing.height);
         }
         else
         {
@@ -111,6 +122,8 @@ export default class StudioPhaser extends Phaser.Scene
             .setPosition(currentThing.x, currentThing.y)
             .setOrigin(currentThing.depth === "ds"? (1, 0.5) : 0)
             .setVisible(true);
+
+            this.activeArea.setVisible(false);
 
         }
 

@@ -7,7 +7,7 @@ import roomsAmount from "../jsonManager/roomsAmount.mjs";
 import JsonManager from "../jsonManager/JsonManager.mjs";
 
 // to be removed
-JsonManager.nextJson();
+// JsonManager.nextJson();
 
 export default class StudioPhaser extends Phaser.Scene
 {
@@ -42,7 +42,7 @@ export default class StudioPhaser extends Phaser.Scene
 
         this.activeThing = this.add.image().setDepth(801);
 
-        this.activeArea = this.add.rectangle(0, 0, 1, 1, 0xffff66).setDepth(801).setVisible(false);
+        this.activeArea = this.add.rectangle(0, 0, 1, 1, 0xffff66).setDepth(801).setOrigin(0).setVisible(false);
 
         this.drawRoom();
 
@@ -70,14 +70,22 @@ export default class StudioPhaser extends Phaser.Scene
             if (thing.depth !== 'ta')
             {
                 this.activeArea.setVisible(false);
-                console.log("THING:", thing);
+
                 const roomThing = this.thingsGroup.get(thing.x, thing.y)
                     .setTexture("atlas" + JsonManager.currentJson.atlas, thing.frame)
                     .setActive(true)
                     .setVisible(true)
                     .setAlpha(0.4)
-                    .setDepth(DepthCategories[thing.depth])
-                    .setOrigin(thing.depth === "ds"? (1, 0.5) : 0);
+                    .setDepth(DepthCategories[thing.depth]);
+
+                    if (thing.depth === "ds")
+                    {
+                        roomThing.setOrigin(0.5, 1);
+                    }
+                    else
+                    {
+                        roomThing.setOrigin(0);
+                    }
 
             }
 
@@ -122,6 +130,15 @@ export default class StudioPhaser extends Phaser.Scene
             .setPosition(currentThing.x, currentThing.y)
             .setOrigin(currentThing.depth === "ds"? (1, 0.5) : 0)
             .setVisible(true);
+
+            if (currentThing.depth === "ds")
+            {
+                this.activeThing.setOrigin(0.5, 1);
+            }
+            else
+            {
+                this.activeThing.setOrigin(0);
+            }
 
             this.activeArea.setVisible(false);
 

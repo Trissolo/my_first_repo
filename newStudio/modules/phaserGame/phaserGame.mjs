@@ -9,6 +9,9 @@ import JsonManager from "../jsonManager/JsonManager.mjs";
 // to be removed
 // JsonManager.nextJson();
 
+const ROOM_TEXTURE_ATLAS_PREFIX = 'atlas';
+const getCurrentRoomAtlasKey = (atlasSuffix = JsonManager.currentJson.atlas) => ROOM_TEXTURE_ATLAS_PREFIX + atlasSuffix;
+
 export default class StudioPhaser extends Phaser.Scene
 {
     constructor ()
@@ -53,7 +56,7 @@ export default class StudioPhaser extends Phaser.Scene
     setBackground()
     {
         this.roomBg
-            .setTexture("atlas" + JsonManager.currentJson.atlas, JsonManager.currentJson.background)
+            .setTexture(getCurrentRoomAtlasKey(), JsonManager.currentJson.background)
             .setOrigin(0)
             .setVisible(true);
 
@@ -72,7 +75,7 @@ export default class StudioPhaser extends Phaser.Scene
                 this.activeArea.setVisible(false);
 
                 const roomThing = this.thingsGroup.get(thing.x, thing.y)
-                    .setTexture("atlas" + JsonManager.currentJson.atlas, thing.frame)
+                    .setTexture(getCurrentRoomAtlasKey(), thing.frame)
                     .setActive(true)
                     .setVisible(true)
                     .setAlpha(0.4)
@@ -126,7 +129,7 @@ export default class StudioPhaser extends Phaser.Scene
         else
         {
             this.activeThing
-            .setTexture("atlas" + JsonManager.currentJson.atlas, currentThing.frame)
+            .setTexture(getCurrentRoomAtlasKey(), currentThing.frame)
             .setPosition(currentThing.x, currentThing.y)
             .setOrigin(currentThing.depth === "ds"? (1, 0.5) : 0)
             .setVisible(true);

@@ -6,8 +6,6 @@ import roomsAmount from "../jsonManager/roomsAmount.mjs";
 
 import JsonManager from "../jsonManager/JsonManager.mjs";
 
-// to be removed
-// JsonManager.nextJson();
 
 const ROOM_TEXTURE_ATLAS_PREFIX = 'atlas';
 const getCurrentRoomAtlasKey = (atlasSuffix = JsonManager.currentJson.atlas) => ROOM_TEXTURE_ATLAS_PREFIX + atlasSuffix;
@@ -23,12 +21,10 @@ export default class StudioPhaser extends Phaser.Scene
     {
         this.load.setBaseURL('./game_assets/'); // futureFrames');
 
-        // this.load.image('baseFrame', "futureFrames/porta1.png");
-
         // to be removed -> "- 1"
         for (let i = 0; i < roomsAmount - 1; i++)
         {
-          this.load.atlas(`atlas${i}`, `/newAtlas${i}.png`, `/newAtlas${i}.json`);
+            this.load.atlas(getCurrentRoomAtlasKey(i), `/newAtlas${i}.png`, `/newAtlas${i}.json`);
         }
     }
 
@@ -41,16 +37,18 @@ export default class StudioPhaser extends Phaser.Scene
         //     }
         //   });
 
-        this.roomBg =  this.add.image(0,0).setOrigin(0).setVisible(false);
+        this.roomBg =  this.add.image(0,0).setOrigin(0).setAlpha(0.8).setVisible(false);
 
         this.activeThing = this.add.image().setDepth(801);
 
         this.activeArea = this.add.rectangle(0, 0, 1, 1, 0xffff66).setDepth(801).setOrigin(0).setVisible(false);
 
-        this.drawRoom();
-
+        
         studioEvents.emitter.on(studioEvents.events.thingChanged, this.setActiveThing, this);
-
+        
+        studioEvents.emitter.on(studioEvents.events.roomChanged, this.drawRoom, this);
+        
+        this.drawRoom();
     }
 
     setBackground()

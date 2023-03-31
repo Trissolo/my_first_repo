@@ -106,4 +106,59 @@ export default class WidgetHoverNames extends BaseWidget
         // return match;
     }
 
+    // function lastCharIsDigit(str, pos = str.length - 1)
+    // {
+    //     {
+    //         const lastChar = str.charCodeAt(pos);
+    //         return lastChar < 58 && lastChar > 47;
+    //     }
+    // }
+
+
+    // const regexpEndingDigits = /([0-9]+$)/;
+    // const prefixes = new Set();
+    // const delendi = new Set();
+    // for (const thing of testJson.things)
+    // {
+    //     if (thing.depth !== "ta")
+    //     {
+    //         const name = thing.frame;
+    //         if (lastCharIsDigit(name))
+    //         {
+    //         log(name);
+    //         const match = name.search(regexpEndingDigits);
+    //         const prefix = name.substring(0, match);
+    //         if (prefixes.has(prefix))
+    //         {
+    //             delendi.add(thing);
+    //         }
+    //         else
+    //         {
+    //             prefixes.add(prefix);
+    //         }
+            
+    //         }
+    //     } 
+    // }
+
+    // dir(prefixes)
+    // dir(delendi)
+
+    // function removeThing(thing, things = testJson.things)
+    // {
+        // for (let i = 0; i < things.length; i++)
+        // {
+        //     if (things[i] === thing)
+        //     {
+        //          return Phaser.Utils.Array.SpliceOne(things, i);
+        //     }
+        // }
+    // }
+
+    // delendi.forEach(el => {
+    // removeThing(el);
+    // });
+
+    // dir(testJson.things)
+
 }

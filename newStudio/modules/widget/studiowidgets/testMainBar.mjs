@@ -14,14 +14,15 @@ export default class MainBar
         this.buildThingTextField(container);
         this.buildNextThingButton(container);
 
-        // this.prevThing = new baseClassesWrapper.PseudoButton(container, labels.labelPrevThing);
-        // this.prevThing.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
+        // Room nav
+        this.buildPrevJsonButton(container)
 
-        // this.labelThing = new baseClassesWrapper.TextField(container, "---")
-
-        // this.nextThing = new baseClassesWrapper.PseudoButton(container, labels.labelNextThing);
-        // this.nextThing.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
-
+    }
+    buildPrevJsonButton(container)
+    {
+        this.prevRoom = new baseClassesWrapper.PseudoButton(container, labels.labelPrevJson);
+        this.prevRoom.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
+        this.prevRoom.setOnClick(this.backtrackJson);
     }
 
     buildPrevThingButton(container)
@@ -47,9 +48,11 @@ export default class MainBar
     buildNextThingButton(container)
     {
         this.nextThing = new baseClassesWrapper.PseudoButton(container, labels.labelNextThing);
-        // this.nextThing.addClass(AutoComplete.cssSelectors.classes.pseudoButton);
         this.nextThing.addClass(AutoComplete.cssSelectors.classes.buttonStyleB);
-        this.nextThing.setOnClick(this.advanceThing)
+        this.nextThing.setOnClick(this.advanceThing);
+
+        //horizontal separation
+        this.nextThing.addClass(AutoComplete.cssSelectors.classes.marginRight);
     }
 
     buildThingTextField(container)
@@ -60,5 +63,12 @@ export default class MainBar
     }
 
     moDove = ()=> this.labelThing.setText(`Thing[${JsonManager.thingsCursor}]/${JsonManager.things.length - 1}`)
+
+
+    //json room
+    backtrackJson = () => {
+        JsonManager.prevJson();
+        studioEvents.emitter.emit(studioEvents.events.roomChanged);
+    }
 
 }

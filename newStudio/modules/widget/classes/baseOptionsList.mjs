@@ -6,6 +6,7 @@ export default class OptionsList
     constructor(parent, ary, firstOption = "Select")
     {
         this.select = addElement('select', parent);
+
         this.addClass(AutoComplete.cssSelectors.classes.marginRight);
 
         this.optionsAry = ary;
@@ -18,12 +19,12 @@ export default class OptionsList
 
     get optsAry()
     {
-        return this.optionsAry
+        return this.optionsAry;
     }
 
     get classList()
     {
-        return this.select.classList
+        return this.select.classList;
     }
 
     setSelectedIndex(idx = 0)
@@ -37,7 +38,7 @@ export default class OptionsList
         {
             const option = document.createElement("option");
 
-            option.text = elem;
+            option.text = `${elem} [#${idx}]`; // elem;
 
             option.value = idx;
 

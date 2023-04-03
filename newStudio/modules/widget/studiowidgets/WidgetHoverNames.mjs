@@ -20,7 +20,7 @@ export default class WidgetHoverNames extends BaseWidget
 
         this.button = new PseudoButton(this.widget, "Remove hover name");
 
-        this.selectElem = new OptionsList(this.widget, OnHoverNames, "->Select (1 bit)<-")
+        this.selectElem = new OptionsList(this.widget, OnHoverNames, "Select OnHoverName")
 
         this.info = new TextField(this.widget);
 

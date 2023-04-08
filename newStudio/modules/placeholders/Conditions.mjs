@@ -1,6 +1,7 @@
 // This file is a placeholder. Use the one in your 'game_project/src' folder.
+// A more appropriate name is 'Bools'.
 
-const conditions = [
+const Conditions = [
     "doorIsOpen",
     "wrenchTaken",
     "crateIsOpen",
@@ -9,4 +10,5 @@ const conditions = [
     "buttonIsPressed"
     ]
     
-    export default conditions
+    export default Conditions
+    

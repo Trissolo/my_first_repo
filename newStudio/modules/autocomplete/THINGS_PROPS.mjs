@@ -36,6 +36,7 @@ skipCond,
 // rid
 
 export default {
+    FRAME: "frame",
     FRAME_SUFFIX: "frameSuffix",
     SKIP_CONDITION: "skipCond",
     HOVER_NAME: "hoverName",

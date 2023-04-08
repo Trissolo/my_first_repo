@@ -1,11 +1,18 @@
 import WidgetHoverNames from "./widget/studiowidgets/WidgetHoverNames.mjs";
-// import testWidget from "./widget/studiowidgets/testWidget.mjs";
+
+import WidgetFrameSuffix from "./widget/studiowidgets/WidgetFrameSuffix.mjs";
+
+
 import MainBar from "./widget/studiowidgets/testMainBar.mjs";
 
 import StudioPhaser from "./phaserGame/phaserGame.mjs";
+
 import studioEvents from "./eventEmitter/StudioEvents.mjs";
+
 import JsonManager from "./jsonManager/JsonManager.mjs";
+
 import THINGS_PROPS from "./autocomplete/THINGS_PROPS.mjs";
+
 console.log("TESTPH", Phaser)
 const config = {
     type: Phaser.WEBGL,
@@ -42,7 +49,10 @@ const mainBar = new MainBar();
 
 const studioWidgets = new Set();
 
-studioWidgets.add( new WidgetHoverNames(THINGS_PROPS.HOVER_NAME));
+studioWidgets.add( new WidgetHoverNames(THINGS_PROPS.HOVER_NAME) );
+
+studioWidgets.add( new WidgetFrameSuffix(THINGS_PROPS.FRAME_SUFFIX, window.game) );
+
 
 // studioWidgets.add( new testWidget("Test"));
 

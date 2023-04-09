@@ -4,11 +4,13 @@ import VarsIds from "./VarsIds.mjs";
 
 import Conditions from "../../../newStudio/modules/placeholders/Conditions.mjs";
 
-
+const {ToXY} = Phaser.Math;
 
 export default class AllVarsManager
 {
     static typedArrays = new Map();
+
+    static recycledVec = new Phaser.Math.Vector2();
 
     // sort of constructor
     static initialize(varsDesc = [ Conditions, [null], [null], [null] ]) // ["BoolTest"], twoBitsNames = boolsNames, nibblesNames = boolsNames, bytesNames = boolsNames)
@@ -37,10 +39,30 @@ export default class AllVarsManager
 
     }
 
-    static readContiguous(kind, x, y, size, bitMask)
+    static readVar(kind, varIdx)
     {
         const typedArray = this.typedArrays.get(kind);
 
+        if (kind === 0)
+        {
+            const {x, y} = ToXY(varIdx, 32, typedArray.length, this.recycledVec);
+
+            return (typedArray[y] >>> x) & 1;
+        }
+        const {bitmask, size} = VarsProps.get(kind);
+
+        // Maybe it's better to place the constant 'width' inside in VarsProps?
+        const {x, y} = ToXY(varIdx, 32 / size, typedArray.length, this.recycledVec);
+
+        const res = this.readContiguous(kind, x, y, size, bitmask, typedArray);
+
+        
+        return this.readContiguous(kind, x, y, size, bitmask, typedArray);
+
+    }
+
+    static readContiguous(kind, x, y, size, bitMask, typedArray = this.typedArrays.get(kind))
+    {
         return (typedArray[y] >>> x * size) & bitMask;
     }
 
@@ -51,6 +73,34 @@ export default class AllVarsManager
         typedArray[y] &= ~(bitMask << x * size);
 
         return 0;
+    }
+
+    // bools (1-bit) specific:
+    static setBitOn(varIdx, typedArray = this.typedArrays.get(0))
+    {
+        const {x, y} = ToXY(varIdx, 32, typedArray.length, this.recycledVec);
+
+        typedArray[y] |= (1 << x);
+        
+        return 1;
+    }
+
+    static setBitOff(varIdx, typedArray = this.typedArrays.get(0))
+    {
+        const {x, y} = ToXY(varIdx, 32, typedArray.length, this.recycledVec);
+
+        typedArray[y] &= ~(1 << x);
+        
+        return 0;
+    }
+
+    static toggleBit(varIdx, typedArray = this.typedArrays.get(0))
+    {
+        const {x, y} = ToXY(varIdx, 32, typedArray.length, this.recycledVec);
+
+        typedArray[y] ^= (1 << x);
+
+        return (typedArray[y] >>> x) & 1;
     }
 }
 

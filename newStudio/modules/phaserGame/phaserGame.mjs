@@ -6,6 +6,9 @@ import roomsAmount from "../jsonManager/roomsAmount.mjs";
 
 import JsonManager from "../jsonManager/JsonManager.mjs";
 
+//test VarsManager!
+import AllVarsManager from "../../../src/plugins/VarsManager/AllVarsManager.mjs";
+
 
 const ROOM_TEXTURE_ATLAS_PREFIX = 'atlas';
 const getCurrentRoomAtlasKey = (atlasSuffix = JsonManager.currentJson.atlas) => ROOM_TEXTURE_ATLAS_PREFIX + atlasSuffix;
@@ -15,6 +18,44 @@ export default class StudioPhaser extends Phaser.Scene
     constructor ()
     {
         super();
+
+        // testing
+        this.varsManager = AllVarsManager;
+
+        this.varsManager.initialize();
+
+        //remove from here...
+        // console.log("varsManager", AllVarsManager);
+
+        // const kind = 0;
+
+        // const tempTyArr = this.varsManager.typedArrays.get(kind);
+
+        // tempTyArr[0] = 500278;
+        // console.log("Kind PD", kind, tempTyArr[0].toString(2))
+
+        // console.log(tempTyArr[0], "Calling...");
+
+        // /*const res = */AllVarsManager.readVar(kind, 2);
+        // // console.log("varsManager READVAR()", res, res.toString(2).padStart(tempTyArr.length, "0"));
+        // console.log("\t\t\tToggling etc...");
+        // this.varsManager.toggleBit(2);
+
+        // AllVarsManager.readVar(kind, 2);
+
+        // this.varsManager.toggleBit(2);
+
+        // AllVarsManager.readVar(kind, 2);
+
+        // this.varsManager.toggleBit(2);
+
+        // AllVarsManager.readVar(kind, 2);
+
+        // this.varsManager.setBitOn(2);
+
+        // AllVarsManager.readVar(kind, 2);
+
+        // ... to here!
     }
 
     preload ()

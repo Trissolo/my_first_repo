@@ -13,9 +13,26 @@ export default class AllVarsManager
 
     static mappedGrabOrco = new Map();
 
+    static grabBoolCoords = (varIdx, height) => {
+        console.log("New GrabBoolCoords");
+        return ToXY(varIdx, 32, height, this.recycledVec);
+    };
+
+    static grabCoords = (varIdx, width, height) => {
+        console.log("New Grab-Coords");
+
+        return ToXY(varIdx, width, height, this.recycledVec);
+    };
+
     // sort of constructor
     static initialize()
     {
+        // generate default varContainers:
+        // key: 0 -> BOOL = 1 bits [0-1],
+        // key: 1 -> CRUMBLE = 2 bits [0-3],
+        // key: 2 -> NIBBLE = 4 bits [0-15],
+        // key: 3 -> BYTE = 8 bits [0-255]
+
         for (let kind = 0; kind < 4; kind++)
         {
             this.varContainers.set(this.varContainers.size, this.createByKind(kind));
@@ -24,17 +41,13 @@ export default class AllVarsManager
 
         console.log("New INITIALIZE");
         
-        this.varContainers.forEach(element => {
-            console.log('NEW AR', element)
-        });
-
-        console.log("INIT ORCO", this, ToXY);
-
+        // crazy way to avoid 'if...then' check
+        // READ variable:
         this.mappedGrabOrco.set(true, (container, varIdx) => {
 
             const {typedArray} = container;
 
-            const {x, y} = ToXY(varIdx, 32, typedArray.length, this.recycledVec);
+            const {x, y} = this.grabBoolCoords(varIdx, typedArray.length); //  ToXY(varIdx, 32, typedArray.length, this.recycledVec);
 
             return (typedArray[y] >>> x) & 1;
         });
@@ -43,7 +56,7 @@ export default class AllVarsManager
 
             const {typedArray, varsPerElement, varSize, bitmask} = container;
 
-            const {x, y} = ToXY(varIdx, varsPerElement, typedArray.length, this.recycledVec);
+            const {x, y} = this.grabCoords(varIdx, varsPerElement, typedArray.length); // ToXY(varIdx, varsPerElement, typedArray.length, this.recycledVec);
 
             return (typedArray[y] >>> x * varSize) & bitmask;
         });

@@ -25,12 +25,12 @@ export default class StudioPhaser extends Phaser.Scene
         // testing
         this.varsManager = AllVarsManager;
 
-        this.varsManager.initialize([[],[],[],[]]);
+        this.varsManager.initialize();
 
         //remove from here...
         console.log("varsManager", AllVarsManager, VarsProps);
 
-        const kind = 2;
+        const kind = 0;
 
         const varHolder = this.varsManager.varContainers.get(kind);
 

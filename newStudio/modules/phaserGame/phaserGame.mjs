@@ -7,8 +7,11 @@ import roomsAmount from "../jsonManager/roomsAmount.mjs";
 import JsonManager from "../jsonManager/JsonManager.mjs";
 
 //test VarsManager!
-import AllVarsManager from "../../../src/plugins/VarsManager/AllVarsManager.mjs";
+// import AllVarsManager from "../../../src/plugins/VarsManager/AllVarsManager.mjs";
 
+// test AllVarsManager
+import AllVarsManager from "../../../src/plugins/VarsManager/AllVarsManager.mjs";
+import VarsProps from "../../../src/plugins/VarsManager/VarsProps.mjs";
 
 const ROOM_TEXTURE_ATLAS_PREFIX = 'atlas';
 const getCurrentRoomAtlasKey = (atlasSuffix = JsonManager.currentJson.atlas) => ROOM_TEXTURE_ATLAS_PREFIX + atlasSuffix;
@@ -22,38 +25,30 @@ export default class StudioPhaser extends Phaser.Scene
         // testing
         this.varsManager = AllVarsManager;
 
-        this.varsManager.initialize();
+        this.varsManager.initialize([[],[],[],[]]);
 
         //remove from here...
-        // console.log("varsManager", AllVarsManager);
+        console.log("varsManager", AllVarsManager, VarsProps);
 
-        // const kind = 0;
+        const kind = 2;
 
-        // const tempTyArr = this.varsManager.typedArrays.get(kind);
+        const varHolder = this.varsManager.varContainers.get(kind);
 
-        // tempTyArr[0] = 500278;
-        // console.log("Kind PD", kind, tempTyArr[0].toString(2))
+        const tyarray = varHolder.typedArray;
+        // const vProps = VarsProps.get(kind);
 
-        // console.log(tempTyArr[0], "Calling...");
+        tyarray[0] = 500278;
+        tyarray[1] = 3021292394;
 
-        // /*const res = */AllVarsManager.readVar(kind, 2);
-        // // console.log("varsManager READVAR()", res, res.toString(2).padStart(tempTyArr.length, "0"));
-        // console.log("\t\t\tToggling etc...");
-        // this.varsManager.toggleBit(2);
+        // AllVarsManager.clearContiguous(0, 0, varHolder.varSize, varHolder.bitmask, tyarray);
 
-        // AllVarsManager.readVar(kind, 2);
-
-        // this.varsManager.toggleBit(2);
-
-        // AllVarsManager.readVar(kind, 2);
-
-        // this.varsManager.toggleBit(2);
-
-        // AllVarsManager.readVar(kind, 2);
-
-        // this.varsManager.setBitOn(2);
-
-        // AllVarsManager.readVar(kind, 2);
+        // console.log(tyarray[0], "Calling...");
+        for (let i = 0; i < varHolder.varsPerElement * 2; i++)
+        {
+           const res = AllVarsManager.readVar(kind, i);
+           console.log(`${i}) ${res.toString(2).padStart(varHolder.varSize, "0")}`)
+        }
+        
 
         // ... to here!
     }

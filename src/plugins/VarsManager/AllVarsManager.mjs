@@ -1,4 +1,3 @@
-// import VarsProps from "./VarsProps.mjs";
 import BITS_PER_TYPED_ARRAY_ELEMENT from "./BITS_PER_TYPED_ARRAY_ELEMENT.mjs";
 
 // import Conditions from "../../../newStudio/modules/placeholders/Conditions.mjs";

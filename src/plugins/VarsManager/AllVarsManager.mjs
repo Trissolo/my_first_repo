@@ -102,6 +102,46 @@ export default class AllVarsManager
         return newValue;
     }
 
+    // set a specific bit to '1'
+    // note that the first argument is 'varIdx', not the varContainer index!
+    static setBitOn(varIdx, containerIdx = 0)
+    {
+        const {typedArray} = this.varContainers.get(containerIdx);
+
+        const {x, y} = AllVarsManager.grabBoolCoords(varIdx, typedArray.length);
+
+        typedArray[y] |= (1 << x);
+        
+        return 1;
+    }
+
+    // set a specific bit to '0'
+    // note that the first argument is 'varIdx', not the varContainer index!
+
+    static setBitOff(varIdx, containerIdx = 0)
+    {
+        const {typedArray} = this.varContainers.get(containerIdx);
+
+        const {x, y} = AllVarsManager.grabBoolCoords(varIdx, typedArray.length);
+
+        typedArray[y] &= ~(1 << x);
+
+        return 0;
+    }
+
+    // set a specific bit to '0'
+    // note that the first argument is 'varIdx', not the varContainer index!
+    static toggleBit(varIdx, containerIdx = 0)
+    {
+        const {typedArray} = this.varContainers.get(containerIdx);
+
+        const {x, y} = AllVarsManager.grabBoolCoords(varIdx, typedArray.length);
+
+        typedArray[y] ^= (1 << x);
+
+        return (typedArray[y] >>> x) & 1;
+    }
+
     static readVarTrue(container, varIdx)
     {
 

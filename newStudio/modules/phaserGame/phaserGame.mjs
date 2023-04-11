@@ -30,7 +30,7 @@ export default class StudioPhaser extends Phaser.Scene
         //remove from here...
         console.log("varsManager", AllVarsManager, VarsProps);
 
-        const kind = 3;
+        const kind = 0;
 
         const varHolder = this.varsManager.varContainers.get(kind);
 
@@ -56,12 +56,38 @@ export default class StudioPhaser extends Phaser.Scene
         console.log("%cSET VARIABLE:", "color: darkbrown; background-color: maroon;");
         console.log(AllVarsManager.readVar(kind, 3));
 
-        let editVarIdx = 3;
-        console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
+        // let editVarIdx = 3;
+        // console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
 
-        editVarIdx = 4;
-        console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
+        // editVarIdx = 4;
+        // console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
         
+        
+
+        // console.log("SEt bit on");
+        // for (let i = 60; i < 64; i++)
+        // {
+        //     this.varsManager.setBitOn(i);
+        // }
+        
+        console.log("toggle");
+
+        for (let i = 60; i < 64; i++)
+        {
+            this.varsManager.toggleBit(i);
+            console.log(`${i}) Toggled`, this.varsManager.readVar(kind, i));
+
+            this.varsManager.toggleBit(i);
+            console.log(`${i}) Toggled`, this.varsManager.readVar(kind, i));
+
+
+        }
+
+        for (let i = 60; i < 64; i++)
+        {
+            console.log(`${i}) Read now:`, this.varsManager.readVar(kind, i));
+        }
+
         iterateTest();
         // ... to here!
     }

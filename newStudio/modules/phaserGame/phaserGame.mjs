@@ -30,7 +30,7 @@ export default class StudioPhaser extends Phaser.Scene
         //remove from here...
         console.log("varsManager", AllVarsManager, VarsProps);
 
-        const kind = 0;
+        const kind = 3;
 
         const varHolder = this.varsManager.varContainers.get(kind);
 
@@ -43,13 +43,26 @@ export default class StudioPhaser extends Phaser.Scene
         // AllVarsManager.clearContiguous(0, 0, varHolder.varSize, varHolder.bitmask, tyarray);
 
         // console.log(tyarray[0], "Calling...");
-        for (let i = 0; i < varHolder.varsPerElement * 2; i++)
-        {
-           const res = AllVarsManager.readVar(kind, i);
-           console.log(`${i}) ${res.toString(2).padStart(varHolder.varSize, "0")}`)
+        const iterateTest = () => {
+            for (let i = 0; i < varHolder.varsPerElement * tyarray.length; i++)
+            {
+                const res = AllVarsManager.readVar(kind, i);
+                console.log(`${i}) ${res.toString(2).padStart(varHolder.varSize, "0")}`)
+            }
         }
         
+        iterateTest();
+        
+        console.log("%cSET VARIABLE:", "color: darkbrown; background-color: maroon;");
+        console.log(AllVarsManager.readVar(kind, 3));
 
+        let editVarIdx = 3;
+        console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
+
+        editVarIdx = 4;
+        console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
+        
+        iterateTest();
         // ... to here!
     }
 

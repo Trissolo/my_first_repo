@@ -45,18 +45,37 @@ export default class AllVarsManager
 
     static betterSetVar(containerIdx, varIdx, newValue)
     {
-        const container = this.betterGrabCoords(this.varContainers.get(containerIdx), varIdx);
+        // prepare the varContainer
+        // A 'prepared' varContainer has his 'coords' Vector2 set to the coords of the variable currently handled.
+        const prepContainer = this.betterGrabCoords(this.varContainers.get(containerIdx), varIdx);
 
-        container.typedArray[container.coords.y] &= ~(container.bitmask << container.coords.x * container.varSize);
+        this.clearPreparedContainer(prepContainer);
+
+        // container.typedArray[container.coords.y] &= ~(container.bitmask << container.coords.x * container.varSize);
 
         //finally
         if (newValue !== 0)
         {
-            container.typedArray[container.coords.y] |= (newValue << container.coords.x * container.varSize);
+            this.setPreparedContainer(prepContainer, newValue);
+            // container.typedArray[container.coords.y] |= (newValue << container.coords.x * container.varSize);
         }
 
         return newValue;
 
+    }
+
+    static clearPreparedContainer(prepContainer)
+    {
+        prepContainer.typedArray[prepContainer.coords.y] &= ~(prepContainer.bitmask << prepContainer.coords.x * prepContainer.varSize);
+
+        return prepContainer;
+    }
+
+    static setPreparedContainer(prepContainer, newValue)
+    {
+        prepContainer.typedArray[prepContainer.coords.y] |= (newValue << prepContainer.coords.x * prepContainer.varSize);
+
+        return prepContainer;
     }
 
 

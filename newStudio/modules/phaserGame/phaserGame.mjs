@@ -11,7 +11,6 @@ import JsonManager from "../jsonManager/JsonManager.mjs";
 
 // test AllVarsManager
 import AllVarsManager from "../../../src/plugins/VarsManager/AllVarsManager.mjs";
-import VarsProps from "../../../src/plugins/VarsManager/VarsProps.mjs";
 
 const ROOM_TEXTURE_ATLAS_PREFIX = 'atlas';
 const getCurrentRoomAtlasKey = (atlasSuffix = JsonManager.currentJson.atlas) => ROOM_TEXTURE_ATLAS_PREFIX + atlasSuffix;
@@ -28,14 +27,13 @@ export default class StudioPhaser extends Phaser.Scene
         this.varsManager.initialize();
 
         //remove from here...
-        console.log("varsManager", AllVarsManager, VarsProps);
+        console.log("varsManager", AllVarsManager);
 
-        const kind = 0;
+        const kind = 3;
 
         const varHolder = this.varsManager.varContainers.get(kind);
 
         const tyarray = varHolder.typedArray;
-        // const vProps = VarsProps.get(kind);
 
         tyarray[0] = 500278;
         tyarray[1] = 3021292394;
@@ -46,47 +44,50 @@ export default class StudioPhaser extends Phaser.Scene
         const iterateTest = () => {
             for (let i = 0; i < varHolder.varsPerElement * tyarray.length; i++)
             {
-                const res = AllVarsManager.readVar(kind, i);
-                console.log(`${i}) ${res.toString(2).padStart(varHolder.varSize, "0")}`)
+                const res = AllVarsManager.betterReadVar(kind, i);
+                // const res = AllVarsManager.readVar(kind, i);
+                console.log(`${i}) (Better) ${res.toString(2).padStart(varHolder.varSize, "0")}`)
             }
         }
         
         iterateTest();
         
         console.log("%cSET VARIABLE:", "color: darkbrown; background-color: maroon;");
-        console.log(AllVarsManager.readVar(kind, 3));
-
-        // let editVarIdx = 3;
+        
+        let editVarIdx = 3;
         // console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
+        console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
+        AllVarsManager.betterSetVar(kind, editVarIdx, 255)
+        console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
 
         // editVarIdx = 4;
         // console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
         
         
 
-        // console.log("SEt bit on");
-        // for (let i = 60; i < 64; i++)
+        // console.log("Test: set to '0'");
+        // for (let i = 0; i < varHolder.varsPerElement * tyarray.length; i++)
         // {
-        //     this.varsManager.setBitOn(i);
+        //     this.varsManager.setVar(kind, i, 0);
         // }
         
-        console.log("toggle");
+        // console.log("toggle");
 
-        for (let i = 60; i < 64; i++)
-        {
-            this.varsManager.toggleBit(i);
-            console.log(`${i}) Toggled`, this.varsManager.readVar(kind, i));
+        // for (let i = 60; i < 64; i++)
+        // {
+        //     this.varsManager.toggleBit(i);
+        //     console.log(`${i}) Toggled`, this.varsManager.readVar(kind, i));
 
-            this.varsManager.toggleBit(i);
-            console.log(`${i}) Toggled`, this.varsManager.readVar(kind, i));
+        //     this.varsManager.toggleBit(i);
+        //     console.log(`${i}) Toggled`, this.varsManager.readVar(kind, i));
 
 
-        }
+        // }
 
-        for (let i = 60; i < 64; i++)
-        {
-            console.log(`${i}) Read now:`, this.varsManager.readVar(kind, i));
-        }
+        // for (let i = 60; i < 64; i++)
+        // {
+        //     console.log(`${i}) Read now:`, this.varsManager.readVar(kind, i));
+        // }
 
         iterateTest();
         // ... to here!

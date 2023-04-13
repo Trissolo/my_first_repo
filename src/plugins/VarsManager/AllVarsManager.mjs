@@ -13,15 +13,52 @@ export default class AllVarsManager
     static recycledVec = new Phaser.Math.Vector2();
 
     // map for Grab
-    static mappedReadVar = new Map();
+    // static mappedReadVar = new Map();
 
 
+    
+    static betterReadVar(containerIdx, varIdx)
+    {
+        const container = this.varContainers.get(containerIdx);
+        
+        this.betterGrabCoords(container, varIdx);
+        
+        return container.isBool? (container.typedArray[container.coords.y] >>> container.coords.x) & 1 :  (container.typedArray[container.coords.y] >>> container.coords.x * container.varSize) & container.bitmask;
+        
+    }
+
+    
     // Calculate coords:
 
     /*
+    * @param {number} container -
     * @param {number} varIdx - 
-    * @param {number} height -
     */
+    static betterGrabCoords(container, varIdx)
+    {
+        /*container.isBool? ToXY(varIdx, 32, container.length, container.coords): */
+
+        ToXY(varIdx, container.varsPerElement, container.typedArray.length, container.coords);
+
+        return container;
+    }
+
+    static betterSetVar(containerIdx, varIdx, newValue)
+    {
+        const container = this.betterGrabCoords(this.varContainers.get(containerIdx), varIdx);
+
+        container.typedArray[container.coords.y] &= ~(container.bitmask << container.coords.x * container.varSize);
+
+        //finally
+        if (newValue !== 0)
+        {
+            container.typedArray[container.coords.y] |= (newValue << container.coords.x * container.varSize);
+        }
+
+        return newValue;
+
+    }
+
 
     static grabBoolCoords(varIdx, height)
     {
@@ -47,12 +84,12 @@ export default class AllVarsManager
     * @param {Uint32Array} typedArray -
     */
 
-    static clearContiguous(x, y, size, bitmask, typedArray)
-    {
-        typedArray[y] &= ~(bitmask << x * size);
+    // static clearContiguous(x, y, size, bitmask, typedArray)
+    // {
+    //     typedArray[y] &= ~(bitmask << x * size);
 
-        return 0;
-    }
+    //     return 0;
+    // }
 
     // sort of constructor
     static initialize()
@@ -74,17 +111,17 @@ export default class AllVarsManager
         
         // Map to bifurcate
 
-        this.mappedReadVar.set(false, this.readVarFalse);
+        // this.mappedReadVar.set(false, this.readVarFalse);
 
-        this.mappedReadVar.set(true, this.readVarTrue);
+        // this.mappedReadVar.set(true, this.readVarTrue);
 
     }  // end Initialize
 
     static setVar(containerIdx, varIdx, newValue)
     {
-        const container = this.varContainers.get(containerIdx);
+        // const container = this.varContainers.get(containerIdx);
 
-        const {typedArray, varsPerElement, varSize, bitmask} = container;
+        const {typedArray, varsPerElement, varSize, bitmask} = this.varContainers.get(containerIdx);
 
         // get coords
         const {x, y} = AllVarsManager.grabCoords(varIdx, varsPerElement, typedArray.length);
@@ -276,7 +313,9 @@ export default class AllVarsManager
 
         const typedArray = new Uint32Array(arrayLength);
 
-        return {varSize, varsPerElement, bitmask, typedArray, isBool: varSize === 1};
+        const coords = new Phaser.Math.Vector2();
+
+        return {varSize, varsPerElement, bitmask, typedArray, coords, isBool: varSize === 1};
     }
 }
 

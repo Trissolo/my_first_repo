@@ -41,8 +41,8 @@ export default class StudioPhaser extends Phaser.Scene
         // AllVarsManager.clearContiguous(0, 0, varHolder.varSize, varHolder.bitmask, tyarray);
 
         // console.log(tyarray[0], "Calling...");
-        const iterateTest = () => {
-            for (let i = 0; i < varHolder.varsPerElement * tyarray.length; i++)
+        const iterateTest = (max = varHolder.varsPerElement * tyarray.length) => {
+            for (let i = 0; i < max ; i++)
             {
                 const res = AllVarsManager.betterReadVar(kind, i);
                 // const res = AllVarsManager.readVar(kind, i);
@@ -50,15 +50,32 @@ export default class StudioPhaser extends Phaser.Scene
             }
         }
         
-        iterateTest();
+        iterateTest(3);
         
         console.log("%cSET VARIABLE:", "color: darkbrown; background-color: maroon;");
-        
-        let editVarIdx = 3;
+        let editVarIdx = 0;
         // console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
         console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
-        AllVarsManager.betterSetVar(kind, editVarIdx, 255)
+        
+        let altroValore = 1;
+        console.log(`Now set ${altroValore}!`);
+        AllVarsManager.betterSetVar(kind, editVarIdx, altroValore)
         console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
+        iterateTest(3);
+
+        altroValore = 2;
+        console.log(`Now set ${altroValore}!`);
+        AllVarsManager.betterSetVar(kind, editVarIdx, altroValore)
+        console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
+        iterateTest(3);
+
+        altroValore = 0;
+        console.log(`Now set ${altroValore}!`);
+        AllVarsManager.betterSetVar(kind, editVarIdx, altroValore)
+        console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
+        iterateTest(3);
+
+
 
         // editVarIdx = 4;
         // console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
@@ -89,7 +106,7 @@ export default class StudioPhaser extends Phaser.Scene
         //     console.log(`${i}) Read now:`, this.varsManager.readVar(kind, i));
         // }
 
-        iterateTest();
+        // iterateTest();
         // ... to here!
     }
 

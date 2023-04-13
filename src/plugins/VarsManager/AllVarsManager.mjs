@@ -1,114 +1,11 @@
 import BITS_PER_TYPED_ARRAY_ELEMENT from "./BITS_PER_TYPED_ARRAY_ELEMENT.mjs";
 
-// import Conditions from "../../../newStudio/modules/placeholders/Conditions.mjs";
-
-const {ToXY} = Phaser.Math;
+const {ToXY, Clamp, MaxAdd, MinSub} = Phaser.Math;
 
 export default class AllVarsManager
 {
     // Variable containers
     static varContainers = new Map();
-
-    // Recycle when infering coords
-    static recycledVec = new Phaser.Math.Vector2();
-
-    // map for Grab
-    // static mappedReadVar = new Map();
-
-
-    
-    static betterReadVar(containerIdx, varIdx)
-    {
-        const container = this.varContainers.get(containerIdx);
-        
-        this.betterGrabCoords(container, varIdx);
-        
-        return container.isBool? (container.typedArray[container.coords.y] >>> container.coords.x) & 1 :  (container.typedArray[container.coords.y] >>> container.coords.x * container.varSize) & container.bitmask;
-        
-    }
-
-    
-    // Calculate coords:
-
-    /*
-    * @param {number} container -
-    * @param {number} varIdx - 
-    */
-    static betterGrabCoords(container, varIdx)
-    {
-        /*container.isBool? ToXY(varIdx, 32, container.length, container.coords): */
-
-        ToXY(varIdx, container.varsPerElement, container.typedArray.length, container.coords);
-
-        return container;
-    }
-
-    static betterSetVar(containerIdx, varIdx, newValue)
-    {
-        // prepare the varContainer
-        // A 'prepared' varContainer has his 'coords' Vector2 set to the coords of the variable currently handled.
-        const prepContainer = this.betterGrabCoords(this.varContainers.get(containerIdx), varIdx);
-
-        this.clearPreparedContainer(prepContainer);
-
-        // container.typedArray[container.coords.y] &= ~(container.bitmask << container.coords.x * container.varSize);
-
-        //finally
-        if (newValue !== 0)
-        {
-            this.setPreparedContainer(prepContainer, newValue);
-            // container.typedArray[container.coords.y] |= (newValue << container.coords.x * container.varSize);
-        }
-
-        return newValue;
-
-    }
-
-    static clearPreparedContainer(prepContainer)
-    {
-        prepContainer.typedArray[prepContainer.coords.y] &= ~(prepContainer.bitmask << prepContainer.coords.x * prepContainer.varSize);
-
-        return prepContainer;
-    }
-
-    static setPreparedContainer(prepContainer, newValue)
-    {
-        prepContainer.typedArray[prepContainer.coords.y] |= (newValue << prepContainer.coords.x * prepContainer.varSize);
-
-        return prepContainer;
-    }
-
-
-    static grabBoolCoords(varIdx, height)
-    {
-        return ToXY(varIdx, 32, height, this.recycledVec);
-    };
-
-
-    /*
-    * @param {number} varIdx - 
-    * @param {number} width -
-    * @param {number} height - 
-    */
-    static grabCoords(varIdx, width, height)
-    {
-        return ToXY(varIdx, width, height, this.recycledVec);
-    }
-
-    /*
-    * @param {number} x - bit offset
-    * @param {number} y - typedArray index
-    * @param {number} size - Bit size of the Variable (i.e. 1 for Bool / 4 for Nibble)
-    * @param {number} bitmask -
-    * @param {Uint32Array} typedArray -
-    */
-
-    // static clearContiguous(x, y, size, bitmask, typedArray)
-    // {
-    //     typedArray[y] &= ~(bitmask << x * size);
-
-    //     return 0;
-    // }
 
     // sort of constructor
     static initialize()
@@ -128,35 +25,149 @@ export default class AllVarsManager
 
         }
         
-        // Map to bifurcate
-
-        // this.mappedReadVar.set(false, this.readVarFalse);
-
-        // this.mappedReadVar.set(true, this.readVarTrue);
-
     }  // end Initialize
 
-    static setVar(containerIdx, varIdx, newValue)
+    // Not a Class
+    // {
+    //     typedArray: Uint32Array(2),
+    //     varSize: 1,
+    //     varsPerElement: 32,
+    //     bitmask: 1,
+    //     isBool: true
+    // }
+
+    static createByKind(kind, arrayLength = 2)
     {
-        // const container = this.varContainers.get(containerIdx);
+        // we are using an Uint32Array
+        
+        // the size (in bits) of this kind of variable:
+        // BOOL = 1 bits [0-1],
+        // CRUMBLE = 2 bits [0-3],
+        // NIBBLE = 4 bits [0-15],
+        // BYTE = 8 bits [0-255]
 
-        const {typedArray, varsPerElement, varSize, bitmask} = this.varContainers.get(containerIdx);
+        const varSize = 1 << kind;
 
-        // get coords
-        const {x, y} = AllVarsManager.grabCoords(varIdx, varsPerElement, typedArray.length);
+        // amount of variables in each Typed Array element
+        const varsPerElement = BITS_PER_TYPED_ARRAY_ELEMENT / varSize;
 
-        //clear
-        typedArray[y] &= ~(bitmask << x * varSize);
+        // bitmask to extract/work on the variable
+        const bitmask = (1 << varSize) - 1;
+
+        if (Array.isArray(arrayLength))
+        {
+            arrayLength = Math.ceil(arrayLength.length * varSize / BITS_PER_TYPED_ARRAY_ELEMENT);
+        }
+
+        const typedArray = new Uint32Array(arrayLength);
+
+        const coords = new Phaser.Math.Vector2();
+
+        return {varSize, varsPerElement, bitmask, typedArray, coords, isBool: varSize === 1};
+    }
+
+    // Calculate coords:
+
+    /*
+    * @param {number} container -
+    * @param {number} varIdx - 
+    */
+    static betterGrabCoords(container, varIdx)
+    {
+        ToXY(varIdx, container.varsPerElement, container.typedArray.length, container.coords);
+
+        return container;
+    }
+
+    static betterReadVar(containerIdx, varIdx)
+    {
+        const container = this.varContainers.get(containerIdx);
+        
+        this.betterGrabCoords(container, varIdx);
+        
+        //avoid multiplication for Bools
+        return container.isBool? (container.typedArray[container.coords.y] >>> container.coords.x) & 1 :  (container.typedArray[container.coords.y] >>> container.coords.x * container.varSize) & container.bitmask;
+    }
+
+    static readPrepared(prepContainer)
+    {
+        return (prepContainer.typedArray[prepContainer.coords.y] >>> prepContainer.coords.x * prepContainer.varSize) & prepContainer.bitmask;
+    }
+
+    static readPreparedBoolContainer(prepContainer)
+    {
+        return (prepContainer.typedArray[prepContainer.coords.y] >>> prepContainer.coords.x) & 1;
+    }
+
+    // maybe... already destructured?
+
+    static unpackedReadPrepared(typedArray, x, y, varSize, bitmask)
+    {
+        return (typedArray[y] >>> x * varSize) & bitmask;
+    }
+
+    static unpackedReadPreparedBoolContainer(typedArray, x, y)
+    {
+        return (typedArray[y] >>> x) & 1;
+        
+    }
+
+
+    static betterSetVar(containerIdx, varIdx, newValue)
+    {
+        // prepare the varContainer
+        // A 'prepared' varContainer has his 'coords' Vector2 set to the coords of the variable currently handled.
+        const prepContainer = this.betterGrabCoords(this.varContainers.get(containerIdx), varIdx);
+
+        this.clearPreparedContainer(prepContainer);
 
         //finally
         if (newValue !== 0)
         {
-            typedArray[y] |= (newValue << x * varSize);
+            this.setPreparedContainer(prepContainer, newValue);
         }
 
         return newValue;
+
     }
 
+    static clearPreparedContainer(prepContainer)
+    {
+        prepContainer.typedArray[prepContainer.coords.y] &= ~(prepContainer.bitmask << prepContainer.coords.x * prepContainer.varSize);
+
+        return prepContainer;
+    }
+
+    static unpackedClearPreparedContainer(typedArray, x, y, varSize, bitmask)
+    {
+        typedArray[y] &= ~(bitmask << x * varSize);
+
+        return 0;
+    }
+
+    static setPreparedContainer(prepContainer, newValue)
+    {
+        prepContainer.typedArray[prepContainer.coords.y] |= (newValue << prepContainer.coords.x * prepContainer.varSize);
+
+        return prepContainer;
+    }
+
+    static unpackedSetPreparedContainer(newValue, typedArray, x, y, varSize)
+    {
+        typedArray[y] |= (newValue << x * varSize);
+
+        return prepContainer;
+    }
+
+
+    
+
+
+
+
+
+
+    // OLD!
     // set a specific bit to '1'
     // note that the first argument is 'varIdx', not the varContainer index!
     static setBitOn(varIdx, containerIdx = 0)
@@ -197,69 +208,10 @@ export default class AllVarsManager
         return (typedArray[y] >>> x) & 1;
     }
 
-    static readVarTrue(container, varIdx)
-    {
-
-        const {typedArray} = container;
-
-        const {x, y} = AllVarsManager.grabBoolCoords(varIdx, typedArray.length);
-
-        return (typedArray[y] >>> x) & 1;
-    }
-
-    static readVarFalse(container, varIdx)
-    {
-
-        const {typedArray, varsPerElement, varSize, bitmask} = container;
-
-        const {x, y} = AllVarsManager.grabCoords(varIdx, varsPerElement, typedArray.length);
-
-        return (typedArray[y] >>> x * varSize) & bitmask;
-    }
-
-    static readVar(containerIdx, varIdx)
-    {
-        const container = this.varContainers.get(containerIdx);
-
-        return this.mappedReadVar.get(container.isBool)(container, varIdx);
-    }
-
-
-
-    // static clearBool = (varIdx) => {
-
-    //     console.log('Arrow clearBit');
-
-    //     const {typedArray} = this.varContainers.get(0);
-
-    //     const {x, y} = this.grabBoolCoords(varIdx, typedArray.length);
-
-    //     typedArray[y] &= ~(1 << x);
-
-    //     return 0;
-
-    // }
-
-    // static clearVar(containerIdx, varIdx)
-    // {
-    //     const container = this.varContainers.get(containerIdx);
-
-    // }
 
 
     
-    // static readContiguous(x, y, typedArray, varSize, bitmask)
-    // {
-    //     return (typedArray[y] >>> x * varSize) & bitmask;
-    // }
-
-    // static getBoolCoords(varIdx, typedArray)
-    // {
-    //     return ToXY(varIdx, 32, typedArray.length, this.recycledVec);
-    // }
-
-
-    
+    // Ultra old!
 
     // static setNibble(value, x, y = 0)
     // {
@@ -298,44 +250,7 @@ export default class AllVarsManager
     // }
 
 
-    // Not a Class
-    // {
-    //     typedArray: Uint32Array(2),
-    //     varSize: 1,
-    //     varsPerElement: 32,
-    //     bitmask: 1,
-    //     isBool: true
-    // }
-
-    static createByKind(kind, arrayLength = 2)
-    {
-        // we are using an Uint32Array
-        
-        // the size (in bits) of this kind of variable:
-        // BOOL = 1 bits [0-1],
-        // CRUMBLE = 2 bits [0-3],
-        // NIBBLE = 4 bits [0-15],
-        // BYTE = 8 bits [0-255]
-
-        const varSize = 1 << kind;
-
-        // amount of variables in each Typed Array element
-        const varsPerElement = BITS_PER_TYPED_ARRAY_ELEMENT / varSize;
-
-        // bitmask to extract/work on the variable
-        const bitmask = (1 << varSize) - 1;
-
-        if (Array.isArray(arrayLength))
-        {
-            arrayLength = Math.ceil(arrayLength.length * varSize / BITS_PER_TYPED_ARRAY_ELEMENT);
-        }
-
-        const typedArray = new Uint32Array(arrayLength);
-
-        const coords = new Phaser.Math.Vector2();
-
-        return {varSize, varsPerElement, bitmask, typedArray, coords, isBool: varSize === 1};
-    }
+    
 }
 
 ////

@@ -101,6 +101,27 @@ export default class AllVarsManager
         return this.assignValueAt(newValue, x, y, container);
     }
 
+    static setBool(boolIdx, containerIdx = 0, container = this.varContainers.get(containerIdx))
+    {
+        const {typedArray, coords: {x, y}} = this.prepareCoords(container, boolIdx);
+
+        return (this.setBitOnAt(x, y, typedArray));
+    }
+
+    static clearBool(boolIdx, containerIdx = 0, container = this.varContainers.get(containerIdx))
+    {
+        const {typedArray, coords: {x, y}} = this.prepareCoords(container, boolIdx);
+
+        return (this.setBitOffAt(x, y, typedArray));
+    }
+
+    static toggleBool(boolIdx, containerIdx = 0, container = this.varContainers.get(containerIdx))
+    {
+        const {typedArray, coords: {x, y}} = this.prepareCoords(container, boolIdx);
+
+        return (this.toggleBitAt(x, y, typedArray));
+    }
+
     // end User methods
 
 
@@ -111,30 +132,33 @@ export default class AllVarsManager
         // just in case...
         newValue = Clamp(newValue, 0, bitmask);
 
-        const currentSize = x * varSize;
+        const offset = x * varSize;
 
         //clear first:
-        typedArray[y] &= ~(bitmask << currentSize); 
+        typedArray[y] &= ~(bitmask << offset);
 
         if (newValue === 0)
         {
             return newValue;
         }
 
-        return typedArray[y] |= (newValue << currentSize);
+        typedArray[y] |= (newValue << offset);
+
+        return newValue;
     }
 
-    static setBoolOnAt(x, y, typedArray)
+
+    static setBitOnAt(x, y, typedArray)
     {
         typedArray[y] |= 1 << x;        
     }
 
-    static clearBoolAt(x, y, typedArray)
+    static setBitOffAt(x, y, typedArray)
     {
         typedArray[y] &= ~(1 << x);      
     }
 
-    static toggleBoolAt(x, y, typedArray)
+    static toggleBitAt(x, y, typedArray)
     {
         typedArray[y] ^= (1 << x);
     }

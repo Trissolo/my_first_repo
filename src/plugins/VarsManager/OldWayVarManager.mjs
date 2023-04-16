@@ -85,6 +85,13 @@ export default class AllVarsManager
     {
         ToXY(varIdx, varsPerElement, typedArray.length, coords);
 
+        if (coords.x === 0 && coords.y === 0 && varIdx !== 0)
+        {
+            console.error(`%c Variable idx out of range! \n%cMax idx expected: ${typedArray.length * varsPerElement}, given idx: ${varIdx}. :(`, "background-color: #891412;", "color: gray;");
+
+            // return false;
+        }
+
         return container;
     }
 
@@ -130,7 +137,6 @@ export default class AllVarsManager
 
 
         return container.isBool? this.readBoolValueAt(x, y, container.typedArray) : this.readValueAt(x, y, container);
-
     }
 
     // end User methods
@@ -197,27 +203,26 @@ export default class AllVarsManager
 
 
     // debug a scazzo
-    static debugTAry(containerIdx = 0, max) // , elemIdx = 0)
+    static debugTAry(containerIdx = 0, max)
     {
         const container = this.varContainers.get(containerIdx);
 
         max = max || container.varsPerElement * container.typedArray.length;
-
-        // console.log("max Var idx", max);
 
         for (let i = 0; i < max ; i++)
         {
 
             this.prepareCoords(container, i);
 
-            const res = (container.typedArray[container.coords.y] >>> container.coords.x * container.varSize) & container.bitmask;
+            const decimalValue = this.readVar(containerIdx, i)
 
+            
             if ((i % container.varsPerElement) === 0)
             {
                 console.log(`*** varsContainer.get(${containerIdx})[${i / container.varsPerElement}] ***`);
             }
-            console.log(`${i}) (---) ${res} ${res.toString(2).padStart(container.varSize, "0")}`)
-            console.log(`Internal methods ****readVar****: ${this.readVar(containerIdx, i)}\n\n`);
+
+            console.log(`${i}) readVar: ${this.readVar(containerIdx, i)} - ${decimalValue.toString(2).padStart(container.varSize, "0")}\n\n`);
         }
     }
 }

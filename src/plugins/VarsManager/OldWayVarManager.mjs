@@ -122,10 +122,32 @@ export default class AllVarsManager
         return (this.toggleBitAt(x, y, typedArray));
     }
 
+    static readVar(containerIdx, varIdx)
+    {
+        const container = this.prepareCoords(this.varContainers.get(containerIdx), varIdx);
+
+        const {x, y} = container.coords;
+
+
+        return container.isBool? this.readBoolValueAt(x, y, container.typedArray) : this.readValueAt(x, y, container);
+
+    }
+
     // end User methods
 
 
     // Internal methods:
+
+    static readBoolValueAt(x, y, typedArray)
+    {
+        return (typedArray[y] >>> x) & 1;
+    }
+
+    static readValueAt(x, y, {typedArray, varSize, bitmask})
+    {
+        return (typedArray[y] >>> x * varSize) & bitmask;
+
+    }
 
     static assignValueAt(newValue, x, y, {typedArray, varSize, bitmask})
     {
@@ -150,17 +172,24 @@ export default class AllVarsManager
 
     static setBitOnAt(x, y, typedArray)
     {
-        typedArray[y] |= 1 << x;        
+        typedArray[y] |= 1 << x; 
+        
+        return 1;
     }
 
     static setBitOffAt(x, y, typedArray)
     {
-        typedArray[y] &= ~(1 << x);      
+        typedArray[y] &= ~(1 << x);
+        
+        return 0;
+        
     }
 
     static toggleBitAt(x, y, typedArray)
     {
         typedArray[y] ^= (1 << x);
+
+        return this.readBoolValueAt(x, y, typedArray);
     }
 
     // End Internal methods:
@@ -188,7 +217,7 @@ export default class AllVarsManager
                 console.log(`*** varsContainer.get(${containerIdx})[${i / container.varsPerElement}] ***`);
             }
             console.log(`${i}) (---) ${res} ${res.toString(2).padStart(container.varSize, "0")}`)
-            
+            console.log(`Internal methods ****readVar****: ${this.readVar(containerIdx, i)}\n\n`);
         }
     }
 }

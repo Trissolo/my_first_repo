@@ -10,6 +10,7 @@ import JsonManager from "../../jsonManager/JsonManager.mjs";
 
 import DepthStringEnum from "../../jsonManager/DepthStringEnum.mjs";
 import Conditions from "../../placeholders/Conditions.mjs";
+import AutoComplete from "../../autocomplete/AutoComplete.mjs";
 
 export default class WidgetFrameSuffix extends BaseWidget
 {
@@ -33,7 +34,7 @@ export default class WidgetFrameSuffix extends BaseWidget
         this.button.setMarginLeft();
         
         // name of the condition to use as a suffix
-        this.selectElem = new OptionsList(this.widget, Conditions, "Select condition (1bit)")
+        this.selectBool = new OptionsList(this.widget, Conditions, "Select condition (1bit)")
 
         // status
         this.info = new TextField(this.widget);
@@ -43,7 +44,7 @@ export default class WidgetFrameSuffix extends BaseWidget
         //
         this.buttonBehavior = (event) => {
 
-            JsonManager.removeHoverName();
+            JsonManager.removeFrameSuffix();
 
             this.refresh(true);
         }
@@ -51,11 +52,11 @@ export default class WidgetFrameSuffix extends BaseWidget
 
         this.button.setOnClick(this.buttonBehavior);
 
-        this.selectElem.setOnChange(this.onChange);
+        this.selectBool.setOnChange(this.onChangeBool);
 
     }
 
-    onChange = (event) => {
+    onChangeBool = (event) => {
 
         if (event.target.value === "" || !JsonManager.currentThing.hasOwnProperty(THINGS_PROPS.FRAME))
         {
@@ -67,27 +68,43 @@ export default class WidgetFrameSuffix extends BaseWidget
 
         const eventIdx = +event.target.value;
 
-        console.log("FR_SUFF", eventIdx, this.selectElem.optsAry[eventIdx]);
+        console.log("FR_SUFF", eventIdx, this.selectBool.optsAry[eventIdx]);
+
+        JsonManager.setFrameSuffix(eventIdx, 0);
 
         this.refresh(true);
     }
 
+    refresh(refreshThing)
+    {
+        if (JsonManager.currentThing.hasOwnProperty(AutoComplete.THINGS_PROPS.FRAME_SUFFIX))
+        {
+
+        }
+
+        if (refreshThing)
+        {
+            JsonManager.showThing();
+        }
+    }
+
+    // old
     // refresh(refreshThing)
     // {
     //     if (JsonManager.currentThing.hasOwnProperty(this.managedProp))
     //     {
     //         const idx = JsonManager.currentThing[this.managedProp];
 
-    //         this.info.setInUse(`on pointerover: ${this.selectElem.optionsAry[idx]} (${idx})`);
+    //         this.info.setInUse(`on pointerover: ${this.selectBool.optionsAry[idx]} (${idx})`);
 
-    //         this.selectElem.setSelectedIndex(idx + 1);
+    //         this.selectBool.setSelectedIndex(idx + 1);
     //     }
 
     //     else
     //     {
     //         this.info.setDisabled();
 
-    //         this.selectElem.setSelectedIndex();
+    //         this.selectBool.setSelectedIndex();
     //     }
 
     //     if (refreshThing)

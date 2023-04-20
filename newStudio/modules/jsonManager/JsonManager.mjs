@@ -87,35 +87,48 @@ class JsonManager {
     {
         return JSON.stringify(this.currentThing, null, 2)
     }
+  
 
-    static removeFrameSuffix()
-    {
-        delete this.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX]; // [THINGS_PROPS.FRAME_SUFFIX];
-    }
-
-    static setFrameSuffix(condition)
+    static setFrameSuffix(condition, suffixKind)
     {
         this.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX] = condition;
+        
+        this.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX_KIND] = suffixKind;
     }
-
-    static removeHoverName()
+    
+    static removeFrameSuffix()
     {
-        delete this.currentThing[AutoComplete.THINGS_PROPS.HOVER_NAME];
+        delete this.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX];
+
+        delete this.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX_KIND];
     }
+  
 
     static setHoverName(index)
     {
         this.currentThing[AutoComplete.THINGS_PROPS.HOVER_NAME] = index;
     }
-
-    static removeFrameSuffix()
+    
+    static removeHoverName()
     {
-        delete this.currentThing[AutoComplete.THINGS_PROPS.SKIP_CONDITION];
+        delete this.currentThing[AutoComplete.THINGS_PROPS.HOVER_NAME];
     }
+
 
     static setSkipCondition(condition)
     {
         this.currentThing[AutoComplete.THINGS_PROPS.SKIP_CONDITION] = condition;
+    }
+
+    static removeSkipCondition(condition)
+    {
+        delete this.currentThing[AutoComplete.THINGS_PROPS.SKIP_CONDITION];
+    }
+    
+
+    static setNoInput()
+    {
+        this.currentThing[AutoComplete.THINGS_PROPS.NO_INPUT] = true;
     }
 
     static removeNoInput()
@@ -123,9 +136,10 @@ class JsonManager {
         delete this.currentThing[AutoComplete.THINGS_PROPS.NO_INPUT];
     }
 
-    static setNoInput()
+    
+    static setAnimationName()
     {
-        this.currentThing[AutoComplete.THINGS_PROPS.NO_INPUT] = true;
+        this.currentThing[AutoComplete.THINGS_PROPS.ANIMATION_NAME] = true;
     }
 
     static removeAnimationName()
@@ -133,10 +147,7 @@ class JsonManager {
         delete this.currentThing[AutoComplete.THINGS_PROPS.ANIMATION_NAME];
     }
 
-    static setAnimationName()
-    {
-        this.currentThing[AutoComplete.THINGS_PROPS.ANIMATION_NAME] = true;
-    }
+
     // *Thing*:
 
     // x,

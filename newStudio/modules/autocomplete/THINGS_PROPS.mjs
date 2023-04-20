@@ -38,6 +38,7 @@ skipCond,
 export default {
     FRAME: "frame",
     FRAME_SUFFIX: "frameSuffix",
+    FRAME_SUFFIX_KIND: "frameSuffixKind",
     SKIP_CONDITION: "skipCond",
     HOVER_NAME: "hoverName",
     NO_INPUT: "noInput",

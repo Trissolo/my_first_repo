@@ -12,11 +12,12 @@ export default class AllVarsManager
     {      
         console.log("New INITIALIZE");
 
-        // generate default varContainers:
-        // key: 0 -> BOOL = 1 bits [0-1],
-        // key: 1 -> CRUMBLE = 2 bits [0-3],
-        // key: 2 -> NIBBLE = 4 bits [0-15],
-        // key: 3 -> BYTE = 8 bits [0-255]
+        // kind/key(containerIdx)|     varSize     |varsPerElement|bitmask
+        // ----------------------|-----------------|--------------|-------
+        //  0                    | 1 bit  (BOOL)   |      32      |   1   
+        //  1                    | 2 bits (CRUMBLE)|      16      |   3   
+        //  2                    | 4 bits (NIBBLE) |       8      |   15  
+        //  3                    | 8 bits (BYTE)   |       4      |   255 
 
         for (let kind = 0; kind < 4; kind++)
         {
@@ -76,6 +77,7 @@ export default class AllVarsManager
     {
         ToXY(varIdx, container.varsPerElement, container.typedArray.length, container.coords);
 
+        console.log("TOXY", varIdx, container.coords);
         return container;
     }
 
@@ -85,17 +87,22 @@ export default class AllVarsManager
         
         this.betterGrabCoords(container, varIdx);
         
-        //avoid multiplication for Bools
         return container.isBool? (container.typedArray[container.coords.y] >>> container.coords.x) & 1 :  (container.typedArray[container.coords.y] >>> container.coords.x * container.varSize) & container.bitmask;
+        
+        //avoid multiplication for Bools
+        // return container.isBool? this.readPreparedBoolContainer(container): this.readPrepared(container);
     }
 
     static readPrepared(prepContainer)
     {
+        console.log("readPrepared COOOORRRDS", prepContainer.coords);
         return (prepContainer.typedArray[prepContainer.coords.y] >>> prepContainer.coords.x * prepContainer.varSize) & prepContainer.bitmask;
     }
 
     static readPreparedBoolContainer(prepContainer)
     {
+        console.log("readPreparedBool", prepContainer, prepContainer.coords);
+
         return (prepContainer.typedArray[prepContainer.coords.y] >>> prepContainer.coords.x) & 1;
     }
 
@@ -119,14 +126,27 @@ export default class AllVarsManager
         // A 'prepared' varContainer has his 'coords' Vector2 set to the coords of the variable currently handled.
         const prepContainer = this.betterGrabCoords(this.varContainers.get(containerIdx), varIdx);
 
-        this.clearPreparedContainer(prepContainer);
+        //not unpaked
+        // this.clearPreparedContainer(prepContainer);
 
-        //finally
-        if (newValue !== 0)
+        // //finally
+        // if (newValue !== 0)
+        // {
+        //     this.setPreparedContainer(prepContainer, newValue);
+        // }
+
+        //test unpacked
+        const {typedArray, varSize, bitmask, coords:{x, y}} = prepContainer;
+
+        console.log("[betterSetVar] Destructuring:", "VarIdx:", varIdx, x, y, prepContainer.coords.x, prepContainer.coords.y);
+        // const {x, y} = prepContainer.coords;
+
+        this.unpackedClearPreparedContainer(typedArray, x, y, varSize, bitmask);
+
+        if (newValue)
         {
-            this.setPreparedContainer(prepContainer, newValue);
+            this.unpackedSetPreparedContainer(newValue, typedArray, x, y, varSize); //typedArray, x, y, varSize, bitmask);
         }
-
         return newValue;
 
     }
@@ -154,9 +174,9 @@ export default class AllVarsManager
 
     static unpackedSetPreparedContainer(newValue, typedArray, x, y, varSize)
     {
-        typedArray[y] |= (newValue << x * varSize);
+        return typedArray[y] |= (newValue << x * varSize);
 
-        return prepContainer;
+        // return prepContainer;
     }
 
 

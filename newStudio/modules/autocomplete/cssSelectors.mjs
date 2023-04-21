@@ -7,6 +7,7 @@ const classes = {
     textFieldB: "textFieldB",
     marginRight: "marginRight",
     marginLeft: "marginLeft",
+    notDisplayed: "notDisplayed",
 
     textFieldDisabled: "textFieldDisabled",
     textField: "textField"

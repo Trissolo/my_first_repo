@@ -15,55 +15,62 @@ export default class PseudoButton
     {
         this.pseudoButton.classList.add(className);
 
-        return this
+        return this;
     }
 
     removeClass(className)
     {
         this.pseudoButton.classList.remove(className);
 
-        return this
+        return this;
     }
 
     setText(text)
     {
         this.pseudoButton.innerText = text;
 
-        return this
+        return this;
     }
 
     setOnClick(func)
     {
         this.pseudoButton.addEventListener('click', func);
 
-        return this
+        return this;
     }
 
     setStyleA()
     {
         this.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
 
-        return this
+        return this;
     }
 
     setStyleB()
     {
         this.addClass(AutoComplete.cssSelectors.classes.buttonStyleB);
 
-        return this
+        return this;
     }
 
     setMarginRight()
     {
         this.addClass(AutoComplete.cssSelectors.classes.marginRight);
 
-        return this
+        return this;
     }
     
     setMarginLeft()
     {
         this.addClass(AutoComplete.cssSelectors.classes.marginLeft);
 
-        return this
+        return this;
+    }
+
+    setHidden(param = false)
+    {
+        param? this.removeClass(AutoComplete.cssSelectors.classes.notDisplayed) : this.addClass(AutoComplete.cssSelectors.classes.notDisplayed)
+
+        return this;
     }
 }

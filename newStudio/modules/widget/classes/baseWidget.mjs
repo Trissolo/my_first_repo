@@ -50,7 +50,7 @@ export default class BaseWidget
     
     setHidden(param)
     {
-        this.widget.hidden = param? false : true;
+        this.widget.hidden = param; // ? false : true;
 
         return this;
     }
@@ -63,7 +63,8 @@ export default class BaseWidget
     }
     
     clickedTitle = (event) => {
-        this.toggleHidden();
+
+        return this.toggleHidden();
     }
 
     refresh()

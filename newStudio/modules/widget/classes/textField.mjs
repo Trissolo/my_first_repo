@@ -12,7 +12,7 @@ export default class TextField
 
     get classList()
     {
-        return this.textField.classList
+        return this.textField.classList;
     }
 
     addClass(className)
@@ -21,28 +21,28 @@ export default class TextField
         this.classList.add(className);
 
 
-        return this
+        return this;
     }
 
     removeClass(className)
     {
         this.classList.remove(className);
 
-        return this
+        return this;
     }
 
     setText(text)
     {
         this.textField.innerText = text;
 
-        return this
+        return this;
     }
 
     setStandard()
     {
         this.addClass(AutoComplete.cssSelectors.classes.textField);
 
-        return this
+        return this;
     }
 
     setDisabled(text = "---")
@@ -50,7 +50,7 @@ export default class TextField
         this.addClass(AutoComplete.cssSelectors.classes.textFieldDisabled);
         this.setText(text);
 
-        return this
+        return this;
     }
 
     setInUse(text = "In use")
@@ -58,6 +58,6 @@ export default class TextField
         this.removeClass(AutoComplete.cssSelectors.classes.textFieldDisabled);
         this.setText(text);
 
-        return this
+        return this;
     }
 }

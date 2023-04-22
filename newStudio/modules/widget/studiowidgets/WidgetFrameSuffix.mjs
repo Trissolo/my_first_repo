@@ -151,6 +151,8 @@ export default class WidgetFrameSuffix extends BaseWidget
 
     refresh(refreshThing)
     {
+        console.log("Refresh del PD");
+        
         if (JsonManager.currentThing.hasOwnProperty(AutoComplete.THINGS_PROPS.FRAME_SUFFIX))
         {
             console.log("FRAME_SUFFIX", JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX]);

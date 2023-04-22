@@ -51,9 +51,10 @@ export default class StudioPhaser extends Phaser.Scene
         }
         
         iterateTest(3);
-        
+        // AllVarsManager.varContainers.forEach((el, i) => console.dir(i,el));
         console.log("%cSET VARIABLE:", "color: darkbrown; background-color: maroon;");
         let editVarIdx = 0;
+        
         // console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
         console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
         

@@ -67,4 +67,15 @@ studioEvents.emitter.on(studioEvents.events.thingChanged, ()=>{
     JsonManager.showThing();
 });
 
+studioEvents.emitter.on(studioEvents.events.roomChanged, () => {
+    
+    
+    for (const elem of studioWidgets)
+    {
+        elem.refresh();
+    }
+    
+    studioEvents.emitter.emit(studioEvents.events.thingChanged)
+})
+
 studioEvents.emitter.emit(studioEvents.events.thingChanged);

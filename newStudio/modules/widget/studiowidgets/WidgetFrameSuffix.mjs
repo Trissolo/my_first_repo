@@ -3,6 +3,7 @@ import TextField from "../classes/textField.mjs";
 import PseudoButton from "../classes/pseudoButton.mjs";
 
 import OptionsList from "../classes/baseOptionsList.mjs";
+import GetAttribAsNumber from "../../GetAttribAsNumber.mjs";
 
 // import AutoComplete from "../autocomplete/AutoComplete.mjs";
 import THINGS_PROPS from "../../autocomplete/THINGS_PROPS.mjs";
@@ -25,7 +26,7 @@ export default class WidgetFrameSuffix extends BaseWidget
         this.managedProp = managedProp;
 
         
-        // button reset frame
+        // button Button 'remove' (reset frame)
         this.button = new PseudoButton(this.widget, "Remove frameSuffix");
         
         this.button.setStyleB();
@@ -33,9 +34,21 @@ export default class WidgetFrameSuffix extends BaseWidget
         this.button.setMarginRight();
         
         this.button.setMarginLeft();
+
+        this.buttonBehavior = (event) => {
+            
+            JsonManager.removeFrameSuffix();
+
+            this.refresh(true);
+        }
         
+        this.button.setOnClick(this.buttonBehavior);
+        
+
         //container for 'select' Elements
         this.allSelectElements = [];
+
+        this.enumVarKind = ['Bool', 'Crumble', 'Nibble', 'Byte'];
 
         // name of the condition to use as a suffix
         // this.selectBool = new OptionsList(this.widget, Conditions, "Select condition (1bit)");
@@ -59,37 +72,33 @@ export default class WidgetFrameSuffix extends BaseWidget
 
         this.info.removeClass(AutoComplete.cssSelectors.classes.marginRight);
 
-
-        //
-        this.buttonBehavior = (event) => {
-
-            JsonManager.removeFrameSuffix();
-
-            this.refresh(true);
-        }
         
-        this.button.setOnClick(this.buttonBehavior);
-        
-        this.selectBool.setOnChange(this.onChangeBool);
-        
+    }
+
+    revealInfo(varIdx, kind)
+    {
+        this.info.setInUse(`${this.enumVarKind[kind]}: ${varIdx} - ${this.allSelectElements[kind].optionsAry[varIdx]}`);
+
+        return this;
     }
 
     populateAllSelectElems()
     {
         for (let i = 0; i < 4; i ++)
         {
-            this.allSelectElements.push(new OptionsList(this.widget, Conditions, `Condition (${1 << i}bit)`));
+            const selectElement = new OptionsList(this.widget, Conditions, `Cond. (${1 << i}bit)`);
 
-            this.allSelectElements[i].kind = i;
+            // hardcoded! :/
+            selectElement.kind = i;
+
+            //orco selectElement setAttribute("kind", i);
+            selectElement.select.setAttribute("kind", i);
+
+            selectElement.setOnChange(this.onChangeSuffix);
+        
+            this.allSelectElements.push(selectElement);
         }
 
-        // this.allSelectElements.push(new OptionsList(this.widget, Conditions, "Condition (2bit)"));
-
-        // this.allSelectElements.push(new OptionsList(this.widget, Conditions, "Condition (4bit)"));
-
-        // this.allSelectElements.push(new OptionsList(this.widget, Conditions, "Condition (8bit)"));
-
-        // console.dir("result Select", this.allSelectElements);
         return this;
     }
 
@@ -97,34 +106,32 @@ export default class WidgetFrameSuffix extends BaseWidget
     {
         for (const [idx, elem] of this.allSelectElements.entries())
         {
-            // console.log("Clearing", "elem", elem, "idx:", idx);
+            elem.setSelectedIndex();
         }
     }
 
-    get selectBool()
-    {
-        return this.allSelectElements[0];
-    }
+    // get selectBool()
+    // {
+    //     return this.allSelectElements[0];
+    // }
 
-    get selectCrumble()
-    {
-        return this.allSelectElements[1];
-    }
+    // get selectCrumble()
+    // {
+    //     return this.allSelectElements[1];
+    // }
 
-    get selectNibble()
-    {
-        return this.allSelectElements[2];
-    }
+    // get selectNibble()
+    // {
+    //     return this.allSelectElements[2];
+    // }
 
-    get selectByte()
-    {
-        return this.allSelectElements[3];
-    }
+    // get selectByte()
+    // {
+    //     return this.allSelectElements[3];
+    // }
 
 
-    onChangeBool = (event) => {
-
-        // this.button.setHidden(!this.button.pseudoButton.hidden);
+    onChangeSuffix = (event) => {
 
         if (event.target.value === "" || !JsonManager.currentThing.hasOwnProperty(THINGS_PROPS.FRAME))
         {
@@ -136,9 +143,8 @@ export default class WidgetFrameSuffix extends BaseWidget
 
         const eventIdx = +event.target.value;
 
-        console.log("FR_SUFF", eventIdx, this.selectBool.optsAry[eventIdx]);
-
-        JsonManager.setFrameSuffix(eventIdx, 0);
+        //get the 'kind'
+        JsonManager.setFrameSuffix(eventIdx, GetAttribAsNumber(event.target, 'kind'));
 
         this.refresh(true);
     }
@@ -147,20 +153,25 @@ export default class WidgetFrameSuffix extends BaseWidget
     {
         if (JsonManager.currentThing.hasOwnProperty(AutoComplete.THINGS_PROPS.FRAME_SUFFIX))
         {
-            // console.log("FRAME_SUFFIX hasOwnProperty", this.button, this.button.pseudoButton, this.button.pseudoButton.hidden);
-            // this.button.setHidden();
-            console.log("FRAME_SUFFIX", JsonManager.currentThing.FRAME_SUFFIX);
-            console.log( "FRAME_SUFFIX 2", JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX] );
+            console.log("FRAME_SUFFIX", JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX]);
 
-            this.selectBool.setSelectedIndex(JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX] + 1);
+            const frSuff = JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX];
+
+            const kind = JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX_KIND];
+
+            this.revealInfo(frSuff, kind);
+
+            this.clearSelectElems();
+
+            // console.log("LALALALALALA", frSuff, JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX])
+            this.allSelectElements[kind].setSelectedIndex(frSuff);
         }
 
         else
         {
-            // console.log("FRAME_SUFFIX DOES NOT hasOwnProperty", this.button, this.button.pseudoButton, this.button.pseudoButton.hidden);
+            this.clearSelectElems();
 
-            // this.button.setHidden(true);
-            this.selectBool.setSelectedIndex();
+            this.info.setDisabled();
         }
 
         if (refreshThing)

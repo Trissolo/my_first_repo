@@ -1,0 +1,31 @@
+img = gimp.image_list()[0]
+
+depthCategories = {
+"bg": -10, # BACKGROUND
+"rf": 0, # RIDICULOUSLYFARAWAY
+"ta": 100, # TRIGGERAREA (Here is different than in game code)
+"co": 2, # COVERED
+"ab": 3, # ALWAYSBACK
+"ds": 4, # DEEPSORTED
+"fg": 800 # FOREGROUND
+}
+
+
+def get_depth_from_name(layer):
+    candidate = layer.name[0:2]
+    return depthCategories[candidate] if candidate in depthCategories else -10000
+
+
+def get_after_comma(layer):
+    return layer.name[3:]
+
+
+first = sorted(img.layers, key = get_after_comma)
+
+ref_sort = sorted(first, key = get_depth_from_name, reverse=True)
+
+
+for layer in ref_sort:
+    layer = pdb.gimp_image_get_layer_by_name(img, layer.name)
+    # pdb.gimp_image_raise_item_to_top(img, layer)
+    pdb.gimp_image_lower_item_to_bottom(img, layer)

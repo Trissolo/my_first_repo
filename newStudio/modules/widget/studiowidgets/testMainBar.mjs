@@ -59,11 +59,11 @@ export default class MainBar
     {
         this.labelThing = new baseClassesWrapper.TextField(container, "---")
         this.labelThing.addClass(AutoComplete.cssSelectors.classes.textFieldB);
-        studioEvents.emitter.on(studioEvents.events.thingChanged, this.moDove, this);
+        studioEvents.emitter.on(studioEvents.events.thingChanged, this.updateThingsLabel, this);
     }
 
-    moDove = ()=> this.labelThing.setText(`Thing[${JsonManager.thingsCursor}]/${JsonManager.things.length - 1}`)
-
+    // arrow methods
+    updateThingsLabel = () => this.labelThing.setText(`Thing[${JsonManager.thingsCursor}]/${JsonManager.things.length - 1}`)
 
     //json room
     backtrackJson = () => {

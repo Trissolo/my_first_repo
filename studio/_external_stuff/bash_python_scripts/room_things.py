@@ -22,7 +22,7 @@
 # ------------
 #| Change Log |
 # ------------
-# Rel 1: Initial release.
+# Rel 1.1: Add 'sort layer' option.
 import math
 import string
 #import Image
@@ -31,7 +31,7 @@ from gimpfu import *
 
 import json
 
-def room_things_to_json(image, layer, room_id, atlas_id, walkable_area_marker = "_"):
+def room_things_to_json(image, layer, room_id, atlas_id, sort_layers, walkable_area_marker = "_"):
     pdb.gimp_image_undo_group_start(image)
     pdb.gimp_context_push()
 
@@ -44,7 +44,7 @@ def room_things_to_json(image, layer, room_id, atlas_id, walkable_area_marker = 
     depthCategories = {
     "bg": -10, # BACKGROUND
     "rf": 0, # RIDICULOUSLYFARAWAY
-    "ta": 1, # TRIGGERZONE
+    "ta": 100, # TRIGGERAREA (NOTE: here 'ta' is '100'. Just here. In the game is '1')
     "co": 2, # COVERED
     "ab": 3, # ALWAYSBACK
     "ds": 4, # DEEPSORTED
@@ -127,11 +127,30 @@ def room_things_to_json(image, layer, room_id, atlas_id, walkable_area_marker = 
         h = layer.height
         return (x, y, w, h)
 
-    #test_result = "\nTest result: " + str(pre_test())
-    #test_message = prop_x+separator+prop_y+separator+prop_frame+separator+prop_depth+str(len(image.layers))+"\n"+str(atlas_id)+separator+ str(room_id)
+    def get_depth_from_name(layer):
+        candidate = layer.name[0:2]
+        return depthCategories[candidate] if candidate in depthCategories else -10000
+
+    def get_after_comma(layer):
+        return layer.name[3:]
+    
+    def sort_layers_by_depth(curr_image = image):
+        first = sorted(curr_image.layers, key = get_after_comma)
+        ref_sort = sorted(first, key = get_depth_from_name, reverse=True)
+        for layer in ref_sort:
+            layer = pdb.gimp_image_get_layer_by_name(curr_image, layer.name)
+            pdb.gimp_image_lower_item_to_bottom(curr_image, layer)
+    
+    
     #test as
     actions = {"bg": room_background, "rf": top_left_origin, "ta": trigger_area, "co": top_left_origin, "ab": top_left_origin, "ds": middle_down_origin, "fg": top_left_origin}
 
+    #sort, if wanted:
+    if sort_layers:
+        sort_layers_by_depth()
+
+
+    #execute
     for elem in image.layers:
         if elem.visible and test_names(elem.name):
             depth, name = (elem.name).split(separator)
@@ -159,9 +178,9 @@ register(
     "RGB*, GRAY*",
     [
     (PF_INT, "room_id", "Room ID", 0),
-    (PF_INT, "atlas_id", "Atlas ID", 0)
+    (PF_INT, "atlas_id", "Atlas ID", 0),
+    (PF_BOOL, "sort_layers",  "Sort Layers?",  False)
     #(PF_COLOR, "oldcolor",  "Replace Color:",  (43,198,255)),
-    #(PF_BOOL, "only_one",  "True or Not?",  True),
     #(PF_SPINNER, "x1", "x1:", 0, (0, 100, 0.5)),
     #(PF_FILE, "infilename", "Temp Filepath", "/Default/Path")#,
     #(PF_DIRNAME, "source_directory", "Source Directory", "")# for some reason, on my computer when i(Tin) use PF_DIRNAME the pythonw.exe would crash
@@ -170,4 +189,3 @@ register(
     room_things_to_json)
 
 main()
-

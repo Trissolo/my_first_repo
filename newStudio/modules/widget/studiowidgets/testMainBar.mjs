@@ -11,13 +11,18 @@ export default class MainBar
         const container = document.getElementById(AutoComplete.cssSelectors.ids.GUI_mainbar);
 
         this.buildPrevThingButton(container);
+
         this.buildThingTextField(container);
+
         this.buildNextThingButton(container);
 
         // Room nav
         this.buildPrevJsonButton(container)
-
+        
+        this.buildThingJsonField(container);
+        
     }
+
     buildPrevJsonButton(container)
     {
         this.prevRoom = new baseClassesWrapper.PseudoButton(container, labels.labelPrevJson);
@@ -62,12 +67,26 @@ export default class MainBar
         studioEvents.emitter.on(studioEvents.events.thingChanged, this.updateThingsLabel, this);
     }
 
+    buildThingJsonField(container)
+    {
+        this.labelJson = new baseClassesWrapper.TextField(container, "--mnmn-");
+
+        this.labelJson.addClass(AutoComplete.cssSelectors.classes.textFieldB);
+
+        // studioEvents.emitter.on(studioEvents.events.thingChanged, this.updateThingsLabel, this);
+    }
+
     // arrow methods
     updateThingsLabel = () => this.labelThing.setText(`Thing[${JsonManager.thingsCursor}]/${JsonManager.things.length - 1}`)
 
+    updateJsonLabel = () => this.labelJson.setText(`Room[${JsonManager.jsonCursor}]/${JsonManager.studioJSONs.length - 1}`);
     //json room
     backtrackJson = () => {
+        
         JsonManager.prevJson();
+
+        this.updateJsonLabel();
+
         studioEvents.emitter.emit(studioEvents.events.roomChanged);
     }
 

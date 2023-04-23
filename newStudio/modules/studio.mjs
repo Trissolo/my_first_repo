@@ -45,37 +45,60 @@ window.game = new Phaser.Game(config)
 
 // const qqq = new WidgetHoverNames(THINGS_PROPS.HOVER_NAME);
 
-const mainBar = new MainBar();
 
-const studioWidgets = new Set();
+class StudioMaybe
+{
+    // Not needed, but...
+    jsonManager = JsonManager;
 
-studioWidgets.add( new WidgetHoverNames(THINGS_PROPS.HOVER_NAME) );
+    mainBar = new MainBar();
 
-studioWidgets.add( new WidgetFrameSuffix(THINGS_PROPS.FRAME_SUFFIX, window.game) );
+    // Necessary :D
+    studioWidgets = new Set();
 
-
-// studioWidgets.add( new testWidget("Test"));
-
-
-studioEvents.emitter.on(studioEvents.events.thingChanged, ()=>{
-    // qqq.refresh()
-    for (const elem of studioWidgets)
+    constructor()
     {
-        elem.refresh();
-    }
-    
-    JsonManager.showThing();
-});
+        // Manually create our widgets
 
-studioEvents.emitter.on(studioEvents.events.roomChanged, () => {
-    
-    
-    for (const elem of studioWidgets)
-    {
-        elem.refresh();
+        this.studioWidgets.add( new WidgetHoverNames(THINGS_PROPS.HOVER_NAME) );
+        
+        this.studioWidgets.add( new WidgetFrameSuffix(THINGS_PROPS.FRAME_SUFFIX, window.game) );
+
+        this.registerListeners();
     }
-    
-    studioEvents.emitter.emit(studioEvents.events.thingChanged)
-})
+
+    registerListeners()
+    {
+        // same behavior for both 'roomChanged' and 'thingChanged':
+
+        studioEvents.emitter.on(studioEvents.events.thingChanged, this.thingChangedListener, this);
+
+        studioEvents.emitter.on(studioEvents.events.roomChanged, this.thingChangedListener, this);
+
+    }
+
+    refreshAnyWidget()
+    {
+        for (const widget of this.studioWidgets)
+        {
+
+            widget.refresh();
+
+        }
+    }
+
+    thingChangedListener()
+    {
+
+        this.refreshAnyWidget();
+
+        this.jsonManager.showThing();
+
+    }
+
+
+} // end StudioMaybe Class def
+
+/* const stuMaybe = */ new StudioMaybe();
 
 studioEvents.emitter.emit(studioEvents.events.thingChanged);

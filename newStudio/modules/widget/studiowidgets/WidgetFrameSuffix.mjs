@@ -153,25 +153,23 @@ export default class WidgetFrameSuffix extends BaseWidget
     {
         console.log("Refresh del PD");
         
+        this.clearSelectElems();
+
         if (JsonManager.currentThing.hasOwnProperty(AutoComplete.THINGS_PROPS.FRAME_SUFFIX))
         {
             console.log("FRAME_SUFFIX", JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX]);
 
-            const frSuff = JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX];
+            const varIdx = JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX];
 
             const kind = JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX_KIND];
 
-            this.revealInfo(frSuff, kind);
+            this.revealInfo(varIdx, kind);
 
-            this.clearSelectElems();
-
-            // console.log("LALALALALALA", frSuff, JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX])
-            this.allSelectElements[kind].setSelectedIndex(frSuff);
+            this.allSelectElements[kind].setSelectedIndex(varIdx);
         }
 
         else
         {
-            this.clearSelectElems();
 
             this.info.setDisabled();
         }

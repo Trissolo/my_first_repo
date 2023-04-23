@@ -20,14 +20,28 @@ export default class MainBar
         this.buildPrevJsonButton(container)
         
         this.buildThingJsonField(container);
+
+        this.buildNextJsonButton(container)
+    
         
     }
 
     buildPrevJsonButton(container)
     {
         this.prevRoom = new baseClassesWrapper.PseudoButton(container, labels.labelPrevJson);
+
         this.prevRoom.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
+
         this.prevRoom.setOnClick(this.backtrackJson);
+    }
+
+    buildNextJsonButton(container)
+    {
+        this.nextRoom = new baseClassesWrapper.PseudoButton(container, labels.labelNextJson);
+
+        this.nextRoom.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
+
+        this.nextRoom.setOnClick(this.advanceJson);
     }
 
     buildPrevThingButton(container)
@@ -40,20 +54,26 @@ export default class MainBar
     }
 
     advanceThing = () => {
+
         JsonManager.nextThing();
+
         studioEvents.emitter.emit(studioEvents.events.thingChanged);
         // JsonManager.showThing();
     }
 
     backtrackThing = () => {
+
         JsonManager.prevThing();
+
         studioEvents.emitter.emit(studioEvents.events.thingChanged);
     }
 
     buildNextThingButton(container)
     {
         this.nextThing = new baseClassesWrapper.PseudoButton(container, labels.labelNextThing);
+
         this.nextThing.addClass(AutoComplete.cssSelectors.classes.buttonStyleB);
+
         this.nextThing.setOnClick(this.advanceThing);
 
         //horizontal separation
@@ -62,8 +82,10 @@ export default class MainBar
 
     buildThingTextField(container)
     {
-        this.labelThing = new baseClassesWrapper.TextField(container, "---")
+        this.labelThing = new baseClassesWrapper.TextField(container, "---");
+
         this.labelThing.addClass(AutoComplete.cssSelectors.classes.textFieldB);
+
         studioEvents.emitter.on(studioEvents.events.thingChanged, this.updateThingsLabel, this);
     }
 
@@ -82,12 +104,30 @@ export default class MainBar
     updateJsonLabel = () => this.labelJson.setText(`Room[${JsonManager.jsonCursor}]/${JsonManager.studioJSONs.length - 1}`);
     //json room
     backtrackJson = () => {
-        
+
         JsonManager.prevJson();
+
+        this.updateJsonGui();
+
+        // this.updateJsonLabel();
+
+        // studioEvents.emitter.emit(studioEvents.events.roomChanged);
+    }
+
+    advanceJson = () => {
+
+        JsonManager.nextJson();
+
+        this.updateJsonGui();
+
+    }
+
+    updateJsonGui = () => {
 
         this.updateJsonLabel();
 
         studioEvents.emitter.emit(studioEvents.events.roomChanged);
+
     }
 
 }

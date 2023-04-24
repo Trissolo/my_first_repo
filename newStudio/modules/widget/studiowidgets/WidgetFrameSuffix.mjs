@@ -148,7 +148,7 @@ export default class WidgetFrameSuffix extends BaseWidget
             return;
         }
 
-        console.log("Varifiyng scene:", this.scene);
+        console.log("Verifying scene:", this.scene);
 
         const eventIdx = +event.target.value;
 
@@ -175,11 +175,11 @@ export default class WidgetFrameSuffix extends BaseWidget
             this.revealInfo(varIdx, kind);
 
             this.allSelectElements[kind].setSelectedIndex(varIdx + 1);
+
         }
 
         else
         {
-
             this.info.setDisabled();
         }
 

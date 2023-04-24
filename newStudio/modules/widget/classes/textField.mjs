@@ -60,4 +60,22 @@ export default class TextField
 
         return this;
     }
+
+    setAlert(text = "Warning")
+    {
+        this.addClass("redalert"); //parentElement.classList.add('redalert');
+        this.setText(text);
+
+    }
+
+    setNoAlert(text = "")
+    {
+        this.removeClass('redalert');
+
+        if (text)
+        {
+            this.setText(text);
+        }
+    }
+
 }

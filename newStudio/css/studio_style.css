@@ -142,6 +142,16 @@ h4:hover {
 .notDisplayed {
     display: none;
 }
+
+.redalert {
+    background-color: var(--col-c64-red);
+    color: var(--col-c64-yellow);
+
+}
+
+.redalert::before {
+    content: "❕ ";
+}
   
 #things_window {
     position: fixed;

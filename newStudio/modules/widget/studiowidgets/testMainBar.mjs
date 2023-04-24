@@ -102,6 +102,7 @@ export default class MainBar
     updateThingsLabel = () => this.labelThing.setText(`Thing[${JsonManager.thingsCursor}]/${JsonManager.things.length - 1}`)
 
     updateJsonLabel = () => this.labelJson.setText(`Room[${JsonManager.jsonCursor}]/${JsonManager.studioJSONs.length - 1}`);
+    
     //json room
     backtrackJson = () => {
 

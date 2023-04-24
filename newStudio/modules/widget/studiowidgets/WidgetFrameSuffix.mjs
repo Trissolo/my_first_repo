@@ -117,6 +117,8 @@ export default class WidgetFrameSuffix extends BaseWidget
         for (const [idx, elem] of this.allSelectElements.entries())
         {
             elem.setSelectedIndex();
+
+            elem.classList.remove('redalert');
         }
     }
 
@@ -175,6 +177,8 @@ export default class WidgetFrameSuffix extends BaseWidget
             this.revealInfo(varIdx, kind);
 
             this.allSelectElements[kind].setSelectedIndex(varIdx + 1);
+
+            this.allSelectElements[kind].classList.add('redalert');
 
         }
 
@@ -242,6 +246,20 @@ export default class WidgetFrameSuffix extends BaseWidget
     //         return lastChar < 58 && lastChar > 47;
     //     }
     // }
+
+
+
+    // const regexpEndingDigits = /([0-9]+$)/;
+
+    // const name = "r1_porta4503";
+
+    // const match = name.search(regexpEndingDigits);
+
+    // const num = name.substring(match, name.length)
+    // const prefix = name.substring(0, match);
+
+    // console.log(name, match, prefix, num);
+
 
 
     // const regexpEndingDigits = /([0-9]+$)/;

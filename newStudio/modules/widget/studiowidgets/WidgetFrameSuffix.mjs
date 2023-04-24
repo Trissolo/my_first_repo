@@ -165,7 +165,7 @@ export default class WidgetFrameSuffix extends BaseWidget
 
             this.revealInfo(varIdx, kind);
 
-            this.allSelectElements[kind].setSelectedIndex(varIdx);
+            this.allSelectElements[kind].setSelectedIndex(varIdx + 1);
         }
 
         else

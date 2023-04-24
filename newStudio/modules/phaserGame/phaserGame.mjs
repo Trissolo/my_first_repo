@@ -6,13 +6,13 @@ import roomsAmount from "../jsonManager/roomsAmount.mjs";
 
 import JsonManager from "../jsonManager/JsonManager.mjs";
 
-//test VarsManager!
-// import AllVarsManager from "../../../src/plugins/VarsManager/AllVarsManager.mjs";
 
 // test AllVarsManager
 import AllVarsManager from "../../../src/plugins/VarsManager/AllVarsManager.mjs";
 
+// Texture management stuff:
 const ROOM_TEXTURE_ATLAS_PREFIX = 'atlas';
+
 const getCurrentRoomAtlasKey = (atlasSuffix = JsonManager.currentJson.atlas) => ROOM_TEXTURE_ATLAS_PREFIX + atlasSuffix;
 
 export default class StudioPhaser extends Phaser.Scene
@@ -142,22 +142,19 @@ export default class StudioPhaser extends Phaser.Scene
         
         studioEvents.emitter.on(studioEvents.events.roomChanged, this.setupCurrentRoom, this);
         
-        // this.drawRoom();
-
         this.setupCurrentRoom();
 
         //debug remove from here to the end of this function
-        console.log("Studio Event Emitter");
-        const ascaz = studioEvents.events.thingChanged
-        console.log(`Events for ${ascaz}`);
+        // console.log("Studio Event Emitter");
+        // const ascaz = studioEvents.events.thingChanged
+        // console.log(`Events for ${ascaz}`);
 
-        console.log(studioEvents.emitter.listeners(ascaz));
+        // console.log(studioEvents.emitter.listeners(ascaz));
     }
 
     setBackground()
     {
         this.roomBg
-            // .setTexture(getCurrentRoomAtlasKey(), JsonManager.currentJson.background)
             .setTexture(this.atlasKey, JsonManager.currentJson.background)
             .setOrigin(0)
             .setVisible(true);
@@ -166,9 +163,6 @@ export default class StudioPhaser extends Phaser.Scene
 
     drawRoom()
     {
-        // this.determineAtlas();
-        // const currentRoomAtlas = getCurrentRoomAtlasKey();
-        // console.log("currentRoomAtlas:", currentRoomAtlas)
 
         this.setBackground();
 
@@ -181,7 +175,7 @@ export default class StudioPhaser extends Phaser.Scene
                 this.activeArea.setVisible(false);
 
                 const roomThing = this.thingsGroup.get(thing.x, thing.y)
-                    .setTexture(this.atlasKey/*getCurrentRoomAtlasKey()*/, thing.frame)
+                    .setTexture(this.atlasKey, thing.frame)
                     .setActive(true)
                     .setVisible(true)
                     .setAlpha(0.4)
@@ -235,7 +229,7 @@ export default class StudioPhaser extends Phaser.Scene
         else
         {
             this.activeThing
-            .setTexture(this.atlasKey/*getCurrentRoomAtlasKey()*/, currentThing.frame)
+            .setTexture(this.atlasKey, currentThing.frame)
             .setPosition(currentThing.x, currentThing.y)
             .setOrigin(currentThing.depth === "ds"? (1, 0.5) : 0)
             .setVisible(true);

@@ -27,54 +27,54 @@ export default class StudioPhaser extends Phaser.Scene
         this.varsManager.initialize();
 
         //remove from here...
-        console.log("varsManager", AllVarsManager);
+        // console.log("varsManager", AllVarsManager);
 
-        const kind = 3;
+        // const kind = 3;
 
-        const varHolder = this.varsManager.varContainers.get(kind);
+        // const varHolder = this.varsManager.varContainers.get(kind);
 
-        const tyarray = varHolder.typedArray;
+        // const tyarray = varHolder.typedArray;
 
-        tyarray[0] = 500278;
-        tyarray[1] = 3021292394;
+        // tyarray[0] = 500278;
+        // tyarray[1] = 3021292394;
 
-        // AllVarsManager.clearContiguous(0, 0, varHolder.varSize, varHolder.bitmask, tyarray);
+        // // AllVarsManager.clearContiguous(0, 0, varHolder.varSize, varHolder.bitmask, tyarray);
 
-        // console.log(tyarray[0], "Calling...");
-        const iterateTest = (max = varHolder.varsPerElement * tyarray.length) => {
-            for (let i = 0; i < max ; i++)
-            {
-                const res = AllVarsManager.betterReadVar(kind, i);
-                // const res = AllVarsManager.readVar(kind, i);
-                console.log(`${i}) (Better) ${res.toString(2).padStart(varHolder.varSize, "0")}`)
-            }
-        }
+        // // console.log(tyarray[0], "Calling...");
+        // const iterateTest = (max = varHolder.varsPerElement * tyarray.length) => {
+        //     for (let i = 0; i < max ; i++)
+        //     {
+        //         const res = AllVarsManager.betterReadVar(kind, i);
+        //         // const res = AllVarsManager.readVar(kind, i);
+        //         console.log(`${i}) (Better) ${res.toString(2).padStart(varHolder.varSize, "0")}`)
+        //     }
+        // }
         
-        iterateTest(3);
-        // AllVarsManager.varContainers.forEach((el, i) => console.dir(i,el));
-        console.log("%cSET VARIABLE:", "color: darkbrown; background-color: maroon;");
-        let editVarIdx = 0;
+        // iterateTest(3);
+        // // AllVarsManager.varContainers.forEach((el, i) => console.dir(i,el));
+        // console.log("%cSET VARIABLE:", "color: darkbrown; background-color: maroon;");
+        // let editVarIdx = 0;
         
-        // console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
-        console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
+        // // console.log(editVarIdx, AllVarsManager.setVar(kind, editVarIdx, 15));
+        // console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
         
-        let altroValore = 1;
-        console.log(`Now set ${altroValore}!`);
-        AllVarsManager.betterSetVar(kind, editVarIdx, altroValore)
-        console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
-        iterateTest(3);
+        // let altroValore = 1;
+        // console.log(`Now set ${altroValore}!`);
+        // AllVarsManager.betterSetVar(kind, editVarIdx, altroValore)
+        // console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
+        // iterateTest(3);
 
-        altroValore = 2;
-        console.log(`Now set ${altroValore}!`);
-        AllVarsManager.betterSetVar(kind, editVarIdx, altroValore)
-        console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
-        iterateTest(3);
+        // altroValore = 2;
+        // console.log(`Now set ${altroValore}!`);
+        // AllVarsManager.betterSetVar(kind, editVarIdx, altroValore)
+        // console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
+        // iterateTest(3);
 
-        altroValore = 0;
-        console.log(`Now set ${altroValore}!`);
-        AllVarsManager.betterSetVar(kind, editVarIdx, altroValore)
-        console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
-        iterateTest(3);
+        // altroValore = 0;
+        // console.log(`Now set ${altroValore}!`);
+        // AllVarsManager.betterSetVar(kind, editVarIdx, altroValore)
+        // console.log(AllVarsManager.betterReadVar(kind, editVarIdx));
+        // iterateTest(3);
 
 
 
@@ -140,15 +140,25 @@ export default class StudioPhaser extends Phaser.Scene
         
         studioEvents.emitter.on(studioEvents.events.thingChanged, this.setActiveThing, this);
         
-        studioEvents.emitter.on(studioEvents.events.roomChanged, this.drawRoom, this);
+        studioEvents.emitter.on(studioEvents.events.roomChanged, this.setupCurrentRoom, this);
         
-        this.drawRoom();
+        // this.drawRoom();
+
+        this.setupCurrentRoom();
+
+        //debug remove from here to the end of this function
+        console.log("Studio Event Emitter");
+        const ascaz = studioEvents.events.thingChanged
+        console.log(`Events for ${ascaz}`);
+
+        console.log(studioEvents.emitter.listeners(ascaz));
     }
 
     setBackground()
     {
         this.roomBg
-            .setTexture(getCurrentRoomAtlasKey(), JsonManager.currentJson.background)
+            // .setTexture(getCurrentRoomAtlasKey(), JsonManager.currentJson.background)
+            .setTexture(this.atlasKey, JsonManager.currentJson.background)
             .setOrigin(0)
             .setVisible(true);
 
@@ -156,6 +166,10 @@ export default class StudioPhaser extends Phaser.Scene
 
     drawRoom()
     {
+        // this.determineAtlas();
+        // const currentRoomAtlas = getCurrentRoomAtlasKey();
+        // console.log("currentRoomAtlas:", currentRoomAtlas)
+
         this.setBackground();
 
         this.disableGroupChildren();
@@ -167,7 +181,7 @@ export default class StudioPhaser extends Phaser.Scene
                 this.activeArea.setVisible(false);
 
                 const roomThing = this.thingsGroup.get(thing.x, thing.y)
-                    .setTexture(getCurrentRoomAtlasKey(), thing.frame)
+                    .setTexture(this.atlasKey/*getCurrentRoomAtlasKey()*/, thing.frame)
                     .setActive(true)
                     .setVisible(true)
                     .setAlpha(0.4)
@@ -221,7 +235,7 @@ export default class StudioPhaser extends Phaser.Scene
         else
         {
             this.activeThing
-            .setTexture(getCurrentRoomAtlasKey(), currentThing.frame)
+            .setTexture(this.atlasKey/*getCurrentRoomAtlasKey()*/, currentThing.frame)
             .setPosition(currentThing.x, currentThing.y)
             .setOrigin(currentThing.depth === "ds"? (1, 0.5) : 0)
             .setVisible(true);
@@ -238,6 +252,27 @@ export default class StudioPhaser extends Phaser.Scene
             this.activeArea.setVisible(false);
 
         }
+
+    }
+
+    setupCurrentRoom()
+    {
+        this.determineAtlas();
+
+        this.drawRoom();
+    }
+
+    determineAtlas()
+    {
+        this.atlasKey = getCurrentRoomAtlasKey();
+
+        this.frameNames = this.textures.get(this.atlasKey)
+            .getFrameNames()
+            .sort();
+
+        console.log("atlasKey is:", this.atlasKey);
+
+        console.dir(this.frameNames);
 
     }
 }

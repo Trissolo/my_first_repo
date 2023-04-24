@@ -8,7 +8,8 @@ const studioEvents = {
         pressedNextJson: "pressedNextJson",
         pressedPrevThing: "pressedPrevThing",
         pressedNextThing: "pressedNextThing",
-        choosedHoverName: "choosedHoverName"
+        choosedHoverName: "choosedHoverName",
+        gameReady: 'gameReady'
 
     }
 }

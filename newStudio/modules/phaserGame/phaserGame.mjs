@@ -25,6 +25,7 @@ export default class StudioPhaser extends Phaser.Scene
         this.varsManager = AllVarsManager;
 
         this.varsManager.initialize();
+        
 
         //remove from here...
         // console.log("varsManager", AllVarsManager);
@@ -111,6 +112,18 @@ export default class StudioPhaser extends Phaser.Scene
         // ... to here!
     }
 
+    init(stuff)
+    {
+        this.events.once('create', this.spreadOut, this);
+    }
+
+    spreadOut()
+    {
+        console.log("%cScene Ready: SPREADING...", "background-color: #227722;")
+
+        studioEvents.emitter.emit(studioEvents.events.gameReady, this)
+    }
+
     preload ()
     {
         this.load.setBaseURL('./game_assets/'); // futureFrames');
@@ -141,6 +154,7 @@ export default class StudioPhaser extends Phaser.Scene
         studioEvents.emitter.on(studioEvents.events.thingChanged, this.setActiveThing, this);
         
         studioEvents.emitter.on(studioEvents.events.roomChanged, this.setupCurrentRoom, this);
+
         
         this.setupCurrentRoom();
 
@@ -264,9 +278,9 @@ export default class StudioPhaser extends Phaser.Scene
             .getFrameNames()
             .sort();
 
-        console.log("atlasKey is:", this.atlasKey);
+        // console.log("atlasKey is:", this.atlasKey);
 
-        console.dir(this.frameNames);
+        // console.dir(this.frameNames);
 
     }
 }

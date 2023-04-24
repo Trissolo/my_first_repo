@@ -13,16 +13,18 @@ import DepthStringEnum from "../../jsonManager/DepthStringEnum.mjs";
 import Conditions from "../../placeholders/Conditions.mjs";
 import AutoComplete from "../../autocomplete/AutoComplete.mjs";
 
+import studioEvents from "../../eventEmitter/StudioEvents.mjs";
+
 export default class WidgetFrameSuffix extends BaseWidget
 {
-    constructor(managedProp = THINGS_PROPS.FRAME_SUFFIX, gameScene)
+    constructor(managedProp = THINGS_PROPS.FRAME_SUFFIX) // , phaserGame) // gameScene)
     {
         
         super(managedProp);
         
-        // console.log("Scene from Widget Frame Suffix:", gameScene);
-        this.game = gameScene;
-        
+        // wait for the game:
+        studioEvents.emitter.once(studioEvents.events.gameReady, this.installScene, this);
+
         this.managedProp = managedProp;
 
         
@@ -72,12 +74,20 @@ export default class WidgetFrameSuffix extends BaseWidget
 
         this.info.removeClass(AutoComplete.cssSelectors.classes.marginRight);
 
+    }
+
+    installScene(scene)
+    {
+        // console.log("Installing scene in widget", scene);
         
+        this.scene = scene;
+
+        // console.log("this.scene", this.scene);
     }
 
     revealInfo(varIdx, kind)
     {
-        this.info.setInUse(`${this.enumVarKind[kind]}: ${varIdx} - ${this.allSelectElements[kind].optionsAry[varIdx]}`);
+        this.info.setInUse(`"${JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME]}" + ${this.allSelectElements[kind].optionsAry[varIdx]} (${this.enumVarKind[kind]}Idx: ${varIdx})`);
 
         return this;
     }
@@ -138,8 +148,7 @@ export default class WidgetFrameSuffix extends BaseWidget
             return;
         }
 
-        // JsonManager.setHoverName(+event.target.value);
-        console.log("Scene?", this.game.scene.scenes[0]);
+        console.log("Varifiyng scene:", this.scene);
 
         const eventIdx = +event.target.value;
 

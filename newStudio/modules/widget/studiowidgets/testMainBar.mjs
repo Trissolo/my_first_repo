@@ -21,9 +21,10 @@ export default class MainBar
         
         this.buildThingJsonField(container);
 
-        this.buildNextJsonButton(container)
-    
-        
+        this.buildNextJsonButton(container);
+
+        this.updateJsonGui();
+     
     }
 
     buildPrevJsonButton(container)

@@ -8,6 +8,7 @@ const classes = {
     marginRight: "marginRight",
     marginLeft: "marginLeft",
     notDisplayed: "notDisplayed",
+    emojiContent: "emojiContent",
 
     textFieldDisabled: "textFieldDisabled",
     textField: "textField"

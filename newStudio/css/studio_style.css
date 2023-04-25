@@ -93,11 +93,9 @@ h4:hover {
     background-color: var(--col-c64-yellow);
 }
 
-/* .pseudoButton:hover {
-    color:black;
-    background-color: white;
-
-} */
+.emojiContent {
+    font-size: 1.3em;
+}
 
 .textField {
     display: inline-block;

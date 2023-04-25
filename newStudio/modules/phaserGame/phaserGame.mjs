@@ -74,6 +74,8 @@ export default class StudioPhaser extends Phaser.Scene
         
         studioEvents.emitter.on(studioEvents.events.roomChanged, this.setupCurrentRoom, this);
 
+        studioEvents.emitter.on(studioEvents.events.tryNextFrame, this.attemptNextFrame, this);
+
         
         this.setupCurrentRoom();
 
@@ -220,5 +222,35 @@ export default class StudioPhaser extends Phaser.Scene
         }
 
         return name;
+    }
+
+    attemptNextFrame()
+    {
+        const {currentThing} = JsonManager;
+
+        if (currentThing.hasOwnProperty(THINGS_PROPS.FRAME_SUFFIX))
+        {
+            const {frame, frameSuffix, frameSuffixKind} = currentThing;
+
+            const value = AllVarsManager.betterReadVar(frameSuffixKind, frameSuffix);
+
+            
+            const candidateVal = value + 1;
+
+            const candidateFrame = frame + candidateVal;
+
+            if (this.frameNames.indexOf(candidateFrame) !== -1)
+            {
+                AllVarsManager.betterSetVar(frameSuffixKind, frameSuffix, candidateVal);
+            }
+            else
+            {
+                AllVarsManager.betterSetVar(frameSuffixKind, frameSuffix, 0);
+            }
+
+            return this.setActiveThing();
+
+        }
+        
     }
 }

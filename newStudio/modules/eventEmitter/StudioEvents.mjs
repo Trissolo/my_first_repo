@@ -9,7 +9,8 @@ const studioEvents = {
         pressedPrevThing: "pressedPrevThing",
         pressedNextThing: "pressedNextThing",
         choosedHoverName: "choosedHoverName",
-        gameReady: 'gameReady'
+        gameReady: 'gameReady',
+        tryNextFrame: "tryNextFrame"
 
     }
 }

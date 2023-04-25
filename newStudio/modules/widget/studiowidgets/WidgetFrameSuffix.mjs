@@ -63,10 +63,7 @@ export default class WidgetFrameSuffix extends BaseWidget
 
         this.clearSelectElems();
 
-        // this.allSelectElements.push(new OptionsList(this.widget, Conditions, "Select condition (1bit)"));
-
-
-
+        
         // status
         this.info = new TextField(this.widget);
 
@@ -75,6 +72,11 @@ export default class WidgetFrameSuffix extends BaseWidget
         this.info.addClass(AutoComplete.cssSelectors.classes.marginLeft);
 
         this.info.removeClass(AutoComplete.cssSelectors.classes.marginRight);
+
+        // test nextFrameButton button
+        this.nextFrameButton = new PseudoButton(this.widget, "⏭️");
+        // this.nextFrameButton.setStyleA();
+        this.nextFrameButton.setOnClick(() => studioEvents.emitter.emit(studioEvents.events.tryNextFrame));
 
     }
 
@@ -185,11 +187,15 @@ export default class WidgetFrameSuffix extends BaseWidget
 
             this.allSelectElements[kind].classList.add('redalert');
 
+            this.nextFrameButton.setHidden(true);
+
         }
 
         else
         {
             this.info.setDisabled();
+
+            this.nextFrameButton.setHidden(false);
         }
 
         if (refreshThing)

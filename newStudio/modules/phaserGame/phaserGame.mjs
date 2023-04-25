@@ -6,7 +6,7 @@ import roomsAmount from "../jsonManager/roomsAmount.mjs";
 
 import JsonManager from "../jsonManager/JsonManager.mjs";
 
-import FrameNameHelper from "../FrameNameHelper.mjs";
+// import FrameNameHelper from "../FrameNameHelper.mjs";
 
 import THINGS_PROPS from "../autocomplete/THINGS_PROPS.mjs";
 
@@ -31,17 +31,17 @@ export default class StudioPhaser extends Phaser.Scene
         
     }
 
-    init(stuff)
-    {
-        this.events.once('create', this.spreadOut, this);
-    }
+    // init(stuff)
+    // {
+    //     this.events.once('create', this.spreadOut, this);
+    // }
 
-    spreadOut()
-    {
-        console.log("%cScene Ready: SPREADING...", "background-color: #227722;")
+    // spreadOut()
+    // {
+    //     console.log("%cScene Ready: SPREADING...", "background-color: #227722;")
 
-        studioEvents.emitter.emit(studioEvents.events.gameReady, this)
-    }
+    //     studioEvents.emitter.emit(studioEvents.events.gameReady, this)
+    // }
 
     preload ()
     {

@@ -25,7 +25,7 @@ export default class WidgetFrameSuffix extends BaseWidget
         super(managedProp);
         
         // wait for the game:
-        studioEvents.emitter.once(studioEvents.events.gameReady, this.installScene, this);
+        // studioEvents.emitter.once(studioEvents.events.gameReady, this.installScene, this);
 
         this.managedProp = managedProp;
 
@@ -40,10 +40,18 @@ export default class WidgetFrameSuffix extends BaseWidget
         this.button.setMarginLeft();
 
         this.buttonBehavior = (event) => {
-            
-            JsonManager.removeFrameSuffix();
 
-            this.refresh(true);
+            if (JsonManager.currentThing.hasOwnProperty(THINGS_PROPS.FRAME_SUFFIX))
+            {
+
+                JsonManager.removeFrameSuffix();
+    
+                // Append a fake frame number to the current frame name. This can be risky.
+                JsonManager.currentThing[THINGS_PROPS.FRAME] = JsonManager.currentThing[THINGS_PROPS.FRAME] + "0";
+    
+                this.refresh(true);
+
+            }
         }
         
         this.button.setOnClick(this.buttonBehavior);
@@ -80,14 +88,14 @@ export default class WidgetFrameSuffix extends BaseWidget
 
     }
 
-    installScene(scene)
-    {
-        // console.log("Installing scene in widget", scene);
+    // installScene(scene)
+    // {
+    //     // console.log("Installing scene in widget", scene);
         
-        this.scene = scene;
+    //     this.scene = scene;
 
-        // console.log("this.scene", this.scene);
-    }
+    //     // console.log("this.scene", this.scene);
+    // }
 
     revealInfo(varIdx, kind)
     {
@@ -149,12 +157,14 @@ export default class WidgetFrameSuffix extends BaseWidget
 
     onChangeSuffix = (event) => {
 
-        if (event.target.value === "" || !JsonManager.currentThing.hasOwnProperty(THINGS_PROPS.FRAME))
+        if (event.target.value === "" || !JsonManager.currentThing.hasOwnProperty(THINGS_PROPS.FRAME) || !FrameNameHelper.lastCharIsDigit(JsonManager.currentThing[THINGS_PROPS.FRAME]))
         {
+            console.log("Not possible", Math.random());
+
             return;
         }
 
-        console.log("Verifying scene:", this.scene);
+        // console.log("Verifying scene:", this.scene);
 
         const eventIdx = +event.target.value;
 

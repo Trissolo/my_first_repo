@@ -99,6 +99,9 @@ class StudioMaybe
 
 } // end StudioMaybe Class def
 
-/* const stuMaybe = */ new StudioMaybe();
+const stuMaybe = new StudioMaybe();
 
 studioEvents.emitter.emit(studioEvents.events.thingChanged);
+
+// DARN! (We want updateJsonGui)
+stuMaybe.mainBar.updateJsonGui()

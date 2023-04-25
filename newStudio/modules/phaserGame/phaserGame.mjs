@@ -8,6 +8,7 @@ import JsonManager from "../jsonManager/JsonManager.mjs";
 
 import FrameNameHelper from "../FrameNameHelper.mjs";
 
+import THINGS_PROPS from "../autocomplete/THINGS_PROPS.mjs";
 
 // test AllVarsManager
 import AllVarsManager from "../../../src/plugins/VarsManager/AllVarsManager.mjs";
@@ -107,7 +108,7 @@ export default class StudioPhaser extends Phaser.Scene
                 this.activeArea.setVisible(false);
 
                 const roomThing = this.thingsGroup.get(thing.x, thing.y)
-                    .setTexture(this.atlasKey, thing.frame)
+                    .setTexture(this.atlasKey, this.calcFrameName(thing)) //thing.frame)
                     .setActive(true)
                     .setVisible(true)
                     .setAlpha(0.4)
@@ -161,7 +162,7 @@ export default class StudioPhaser extends Phaser.Scene
         else
         {
             this.activeThing
-            .setTexture(this.atlasKey, currentThing.frame)
+            .setTexture(this.atlasKey, this.calcFrameName(currentThing)) //currentThing.frame)
             .setPosition(currentThing.x, currentThing.y)
             .setOrigin(currentThing.depth === "ds"? (1, 0.5) : 0)
             .setVisible(true);
@@ -200,5 +201,24 @@ export default class StudioPhaser extends Phaser.Scene
 
         // console.dir(this.frameNames);
 
+    }
+
+    calcFrameName(thing, availableFrames = this.frameNames)
+    {
+        let name = thing[THINGS_PROPS.FRAME];
+
+        if (thing.hasOwnProperty(THINGS_PROPS.FRAME_SUFFIX))
+        {
+            const suffix = this.varsManager.betterReadVar(thing[THINGS_PROPS.FRAME_SUFFIX_KIND], thing[THINGS_PROPS.FRAME_SUFFIX]);
+
+            name += suffix;
+        }
+
+        if (availableFrames.indexOf(name) === -1)
+        {
+            console.warn(`No frame with name "${name}" in current atlas (${this.atlasKey})`);
+        }
+
+        return name;
     }
 }

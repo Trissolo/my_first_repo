@@ -15,6 +15,8 @@ import AutoComplete from "../../autocomplete/AutoComplete.mjs";
 
 import studioEvents from "../../eventEmitter/StudioEvents.mjs";
 
+import FrameNameHelper from "../../FrameNameHelper.mjs";
+
 export default class WidgetFrameSuffix extends BaseWidget
 {
     constructor(managedProp = THINGS_PROPS.FRAME_SUFFIX) // , phaserGame) // gameScene)
@@ -87,7 +89,7 @@ export default class WidgetFrameSuffix extends BaseWidget
 
     revealInfo(varIdx, kind)
     {
-        this.info.setInUse(`"${JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME]}" + ${this.allSelectElements[kind].optionsAry[varIdx]} (${this.enumVarKind[kind]}Idx: ${varIdx})`);
+        this.info.setInUse(`"${JsonManager.currentThing[THINGS_PROPS.FRAME]}" + ${this.allSelectElements[kind].optionsAry[varIdx]} (${this.enumVarKind[kind]}Idx: ${varIdx})`);
 
         return this;
     }
@@ -157,6 +159,9 @@ export default class WidgetFrameSuffix extends BaseWidget
         //get the 'kind'
         JsonManager.setFrameSuffix(eventIdx, GetAttribAsNumber(event.target, 'kind'));
 
+        // remove last digits from 'frame'
+        JsonManager.currentThing[THINGS_PROPS.FRAME] = FrameNameHelper.cutOffEndingDigits(JsonManager.currentThing[THINGS_PROPS.FRAME]);
+
         this.refresh(true);
     }
 
@@ -166,13 +171,13 @@ export default class WidgetFrameSuffix extends BaseWidget
         
         this.clearSelectElems();
 
-        if (JsonManager.currentThing.hasOwnProperty(AutoComplete.THINGS_PROPS.FRAME_SUFFIX))
+        if (JsonManager.currentThing.hasOwnProperty(THINGS_PROPS.FRAME_SUFFIX))
         {
-            console.log("FRAME_SUFFIX", JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX]);
+            console.log("FRAME_SUFFIX", JsonManager.currentThing[THINGS_PROPS.FRAME_SUFFIX]);
 
-            const varIdx = JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX];
+            const varIdx = JsonManager.currentThing[THINGS_PROPS.FRAME_SUFFIX];
 
-            const kind = JsonManager.currentThing[AutoComplete.THINGS_PROPS.FRAME_SUFFIX_KIND];
+            const kind = JsonManager.currentThing[THINGS_PROPS.FRAME_SUFFIX_KIND];
 
             this.revealInfo(varIdx, kind);
 

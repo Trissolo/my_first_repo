@@ -3,6 +3,7 @@ import JsonManager from "../../jsonManager/JsonManager.mjs";
 import AutoComplete from "../../autocomplete/AutoComplete.mjs";
 import labels from "../classes/labels.mjs";
 import baseClassesWrapper from "../classes/baseClassesWrapper.mjs";
+import PseudoButton from "../classes/pseudoButton.mjs";
 
 export default class MainBar
 {
@@ -23,8 +24,20 @@ export default class MainBar
 
         this.buildNextJsonButton(container);
 
+        // save button
+        this.buildSaveJson(container);
+
         this.updateJsonGui();
      
+    }
+
+    buildSaveJson(container)
+    {
+        this.saveToDiskButton = new PseudoButton(container, "💾");
+
+        this.saveToDiskButton.addClass(AutoComplete.cssSelectors.classes.emojiContent);
+
+        this.saveToDiskButton.setOnClick(this.saveBlob);
     }
 
     buildPrevJsonButton(container)
@@ -130,6 +143,35 @@ export default class MainBar
 
         studioEvents.emitter.emit(studioEvents.events.roomChanged);
 
+    }
+
+    saveBlob()
+    {
+        const originalData = JsonManager.currentJson;
+        
+        const fileName = `rawR${JsonManager.jsonCursor}.json`; // rawR0
+
+        console.log("%c%ARGUMENTS SAVE:", "background-color:green;", [...arguments]);
+
+        const a = document.createElement("a");
+
+        console.log("%c%Saving:", "background-color:black;", originalData);
+
+        const uri =  URL.createObjectURL(new Blob([JSON.stringify(originalData, null, 0)], {
+            type: "text/plain"
+        }));
+
+        a.href = uri;
+
+        a.setAttribute("download", fileName);
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        document.body.removeChild(a);
+
+        window.URL.revokeObjectURL(uri);
     }
 
 }

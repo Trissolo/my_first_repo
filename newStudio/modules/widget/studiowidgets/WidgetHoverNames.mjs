@@ -85,26 +85,26 @@ export default class WidgetHoverNames extends BaseWidget
         }
     }
 
-    lastCharIsDigit(str, pos = str.length - 1)
-    {
-        const lastChar = str.charCodeAt(pos);
-        return lastChar < 58 && lastChar > 47;
+    // lastCharIsDigit(str, pos = str.length - 1)
+    // {
+    //     const lastChar = str.charCodeAt(pos);
+    //     return lastChar < 58 && lastChar > 47;
 
-        // const regexpEndingDigits = /([0-9]+$)/;
-        // const match = str.search(regexpEndingDigits);
-        // console.log(match)
-        // console.log(str.substring(match, str.length ))
+    //     // const regexpEndingDigits = /([0-9]+$)/;
+    //     // const match = str.search(regexpEndingDigits);
+    //     // console.log(match)
+    //     // console.log(str.substring(match, str.length ))
 
-        // const regexpEndingDigits = /([0-9]+$)/;
-        // const match = str.search(regexpEndingDigits);
+    //     // const regexpEndingDigits = /([0-9]+$)/;
+    //     // const match = str.search(regexpEndingDigits);
 
-        // console.log("String:", str);
-        // console.log("Prefix:", str.substring(0, match));
-        // console.log("Digits", str.substring(match, str.length));
+    //     // console.log("String:", str);
+    //     // console.log("Prefix:", str.substring(0, match));
+    //     // console.log("Digits", str.substring(match, str.length));
 
 
-        // return match;
-    }
+    //     // return match;
+    // }
 
     // function lastCharIsDigit(str, pos = str.length - 1)
     // {

@@ -147,6 +147,12 @@ class JsonManager {
         delete this.currentThing[AutoComplete.THINGS_PROPS.ANIMATION_NAME];
     }
 
+    //helper
+    static thingHasOwnProperty(prop)
+    {
+        return this.currentThing.hasOwnProperty(prop);
+    }
+
 
     // *Thing*:
 
@@ -155,6 +161,7 @@ class JsonManager {
     // frame,
 
     // frameSuffix,
+    // frameSuffixKind,
     // hoverName,
     // skipCond,
     // noInput,

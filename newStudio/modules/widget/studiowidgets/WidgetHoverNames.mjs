@@ -63,7 +63,7 @@ export default class WidgetHoverNames extends BaseWidget
 
     refresh(refreshThing)
     {
-        if (JsonManager.currentThing.hasOwnProperty(this.managedProp))
+        if (JsonManager.thingHasOwnProperty(this.managedProp))
         {
             const idx = JsonManager.currentThing[this.managedProp];
 

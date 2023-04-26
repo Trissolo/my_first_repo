@@ -41,7 +41,7 @@ export default class WidgetFrameSuffix extends BaseWidget
 
         this.buttonBehavior = (event) => {
 
-            if (JsonManager.currentThing.hasOwnProperty(THINGS_PROPS.FRAME_SUFFIX))
+            if (JsonManager.thingHasOwnProperty(THINGS_PROPS.FRAME_SUFFIX))
             {
 
                 JsonManager.removeFrameSuffix();
@@ -160,14 +160,12 @@ export default class WidgetFrameSuffix extends BaseWidget
 
     onChangeSuffix = (event) => {
 
-        if (event.target.value === "" || !JsonManager.currentThing.hasOwnProperty(THINGS_PROPS.FRAME) || !FrameNameHelper.lastCharIsDigit(JsonManager.currentThing[THINGS_PROPS.FRAME]))
+        if (event.target.value === "" || !JsonManager.thingHasOwnProperty(THINGS_PROPS.FRAME) || !FrameNameHelper.lastCharIsDigit(JsonManager.currentThing[THINGS_PROPS.FRAME]))
         {
-            console.log("Not possible", Math.random());
+            // console.log("Not possible", Math.random());
 
             return;
         }
-
-        // console.log("Verifying scene:", this.scene);
 
         const eventIdx = +event.target.value;
 

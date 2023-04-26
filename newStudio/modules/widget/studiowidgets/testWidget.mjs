@@ -62,7 +62,7 @@ export default class testWidget extends BaseWidget
 
     refresh(refreshThing)
     {
-        if (JsonManager.currentThing.hasOwnProperty(this.managedProp))
+        if (JsonManager.thingHasOwnProperty(this.managedProp)) //currentThing.hasOwnProperty(this.managedProp))
         {
             const idx = JsonManager.currentThing[this.managedProp];
 

@@ -62,7 +62,7 @@ class StudioMaybe
 
         this.studioWidgets.add( new WidgetHoverNames(THINGS_PROPS.HOVER_NAME) );
         
-        this.studioWidgets.add( new WidgetFrameSuffix(THINGS_PROPS.FRAME_SUFFIX)); //, window.game) );
+        this.studioWidgets.add( new WidgetFrameSuffix(THINGS_PROPS.FRAME_SUFFIX));
 
         this.registerListeners();
     }

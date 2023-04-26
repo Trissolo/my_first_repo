@@ -4,7 +4,7 @@ import PseudoButton from "../classes/pseudoButton.mjs";
 
 import OptionsList from "../classes/baseOptionsList.mjs";
 
-import AutoComplete from "../../autocomplete/AutoComplete.mjs";
+// import AutoComplete from "../../autocomplete/AutoComplete.mjs";
 import THINGS_PROPS from "../../autocomplete/THINGS_PROPS.mjs";
 import JsonManager from "../../jsonManager/JsonManager.mjs";
 import OnHoverNames from "../../placeholders/OnHoverNames.mjs";
@@ -84,10 +84,11 @@ export default class testWidget extends BaseWidget
         }
     }
 
-    lastCharIsDigit(str, pos = str.length - 1)
-    {
-        const lastChar = str.charCodeAt(pos);
-        return lastChar < 58 && lastChar > 47
-    }
+    // lastCharIsDigit(str, pos = str.length - 1)
+    // {
+    //     const lastChar = str.charCodeAt(pos);
+
+    //     return lastChar < 58 && lastChar > 47;
+    // }
 
 }

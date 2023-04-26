@@ -5,6 +5,8 @@ import labels from "../classes/labels.mjs";
 import baseClassesWrapper from "../classes/baseClassesWrapper.mjs";
 import PseudoButton from "../classes/pseudoButton.mjs";
 
+import addElement from "../addElement.mjs";
+
 export default class MainBar
 {
     constructor()
@@ -26,6 +28,8 @@ export default class MainBar
 
         // save button
         this.buildSaveJson(container);
+
+        this.buildLoadFile(container);
 
         this.updateJsonGui();
      
@@ -172,6 +176,75 @@ export default class MainBar
         document.body.removeChild(a);
 
         window.URL.revokeObjectURL(uri);
+    }
+
+
+
+
+
+    onLoadedJSON(event)
+    {
+        const contents = JSON.parse(event.target.result);
+
+        JsonManager.studioJSONs[JsonManager.jsonCursor] = contents;
+        
+        studioEvents.emitter.emit(studioEvents.events.roomChanged);
+    }
+
+    readSingleFile = (event) =>
+    {
+        const file = event.target.files[0];
+
+        if (!file)
+        {
+            console.warn("Load Error");
+
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = this.onLoadedJSON; 
+        
+        reader.readAsText(file);
+    }
+
+
+    buildLoadFile(container)
+    {
+        // Copy/pasted from MDN
+
+        //input element (hidden), to open file
+        const loadJson = addElement('input', container);
+
+        loadJson.setAttribute('type', 'file');
+
+        loadJson.setAttribute('accept', '.json');
+
+        loadJson.classList.add(AutoComplete.cssSelectors.classes.notDisplayed);
+
+        loadJson.addEventListener('change', this.readSingleFile, false);
+
+        this.loadJson = loadJson;
+
+
+        // dummy Element, but 'stylizable'
+        const fileSelect = addElement("b", container, "📂");
+
+        fileSelect.classList.add(AutoComplete.cssSelectors.classes.emojiContent);
+
+        
+        fileSelect.addEventListener("click", event => this.loadJson.click(), false);
+
+        //     (e) => {
+        //         console.log("HERE!")
+        //         // if (fileElem)
+        //         // {
+                    
+        //         // }
+        //     },
+        //     false
+        // );
     }
 
 }

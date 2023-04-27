@@ -26,10 +26,11 @@ export default class MainBar
 
         this.buildNextJsonButton(container);
 
-        // save button
-        this.buildSaveJson(container);
-
+        // load 'button'
         this.buildLoadFile(container);
+        
+        // save 'button'
+        this.buildSaveJson(container);
 
         this.updateJsonGui();
      
@@ -58,6 +59,8 @@ export default class MainBar
         this.nextRoom = new baseClassesWrapper.PseudoButton(container, labels.labelNextJson);
 
         this.nextRoom.addClass(AutoComplete.cssSelectors.classes.buttonStyleA);
+
+        this.nextRoom.addClass(AutoComplete.cssSelectors.classes.marginRight);
 
         this.nextRoom.setOnClick(this.advanceJson);
     }

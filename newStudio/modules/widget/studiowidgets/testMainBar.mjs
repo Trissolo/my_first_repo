@@ -5,6 +5,8 @@ import labels from "../classes/labels.mjs";
 import baseClassesWrapper from "../classes/baseClassesWrapper.mjs";
 import PseudoButton from "../classes/pseudoButton.mjs";
 
+import LoadJSONSeparate from "./LoadSaveFile/loadStuff.mjs";
+
 import addElement from "../addElement.mjs";
 
 export default class MainBar
@@ -68,7 +70,7 @@ export default class MainBar
     buildPrevThingButton(container)
     {
         this.prevThing = new baseClassesWrapper.PseudoButton(container, labels.labelPrevThing);
-        // this.prevThing.addClass(AutoComplete.cssSelectors.classes.pseudoButton);
+        
         this.prevThing.addClass(AutoComplete.cssSelectors.classes.buttonStyleB);
 
         this.prevThing.setOnClick(this.backtrackThing)
@@ -79,7 +81,6 @@ export default class MainBar
         JsonManager.nextThing();
 
         studioEvents.emitter.emit(studioEvents.events.thingChanged);
-        // JsonManager.showThing();
     }
 
     backtrackThing = () => {
@@ -116,7 +117,6 @@ export default class MainBar
 
         this.labelJson.addClass(AutoComplete.cssSelectors.classes.textFieldB);
 
-        // studioEvents.emitter.on(studioEvents.events.thingChanged, this.updateThingsLabel, this);
     }
 
     // arrow methods
@@ -131,9 +131,6 @@ export default class MainBar
 
         this.updateJsonGui();
 
-        // this.updateJsonLabel();
-
-        // studioEvents.emitter.emit(studioEvents.events.roomChanged);
     }
 
     advanceJson = () => {
@@ -158,11 +155,11 @@ export default class MainBar
         
         const fileName = `rawR${JsonManager.jsonCursor}.json`; // rawR0
 
-        console.log("%c%ARGUMENTS SAVE:", "background-color:green;", [...arguments]);
+        // console.log("%c%ARGUMENTS SAVE:", "background-color:green;", [...arguments]);
 
         const a = document.createElement("a");
 
-        console.log("%c%Saving:", "background-color:black;", originalData);
+        // console.log("%c%Saving:", "background-color:black;", originalData);
 
         const uri =  URL.createObjectURL(new Blob([JSON.stringify(originalData, null, 0)], {
             type: "text/plain"
@@ -183,62 +180,9 @@ export default class MainBar
 
 
 
-
-
-    onLoadedJSON(event)
-    {
-        const contents = JSON.parse(event.target.result);
-
-        JsonManager.studioJSONs[JsonManager.jsonCursor] = contents;
-        
-        studioEvents.emitter.emit(studioEvents.events.roomChanged);
-    }
-
-    loadJsonFromHdd = (event) =>
-    {
-        const file = event.target.files[0];
-
-        if (!file)
-        {
-            console.warn("Load Error");
-
-            return;
-        }
-
-        const reader = new FileReader();
-
-        reader.onload = this.onLoadedJSON; 
-        
-        reader.readAsText(file);
-    }
-
-
     buildLoadFile(container)
     {
-        // Copy/pasted from MDN
-
-        //input element (hidden), to open file
-        const loadJson = addElement('input', container);
-
-        loadJson.setAttribute('type', 'file');
-
-        loadJson.setAttribute('accept', '.json');
-
-        loadJson.classList.add(AutoComplete.cssSelectors.classes.notDisplayed);
-
-        loadJson.addEventListener('change', this.loadJsonFromHdd, false);
-
-        this.loadJson = loadJson;
-
-
-        // dummy Element, but 'stylizable'
-        const fileSelect = addElement("b", container, "📂");
-
-        fileSelect.classList.add(AutoComplete.cssSelectors.classes.emojiContent);
-       
-        fileSelect.addEventListener("click", event => this.loadJson.click(), false);
-
-        this.fileSelect = fileSelect;
+        this.loadExistingJson = new LoadJSONSeparate(container);
     }
 
 }

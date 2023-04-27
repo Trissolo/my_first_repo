@@ -191,7 +191,7 @@ export default class MainBar
         studioEvents.emitter.emit(studioEvents.events.roomChanged);
     }
 
-    readSingleFile = (event) =>
+    loadJsonFromHdd = (event) =>
     {
         const file = event.target.files[0];
 
@@ -223,7 +223,7 @@ export default class MainBar
 
         loadJson.classList.add(AutoComplete.cssSelectors.classes.notDisplayed);
 
-        loadJson.addEventListener('change', this.readSingleFile, false);
+        loadJson.addEventListener('change', this.loadJsonFromHdd, false);
 
         this.loadJson = loadJson;
 
@@ -232,19 +232,10 @@ export default class MainBar
         const fileSelect = addElement("b", container, "📂");
 
         fileSelect.classList.add(AutoComplete.cssSelectors.classes.emojiContent);
-
-        
+       
         fileSelect.addEventListener("click", event => this.loadJson.click(), false);
 
-        //     (e) => {
-        //         console.log("HERE!")
-        //         // if (fileElem)
-        //         // {
-                    
-        //         // }
-        //     },
-        //     false
-        // );
+        this.fileSelect = fileSelect;
     }
 
 }

@@ -69,7 +69,7 @@ class JsonManager {
     }
 
     //maybe useless...
-    static get originalThing() { return this.oriJSONS[this.jsonCursor].things[this.thingsCursor] }
+    // static get originalThing() { return this.oriJSONS[this.jsonCursor].things[this.thingsCursor] }
 
 
     static showThing()

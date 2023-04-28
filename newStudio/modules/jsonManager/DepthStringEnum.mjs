@@ -1,7 +1,7 @@
 export default {
     "BACKGROUND": "bg",
     "RIDICULOUSLYFARAWAY": "rf",
-    "TRIGGERZONE": "ta",
+    "TRIGGERAREA": "ta",
     "COVERED": "co",
     "ALWAYSBACK": "ab",
     "DEEPSORTED": "ds",

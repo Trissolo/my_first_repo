@@ -1,5 +1,3 @@
-// import DepthCategories from '../../not_yet_defined_path/DepthCategories.mjs';
-// import buildInterface from '../shared/BuildInterface.mjs';
 import DepthCategories from './DepthCategories.mjs';
 
 import AutoComplete from '../autocomplete/AutoComplete.mjs';
@@ -11,22 +9,22 @@ import GimpJsonLoader from './GimpJsonLoader.mjs';
 
 // 2/3
 // sort the 'things' array
-const editableJsons = (() => {
+// const editableJsons = (() => {
     
-    for (const [idx, elem] of GimpJsonLoader.entries())
-    {
-        elem.things.sort( (a, b) => DepthCategories[a.depth] > DepthCategories[b.depth])
-    }
+//     for (const [idx, elem] of GimpJsonLoader.entries())
+//     {
+//         elem.things.sort( (a, b) => DepthCategories[a.depth] > DepthCategories[b.depth])
+//     }
 
-    const jsonsArray = GimpJsonLoader.map( (el, i, ary) => Phaser.Utils.Objects.DeepCopy(el))
+//     const jsonsArray = GimpJsonLoader.map( (el, i, ary) => Phaser.Utils.Objects.DeepCopy(el))
     
-    return jsonsArray
-})()
+//     return jsonsArray
+// })()
 
 class JsonManager {
-    static oriJSONS = GimpJsonLoader;
+    // static oriJSONS = GimpJsonLoader;
 
-    static studioJSONs = editableJsons;
+    static studioJSONs = GimpJsonLoader; // editableJsons;
 
     static jsonCursor = 0;
 
@@ -70,6 +68,7 @@ class JsonManager {
         return this.currentThing;
     }
 
+    //maybe useless...
     static get originalThing() { return this.oriJSONS[this.jsonCursor].things[this.thingsCursor] }
 
 

@@ -11,6 +11,7 @@ import TextField from "../../classes/textField.mjs";
 import GetAttribAsNumber from "../../../GetAttribAsNumber.mjs";
 import addElement from "../../addElement.mjs";
 import THINGS_PROPS from "../../../autocomplete/THINGS_PROPS.mjs";
+import addClassToElement from "../../addClassToElement.mjs";
 
 import arrayCondNames from "./arrayCondNames.mjs";
 const SKIPPRE = 'skipdatalist';
@@ -34,7 +35,7 @@ export default class WidgetSkipCondition extends BaseWidget
         
 
         //container for 'select kind' Elements
-        this.kindSelector = [];
+        this.kindSelectors = [];
 
 
         this.dataLists = new Map();
@@ -120,6 +121,8 @@ export default class WidgetSkipCondition extends BaseWidget
         this.inputElem.setAttribute('list', SKIPPRE + listId);
 
         this.currentKind = listId;
+
+
     }
 
     populateSTOKAStuff()
@@ -175,7 +178,9 @@ export default class WidgetSkipCondition extends BaseWidget
 
         this.setExpectedValueMax(gag);
 
-        console.log(target, gag)
+        addClassToElement(target, AutoComplete.cssSelectors.classes.bgYellow)
+
+        console.log("MegaTArg", target, gag)
     }
 
     generateKindSelector(container)
@@ -194,6 +199,8 @@ export default class WidgetSkipCondition extends BaseWidget
             qqq.pseudoButton.setAttribute("kind", idx);
 
             qqq.setOnClick(this.kindSelectorBehavior);
+
+            this.kindSelectors.push(qqq);
 
         }
 
@@ -241,10 +248,13 @@ export default class WidgetSkipCondition extends BaseWidget
         this.currentVarId = null;
         
         this.expectedVal = null;
+        
 
         this.inputElem.value = null;
 
         this.inputExpected.value = null;
+
+        this.kindSelectors.forEach(el => el.removeClass('bgYellow'));
 
     }
 

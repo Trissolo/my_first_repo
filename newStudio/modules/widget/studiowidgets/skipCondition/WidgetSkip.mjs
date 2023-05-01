@@ -26,9 +26,9 @@ export default class WidgetSkipCondition extends BaseWidget
         this.managedProp = managedProp;
 
         
-        this.currentKind = 0;
+        this.currentKind = null;
         
-        this.currentVarId = 0
+        this.currentVarId = null;
         
         this.expectedVal = null;
         
@@ -73,11 +73,13 @@ export default class WidgetSkipCondition extends BaseWidget
         
         this.generateKindSelector(this.widget);
 
-        this.inputElem = addElement('input', this.widget);
 
         this.populateSTOKAStuff();
 
-        this.inputElem.addEventListener('change', this.confirmVarName);
+        this.generateInputElement(this.widget);
+
+        
+        this.generateExpectedValue(this.widget);
         
 
         
@@ -104,7 +106,6 @@ export default class WidgetSkipCondition extends BaseWidget
 
     confirmVarName = (event) =>
     {
-        console.log("confirmVarNameconfirmVarNameconfirmVarName", event)
         
         const varIdx = +this.inputElem.value;
 
@@ -145,7 +146,6 @@ export default class WidgetSkipCondition extends BaseWidget
             
             option.text = arr[i];
 
-            console.log("Option stuff", option.value, option.text)
         }
         
         this.dataLists.set(kindId, datalist);
@@ -153,11 +153,27 @@ export default class WidgetSkipCondition extends BaseWidget
         this.varsNames.set(kindId, arr);
     }
 
+    generateInputElement(container)
+    {
+        this.inputElem = addElement('input', container);
+
+        this.inputElem.placeholder = "Variable name";
+
+        this.inputElem.addEventListener('change', this.confirmVarName);
+
+        // this.populateSTOKAStuff();
+
+    }
+
     kindSelectorBehavior = ({target}) => {
-        //const {target} = event;
+
+        this.resetConditionData();
+
         const gag = GetAttribAsNumber(target, "kind");
 
         this.setList(gag);
+
+        this.setExpectedValueMax(gag);
 
         console.log(target, gag)
     }
@@ -166,11 +182,12 @@ export default class WidgetSkipCondition extends BaseWidget
     {
         const tempStuff = ["0️⃣", "1️⃣", "2️⃣", "3️⃣"];
 
-        for (const [idx, name] of tempStuff.entries()) 
+        for (let idx = 0; idx < arrayCondNames.length; idx++)
+        // for (const [idx, name] of tempStuff.entries()) 
         {
-            console.log(`name: ${name}, idx: ${idx}`);
+            console.log(`name: ${tempStuff[idx]}, idx: ${idx}`);
 
-            const qqq = new PseudoButton(container, name);
+            const qqq = new PseudoButton(container, tempStuff[idx]);
 
             qqq.addClass(AutoComplete.cssSelectors.classes.emojiContent);
 
@@ -183,11 +200,52 @@ export default class WidgetSkipCondition extends BaseWidget
         return this;
     }
 
+    generateExpectedValue(container)
+    {
+        const inputExpected = addElement('input', container);
+
+        inputExpected.setAttribute("type", "number");
+
+        inputExpected.setAttribute("placeholder", "Expected value");
+
+        inputExpected.setAttribute("min", "0");
+
+        inputExpected.addEventListener('change', this.chooseExpectedValue);
+
+        this.inputExpected = inputExpected;
+
+    }
+
+    chooseExpectedValue = event => {
+
+        console.log("Expected:", event.target.value);
+    }
+
+    setExpectedValueMax(kind)
+    {
+        const temp = 1 << (kind + 1);
+        this.inputExpected.setAttribute('max', temp - 1);
+    }
+
     revealInfo(varIdx, kind)
     {
         // this.info.setInUse(`"${JsonManager.currentThing[THINGS_PROPS.FRAME]}" + ${this.allSelectElements[kind].optionsAry[varIdx]} (${this.enumVarKind[kind]}Idx: ${varIdx})`);
 
         return this;
+    }
+
+    resetConditionData()
+    {
+        this.currentKind = null;
+        
+        this.currentVarId = null;
+        
+        this.expectedVal = null;
+
+        this.inputElem.value = null;
+
+        this.inputExpected.value = null;
+
     }
 
 

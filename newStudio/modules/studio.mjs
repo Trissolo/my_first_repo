@@ -2,6 +2,8 @@ import WidgetHoverNames from "./widget/studiowidgets/WidgetHoverNames.mjs";
 
 import WidgetFrameSuffix from "./widget/studiowidgets/WidgetFrameSuffix.mjs";
 
+import WidgetSkipCondition from "./widget/studiowidgets/skipCondition/WidgetSkip.mjs";
+
 
 import MainBar from "./widget/studiowidgets/testMainBar.mjs";
 
@@ -63,6 +65,8 @@ class StudioMaybe
         this.studioWidgets.add( new WidgetHoverNames(THINGS_PROPS.HOVER_NAME) );
         
         this.studioWidgets.add( new WidgetFrameSuffix(THINGS_PROPS.FRAME_SUFFIX));
+
+        this.studioWidgets.add( new WidgetSkipCondition(THINGS_PROPS.SKIP_CONDITION));
 
         this.registerListeners();
     }

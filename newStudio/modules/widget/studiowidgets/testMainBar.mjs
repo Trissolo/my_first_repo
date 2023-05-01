@@ -7,7 +7,7 @@ import PseudoButton from "../classes/pseudoButton.mjs";
 
 import LoadJSONSeparate from "./LoadSaveFile/loadStuff.mjs";
 
-import addElement from "../addElement.mjs";
+// import addElement from "../addElement.mjs";
 
 export default class MainBar
 {

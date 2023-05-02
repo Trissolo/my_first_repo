@@ -10,6 +10,7 @@ const classes = {
     notDisplayed: "notDisplayed",
     emojiContent: "emojiContent",
     bgYellow: "bgYellow",
+    tinywidth: "tinywidth",
 
     textFieldDisabled: "textFieldDisabled",
     textField: "textField"

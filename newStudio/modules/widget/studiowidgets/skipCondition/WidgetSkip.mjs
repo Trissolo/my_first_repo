@@ -33,6 +33,7 @@ export default class WidgetSkipCondition extends BaseWidget
         
         this.expectedVal = null;
         
+        this.assembledCondition = [];
 
         //container for 'select kind' Elements
         this.kindSelectors = [];
@@ -105,6 +106,18 @@ export default class WidgetSkipCondition extends BaseWidget
 
     }
 
+    getCurrNamesArray()
+    {
+        if (this.currentKind === null)
+        {
+            console.warn("currentKind is null!");
+
+            return null;
+        }
+
+        return this.varsNames.get(this.currentKind);
+    }
+
     confirmVarName = (event) =>
     {
         
@@ -129,8 +142,6 @@ export default class WidgetSkipCondition extends BaseWidget
     {
         for (const [idx, condNamesArray] of arrayCondNames.entries())
         {
-            console.log("idx, condNamesArray", idx, condNamesArray);
-
             this.generateDatalist(condNamesArray, idx);
         }
     }
@@ -153,6 +164,7 @@ export default class WidgetSkipCondition extends BaseWidget
         
         this.dataLists.set(kindId, datalist);
 
+        //store the array!
         this.varsNames.set(kindId, arr);
     }
 
@@ -163,8 +175,6 @@ export default class WidgetSkipCondition extends BaseWidget
         this.inputElem.placeholder = "Variable name";
 
         this.inputElem.addEventListener('change', this.confirmVarName);
-
-        // this.populateSTOKAStuff();
 
     }
 
@@ -190,17 +200,17 @@ export default class WidgetSkipCondition extends BaseWidget
         for (let idx = 0; idx < arrayCondNames.length; idx++)
         // for (const [idx, name] of tempStuff.entries()) 
         {
-            console.log(`name: ${tempStuff[idx]}, idx: ${idx}`);
+            // console.log(`name: ${tempStuff[idx]}, idx: ${idx}`);
 
-            const qqq = new PseudoButton(container, tempStuff[idx]);
+            const selKindButton = new PseudoButton(container, tempStuff[idx]);
 
-            qqq.addClass(AutoComplete.cssSelectors.classes.emojiContent);
+            selKindButton.addClass(AutoComplete.cssSelectors.classes.emojiContent);
 
-            qqq.pseudoButton.setAttribute("kind", idx);
+            selKindButton.pseudoButton.setAttribute("kind", idx);
 
-            qqq.setOnClick(this.kindSelectorBehavior);
+            selKindButton.setOnClick(this.kindSelectorBehavior);
 
-            this.kindSelectors.push(qqq);
+            this.kindSelectors.push(selKindButton);
 
         }
 
@@ -223,9 +233,35 @@ export default class WidgetSkipCondition extends BaseWidget
 
     }
 
+    manifestData()
+    {
+        const currAry = this.getCurrNamesArray();
+
+        if (currAry && this.currentVarId)
+        {
+            console.log(`Manifesting: Cont[${this.currentKind}] Id: ${this.currentVarId} ('${currAry[this.currentVarId]}') === ${this.expectedVal}`);
+
+            this.assembledCondition.length = 0;
+
+            this.assembledCondition.push(this.currentKind, this.currentVarId, this.expectedVal);
+
+            console.dir(this.assembledCondition);
+
+            return this.assembledCondition;
+        }
+        else
+        {
+            console.warn('Incomplete cond data!');
+        }
+    }
+
     chooseExpectedValue = event => {
 
-        console.log("Expected:", event.target.value);
+        this.expectedVal = +event.target.value;
+
+        console.log("Expected:", this.expectedVal);
+
+        this.manifestData();
     }
 
     setExpectedValueMax(kind)
@@ -248,7 +284,7 @@ export default class WidgetSkipCondition extends BaseWidget
         this.currentVarId = null;
         
         this.expectedVal = null;
-        
+
 
         this.inputElem.value = null;
 

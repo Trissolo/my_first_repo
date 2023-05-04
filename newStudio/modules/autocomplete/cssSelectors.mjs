@@ -11,6 +11,7 @@ const classes = {
     emojiContent: "emojiContent",
     bgYellow: "bgYellow",
     tinywidth: "tinywidth",
+    vertDivider: "vertDivider",
 
     textFieldDisabled: "textFieldDisabled",
     textField: "textField"

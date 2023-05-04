@@ -137,6 +137,15 @@ h4:hover {
     margin-left: 1em;
 }
 
+.vertDivider {
+	display: inline-block;
+    border-left: 1px solid #666;
+	border-right: 1px solid #c6c6c6;
+	height: 2em;
+	margin-top: .1em;
+	margin-bottom: -5px;
+}
+
 .notDisplayed {
     display: none;
 }

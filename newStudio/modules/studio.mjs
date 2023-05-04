@@ -15,6 +15,8 @@ import JsonManager from "./jsonManager/JsonManager.mjs";
 
 import THINGS_PROPS from "./autocomplete/THINGS_PROPS.mjs";
 
+import studioDatalist from "./widget/classes/studioDatalist.mjs";
+
 console.log("TESTPH", Phaser)
 const config = {
     type: Phaser.WEBGL,
@@ -53,6 +55,8 @@ class StudioMaybe
     // Not needed, but...
     jsonManager = JsonManager;
 
+    studioDatalist = studioDatalist;
+
     mainBar = new MainBar();
 
     // Necessary :D
@@ -60,6 +64,9 @@ class StudioMaybe
 
     constructor()
     {
+        // test OhHoverNames dfatalist
+        this.studioDatalist.initialize();
+
         // Manually create our widgets
 
         this.studioWidgets.add( new WidgetHoverNames(THINGS_PROPS.HOVER_NAME) );

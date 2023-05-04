@@ -17,26 +17,36 @@ import AutoComplete from "../../autocomplete/AutoComplete.mjs";
 
 export default class WidgetHoverNames extends BaseWidget
 {
+    button;
+
+    selectElem;
+
+    info;
+
     constructor(managedProp = THINGS_PROPS.HOVER_NAME)
     {
         super(managedProp);
 
         this.managedProp = managedProp;
 
-        this.button = new PseudoButton(this.widget, "Remove hover name");
+        // this.button = new PseudoButton(this.widget, "Remove hover name");
+
+        this.buildRemoveButton();
 
         this.selectElem = new OptionsList(this.widget, OnHoverNames, "Select OnHoverName")
 
+        this.selectElem.setOnChange(this.onChange);
+
         this.info = new TextField(this.widget);
+
+        this.info.addClass(AutoComplete.cssSelectors.classes.marginRight);
 
         this.info.setDisabled();
 
+        this.buildInputField(this.widget);
+
         //
-        this.button.setStyleB();
-
-        this.button.setMarginRight();
-
-        this.button.setMarginLeft();
+        
 
         // this.separ = addElement('b', this.widget)
         // this.separ.classList.add(AutoComplete.cssSelectors.classes.marginLeft);
@@ -44,15 +54,19 @@ export default class WidgetHoverNames extends BaseWidget
         // this.separ.classList.add(AutoComplete.cssSelectors.classes.marginRight);
 
 
-        //
-        // this.
 
-        this.button.setOnClick(this.buttonBehavior);
+    }
 
-        this.selectElem.setOnChange(this.onChange);
+    buildRemoveButton()
+    {
+        const button = new PseudoButton(this.widget, "Remove hover name");
 
-        this.buildInputField(this.widget)
-
+        button.setStyleB()
+            .setMarginRight()
+            .setMarginLeft()
+            .setOnClick(this.buttonBehavior);
+    
+        this.button = button;
     }
 
     onChange = (event) => {

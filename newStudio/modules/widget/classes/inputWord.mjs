@@ -2,13 +2,13 @@ import AutoComplete from "../../autocomplete/AutoComplete.mjs";
 
 import addElement from "../addElement.mjs";
 
-export default class inputElement
+export default class inputWord
 {
     constructor(parent, placeholder)
     {
         this.inputElement = addElement('input', parent);
 
-        this.inputElem.placeholder = placeholder;
+        this.inputElement.placeholder = placeholder;
     }
 
     addClass(className)
@@ -27,19 +27,19 @@ export default class inputElement
 
     resetValue()
     {
-        this.inputElem.value = null;
+        this.inputElement.value = null;
 
         return this;
     }
 
     getValueAsNum()
     {
-        return +this.inputElem.value;
+        return +this.inputElement.value;
     }
 
     bindToList(listId)
     {
-        this.inputElem.setAttribute('list', listId);
+        this.inputElement.setAttribute('list', listId);
     }
 
     setOnChange(func)

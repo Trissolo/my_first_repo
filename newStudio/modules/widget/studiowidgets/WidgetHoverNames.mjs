@@ -1,14 +1,19 @@
 import BaseWidget from "../classes/baseWidget.mjs";
 import TextField from "../classes/textField.mjs";
 import PseudoButton from "../classes/pseudoButton.mjs";
+import inputWord from "../classes/inputWord.mjs";
 
 import OptionsList from "../classes/baseOptionsList.mjs";
 
-// import AutoComplete from "../autocomplete/AutoComplete.mjs";
+import InGameArrays from "../../placeholders/InGameArrays.mjs";
+
+// import AutoComplete from "../../autocomplete/AutoComplete.mjs";
 import THINGS_PROPS from "../../autocomplete/THINGS_PROPS.mjs";
 import JsonManager from "../../jsonManager/JsonManager.mjs";
 
 import OnHoverNames from "../../placeholders/OnHoverNames.mjs";
+import addElement from "../addElement.mjs";
+import AutoComplete from "../../autocomplete/AutoComplete.mjs";
 
 export default class WidgetHoverNames extends BaseWidget
 {
@@ -33,18 +38,20 @@ export default class WidgetHoverNames extends BaseWidget
 
         this.button.setMarginLeft();
 
+        // this.separ = addElement('b', this.widget)
+        // this.separ.classList.add(AutoComplete.cssSelectors.classes.marginLeft);
+        // this.separ.classList.add(AutoComplete.cssSelectors.classes.vertDivider);
+        // this.separ.classList.add(AutoComplete.cssSelectors.classes.marginRight);
+
 
         //
-        this.buttonBehavior = (event) => {
-
-            JsonManager.removeHoverName();
-
-            this.refresh(true);
-        }
+        // this.
 
         this.button.setOnClick(this.buttonBehavior);
 
         this.selectElem.setOnChange(this.onChange);
+
+        this.buildInputField(this.widget)
 
     }
 
@@ -57,6 +64,13 @@ export default class WidgetHoverNames extends BaseWidget
         }
 
         JsonManager.setHoverName(+event.target.value);
+
+        this.refresh(true);
+    }
+
+    buttonBehavior = (event) => {
+
+        JsonManager.removeHoverName();
 
         this.refresh(true);
     }
@@ -76,6 +90,8 @@ export default class WidgetHoverNames extends BaseWidget
         {
             this.info.setDisabled();
 
+            this.inputWord.resetValue();
+
             this.selectElem.setSelectedIndex();
         }
 
@@ -83,6 +99,26 @@ export default class WidgetHoverNames extends BaseWidget
         {
             JsonManager.showThing();
         }
+    }
+
+    buildInputField(container)
+    {
+        this.inputWord = new inputWord(container, "Write Hovername");
+
+        this.inputWord.bindToList(InGameArrays.arrayIds.HoverNames);
+
+        this.inputWord.setOnChange(this.onChangeWord);
+    }
+
+    onChangeWord = (event) => {
+
+        const value = +event.target.value;
+        
+        console.log("target.value", value, InGameArrays.originalArrays.get(InGameArrays.arrayIds.HoverNames)[value]);
+
+        JsonManager.setHoverName(value);
+
+        this.refresh(true);
     }
 
     // lastCharIsDigit(str, pos = str.length - 1)

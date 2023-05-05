@@ -17,12 +17,22 @@ export default class studioDatalist
     //     this.originalArrays.set(key, array);
     // }
 
+    static prefixVarsDatalist = "skipdatalist";
+
     static initialize()
     {
-        // this.storeArray(this.arrayIds.HoverNames, OnHoverNames);
+        const {prefixVarsDatalist} = this;
 
         this.generateDatalist(InGameArrays.originalArrays.get(InGameArrays.arrayIds.HoverNames), InGameArrays.arrayIds.HoverNames);
 
+        // Testing Variables
+        const tempMax = 2;
+
+        for (let i = 0; i < tempMax; i++)
+        {
+            this.generateDatalist(InGameArrays.originalArrays.get(i), prefixVarsDatalist + i);
+        }
+        
         return this;
     }
 

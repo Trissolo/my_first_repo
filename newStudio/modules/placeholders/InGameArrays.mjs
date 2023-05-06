@@ -1,4 +1,5 @@
 import arrayIds from "./arrayIds.mjs";
+import VarKindEnum from "./VarKindEnum.mjs";
 
 import Conditions from "./Conditions.mjs";
 import OnHoverNames from "./OnHoverNames.mjs";
@@ -13,5 +14,6 @@ const originalArrays = new Map([
 
 export default {
     arrayIds,
-    originalArrays
+    originalArrays,
+    VarKindEnum
 };

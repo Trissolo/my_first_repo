@@ -33,6 +33,8 @@ export default class WidgetSkipCondition extends BaseWidget
     inputElem;
     inputExpected;
 
+    fieldVarKind;
+
     varsNames = InGameArrays.originalArrays;
     skipPrefix = studioDatalist.prefixVarsDatalist;
 
@@ -58,21 +60,21 @@ export default class WidgetSkipCondition extends BaseWidget
         this.generateExpectedValue(container);
         
         // status
-        this.generateInfoField(container);
+        this.generateFieldVarKind(container);
 
         this.folliaSet()
         
         
     }
 
-    generateInfoField(container)
+    generateFieldVarKind(container)
     {
-        const info = new TextField(container)
+        const fieldVarKind = new TextField(container)
             .setDisabled()
             .addClass(AutoComplete.cssSelectors.classes.marginLeft)
             .removeClass(AutoComplete.cssSelectors.classes.marginRight);
 
-        this.info = info;   
+        this.fieldVarKind = fieldVarKind;   
     }
 
     buildButton(container)
@@ -147,6 +149,8 @@ export default class WidgetSkipCondition extends BaseWidget
         const gag = GetAttribAsNumber(target, "kind");
 
         this.setList(gag);
+
+        this.fieldVarKind.setText(InGameArrays.VarKindEnum[gag]);
 
         this.setExpectedValueMax(gag);
 

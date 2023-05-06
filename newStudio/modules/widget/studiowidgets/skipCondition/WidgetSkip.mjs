@@ -27,9 +27,11 @@ export default class WidgetSkipCondition extends BaseWidget
     currentVarId;
     expectedVal;
     
-    button;
     assembledCondition = [];
+
+    button;
     inputElem;
+    inputExpected;
 
     varsNames = InGameArrays.originalArrays;
     skipPrefix = studioDatalist.prefixVarsDatalist;
@@ -45,34 +47,38 @@ export default class WidgetSkipCondition extends BaseWidget
         this.managedProp = managedProp;
 
 
-        this.dataLists = new Map();
+        const container = this.widget
 
-        this.buildButton();
+        this.buildButton(container);
         
-        this.generateKindSelector(this.widget);
+        this.generateKindSelector(container);
 
-        this.generateInputElement(this.widget);
+        this.generateInputElement(container);
         
-        this.generateExpectedValue(this.widget);
-        
-
+        this.generateExpectedValue(container);
         
         // status
-        this.info = new TextField(this.widget);
+        this.generateInfoField(container);
 
-        this.info.setDisabled();
-
-        this.info.addClass(AutoComplete.cssSelectors.classes.marginLeft);
-
-        this.info.removeClass(AutoComplete.cssSelectors.classes.marginRight);
-
-
+        this.folliaSet()
+        
+        
     }
 
-    buildButton()
+    generateInfoField(container)
+    {
+        const info = new TextField(container)
+            .setDisabled()
+            .addClass(AutoComplete.cssSelectors.classes.marginLeft)
+            .removeClass(AutoComplete.cssSelectors.classes.marginRight);
+
+        this.info = info;   
+    }
+
+    buildButton(container)
     {
 
-        const button = new PseudoButton(this.widget, "Remove SkipCondition");
+        const button = new PseudoButton(container, "Remove SkipCondition");
         
         button.setStyleB()
             .setMarginRight()
@@ -115,7 +121,7 @@ export default class WidgetSkipCondition extends BaseWidget
         this.currentVarId = varIdx;
 
         // studioDatalist.prefixVarsDatalist
-        console.log(varIdx, this.varsNames.get(this.currentKind)[varIdx]);
+        console.log("confirmVarName", varIdx, this.varsNames.get(this.currentKind)[varIdx]);
 
     }
 
@@ -135,6 +141,7 @@ export default class WidgetSkipCondition extends BaseWidget
 
     kindSelectorBehavior = ({target}) => {
 
+
         this.resetConditionData();
 
         const gag = GetAttribAsNumber(target, "kind");
@@ -153,11 +160,9 @@ export default class WidgetSkipCondition extends BaseWidget
         const tempStuff = ["0️⃣", "1️⃣", "2️⃣", "3️⃣"];
 
         let idx = 0;
-        while (this.varsNames.has(idx))
-        // for (let idx = 0; idx < arrayCondNames.length; idx++)
-        // for (const [idx, name] of tempStuff.entries()) 
-        {
-            console.log("PRima di WHILE:", this.varsNames.has(idx), this.varsNames.has(idx+1));//`name: ${tempStuff[idx]}, idx: ${idx}`);
+
+        do {
+            console.log("ISD:", idx)
 
             const selKindButton = new PseudoButton(container, tempStuff[idx]);
 
@@ -169,11 +174,21 @@ export default class WidgetSkipCondition extends BaseWidget
 
             this.kindSelectors.push(selKindButton);
 
-            idx += 1;
+        } while (this.varsNames.has(++idx))
 
-        }
+        
+        // console.dir("this.kindSelectors", this.kindSelectors[0].pseudoButton, this.kindSelectors[0].pseudoButton.target)
 
         return this;
+    }
+
+    folliaSet()
+    {
+        const temp = this.kindSelectors[0].pseudoButton;
+        console.log("temp", temp)
+        temp.target = 0;
+        temp.click();
+        // this.kindSelectorBehavior(temp);
     }
 
     generateExpectedValue(container)

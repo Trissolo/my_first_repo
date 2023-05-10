@@ -10,7 +10,13 @@ const studioEvents = {
         pressedNextThing: "pressedNextThing",
         choosedHoverName: "choosedHoverName",
         updateRenderedThing: 'updateRenderedThing',
-        tryNextFrame: "tryNextFrame"
+        tryNextFrame: "tryNextFrame",
+
+        clearCondition: Symbol(),
+        conditionSetKind: Symbol(),
+        conditionSetVarIdx: Symbol(),
+        conditionSetExpectedVal: Symbol()
+
 
     }
 }

@@ -160,6 +160,11 @@ h4:hover {
     content: "❕ ";
 }
 
+.conditionisvalid {
+    background-color: var(--col-c64-white);
+    color: var(--col-c64-black);
+}
+
 .bgYellow {
     background-color: var(--col-c64-yellow);
 }

@@ -12,6 +12,8 @@ const classes = {
     bgYellow: "bgYellow",
     tinywidth: "tinywidth",
     vertDivider: "vertDivider",
+    conditionisvalid: "conditionisvalid",
+    redalert: "redalert",
 
     textFieldDisabled: "textFieldDisabled",
     textField: "textField"

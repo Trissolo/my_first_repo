@@ -45,6 +45,7 @@ export default class conditionOrganizer
         for (let i = 0; i < arrayLength; i++)
         {
             this.simplifiedCondition[i] = undefined;
+            console.log("NaN?", this.simplifiedCondition[i])
         }
 
         if (emitSignal)

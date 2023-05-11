@@ -14,6 +14,7 @@ import inputNumber from "../../classes/inputNumber.mjs";
 
 import GetAttribAsNumber from "../../../GetAttribAsNumber.mjs";
 import addElement from "../../addElement.mjs";
+import addVerticalDivider from "../../addVerticalDivider.mjs";
 import THINGS_PROPS from "../../../autocomplete/THINGS_PROPS.mjs";
 import addClassToElement from "../../addClassToElement.mjs";
 
@@ -26,30 +27,29 @@ import studioDatalist from "../../classes/studioDatalist.mjs";
 console.dir("arrayCondNames", arrayCondNames)
 export default class WidgetSkipCondition extends BaseWidget
 {
-    // currentKind;
-    // currentVarId;
-    // currentExpectedVal;
-    
-    simplifiedCondition = [];
+    divTop;
 
-    button;
-    inputElem;
+    //container for 'select kind' Elements
+    kindSelectors = [];
+    inputVarIdx;
     inputExpected;
 
+
+    divBottom;
+
+    infoFields = [];
     fieldVarKind;
     fieldVarId;
     fieldExpectedVal;
 
+    // shortcut?
     varsNames = InGameArrays.originalArrays;
+
+    // 'datalist' pr
     skipPrefix = studioDatalist.prefixVarsDatalist;
 
-    //container for 'select kind' Elements
-    kindSelectors = [];
 
-    //HTML stuff
-    divTop;
 
-    divBottom;
 
     constructor(managedProp = THINGS_PROPS.SKIP_CONDITION)
     {
@@ -78,7 +78,7 @@ export default class WidgetSkipCondition extends BaseWidget
         // this.generateExpectedValue(container);
         
         // status
-        // this.generateFieldVarKind(container);
+        this.generateInfoFields(this.divBottom);
     
     }
 
@@ -103,6 +103,7 @@ export default class WidgetSkipCondition extends BaseWidget
 
             this.kindSelectors.push(selKindButton);
 
+
         } while (this.varsNames.has(++idx));
 
         
@@ -112,28 +113,46 @@ export default class WidgetSkipCondition extends BaseWidget
     }
 
     kindSelectorBehavior = event => {
-        console.log("eve!")
+        console.log("eve!", event)
 
+        const {target: kindButton} = event;
+        
         const {simplifiedCondition} = conditionOrganizer;
-        // conditionOrganizer.currentKind = 3;
+
+        // appearance
+        const {bgYellow} = AutoComplete.cssSelectors.classes;
+
+        this.kindSelectors.forEach(el => el.removeClass(bgYellow));
+
+        kindButton.classList.add(bgYellow);
+
+
+        // get the selected kind, reset the whole condition and set the new kind
+        const correspondingKind = GetAttribAsNumber(kindButton, "kind");
+
+        conditionOrganizer.setKind(correspondingKind);
+
+        
         conditionOrganizer.currentVarId = 56;
         // conditionOrganizer.currentExpectedVal = [0,7]
         console.log(simplifiedCondition, simplifiedCondition.currentExpectedVal);
+
+        studioEvents.emitter.emit(studioEvents.events.conditionSetKind, correspondingKind);
     }
 
-    // generateFieldVarKind(container)
-    // {
-    //     const fieldVarKind = new TextField(container)
-    //         .setDisabled()
-    //         .addClass(AutoComplete.cssSelectors.classes.marginLeft)
-    //         .removeClass(AutoComplete.cssSelectors.classes.marginRight);
+    generateInfoFields(container)
+    {
+        this.fieldVarKind = new TextField(container)
+            .setDisabled()
+            .addClass(AutoComplete.cssSelectors.classes.marginLeft)
+            .removeClass(AutoComplete.cssSelectors.classes.marginRight);
 
     //     this.fieldVarKind = fieldVarKind;
 
-    //     const fieldVarId = new TextField(container)
-    //         .setDisabled()
-    //         .addClass(AutoComplete.cssSelectors.classes.marginLeft)
-    //         .removeClass(AutoComplete.cssSelectors.classes.marginRight);
+        this.fieldVarId = new TextField(container)
+            // .setDisabled()
+            .addClass(AutoComplete.cssSelectors.classes.marginLeft)
+            .removeClass(AutoComplete.cssSelectors.classes.marginRight);
         
     //     this.fieldVarId = fieldVarId;
 
@@ -143,7 +162,13 @@ export default class WidgetSkipCondition extends BaseWidget
     //         .removeClass(AutoComplete.cssSelectors.classes.marginRight);
         
     //     // this.fieldExpectedVal = fieldExpectedVal;
-    // }
+        studioEvents.emitter.on(studioEvents.events.conditionSetKind, this.showKindInField, this);
+    }
+
+    showKindInField(val)
+    {
+        this.fieldVarKind.setInUse(InGameArrays.VarKindEnum[val]);
+    }
 
     // buildButton(container)
     // {

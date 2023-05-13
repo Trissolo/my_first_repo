@@ -8,7 +8,27 @@ const arrayLength = 3;
 
 export default class conditionOrganizer
 {
-    static simplifiedCondition = new Array(arrayLength).fill();//[undefined, undefined, undefined];
+    static simplifiedCondition = new Array(arrayLength).fill();
+
+    // static ParseCondition()
+    // {
+    //     console.log("originalArrays, from InGameArrays", InGameArrays.originalArrays);
+
+    //     const origAry = InGameArrays.originalArrays.get(this.currentKind);
+
+    //     const {currentVarId} = this;
+
+    //     studioEvents.emitter.emit(studioEvents.events.conditionParsed, currentVarId, origAry[currentVarId], origAry);
+    //     // if (InGameArrays.originalArrays.has(this.currentKind))
+    //     // {
+            
+    //     // }
+    // }
+
+    static getCondition(clone = true)
+    {
+        return clone? [...this.simplifiedCondition]: this.simplifiedCondition;
+    }
 
     static get currentKind()
     {
@@ -27,17 +47,19 @@ export default class conditionOrganizer
 
     static set currentKind(kind)
     {
-        this.simplifiedCondition[0] = +kind;
+        this.simplifiedCondition[0] = kind;
     }
 
     static set currentVarId(varIdx)
     {
-        this.simplifiedCondition[1] = +varIdx;
+        this.simplifiedCondition[1] = varIdx;
+
+        // studioEvents.emitter.emit(studioEvents.events.conditionSetVarIdx, varIdx, InGameArrays.originalArrays.get(varIdx)?.[varIdx]);
     }
 
     static set currentExpectedVal(value)
     {
-       this.simplifiedCondition[2] = Array.isArray(value)? value : +value;
+       this.simplifiedCondition[2] = value; // Array.isArray(value)? value : +value;
     }
 
     static clearCondition(emitSignal = false)
@@ -45,7 +67,6 @@ export default class conditionOrganizer
         for (let i = 0; i < arrayLength; i++)
         {
             this.simplifiedCondition[i] = undefined;
-            console.log("NaN?", this.simplifiedCondition[i])
         }
 
         if (emitSignal)
@@ -56,11 +77,20 @@ export default class conditionOrganizer
 
     static setKind(kind)
     {
+        console.log("originalArrays, from InGameArrays", InGameArrays.originalArrays);
         this.clearCondition();
 
         this.currentKind = kind;
 
         return this;
+    }
+
+    static setVarIdx(value)
+    {
+        this.currentVarId = value;
+
+        studioEvents.emitter.emit(studioEvents.events.conditionChangedVarIdx, value, InGameArrays.originalArrays.get(conditionOrganizer.currentKind)?.[value]);
+
     }
     
 

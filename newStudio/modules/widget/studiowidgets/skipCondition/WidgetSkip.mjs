@@ -74,8 +74,9 @@ export default class WidgetSkipCondition extends BaseWidget
         this.generateKindSelector(this.divTop);
 
         // this.generateInputElement(container);
+        this.generateInputVarIdx(this.divTop);
         
-        // this.generateExpectedValue(container);
+        this.generateExpectedValue(this.divTop);
         
         // status
         this.generateInfoFields(this.divBottom);
@@ -130,6 +131,12 @@ export default class WidgetSkipCondition extends BaseWidget
         // get the selected kind, reset the whole condition and set the new kind
         const correspondingKind = GetAttribAsNumber(kindButton, "kind");
 
+        //reset varIdx
+        this.inputVarIdx.bindToList(this.skipPrefix + correspondingKind).resetValue();
+        conditionOrganizer.setVarIdx(undefined);
+
+        this.setExpectedValueMax(correspondingKind);
+
         conditionOrganizer.setKind(correspondingKind);
 
         
@@ -149,7 +156,7 @@ export default class WidgetSkipCondition extends BaseWidget
 
     //     this.fieldVarKind = fieldVarKind;
 
-        this.fieldVarId = new TextField(container)
+        this.fieldVarId = new TextField(container, "orco")
             // .setDisabled()
             .addClass(AutoComplete.cssSelectors.classes.marginLeft)
             .removeClass(AutoComplete.cssSelectors.classes.marginRight);
@@ -168,6 +175,37 @@ export default class WidgetSkipCondition extends BaseWidget
     showKindInField(val)
     {
         this.fieldVarKind.setInUse(InGameArrays.VarKindEnum[val]);
+    }
+
+    generateInputVarIdx(container)
+    {
+        this.inputVarIdx = new inputWord(container, 'Variable name...').setOnChange(this.onChangeInputVarIdx);
+
+        studioEvents.emitter.on(studioEvents.events.conditionChangedVarIdx, this.showVarInField); //(a,b) => { console.log("invoked PUTT",a,b)});
+
+        return this;
+    }
+
+    onChangeInputVarIdx = (event) => {
+
+        console.log("onChangeInputVarIdxonChangeInputVarIdxonChangeInputVarIdx")
+        const varIdx = this.inputVarIdx.getValueAsNum();
+
+        // conditionOrganizer.setVarIdx(event.target.value);
+        conditionOrganizer.setVarIdx(varIdx);
+
+    }
+
+    showVarInField = (idx, varString) =>
+    {
+        if (typeof varString === 'string')
+        {
+            this.fieldVarId.setInUse(varString);
+        }
+        else
+        {
+            this.fieldVarId.setText("NONC'È!")
+        }
     }
 
     // buildButton(container)
@@ -252,15 +290,17 @@ export default class WidgetSkipCondition extends BaseWidget
     //     // this.kindSelectorBehavior(temp);
     // }
 
-    // generateExpectedValue(container)
-    // {
-    //     const inputExpected = new inputNumber(container, "Expected value...");
+    generateExpectedValue(container)
+    {
+        const inputExpected = new inputNumber(container, "Expected value...");
 
-    //     inputExpected.setOnChange(this.chooseExpectedValue);
+        inputExpected.addClass(AutoComplete.cssSelectors.classes.tinywidth);
 
-    //     this.inputExpected = inputExpected;
+        // inputExpected.setOnChange(this.chooseExpectedValue);
 
-    // }
+        this.inputExpected = inputExpected;
+
+    }
 
     // manifestData()
     // {
@@ -293,12 +333,12 @@ export default class WidgetSkipCondition extends BaseWidget
     //     this.manifestData();
     // }
 
-    // setExpectedValueMax(kind)
-    // {
-    //     const temp = 1 << (kind + 1);
+    setExpectedValueMax(kind)
+    {
+        const temp = 1 << (kind + 1);
 
-    //     this.inputExpected.setMax(temp - 1);
-    // }
+        this.inputExpected.setMax(temp - 1);
+    }
 
     // revealInfo(varIdx, kind)
     // {

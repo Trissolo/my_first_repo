@@ -170,7 +170,8 @@ h4:hover {
 }
 
 .tinywidth {
-    width: 3em;
+    /*width: 3em;*/
+    max-width: 4em;
 }
   
 #things_window {

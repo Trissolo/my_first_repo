@@ -40,6 +40,8 @@ export default class inputWord
     bindToList(listId)
     {
         this.inputElement.setAttribute('list', listId);
+
+        return this;
     }
 
     setOnChange(func)

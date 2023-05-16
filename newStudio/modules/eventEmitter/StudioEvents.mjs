@@ -17,7 +17,14 @@ const studioEvents = {
         conditionSetVarIdx: Symbol(),
         conditionSetExpectedVal: Symbol(),
         conditionParsed: Symbol(),
-        conditionChangedVarIdx: Symbol()
+        conditionChangedVarIdx: Symbol(),
+
+        condNewKind: Symbol(),
+        condNewVarIdx: Symbol(),
+        condNewExpected: Symbol(),
+        condClearKind: Symbol(),
+        condClearVarIdx: Symbol(),
+        condClearExpected: Symbol()
 
 
     }

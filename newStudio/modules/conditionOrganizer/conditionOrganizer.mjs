@@ -48,11 +48,16 @@ export default class conditionOrganizer
     static set currentKind(kind)
     {
         this.simplifiedCondition[0] = kind;
+
+        studioEvents.emitter.emit(studioEvents.events.condNewKind, kind);
     }
 
     static set currentVarId(varIdx)
     {
         this.simplifiedCondition[1] = varIdx;
+
+        studioEvents.emitter.emit(studioEvents.events.condNewVarIdx, varIdx);
+        
 
         // studioEvents.emitter.emit(studioEvents.events.conditionSetVarIdx, varIdx, InGameArrays.originalArrays.get(varIdx)?.[varIdx]);
     }
@@ -60,6 +65,9 @@ export default class conditionOrganizer
     static set currentExpectedVal(value)
     {
        this.simplifiedCondition[2] = value; // Array.isArray(value)? value : +value;
+       
+       studioEvents.emitter.emit(studioEvents.events.condNewExpected, value);
+       
     }
 
     static clearCondition(emitSignal = false)
